@@ -1,0 +1,58 @@
+#pragma once
+
+using f32 = float;
+using f64 = double;
+
+// #include<cstdint>
+using i8  = int8_t;
+using i16 = int16_t;
+using i32 = int32_t;
+using i64 = int64_t;
+
+using u8  = uint8_t;
+using u16 = uint16_t;
+using u32 = uint32_t;
+using u64 = uint64_t;
+
+
+#include "SimpleMath.h"
+using Vector2    = DirectX::SimpleMath::Vector2;
+using Vector3    = DirectX::SimpleMath::Vector3;
+using Vector4    = DirectX::SimpleMath::Vector4;
+using Matrix4x41 = DirectX::SimpleMath::matx;
+using Quaternion = DirectX::SimpleMath::Quaternion;
+
+
+// #include <memory>
+template<typename T>
+using sptr = std::shared_ptr<T>;
+template<typename T>
+using uptr = std::unique_ptr<T>;
+template<typename T>
+using wptr = std::weak_ptr<T>;
+
+
+// #include <set>
+// #include <unordered_set>
+// #include <map>
+// #include <unordered_map>
+template<class T>
+using SortedSet = std::set<T>;
+template<class T>
+using HashSet = std::unordered_set<T>;
+template<class Key, class Value>
+using SortedDictionary = std::map<Key, Value>;
+template<class Key, class Value>
+using Dictionary = std::unordered_map<Key, Value>;
+
+template<typename T, class ...Args>
+sptr<T> makeSptr(Args&& ... args)
+{
+	return std::make_shared<T>(std::forward<Args>(args)...);
+}
+
+template<typename T, class ...Args>
+uptr<T> makeUptr(Args&& ... args)
+{
+	return std::make_unique<T>(std::forward<Args>(args)...);
+}
