@@ -15,6 +15,8 @@
 #include <map>
 #include <unordered_set>
 #include <set>
+#include <typeinfo>
+#include <typeindex>
 
 
 /* DirectX11 헤더 */
@@ -50,3 +52,15 @@ using namespace Microsoft::WRL;
 /* Define */
 #include "Define.h"
 #include "Using.h"
+
+
+/* 사용자 */
+#include "Client.h"
+#include "Device.h"
+#include "Exception.h"
+
+#include "Object.h"
+#include "GameObject.h"
+
+#include "Component.h"
+#include "Transform.h"

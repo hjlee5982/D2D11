@@ -7,12 +7,24 @@
     <Filter Include="99. Module">
       <UniqueIdentifier>{46905baa-3070-43c3-974c-22d104dce545}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03. Client">
+      <UniqueIdentifier>{ffead1c6-58ab-44da-90dc-63a83d3a32dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. DirectX">
+      <UniqueIdentifier>{cdf44a36-adb2-4932-a020-776da880ac48}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Object">
+      <UniqueIdentifier>{d18c4fe6-4e40-4432-857c-7435c1a42152}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Object\GameObject">
+      <UniqueIdentifier>{5e328131-465e-4e78-b223-3f13058f0dc9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Object\Component">
+      <UniqueIdentifier>{0ebd1a68-29b5-43f4-be15-a802da2a86b6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
-      <Filter>01. Header</Filter>
-    </ClInclude>
-    <ClInclude Include="ClientOption.h">
       <Filter>01. Header</Filter>
     </ClInclude>
     <ClInclude Include="Define.h">
@@ -24,16 +36,61 @@
     <ClInclude Include="SimpleMath.h">
       <Filter>99. Module</Filter>
     </ClInclude>
+    <ClInclude Include="Client.h">
+      <Filter>03. Client</Filter>
+    </ClInclude>
+    <ClInclude Include="IExecute.h">
+      <Filter>03. Client</Filter>
+    </ClInclude>
+    <ClInclude Include="Device.h">
+      <Filter>02. DirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="Exception.h">
+      <Filter>01. Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>04. Object\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>04. Object\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Object.h">
+      <Filter>04. Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform.h">
+      <Filter>04. Object\Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
       <Filter>01. Header</Filter>
     </ClCompile>
-    <ClCompile Include="ClientOption.cpp">
-      <Filter>01. Header</Filter>
-    </ClCompile>
     <ClCompile Include="SimpleMath.cpp">
       <Filter>99. Module</Filter>
+    </ClCompile>
+    <ClCompile Include="Client.cpp">
+      <Filter>03. Client</Filter>
+    </ClCompile>
+    <ClCompile Include="IExecute.cpp">
+      <Filter>03. Client</Filter>
+    </ClCompile>
+    <ClCompile Include="Device.cpp">
+      <Filter>02. DirectX</Filter>
+    </ClCompile>
+    <ClCompile Include="Exception.cpp">
+      <Filter>01. Header</Filter>
+    </ClCompile>
+    <ClCompile Include="Component.cpp">
+      <Filter>04. Object\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>04. Object\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Object.cpp">
+      <Filter>04. Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Transform.cpp">
+      <Filter>04. Object\Component</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
