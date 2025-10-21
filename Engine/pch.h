@@ -52,7 +52,7 @@ using namespace Microsoft::WRL;
 /* Define */
 #include "Define.h"
 #include "Using.h"
-
+#include "Singleton.h"
 
 /* »ç¿ëÀÚ */
 #include "Client.h"
@@ -64,3 +64,4 @@ using namespace Microsoft::WRL;
 
 #include "Component.h"
 #include "Transform.h"
+#include "SpriteRenderer.h"

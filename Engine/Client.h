@@ -16,9 +16,10 @@ struct ClientOption
 	sptr<class IExecute> app = nullptr;
 };
 
-class Client
+class Client : public Singleton<Client>
 {
-	SINGLETON(Client);
+public:
+	virtual void Awake() override;
 public:
 	WPARAM Run(const ClientOption& option);
 public:
@@ -28,4 +29,6 @@ private:
 	void Update();
 private:
 	ClientOption _option;
+
+	
 };

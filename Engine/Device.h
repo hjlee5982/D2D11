@@ -1,10 +1,11 @@
 #pragma once
 
-class Device
+class Device : public Singleton<Device>
 {
-	SINGLETON(Device)
 public:
-	void Init(const ClientOption& option);
+	virtual void Awake() override;
+	void Awake(const ClientOption& option);
+public:
 	void RenderBegin();
 	void RenderEnd();
 public:
@@ -32,5 +33,7 @@ private:
 private:
 	ClientOption   _option;
 	D3D11_VIEWPORT _viewport;
+
+	
 };
 

@@ -22,6 +22,12 @@
     <Filter Include="04. Object\Component">
       <UniqueIdentifier>{0ebd1a68-29b5-43f4-be15-a802da2a86b6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="05. Asset">
+      <UniqueIdentifier>{088a7dcc-6efc-4751-bc65-b1a7185e772e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. DirectX\Buffer">
+      <UniqueIdentifier>{4ea7a334-7804-42f6-a4f8-a5c3745c5d40}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -60,6 +66,36 @@
     <ClInclude Include="Transform.h">
       <Filter>04. Object\Component</Filter>
     </ClInclude>
+    <ClInclude Include="SpriteRenderer.h">
+      <Filter>04. Object\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>05. Asset</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexData.h">
+      <Filter>02. DirectX\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstantBuffer.h">
+      <Filter>02. DirectX\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="Geometry.h">
+      <Filter>02. DirectX\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="GeometryHelper.h">
+      <Filter>02. DirectX\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="IndexBuffer.h">
+      <Filter>02. DirectX\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexBuffer.h">
+      <Filter>02. DirectX\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="AssetManager.h">
+      <Filter>05. Asset</Filter>
+    </ClInclude>
+    <ClInclude Include="Singleton.h">
+      <Filter>01. Header</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -91,6 +127,33 @@
     </ClCompile>
     <ClCompile Include="Transform.cpp">
       <Filter>04. Object\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteRenderer.cpp">
+      <Filter>04. Object\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>05. Asset</Filter>
+    </ClCompile>
+    <ClCompile Include="ConstantBuffer.cpp">
+      <Filter>02. DirectX\Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="Geometry.cpp">
+      <Filter>02. DirectX\Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="GeometryHelper.cpp">
+      <Filter>02. DirectX\Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="IndexBuffer.cpp">
+      <Filter>02. DirectX\Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexBuffer.cpp">
+      <Filter>02. DirectX\Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexData.cpp">
+      <Filter>02. DirectX\Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="AssetManager.cpp">
+      <Filter>05. Asset</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -12,7 +12,10 @@ void FlappyBird::Start()
 
 	sptr<GameObject> go = makeSptr<GameObject>();
 	{
-		go->AddComponent<Transform>();
+		sptr<SpriteRenderer> renderer = go->AddComponent<SpriteRenderer>();
+		{
+			// renderer->sprite = sprite
+		}
 	}
 }
 

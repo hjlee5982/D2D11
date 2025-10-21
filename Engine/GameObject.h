@@ -7,16 +7,22 @@ public:
 	virtual ~GameObject() = default;
 public:
 	template<typename T, typename ...Args>
-	void AddComponent(Args&& ... args)
+	sptr<T> AddComponent(Args&& ... args)
 	{
 		static_assert(std::is_base_of<Component, T>::value, "T must be derived from Component");
 
 		auto idx = std::type_index(typeid(T));
-		// int a = 0;
+		
 		if (components.find(idx) != components.end())
 		{
-			components.emplace(idx, makeSptr<T>(args...));
+			sptr<T> component = makeSptr<T>(args...);
+
+			components.emplace(idx, component);
+
+			return component;
 		}
+
+		return nullptr;
 	}
 public:
 	template<typename T, typename ...Args>

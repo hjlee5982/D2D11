@@ -4,7 +4,7 @@
 
 void Client::Initialize()
 {
-	DX->Init(_option);
+	Device::Instance().Awake(_option);
 
 	_option.app->Awake();
 	_option.app->Start();
@@ -12,12 +12,16 @@ void Client::Initialize()
 
 void Client::Update()
 {
-	DX->RenderBegin();
+	Device::Instance().RenderBegin();
 	{
 		_option.app->Update();
 		_option.app->LateUpdate();
 	}
-	DX->RenderEnd();
+	Device::Instance().RenderEnd();
+}
+
+void Client::Awake()
+{
 }
 
 WPARAM Client::Run(const ClientOption& option)

@@ -20,7 +20,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 		option.app = makeSptr<FlappyBird>();
 	}
-	CLIENT->Run(option);
+	Client::Instance().Run(option);
 
 	return 0;
 }
