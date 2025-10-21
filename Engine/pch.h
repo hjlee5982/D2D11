@@ -17,6 +17,7 @@
 #include <set>
 #include <typeinfo>
 #include <typeindex>
+#include <array>
 
 
 /* DirectX11 Çì´õ */
@@ -65,3 +66,6 @@ using namespace Microsoft::WRL;
 #include "Component.h"
 #include "Transform.h"
 #include "SpriteRenderer.h"
+
+#include "VertexData.h"
+#include "Asset.h"

@@ -1,9 +1,12 @@
 #pragma once
 
-class Texture
+class Texture : public Asset
 {
 public:
-	void Load(const wstring& path);
+	Texture() : Asset(EAssetType::Texture) {}
+public:
+	virtual void Load(const wstring& path) override;
+	virtual void Save(const wstring& path) override;
 public:
 	void CreateTexture(i32 width, i32 height);
 public:

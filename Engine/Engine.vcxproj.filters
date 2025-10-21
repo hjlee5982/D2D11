@@ -28,6 +28,21 @@
     <Filter Include="02. DirectX\Buffer">
       <UniqueIdentifier>{4ea7a334-7804-42f6-a4f8-a5c3745c5d40}</UniqueIdentifier>
     </Filter>
+    <Filter Include="05. Asset\Mesh">
+      <UniqueIdentifier>{a3058ad4-d53a-4f3f-9ef3-145222d049e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05. Asset\Texture">
+      <UniqueIdentifier>{069ef677-fa00-44ea-9147-2ebd55755e08}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05. Asset\Material">
+      <UniqueIdentifier>{a6e13955-c1da-4860-a02f-72805dad9801}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05. Asset\Shader">
+      <UniqueIdentifier>{8e7566f0-fa72-4be6-bbee-190f3cfea849}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05. Asset\Shader\HLSL">
+      <UniqueIdentifier>{8dd421e0-e123-4fc8-9247-8659c521f28c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -69,9 +84,6 @@
     <ClInclude Include="SpriteRenderer.h">
       <Filter>04. Object\Component</Filter>
     </ClInclude>
-    <ClInclude Include="Texture.h">
-      <Filter>05. Asset</Filter>
-    </ClInclude>
     <ClInclude Include="VertexData.h">
       <Filter>02. DirectX\Buffer</Filter>
     </ClInclude>
@@ -95,6 +107,24 @@
     </ClInclude>
     <ClInclude Include="Singleton.h">
       <Filter>01. Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Asset.h">
+      <Filter>05. Asset</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>05. Asset\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>05. Asset\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="Material.h">
+      <Filter>05. Asset\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader.h">
+      <Filter>05. Asset\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderDesc.h">
+      <Filter>05. Asset\Shader</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -131,9 +161,6 @@
     <ClCompile Include="SpriteRenderer.cpp">
       <Filter>04. Object\Component</Filter>
     </ClCompile>
-    <ClCompile Include="Texture.cpp">
-      <Filter>05. Asset</Filter>
-    </ClCompile>
     <ClCompile Include="ConstantBuffer.cpp">
       <Filter>02. DirectX\Buffer</Filter>
     </ClCompile>
@@ -154,6 +181,24 @@
     </ClCompile>
     <ClCompile Include="AssetManager.cpp">
       <Filter>05. Asset</Filter>
+    </ClCompile>
+    <ClCompile Include="Asset.cpp">
+      <Filter>05. Asset</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>05. Asset\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>05. Asset\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="Material.cpp">
+      <Filter>05. Asset\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="Shader.cpp">
+      <Filter>05. Asset\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderDesc.cpp">
+      <Filter>05. Asset\Shader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

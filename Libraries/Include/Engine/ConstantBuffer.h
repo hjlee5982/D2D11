@@ -1,5 +1,15 @@
 #pragma once
 
+enum class EConstantBufferType
+{
+	Transform,
+	Light,
+	Global,
+	Material,
+
+	End
+};
+
 template<typename T>
 class ConstantBuffer
 {

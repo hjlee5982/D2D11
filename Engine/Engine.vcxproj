@@ -148,6 +148,7 @@ xcopy /Y /D "$(SolutionDir)Engine\*.inl" "$(SolutionDir)Libraries\Include\Engine
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Asset.h" />
     <ClInclude Include="AssetManager.h" />
     <ClInclude Include="Client.h" />
     <ClInclude Include="Component.h" />
@@ -162,8 +163,12 @@ xcopy /Y /D "$(SolutionDir)Engine\*.inl" "$(SolutionDir)Libraries\Include\Engine
     <ClInclude Include="GeometryHelper.h" />
     <ClInclude Include="IExecute.h" />
     <ClInclude Include="IndexBuffer.h" />
+    <ClInclude Include="Material.h" />
+    <ClInclude Include="Mesh.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="Shader.h" />
+    <ClInclude Include="ShaderDesc.h" />
     <ClInclude Include="SimpleMath.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="SpriteRenderer.h" />
@@ -174,6 +179,7 @@ xcopy /Y /D "$(SolutionDir)Engine\*.inl" "$(SolutionDir)Libraries\Include\Engine
     <ClInclude Include="VertexData.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Asset.cpp" />
     <ClCompile Include="AssetManager.cpp" />
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="Component.cpp" />
@@ -187,11 +193,15 @@ xcopy /Y /D "$(SolutionDir)Engine\*.inl" "$(SolutionDir)Libraries\Include\Engine
     <ClCompile Include="GeometryHelper.cpp" />
     <ClCompile Include="IExecute.cpp" />
     <ClCompile Include="IndexBuffer.cpp" />
+    <ClCompile Include="Material.cpp" />
+    <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">pch.h</PrecompiledHeaderFile>
     </ClCompile>
+    <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="ShaderDesc.cpp" />
     <ClCompile Include="SimpleMath.cpp" />
     <ClCompile Include="SpriteRenderer.cpp" />
     <ClCompile Include="Texture.cpp" />

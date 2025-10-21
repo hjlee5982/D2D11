@@ -24,6 +24,10 @@ void Texture::Load(const wstring& path)
 	_imagesize.y = md.height;
 }
 
+void Texture::Save(const wstring& path)
+{
+}
+
 void Texture::CreateTexture(i32 width, i32 height)
 {
 	D3D11_TEXTURE2D_DESC textureDesc;
