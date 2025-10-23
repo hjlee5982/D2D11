@@ -9,11 +9,14 @@ public:
 	void RenderBegin();
 	void RenderEnd();
 public:
-	ComPtr<ID3D11Device>        GetDevice()  { return _device; }
+	ComPtr<ID3D11Device>        GetDevice()  { return _device;  }
 	ComPtr<ID3D11DeviceContext> GetContext() { return _context; }
 public:
 	ComPtr<ID3D11RenderTargetView>   GetBackBufferRTV()  { return _backBufferRTV; }
-	ComPtr<ID3D11DepthStencilView>   GetDSV()            { return _DSV; }
+	ComPtr<ID3D11DepthStencilView>   GetDSV()            { return _DSV;           }
+public:
+	f32 GetWidth()  { return _viewport.Width;  }
+	f32 GetHeight() { return _viewport.Height; }
 private:
 	void CreateDeviceAndSwapChain();
 	void CreateBackBufferRTV();
@@ -32,8 +35,6 @@ private:
 	ComPtr<ID3D11DepthStencilView>  _DSV;
 private:
 	ClientOption   _option;
-	D3D11_VIEWPORT _viewport;
-
-	
+	D3D11_VIEWPORT _viewport;	
 };
 

@@ -13,35 +13,50 @@
     <Filter Include="02. DirectX">
       <UniqueIdentifier>{cdf44a36-adb2-4932-a020-776da880ac48}</UniqueIdentifier>
     </Filter>
-    <Filter Include="04. Object">
-      <UniqueIdentifier>{d18c4fe6-4e40-4432-857c-7435c1a42152}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="04. Object\GameObject">
-      <UniqueIdentifier>{5e328131-465e-4e78-b223-3f13058f0dc9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="04. Object\Component">
-      <UniqueIdentifier>{0ebd1a68-29b5-43f4-be15-a802da2a86b6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="05. Asset">
-      <UniqueIdentifier>{088a7dcc-6efc-4751-bc65-b1a7185e772e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02. DirectX\Buffer">
       <UniqueIdentifier>{4ea7a334-7804-42f6-a4f8-a5c3745c5d40}</UniqueIdentifier>
     </Filter>
-    <Filter Include="05. Asset\Mesh">
+    <Filter Include="04. Asset">
+      <UniqueIdentifier>{088a7dcc-6efc-4751-bc65-b1a7185e772e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Asset\Mesh">
       <UniqueIdentifier>{a3058ad4-d53a-4f3f-9ef3-145222d049e9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="05. Asset\Texture">
+    <Filter Include="04. Asset\Texture">
       <UniqueIdentifier>{069ef677-fa00-44ea-9147-2ebd55755e08}</UniqueIdentifier>
     </Filter>
-    <Filter Include="05. Asset\Material">
+    <Filter Include="04. Asset\Material">
       <UniqueIdentifier>{a6e13955-c1da-4860-a02f-72805dad9801}</UniqueIdentifier>
     </Filter>
-    <Filter Include="05. Asset\Shader">
+    <Filter Include="04. Asset\Shader">
       <UniqueIdentifier>{8e7566f0-fa72-4be6-bbee-190f3cfea849}</UniqueIdentifier>
     </Filter>
-    <Filter Include="05. Asset\Shader\HLSL">
+    <Filter Include="04. Asset\Shader\HLSL">
       <UniqueIdentifier>{8dd421e0-e123-4fc8-9247-8659c521f28c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05. Renderer">
+      <UniqueIdentifier>{f82d1280-7be4-464f-a1c8-171060c3ea94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06. Object">
+      <UniqueIdentifier>{d18c4fe6-4e40-4432-857c-7435c1a42152}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="07. Component">
+      <UniqueIdentifier>{384c7032-d462-4bfc-ae3b-615f74e1fd06}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="07. Component\SpriteRenderer">
+      <UniqueIdentifier>{027f5a8d-2fb7-41e4-ae57-b463b11ab812}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="07. Component\Transform">
+      <UniqueIdentifier>{b6dd720a-3f15-4a26-b786-18fb6823854e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Asset\Shader\HLSL\Global">
+      <UniqueIdentifier>{ae94b19c-6501-4172-97ae-68ce37411832}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Asset\Shader\HLSL\Default">
+      <UniqueIdentifier>{edf800ce-8f48-443b-85e3-1cb3736c03c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="07. Component\Camera">
+      <UniqueIdentifier>{21abb0da-a325-4b11-b4a6-294eb3e0608f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -69,20 +84,8 @@
     <ClInclude Include="Exception.h">
       <Filter>01. Header</Filter>
     </ClInclude>
-    <ClInclude Include="Component.h">
-      <Filter>04. Object\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject.h">
-      <Filter>04. Object\GameObject</Filter>
-    </ClInclude>
     <ClInclude Include="Object.h">
-      <Filter>04. Object</Filter>
-    </ClInclude>
-    <ClInclude Include="Transform.h">
-      <Filter>04. Object\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="SpriteRenderer.h">
-      <Filter>04. Object\Component</Filter>
+      <Filter>06. Object</Filter>
     </ClInclude>
     <ClInclude Include="VertexData.h">
       <Filter>02. DirectX\Buffer</Filter>
@@ -103,28 +106,46 @@
       <Filter>02. DirectX\Buffer</Filter>
     </ClInclude>
     <ClInclude Include="AssetManager.h">
-      <Filter>05. Asset</Filter>
+      <Filter>04. Asset</Filter>
     </ClInclude>
     <ClInclude Include="Singleton.h">
       <Filter>01. Header</Filter>
     </ClInclude>
     <ClInclude Include="Asset.h">
-      <Filter>05. Asset</Filter>
+      <Filter>04. Asset</Filter>
     </ClInclude>
     <ClInclude Include="Mesh.h">
-      <Filter>05. Asset\Mesh</Filter>
+      <Filter>04. Asset\Mesh</Filter>
     </ClInclude>
     <ClInclude Include="Texture.h">
-      <Filter>05. Asset\Texture</Filter>
+      <Filter>04. Asset\Texture</Filter>
     </ClInclude>
     <ClInclude Include="Material.h">
-      <Filter>05. Asset\Material</Filter>
+      <Filter>04. Asset\Material</Filter>
     </ClInclude>
     <ClInclude Include="Shader.h">
-      <Filter>05. Asset\Shader</Filter>
+      <Filter>04. Asset\Shader</Filter>
     </ClInclude>
-    <ClInclude Include="ShaderDesc.h">
-      <Filter>05. Asset\Shader</Filter>
+    <ClInclude Include="Renderer.h">
+      <Filter>05. Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>07. Component</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>06. Object</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteRenderer.h">
+      <Filter>07. Component\SpriteRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform.h">
+      <Filter>07. Component\Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstantBufferDesc.h">
+      <Filter>02. DirectX\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>07. Component\Camera</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -146,20 +167,8 @@
     <ClCompile Include="Exception.cpp">
       <Filter>01. Header</Filter>
     </ClCompile>
-    <ClCompile Include="Component.cpp">
-      <Filter>04. Object\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObject.cpp">
-      <Filter>04. Object\GameObject</Filter>
-    </ClCompile>
     <ClCompile Include="Object.cpp">
-      <Filter>04. Object</Filter>
-    </ClCompile>
-    <ClCompile Include="Transform.cpp">
-      <Filter>04. Object\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="SpriteRenderer.cpp">
-      <Filter>04. Object\Component</Filter>
+      <Filter>06. Object</Filter>
     </ClCompile>
     <ClCompile Include="ConstantBuffer.cpp">
       <Filter>02. DirectX\Buffer</Filter>
@@ -180,30 +189,62 @@
       <Filter>02. DirectX\Buffer</Filter>
     </ClCompile>
     <ClCompile Include="AssetManager.cpp">
-      <Filter>05. Asset</Filter>
+      <Filter>04. Asset</Filter>
     </ClCompile>
     <ClCompile Include="Asset.cpp">
-      <Filter>05. Asset</Filter>
+      <Filter>04. Asset</Filter>
     </ClCompile>
     <ClCompile Include="Mesh.cpp">
-      <Filter>05. Asset\Mesh</Filter>
+      <Filter>04. Asset\Mesh</Filter>
     </ClCompile>
     <ClCompile Include="Texture.cpp">
-      <Filter>05. Asset\Texture</Filter>
+      <Filter>04. Asset\Texture</Filter>
     </ClCompile>
     <ClCompile Include="Material.cpp">
-      <Filter>05. Asset\Material</Filter>
+      <Filter>04. Asset\Material</Filter>
     </ClCompile>
     <ClCompile Include="Shader.cpp">
-      <Filter>05. Asset\Shader</Filter>
+      <Filter>04. Asset\Shader</Filter>
     </ClCompile>
-    <ClCompile Include="ShaderDesc.cpp">
-      <Filter>05. Asset\Shader</Filter>
+    <ClCompile Include="Renderer.cpp">
+      <Filter>05. Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Component.cpp">
+      <Filter>07. Component</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>06. Object</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteRenderer.cpp">
+      <Filter>07. Component\SpriteRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Transform.cpp">
+      <Filter>07. Component\Transform</Filter>
+    </ClCompile>
+    <ClCompile Include="ConstantBufferDesc.cpp">
+      <Filter>02. DirectX\Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>07. Component\Camera</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="SimpleMath.inl">
       <Filter>99. Module</Filter>
     </None>
+    <None Include="..\Assets\Shader\CBuffer.hlsli">
+      <Filter>04. Asset\Shader\HLSL\Global</Filter>
+    </None>
+    <None Include="..\Assets\Shader\struct.hlsli">
+      <Filter>04. Asset\Shader\HLSL\Global</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="..\Assets\Shader\DefaultVS.hlsl">
+      <Filter>04. Asset\Shader\HLSL\Default</Filter>
+    </FxCompile>
+    <FxCompile Include="..\Assets\Shader\DefaultPS.hlsl">
+      <Filter>04. Asset\Shader\HLSL\Default</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

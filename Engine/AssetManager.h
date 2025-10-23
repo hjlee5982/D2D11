@@ -2,6 +2,8 @@
 
 class Mesh;
 class Texture;
+class Material;
+class Shader;
 
 class AssetManager : public Singleton<AssetManager>
 {
@@ -90,6 +92,14 @@ inline EAssetType AssetManager::GetAssetType()
 	if (std::is_same_v<T, Mesh>)
 	{
 		return EAssetType::Mesh;
+	}
+	if (std::is_same_v<T, Material>)
+	{
+		return EAssetType::Material;
+	}
+	if (std::is_same_v<T, Shader>)
+	{
+		return EAssetType::Shader;
 	}
 
 	return EAssetType::None;

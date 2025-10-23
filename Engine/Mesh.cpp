@@ -4,25 +4,38 @@
 #include "IndexBuffer.h"
 #include "GeometryHelper.h"
 
-void Mesh::Load(const wstring& path)
-{
-}
-
-void Mesh::Save(const wstring& path)
-{
-}
-
-void Mesh::CreateSquare()
+void Mesh::CreateMesh(EMeshType type)
 {
     _geometry = makeSptr<Geometry<VertexTextureData>>();
-    GeometryHelper::CreateSquare(_geometry);
+
+    switch (type)
+    {
+    case EMeshType::Square:
+        GeometryHelper::CreateSquare(_geometry);
+        break;
+
+    case EMeshType::Cube:
+        break;
+
+    case EMeshType::Sphere:
+        break;
+
+    case EMeshType::End:
+        break;
+
+    default:
+        break;
+    }
+
     CreateBuffers();
 }
 
-void Mesh::PushData()
+void Mesh::Bind()
 {
     _vertexBuffer->PushData();
     _indexBuffer->PushData();
+
+    Device::Instance().GetContext()->DrawIndexed(_indexBuffer->GetIndexCount(), 0, 0);
 }
 
 void Mesh::CreateBuffers()

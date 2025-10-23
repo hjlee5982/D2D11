@@ -5,10 +5,10 @@ class Texture : public Asset
 public:
 	Texture() : Asset(EAssetType::Texture) {}
 public:
-	virtual void Load(const wstring& path) override;
-	virtual void Save(const wstring& path) override;
+	virtual void Load(const wstring& path) override {}
+	virtual void Save(const wstring& path) override {}
 public:
-	void CreateTexture(i32 width, i32 height);
+	void CreateTexture(const wstring& path);
 public:
 	ComPtr<ID3D11Texture2D>          GetTexture();
 	ComPtr<ID3D11ShaderResourceView> GetSRV();

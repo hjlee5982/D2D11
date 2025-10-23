@@ -5,6 +5,8 @@ class Object abstract
 public:
 	virtual ~Object() = default;
 public:
-	string name;
+	const string& GetName();
+protected:
+	string _name;
 };
 

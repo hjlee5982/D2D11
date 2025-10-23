@@ -1,16 +1,5 @@
 #pragma once
 
-enum class EShaderType
-{
-	VS,
-	PS,
-	HS,
-	DS,
-	GS,
-
-	End
-};
-
 class Shader : public Asset
 {
 public:
@@ -20,15 +9,10 @@ public:
 	virtual void Save(const wstring& path) override {}
 public:
 	void CreateShader(const wstring& path);
-	void BindShader();
-public:
-	template<typename T>
-	void PushData(const T& data);
+	void Bind();
 private:
 	ComPtr<ID3D11VertexShader>   _vs;
 	ComPtr<ID3D11PixelShader>    _ps;
 private:
 	ComPtr<ID3D11InputLayout> _inputLayout;
-	D3D11_PRIMITIVE_TOPOLOGY  _topology;
 };
-

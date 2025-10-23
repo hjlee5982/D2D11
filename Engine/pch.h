@@ -69,3 +69,6 @@ using namespace Microsoft::WRL;
 
 #include "VertexData.h"
 #include "Asset.h"
+#include "ConstantBufferDesc.h"
+
+#include "Camera.h"

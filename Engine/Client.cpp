@@ -1,10 +1,14 @@
 #include "pch.h"
 #include "Client.h"
 #include "IExecute.h"
+#include "Renderer.h"
+#include "AssetManager.h"
 
 void Client::Initialize()
 {
-	Device::Instance().Awake(_option);
+	Device      ::Instance().Awake(_option);
+	AssetManager::Instance().Awake();
+	Renderer    ::Instance().Awake();
 
 	_option.app->Awake();
 	_option.app->Start();
@@ -16,6 +20,8 @@ void Client::Update()
 	{
 		_option.app->Update();
 		_option.app->LateUpdate();
+
+		Renderer::Instance().Render();
 	}
 	Device::Instance().RenderEnd();
 }
@@ -24,10 +30,10 @@ void Client::Awake()
 {
 }
 
-WPARAM Client::Run(const ClientOption& option)
+void Client::Awake(const ClientOption& option)
 {
 	_option = option;
-
+	
 	WNDCLASSEXW wcex;
 	{
 		wcex.cbSize        = sizeof(WNDCLASSEX);
@@ -41,7 +47,7 @@ WPARAM Client::Run(const ClientOption& option)
 		wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
 		wcex.lpszMenuName  = NULL;
 		wcex.lpszClassName = _option.appName.c_str();
-		wcex.hIconSm = wcex.hIcon;
+		wcex.hIconSm       = wcex.hIcon;
 	}
 	RegisterClassExW(&wcex);
 
@@ -65,12 +71,17 @@ WPARAM Client::Run(const ClientOption& option)
 
 	if (!_option.hWnd)
 	{
-		return FALSE;
+		return;
 	}
 
 	::ShowWindow(_option.hWnd, SW_SHOWNORMAL);
 	::UpdateWindow(_option.hWnd);
 
+	Run();
+}
+
+WPARAM Client::Run()
+{
 	Initialize();
 
 	MSG msg = { 0 };

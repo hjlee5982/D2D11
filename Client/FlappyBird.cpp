@@ -1,30 +1,43 @@
 #include "pch.h"
 #include "FlappyBird.h"
+#include "GameObject.h"
+#include "Camera.h"
 
 void FlappyBird::Awake()
 {
-	int a = 0;
 }
 
 void FlappyBird::Start()
 {
 	int a = 0;
 
-	sptr<GameObject> go = makeSptr<GameObject>();
+	// 카메라
 	{
-		sptr<SpriteRenderer> renderer = go->AddComponent<SpriteRenderer>();
+		_camera = Instantiate();
 		{
-			// renderer->sprite = sprite
+			auto camera = _camera->AddComponent<Camera>();
+			{
+				camera->SetCameraOption(0.1f, 300.f, 60.f);
+			}
+		}
+	}
+	// 배경
+	{
+		_bg = Instantiate();
+		{
+			_bg->AddComponent<SpriteRenderer>();
+
+			_bg->transform->worldMatrix._43 = 2.0f;
 		}
 	}
 }
 
 void FlappyBird::Update()
 {
-	int a = 0;
+	auto camera = _camera->GetComponent<Camera>();
+	camera->Update();
 }
 
 void FlappyBird::LateUpdate()
 {
-	int a = 0;
 }

@@ -14,13 +14,13 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		option.clearColor = Color(Colors::Blue);
 
 		option.appName  = L"FlappyBird";
-		option.width    = 750;
-		option.height   = 1000;
+		option.width    = 600;
+		option.height   = 800;
 		option.windowed = false;
 
 		option.app = makeSptr<FlappyBird>();
 	}
-	Client::Instance().Run(option);
+	Client::Instance().Awake(option);
 
 	return 0;
 }

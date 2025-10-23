@@ -1,9 +1,8 @@
 #pragma once
 
-class GameObject : public Object
+class GameObject : public Object, public std::enable_shared_from_this<GameObject>
 {
 public:
-	GameObject();
 	virtual ~GameObject() = default;
 public:
 	template<typename T, typename ...Args>
@@ -13,11 +12,13 @@ public:
 
 		auto idx = std::type_index(typeid(T));
 		
-		if (components.find(idx) != components.end())
+		if (_components.find(idx) == _components.end())
 		{
 			sptr<T> component = makeSptr<T>(args...);
 
-			components.emplace(idx, component);
+			component->SetOwner(shared_from_this());
+
+			_components.emplace(idx, component);
 
 			return component;
 		}
@@ -30,16 +31,27 @@ public:
 	{
 		static_assert(std::is_base_of<Component, T>::value, "T must be derived from Component");
 
-		auto it = components.find(std::type_index(typeid(T)));
+		auto it = _components.find(std::type_index(typeid(T)));
 
-		if (it != components.end())
+		if (it != _components.end())
 		{
 			return std::static_pointer_cast<T>(it->second);
 		}
+		
+		return nullptr;
 	}
-public:
-	sptr<class Component> GetComponent();
 private:
-	Dictionary<std::type_index, sptr<class Component>> components;
+	Dictionary<std::type_index, sptr<class Component>> _components;
+public:
+	sptr<class Transform> transform;
 };
 
+template<typename... Args>
+static sptr<GameObject> Instantiate(Args&&... args)
+{
+	sptr<GameObject> go = makeSptr<GameObject>();
+
+	go->transform = go->AddComponent<Transform>(std::forward<Args>(args)...);
+
+	return go;
+}

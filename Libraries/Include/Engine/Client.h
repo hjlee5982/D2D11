@@ -20,8 +20,9 @@ class Client : public Singleton<Client>
 {
 public:
 	virtual void Awake() override;
-public:
-	WPARAM Run(const ClientOption& option);
+	void Awake(const ClientOption& option);
+private:
+	WPARAM Run();
 public:
 	static LRESULT CALLBACK WndProc(HWND handle, UINT message, WPARAM wParam, LPARAM lParam);
 private:
@@ -29,6 +30,4 @@ private:
 	void Update();
 private:
 	ClientOption _option;
-
-	
 };

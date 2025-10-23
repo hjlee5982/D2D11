@@ -8,7 +8,7 @@ public:
 	virtual void Load(const wstring& path) override {}
 	virtual void Save(const wstring& path) override {}
 public:
-	void PushData();
+	void Bind();
 public:
 	sptr<class Shader>& GetShader();
 public:

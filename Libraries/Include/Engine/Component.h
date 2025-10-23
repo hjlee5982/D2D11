@@ -5,8 +5,8 @@ class Component abstract : public Object
 public:
 	virtual ~Component() = default;
 public:
-	void SetOwner(sptr<class GameObject> _owner);
-private:
-	sptr<class GameObject> owner;
+	virtual void SetOwner(sptr<class GameObject> owner) = 0;
+public:
+	sptr<class GameObject> gameObject;
 };
 

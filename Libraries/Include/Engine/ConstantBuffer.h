@@ -32,6 +32,15 @@ public:
 
 		CHECK(Device::Instance().GetDevice()->CreateBuffer(&desc, nullptr, _constantBuffer.GetAddressOf()));
 	}
+	void CopyData(const T& data)
+	{
+		D3D11_MAPPED_SUBRESOURCE subResource;
+		ZeroMemory(&subResource, sizeof(subResource));
+
+		Device::Instance().GetContext()->Map(_constantBuffer.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &subResource);
+		::memcpy(subResource.pData, &data, sizeof(data));
+		Device::Instance().GetContext()->Unmap(_constantBuffer.Get(), 0);
+	}
 private:
 	ComPtr<ID3D11Buffer> _constantBuffer;
 };

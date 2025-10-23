@@ -5,16 +5,25 @@
 class VertexBuffer;
 class IndexBuffer;
 
+enum class EMeshType
+{
+	Square,
+	Cube,
+	Sphere,
+
+	End
+};
+
 class Mesh : public Asset
 {
 public:
 	Mesh() : Asset(EAssetType::Mesh) {}
 public:
-	virtual void Load(const wstring& path) override;
-	virtual void Save(const wstring& path) override;
+	virtual void Load(const wstring& path) override {}
+	virtual void Save(const wstring& path) override {}
 public:
-	void CreateSquare();
-	void PushData();
+	void CreateMesh(EMeshType type);
+	void Bind();
 private:
 	void CreateBuffers();
 public:
@@ -26,4 +35,3 @@ private:
 	sptr<IndexBuffer>                 _indexBuffer;
 	sptr<Geometry<VertexTextureData>> _geometry;
 };
-
