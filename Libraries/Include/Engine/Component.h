@@ -15,9 +15,17 @@ protected:
 	template<typename T>
 	sptr<T> GetComponent()
 	{
-		return gameObject->GetComponent<T>();
+		return gameObject.lock()->GetComponent<T>();
 	}
 public:
-	sptr<GameObject> gameObject;
+	sptr<GameObject> Owner()
+	{
+		return gameObject.lock();
+	}
+public:
+	// GameObject가 Component를 소유하고 있으니
+	// Component는 GameObject를 소유하면 안됨. 순환참조됨
+	// sptr<GameObject> gameObject;
+	wptr<GameObject> gameObject;
 };
 

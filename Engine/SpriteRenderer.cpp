@@ -10,22 +10,19 @@ void SpriteRenderer::Awake()
 	_mesh     = AssetManager::Instance().Get<Mesh>(L"Mesh_Square");
 	_material = AssetManager::Instance().Get<Material>(L"Material_Default");
 
-	Renderer::Instance().AddToRenderer(gameObject);
+	Renderer::Instance().AddToRenderer(Owner());
 }
 
 void SpriteRenderer::Start()
 {
-	int a = 0;
 }
 
 void SpriteRenderer::Update()
 {
-	int a = 0;
 }
 
 void SpriteRenderer::LateUpdate()
 {
-	int a = 0;
 }
 
 sptr<Mesh> SpriteRenderer::GetMesh()
