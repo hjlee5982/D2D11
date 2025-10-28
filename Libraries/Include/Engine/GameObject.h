@@ -1,5 +1,7 @@
 #pragma once
 
+#include "GameObjectManager.h"
+
 class GameObject : public Object, public std::enable_shared_from_this<GameObject>
 {
 public:
@@ -40,6 +42,11 @@ public:
 		
 		return nullptr;
 	}
+public:
+	void Awake();
+	void Start();
+	void Update();
+	void LateUpdate();
 private:
 	Dictionary<std::type_index, sptr<class Component>> _components;
 public:
@@ -52,6 +59,8 @@ static sptr<GameObject> Instantiate(Args&&... args)
 	sptr<GameObject> go = makeSptr<GameObject>();
 
 	go->transform = go->AddComponent<Transform>(std::forward<Args>(args)...);
+
+	GameObjectManager::Instance().AddGameObject(go);
 
 	return go;
 }

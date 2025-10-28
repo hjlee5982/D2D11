@@ -1,16 +1,14 @@
 #pragma once
 
-#include "IExecute.h"
+#include "IScene.h"
 
-class FlappyBird : public IExecute
+class FlappyBird : public IScene
 {
 public:
-	void Awake() override;
-	void Start() override;
-	void Update() override;
-	void LateUpdate() override;
+	void InitializeScene() override;
 private:
 	sptr<class GameObject> _camera;
-	sptr<class GameObject> _bg;
+	sptr<class GameObject> _bgL;
+	sptr<class GameObject> _bgR;
 };
 

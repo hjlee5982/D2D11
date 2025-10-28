@@ -7,6 +7,9 @@
     <Filter Include="02. Execute">
       <UniqueIdentifier>{92c5b793-e3bb-4a5a-bddd-4f93c53540e0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03. Script">
+      <UniqueIdentifier>{7171b6df-f320-4b47-afe4-ed0f940074cc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -14,6 +17,9 @@
     </ClInclude>
     <ClInclude Include="FlappyBird.h">
       <Filter>02. Execute</Filter>
+    </ClInclude>
+    <ClInclude Include="BackgroundController.h">
+      <Filter>03. Script</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -23,6 +29,9 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="FlappyBird.cpp">
       <Filter>02. Execute</Filter>
+    </ClCompile>
+    <ClCompile Include="BackgroundController.cpp">
+      <Filter>03. Script</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -1,25 +1,31 @@
 #include "pch.h"
 #include "Client.h"
-#include "IExecute.h"
+#include "IScene.h"
 #include "Renderer.h"
 #include "AssetManager.h"
+#include "GameObjectManager.h"
 
 void Client::Initialize()
 {
-	Device      ::Instance().Awake(_option);
-	AssetManager::Instance().Awake();
-	Renderer    ::Instance().Awake();
+	Timer            ::Instance().Awake();
+	Device           ::Instance().Awake();
+	AssetManager     ::Instance().Awake();
+	Renderer         ::Instance().Awake();
 
-	_option.app->Awake();
-	_option.app->Start();
+	Global::ClientOption.scene->InitializeScene();
+
+	GameObjectManager::Instance().Awake();
+	GameObjectManager::Instance().Start();
 }
 
 void Client::Update()
 {
 	Device::Instance().RenderBegin();
 	{
-		_option.app->Update();
-		_option.app->LateUpdate();
+		Timer::Instance().Update();
+
+		GameObjectManager::Instance().Update();
+		GameObjectManager::Instance().LateUpdate();
 
 		Renderer::Instance().Render();
 	}
@@ -28,12 +34,6 @@ void Client::Update()
 
 void Client::Awake()
 {
-}
-
-void Client::Awake(const ClientOption& option)
-{
-	_option = option;
-	
 	WNDCLASSEXW wcex;
 	{
 		wcex.cbSize        = sizeof(WNDCLASSEX);
@@ -41,23 +41,23 @@ void Client::Awake(const ClientOption& option)
 		wcex.lpfnWndProc   = WndProc;
 		wcex.cbClsExtra    = 0;
 		wcex.cbWndExtra    = 0;
-		wcex.hInstance     = _option.hInstance = GetModuleHandle(NULL);
+		wcex.hInstance     = Global::ClientOption.hInstance = GetModuleHandle(NULL);
 		wcex.hIcon         = ::LoadIcon(NULL, IDI_WINLOGO);
 		wcex.hCursor       = ::LoadCursor(nullptr, IDC_ARROW);
 		wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
 		wcex.lpszMenuName  = NULL;
-		wcex.lpszClassName = _option.appName.c_str();
+		wcex.lpszClassName = Global::ClientOption.appName.c_str();
 		wcex.hIconSm       = wcex.hIcon;
 	}
 	RegisterClassExW(&wcex);
 
-	RECT windowRect = { 0, 0, _option.width, _option.height };
+	RECT windowRect = { 0, 0, Global::ClientOption.width, Global::ClientOption.height };
 	::AdjustWindowRect(&windowRect, WS_OVERLAPPEDWINDOW, false);
 
-	_option.hWnd = CreateWindowW
+	Global::ClientOption.hWnd = CreateWindowW
 	(
-		_option.appName.c_str(),
-		_option.appName.c_str(),
+		Global::ClientOption.appName.c_str(),
+		Global::ClientOption.appName.c_str(),
 		WS_OVERLAPPEDWINDOW,
 		CW_USEDEFAULT,
 		CW_USEDEFAULT,
@@ -65,17 +65,17 @@ void Client::Awake(const ClientOption& option)
 		windowRect.bottom - windowRect.top,
 		nullptr,
 		nullptr,
-		_option.hInstance,
+		Global::ClientOption.hInstance,
 		nullptr
 	);
 
-	if (!_option.hWnd)
+	if (!Global::ClientOption.hWnd)
 	{
 		return;
 	}
 
-	::ShowWindow(_option.hWnd, SW_SHOWNORMAL);
-	::UpdateWindow(_option.hWnd);
+	::ShowWindow(Global::ClientOption.hWnd, SW_SHOWNORMAL);
+	::UpdateWindow(Global::ClientOption.hWnd);
 
 	Run();
 }

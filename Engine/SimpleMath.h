@@ -708,9 +708,9 @@ namespace DirectX
             float Dot(const Quaternion& Q) const noexcept;
 
             // Static functions
-            static Quaternion CreateFromAxisAngle(const Vector3& axis, float angle) noexcept;
-            static Quaternion CreateFromYawPitchRoll(float yaw, float pitch, float roll) noexcept;
-            static Quaternion CreateFromRotationMatrix(const matx& M) noexcept;
+            // static Quaternion CreateFromAxisAngle(const Vector3& axis, float angle) noexcept;
+            // static Quaternion CreateFromYawPitchRoll(float yaw, float pitch, float roll) noexcept;
+            // static Quaternion CreateFromRotationMatrix(const matx& M) noexcept;
 
             static void Lerp(const Quaternion& q1, const Quaternion& q2, float t, Quaternion& result) noexcept;
             static Quaternion Lerp(const Quaternion& q1, const Quaternion& q2, float t) noexcept;
@@ -723,6 +723,9 @@ namespace DirectX
 
             // Constants
             static const Quaternion Identity;
+
+            static Quaternion Euler(float x, float y, float z) noexcept;
+            static Quaternion AngleAxis(const Vector3& axis, float angle) noexcept;
         };
 
         // Binary operators

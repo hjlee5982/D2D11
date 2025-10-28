@@ -3,11 +3,7 @@
 
 void Device::Awake()
 {
-}
-
-void Device::Awake(const ClientOption& option)
-{
-	_option = option;
+	_option = Global::ClientOption;
 
 	CreateDeviceAndSwapChain();
 	CreateBackBufferRTV();

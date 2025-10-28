@@ -2,42 +2,40 @@
 #include "FlappyBird.h"
 #include "GameObject.h"
 #include "Camera.h"
+#include "BackgroundController.h"
 
-void FlappyBird::Awake()
+void FlappyBird::InitializeScene()
 {
-}
-
-void FlappyBird::Start()
-{
-	int a = 0;
-
 	// 카메라
 	{
 		_camera = Instantiate();
 		{
-			auto camera = _camera->AddComponent<Camera>();
-			{
-				camera->SetCameraOption(0.1f, 300.f, 60.f);
-			}
+			// auto cm = _camera->AddComponent<Camera>();
+
+			// cm->gameObject->transform->SetPosition(Vector3(0.f, 0.f, -10.f));
 		}
 	}
-	// 배경
-	{
-		_bg = Instantiate();
-		{
-			_bg->AddComponent<SpriteRenderer>();
+	//// 배경
+	//{
+	//	_bgL = Instantiate();
+	//	{
+	//		_bgL->AddComponent<SpriteRenderer>();
 
-			_bg->transform->worldMatrix._43 = 2.0f;
-		}
-	}
-}
+	//		auto bc = _bgL->AddComponent<BackgroundController>();
+	//		{
+	//			bc->_scale    = Vector3(1600.f, 800.f, 1.f);
+	//			bc->_position = Vector3(-800.f, 0.f, 0.f);
+	//		}
+	//	}
+	//	_bgR = Instantiate();
+	//	{
+	//		_bgR->AddComponent<SpriteRenderer>();
 
-void FlappyBird::Update()
-{
-	auto camera = _camera->GetComponent<Camera>();
-	camera->Update();
-}
-
-void FlappyBird::LateUpdate()
-{
+	//		auto bc = _bgR->AddComponent<BackgroundController>();
+	//		{
+	//			bc->_scale    = Vector3(1600.f, 800.f, 1.f);
+	//			bc->_position = Vector3(800.f, 0.f, 0.f);
+	//		}
+	//	}
+	//}
 }

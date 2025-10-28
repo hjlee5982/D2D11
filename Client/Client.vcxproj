@@ -137,10 +137,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="BackgroundController.h" />
     <ClInclude Include="FlappyBird.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BackgroundController.cpp" />
     <ClCompile Include="FlappyBird.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="pch.cpp">

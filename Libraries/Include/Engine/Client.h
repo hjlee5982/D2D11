@@ -13,14 +13,13 @@ struct ClientOption
 	f32       height;
 	bool      windowed;
 
-	sptr<class IExecute> app = nullptr;
+	sptr<class IScene> scene = nullptr;
 };
 
 class Client : public Singleton<Client>
 {
 public:
 	virtual void Awake() override;
-	void Awake(const ClientOption& option);
 private:
 	WPARAM Run();
 public:
@@ -28,6 +27,4 @@ public:
 private:
 	void Initialize();
 	void Update();
-private:
-	ClientOption _option;
 };

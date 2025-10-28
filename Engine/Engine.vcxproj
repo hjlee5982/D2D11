@@ -160,9 +160,11 @@ xcopy /Y /D "$(SolutionDir)Engine\*.inl" "$(SolutionDir)Libraries\Include\Engine
     </ClInclude>
     <ClInclude Include="Exception.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GameObjectManager.h" />
     <ClInclude Include="Geometry.h" />
     <ClInclude Include="GeometryHelper.h" />
-    <ClInclude Include="IExecute.h" />
+    <ClInclude Include="Global.h" />
+    <ClInclude Include="IScene.h" />
     <ClInclude Include="IndexBuffer.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="Mesh.h" />
@@ -175,6 +177,7 @@ xcopy /Y /D "$(SolutionDir)Engine\*.inl" "$(SolutionDir)Libraries\Include\Engine
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="SpriteRenderer.h" />
     <ClInclude Include="Texture.h" />
+    <ClInclude Include="Timer.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Using.h" />
     <ClInclude Include="VertexBuffer.h" />
@@ -192,9 +195,11 @@ xcopy /Y /D "$(SolutionDir)Engine\*.inl" "$(SolutionDir)Libraries\Include\Engine
     </ClCompile>
     <ClCompile Include="Exception.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="GameObjectManager.cpp" />
     <ClCompile Include="Geometry.cpp" />
     <ClCompile Include="GeometryHelper.cpp" />
-    <ClCompile Include="IExecute.cpp" />
+    <ClCompile Include="Global.cpp" />
+    <ClCompile Include="IScene.cpp" />
     <ClCompile Include="IndexBuffer.cpp" />
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="Mesh.cpp" />
@@ -209,6 +214,7 @@ xcopy /Y /D "$(SolutionDir)Engine\*.inl" "$(SolutionDir)Libraries\Include\Engine
     <ClCompile Include="SimpleMath.cpp" />
     <ClCompile Include="SpriteRenderer.cpp" />
     <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="VertexBuffer.cpp" />
     <ClCompile Include="VertexData.cpp" />

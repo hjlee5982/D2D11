@@ -23,6 +23,23 @@ void Renderer::Awake()
 		desc.ByteWidth = sizeof(CB_PerObject);
 		Device::Instance().GetDevice()->CreateBuffer(&desc, nullptr, &_cbPerObject);
 	}
+
+	D3D11_RASTERIZER_DESC rsDesc;
+	ZeroMemory(&desc, sizeof(desc));
+	{
+		rsDesc.FillMode      = D3D11_FILL_WIREFRAME;
+		rsDesc.CullMode      = D3D11_CULL_NONE;
+		rsDesc.ScissorEnable = false;
+	}
+	Device::Instance().GetDevice()->CreateRasterizerState(&rsDesc, _wireFrameRS.GetAddressOf());
+
+	ZeroMemory(&desc, sizeof(desc));
+	{
+		rsDesc.FillMode      = D3D11_FILL_SOLID;
+		rsDesc.CullMode      = D3D11_CULL_NONE;
+		rsDesc.ScissorEnable = false;
+	}
+	Device::Instance().GetDevice()->CreateRasterizerState(&rsDesc, _defaultRS.GetAddressOf());
 }
 
 void Renderer::Render()
@@ -31,8 +48,8 @@ void Renderer::Render()
 	// 1. 상수버퍼 바인딩
 	CB_PerFrame perFrameData;
 	{
-		perFrameData.viewMatrix = Camera::ViewMatrix;
-		perFrameData.projMatrix = Camera::ProjMatrix;
+		perFrameData.viewMatrix = Global::ViewMatrix;
+		perFrameData.projMatrix = Global::ProjMatrix;
 	}
 	Device::Instance().GetContext()->UpdateSubresource(_cbPerFrame.Get(), 0, nullptr, &perFrameData, 0, 0);
 	Device::Instance().GetContext()->VSSetConstantBuffers(0, 1, _cbPerFrame.GetAddressOf());
@@ -44,7 +61,7 @@ void Renderer::Render()
 		// 1. 상수버퍼 바인딩
 		CB_PerObject perObjectData;
 		{
-			perObjectData.worldMatrix = go->transform->worldMatrix;
+			perObjectData.worldMatrix = go->transform->GetWorldMatrix();
 		}
 		Device::Instance().GetContext()->UpdateSubresource(_cbPerObject.Get(), 0, nullptr, &perObjectData, 0, 0);
 		Device::Instance().GetContext()->VSSetConstantBuffers(1, 1, _cbPerObject.GetAddressOf());
@@ -53,12 +70,21 @@ void Renderer::Render()
 		// 2. 머티리얼 바인딩 ( 셰이더 + 텍스쳐 바인딩 )
 		auto spriteRenderer = go->GetComponent<SpriteRenderer>();
 		auto material       = spriteRenderer->GetMaterial();
+
+		// 2-1. 와이어 프레임 설정
+		if (spriteRenderer->IsWireFrame() == true)
+		{
+			Device::Instance().GetContext()->RSSetState(_wireFrameRS.Get());
+		}
 		material->Bind();
 
 
 		// 3. 매시 바인딩 ( 버텍스 + 인덱스 버퍼 바인딩 ) + 드로우 콜
 		auto mesh = spriteRenderer->GetMesh();
 		mesh->Bind();
+
+		// 4. 와이어 프레임 해제
+		Device::Instance().GetContext()->RSSetState(_defaultRS.Get());
 	}
 }
 

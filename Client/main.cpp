@@ -11,16 +11,19 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	{
 		option.hInstance = hInstance;
 		option.vsync = false;
-		option.clearColor = Color(Colors::Blue);
+		option.clearColor = Color(Colors::Gray);
 
 		option.appName  = L"FlappyBird";
 		option.width    = 600;
 		option.height   = 800;
 		option.windowed = false;
 
-		option.app = makeSptr<FlappyBird>();
+		option.scene = makeSptr<FlappyBird>();
 	}
-	Client::Instance().Awake(option);
+
+	Global::ClientOption = option;
+
+	Client::Instance().Awake();
 
 	return 0;
 }

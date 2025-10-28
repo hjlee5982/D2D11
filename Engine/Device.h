@@ -4,7 +4,6 @@ class Device : public Singleton<Device>
 {
 public:
 	virtual void Awake() override;
-	void Awake(const ClientOption& option);
 public:
 	void RenderBegin();
 	void RenderEnd();

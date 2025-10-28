@@ -3097,33 +3097,33 @@ inline float Quaternion::Dot(const Quaternion& q) const noexcept
 // Static functions
 //------------------------------------------------------------------------------
 
-inline Quaternion Quaternion::CreateFromAxisAngle(const Vector3& axis, float angle) noexcept
-{
-    using namespace DirectX;
-    XMVECTOR a = XMLoadFloat3(&axis);
-
-    Quaternion R;
-    XMStoreFloat4(&R, XMQuaternionRotationAxis(a, angle));
-    return R;
-}
-
-inline Quaternion Quaternion::CreateFromYawPitchRoll(float yaw, float pitch, float roll) noexcept
-{
-    using namespace DirectX;
-    Quaternion R;
-    XMStoreFloat4(&R, XMQuaternionRotationRollPitchYaw(pitch, yaw, roll));
-    return R;
-}
-
-inline Quaternion Quaternion::CreateFromRotationMatrix(const matx& M) noexcept
-{
-    using namespace DirectX;
-    XMMATRIX M0 = XMLoadFloat4x4(&M);
-
-    Quaternion R;
-    XMStoreFloat4(&R, XMQuaternionRotationMatrix(M0));
-    return R;
-}
+//inline Quaternion Quaternion::CreateFromAxisAngle(const Vector3& axis, float angle) noexcept
+//{
+//    using namespace DirectX;
+//    XMVECTOR a = XMLoadFloat3(&axis);
+//
+//    Quaternion R;
+//    XMStoreFloat4(&R, XMQuaternionRotationAxis(a, angle));
+//    return R;
+//}
+//
+//inline Quaternion Quaternion::CreateFromYawPitchRoll(float yaw, float pitch, float roll) noexcept
+//{
+//    using namespace DirectX;
+//    Quaternion R;
+//    XMStoreFloat4(&R, XMQuaternionRotationRollPitchYaw(pitch, yaw, roll));
+//    return R;
+//}
+//
+//inline Quaternion Quaternion::CreateFromRotationMatrix(const matx& M) noexcept
+//{
+//    using namespace DirectX;
+//    XMMATRIX M0 = XMLoadFloat4x4(&M);
+//
+//    Quaternion R;
+//    XMStoreFloat4(&R, XMQuaternionRotationMatrix(M0));
+//    return R;
+//}
 
 inline void Quaternion::Lerp(const Quaternion& q1, const Quaternion& q2, float t, Quaternion& result) noexcept
 {
@@ -3213,6 +3213,24 @@ inline Quaternion Quaternion::Concatenate(const Quaternion& q1, const Quaternion
     Quaternion result;
     XMStoreFloat4(&result, XMQuaternionMultiply(Q1, Q0));
     return result;
+}
+
+inline Quaternion Quaternion::Euler(float x, float y, float z) noexcept
+{
+    using namespace DirectX;
+    Quaternion R;
+    XMStoreFloat4(&R, XMQuaternionRotationRollPitchYaw(XMConvertToRadians(x), XMConvertToRadians(y), XMConvertToRadians(z)));
+    return R;
+}
+
+inline Quaternion Quaternion::AngleAxis(const Vector3& axis, float angle) noexcept
+{
+    using namespace DirectX;
+    XMVECTOR a = XMLoadFloat3(&axis);
+
+    Quaternion R;
+    XMStoreFloat4(&R, XMQuaternionRotationAxis(a, XMConvertToRadians(angle)));
+    return R;
 }
 
 

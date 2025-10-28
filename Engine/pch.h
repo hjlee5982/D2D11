@@ -18,6 +18,7 @@
 #include <typeinfo>
 #include <typeindex>
 #include <array>
+#include <chrono>
 
 
 /* DirectX11 Çì´õ */
@@ -72,3 +73,7 @@ using namespace Microsoft::WRL;
 #include "ConstantBufferDesc.h"
 
 #include "Camera.h"
+
+#include "Timer.h"
+
+#include "Global.h"

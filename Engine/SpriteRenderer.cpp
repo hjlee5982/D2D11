@@ -5,17 +5,27 @@
 #include "Material.h"
 #include "Renderer.h"
 
-SpriteRenderer::SpriteRenderer()
+void SpriteRenderer::Awake()
 {
-	_mesh     = AssetManager::Instance().Get<Mesh>    (L"Mesh_Square");
+	_mesh     = AssetManager::Instance().Get<Mesh>(L"Mesh_Square");
 	_material = AssetManager::Instance().Get<Material>(L"Material_Default");
-}
-
-void SpriteRenderer::SetOwner(sptr<class GameObject> owner)
-{
-	gameObject = owner;
 
 	Renderer::Instance().AddToRenderer(gameObject);
+}
+
+void SpriteRenderer::Start()
+{
+	int a = 0;
+}
+
+void SpriteRenderer::Update()
+{
+	int a = 0;
+}
+
+void SpriteRenderer::LateUpdate()
+{
+	int a = 0;
 }
 
 sptr<Mesh> SpriteRenderer::GetMesh()

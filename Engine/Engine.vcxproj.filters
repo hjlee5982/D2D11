@@ -58,6 +58,12 @@
     <Filter Include="07. Component\Camera">
       <UniqueIdentifier>{21abb0da-a325-4b11-b4a6-294eb3e0608f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="08. Timer">
+      <UniqueIdentifier>{dbab4074-637c-44c0-a808-744352c2fbec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="09. Scene">
+      <UniqueIdentifier>{8356201b-eade-4530-be7a-eef3f9f18e97}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -73,9 +79,6 @@
       <Filter>99. Module</Filter>
     </ClInclude>
     <ClInclude Include="Client.h">
-      <Filter>03. Client</Filter>
-    </ClInclude>
-    <ClInclude Include="IExecute.h">
       <Filter>03. Client</Filter>
     </ClInclude>
     <ClInclude Include="Device.h">
@@ -147,6 +150,18 @@
     <ClInclude Include="Camera.h">
       <Filter>07. Component\Camera</Filter>
     </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>08. Timer</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjectManager.h">
+      <Filter>06. Object</Filter>
+    </ClInclude>
+    <ClInclude Include="IScene.h">
+      <Filter>09. Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Global.h">
+      <Filter>01. Header</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -156,9 +171,6 @@
       <Filter>99. Module</Filter>
     </ClCompile>
     <ClCompile Include="Client.cpp">
-      <Filter>03. Client</Filter>
-    </ClCompile>
-    <ClCompile Include="IExecute.cpp">
       <Filter>03. Client</Filter>
     </ClCompile>
     <ClCompile Include="Device.cpp">
@@ -226,6 +238,18 @@
     </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>07. Component\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>08. Timer</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjectManager.cpp">
+      <Filter>06. Object</Filter>
+    </ClCompile>
+    <ClCompile Include="IScene.cpp">
+      <Filter>09. Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Global.cpp">
+      <Filter>01. Header</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
