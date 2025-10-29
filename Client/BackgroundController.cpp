@@ -13,7 +13,7 @@ void BackgroundController::Start()
 
 void BackgroundController::Update()
 {
-	Owner()->transform->Translation(-Vector3::Right, 150.f);
+	//Owner()->transform->Translation(-Vector3::Right, 150.f);
 }
 
 void BackgroundController::LateUpdate()

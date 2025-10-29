@@ -7,7 +7,10 @@ void Material::Bind()
 {
 	_shader->Bind();
 
-	Device::Instance().GetContext()->PSSetShaderResources(0, 1, _texture->GetSRV().GetAddressOf());
+	if (_texture != nullptr)
+	{
+		Device::Instance().GetContext()->PSSetShaderResources(0, 1, _texture->GetSRV().GetAddressOf());
+	}
 }
 
 sptr<class Shader>& Material::GetShader()

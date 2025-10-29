@@ -6,10 +6,16 @@ public:
 	virtual void Awake() override;
 public:
 	void Render();
-public:
-	void AddToRenderer(sptr<GameObject> gameObject);
 private:
-	List<sptr<class GameObject>> _gameObjects;
+	void BindConstantBuffer();
+	void RenderGameObject();
+	void RenderCollider();
+public:
+	void AddGameObjectToRenderer(sptr<GameObject> gameObject);
+	void AddColliderToRenderer(sptr<Component> component);
+private:
+	List<sptr<GameObject>> _gameObjects;
+	List<sptr<Component>>  _components;
 private:
 	ComPtr<ID3D11Buffer> _cbPerFrame;
 	ComPtr<ID3D11Buffer> _cbPerObject;
@@ -17,4 +23,3 @@ private:
 	ComPtr<ID3D11RasterizerState> _wireFrameRS;
 	ComPtr<ID3D11RasterizerState> _defaultRS;
 };
-

@@ -27,3 +27,25 @@ void GeometryHelper::CreateSquare(sptr<Geometry<VertexTextureData>> geometry)
 		geometry->SetIndices(idx);
 	}
 }
+
+void GeometryHelper::CreateSquareCollider(sptr<Geometry<VertexColliderData>> geometry)
+{
+	f32 padding = 0.01f;
+
+	List<VertexColliderData> vtx;
+	{
+		vtx.resize(4);
+
+		vtx[0].position = Vector3(-0.5f,  0.5f, 0.f);
+		vtx[1].position = Vector3( 0.5f,  0.5f, 0.f);
+		vtx[2].position = Vector3( 0.5f, -0.5f, 0.f);
+		vtx[3].position = Vector3(-0.5f, -0.5f, 0.f);
+
+		geometry->SetVertices(vtx);
+	}
+
+	List<u32> idx = { 0, 1, 1, 2, 2, 3, 3, 0 };
+	{
+		geometry->SetIndices(idx);
+	}
+}

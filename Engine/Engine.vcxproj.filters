@@ -64,6 +64,15 @@
     <Filter Include="09. Scene">
       <UniqueIdentifier>{8356201b-eade-4530-be7a-eef3f9f18e97}</UniqueIdentifier>
     </Filter>
+    <Filter Include="07. Component\Collider">
+      <UniqueIdentifier>{ffeb6768-fe2d-4c49-9862-c6a1cd74cd62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="07. Component\Collider\BoxCollider2D">
+      <UniqueIdentifier>{fac9a52e-3695-468e-9db7-86bf3aef8f01}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Asset\Shader\HLSL\Collider">
+      <UniqueIdentifier>{49a5682f-1362-44a2-84ba-29fae9b42081}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -162,6 +171,9 @@
     <ClInclude Include="Global.h">
       <Filter>01. Header</Filter>
     </ClInclude>
+    <ClInclude Include="BoxCollider2D.h">
+      <Filter>07. Component\Collider\BoxCollider2D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -251,6 +263,9 @@
     <ClCompile Include="Global.cpp">
       <Filter>01. Header</Filter>
     </ClCompile>
+    <ClCompile Include="BoxCollider2D.cpp">
+      <Filter>07. Component\Collider\BoxCollider2D</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="SimpleMath.inl">
@@ -269,6 +284,12 @@
     </FxCompile>
     <FxCompile Include="..\Assets\Shader\DefaultPS.hlsl">
       <Filter>04. Asset\Shader\HLSL\Default</Filter>
+    </FxCompile>
+    <FxCompile Include="..\Assets\Shader\ColliderPS.hlsl">
+      <Filter>04. Asset\Shader\HLSL\Collider</Filter>
+    </FxCompile>
+    <FxCompile Include="..\Assets\Shader\ColliderVS.hlsl">
+      <Filter>04. Asset\Shader\HLSL\Collider</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>

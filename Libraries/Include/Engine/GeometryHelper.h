@@ -7,4 +7,6 @@ class GeometryHelper
 {
 public:
 	static void CreateSquare(sptr<Geometry<VertexTextureData>> geometry);
+public:
+	static void CreateSquareCollider(sptr<Geometry<VertexColliderData>> geometry);
 };

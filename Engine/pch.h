@@ -77,3 +77,5 @@ using namespace Microsoft::WRL;
 #include "Timer.h"
 
 #include "Global.h"
+
+#include "BoxCollider2D.h"

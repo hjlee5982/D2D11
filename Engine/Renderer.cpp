@@ -44,6 +44,13 @@ void Renderer::Awake()
 
 void Renderer::Render()
 {
+	BindConstantBuffer();
+	RenderGameObject();
+	RenderCollider();
+}
+
+void Renderer::BindConstantBuffer()
+{
 	// 프레임 당 업데이트 해야 할 요소
 	// 1. 상수버퍼 바인딩
 	CB_PerFrame perFrameData;
@@ -53,8 +60,10 @@ void Renderer::Render()
 	}
 	Device::Instance().GetContext()->UpdateSubresource(_cbPerFrame.Get(), 0, nullptr, &perFrameData, 0, 0);
 	Device::Instance().GetContext()->VSSetConstantBuffers(0, 1, _cbPerFrame.GetAddressOf());
+}
 
-
+void Renderer::RenderGameObject()
+{
 	// 오브젝트 당 업데이트 해야 할 요소
 	for(sptr<GameObject> go : _gameObjects)
 	{
@@ -88,7 +97,15 @@ void Renderer::Render()
 	}
 }
 
-void Renderer::AddToRenderer(sptr<GameObject> gameObject)
+void Renderer::RenderCollider()
+{
+}
+
+void Renderer::AddGameObjectToRenderer(sptr<GameObject> gameObject)
 {
 	_gameObjects.push_back(gameObject);
+}
+
+void Renderer::AddColliderToRenderer(sptr<Component> collider)
+{
 }
