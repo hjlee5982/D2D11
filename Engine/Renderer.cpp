@@ -82,21 +82,12 @@ void Renderer::RenderGameObject()
 		// 2. 머티리얼 바인딩 ( 셰이더 + 텍스쳐 바인딩 )
 		auto spriteRenderer = go->GetComponent<SpriteRenderer>();
 		auto material       = spriteRenderer->GetMaterial();
-
-		// 2-1. 와이어 프레임 설정
-		if (spriteRenderer->IsWireFrame() == true)
-		{
-			Device::Instance().GetContext()->RSSetState(_wireFrameRS.Get());
-		}
 		material->Bind();
 
 
 		// 3. 매시 바인딩 ( 버텍스 + 인덱스 버퍼 바인딩 ) + 드로우 콜
 		auto mesh = spriteRenderer->GetMesh();
 		mesh->Bind();
-
-		// 4. 와이어 프레임 해제
-		Device::Instance().GetContext()->RSSetState(_defaultRS.Get());
 	}
 }
 
@@ -109,19 +100,19 @@ void Renderer::RenderCollider()
 	Device::Instance().GetContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_LINELIST);
 
 	// 오브젝트 당 업데이트 해야 할 요소
-	for (sptr<GameObject> go : _colliders)
+	for (sptr<Component> go : _colliders)
 	{
 		// 1. 상수버퍼 바인딩
 		CB_PerObject perObjectData;
 		{
-			perObjectData.worldMatrix = go->transform->GetWorldMatrix();
+			perObjectData.worldMatrix = go->Owner()->transform->GetWorldMatrix();
 		}
 		Device::Instance().GetContext()->UpdateSubresource(_cbPerObject.Get(), 0, nullptr, &perObjectData, 0, 0);
 		Device::Instance().GetContext()->VSSetConstantBuffers(1, 1, _cbPerObject.GetAddressOf());
 
 
 		// 2. 머티리얼 바인딩 ( 셰이더 + 텍스쳐 바인딩 )
-		auto collider = go->GetComponent<BoxCollider2D>();
+		auto collider = go->Owner()->GetComponent<BoxCollider2D>();
 		auto material = collider->GetMaterial();
 		material->Bind();
 
@@ -156,7 +147,7 @@ void Renderer::AddGameObjectToRenderer(sptr<GameObject> gameObject)
 	_gameObjects.push_back(gameObject);
 }
 
-void Renderer::AddColliderToRenderer(sptr<GameObject> collider)
+void Renderer::AddColliderToRenderer(sptr<Component> collider)
 {
 	_colliders.push_back(collider);
 }

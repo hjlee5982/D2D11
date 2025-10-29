@@ -4,13 +4,15 @@
 #include "Renderer.h"
 #include "Mesh.h"
 #include "Material.h"
+#include "CollisionManager.h"
 
 void BoxCollider2D::Awake()
 {
 	_mesh     = AssetManager::Instance().Get<Mesh>(L"Mesh_BoxCollider2D");
 	_material = AssetManager::Instance().Get<Material>(L"Material_Collider");
 
-	Renderer::Instance().AddColliderToRenderer(Owner());
+	Renderer::Instance().AddColliderToRenderer(shared_from_this());
+	CollisionManager::Instance().AddCollider(shared_from_this());
 }
 
 void BoxCollider2D::Start()

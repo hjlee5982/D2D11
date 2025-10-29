@@ -4,6 +4,7 @@
 #include "Renderer.h"
 #include "AssetManager.h"
 #include "GameObjectManager.h"
+#include "CollisionManager.h"
 
 void Client::Initialize()
 {
@@ -24,6 +25,7 @@ void Client::Update()
 	{
 		Timer::Instance().Update();
 
+		CollisionManager::Instance().Update();
 		GameObjectManager::Instance().Update();
 		GameObjectManager::Instance().LateUpdate();
 

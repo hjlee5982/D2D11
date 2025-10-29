@@ -3,7 +3,7 @@
 class Mesh;
 class Material;
 
-class BoxCollider2D : public Component
+class BoxCollider2D : public Component, public std::enable_shared_from_this<BoxCollider2D>
 {
 public:
 	virtual void Awake()      override;

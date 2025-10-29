@@ -12,10 +12,10 @@ private:
 	void RenderCollider();
 public:
 	void AddGameObjectToRenderer(sptr<GameObject> gameObject);
-	void AddColliderToRenderer(sptr<GameObject> collider);
+	void AddColliderToRenderer(sptr<Component> collider);
 private:
 	List<sptr<GameObject>> _gameObjects;
-	List<sptr<GameObject>>  _colliders;
+	List<sptr<Component>>  _colliders;
 private:
 	ComPtr<ID3D11Buffer> _cbPerFrame;
 	ComPtr<ID3D11Buffer> _cbPerObject;

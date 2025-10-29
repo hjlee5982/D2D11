@@ -21,12 +21,13 @@ void FlappyBird::InitializeScene()
 		{
 			// 스크립트에 변수 뚫어놓고 수정하듯이 수정하면 됨
 			bc->_scale = Vector3(150.f, 150.f, 1.f);
-			bc->_position = Vector3(-100.f, 0.f, 0.f);
+			bc->_position = Vector3(-100.f, 50.f, 0.f);
 		}
 	}
 	auto bg2 = Instantiate();
 	{
 		bg2->AddComponent<SpriteRenderer>();
+		bg2->AddComponent<BoxCollider2D>();
 
 		bg2->transform->SetScale(Vector3(150.f, 150.f, 1.f));
 		bg2->transform->SetPosition(Vector3(100.f, 0.f, 0.f));
