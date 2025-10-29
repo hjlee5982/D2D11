@@ -11,6 +11,8 @@ enum class EMeshType
 	Cube,
 	Sphere,
 
+	BoxCollider2D,
+
 	End
 };
 

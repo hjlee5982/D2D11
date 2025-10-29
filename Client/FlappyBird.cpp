@@ -14,23 +14,26 @@ void FlappyBird::InitializeScene()
 	{
 		// 컴포넌트 추가
 		bg1->AddComponent<SpriteRenderer>();
+		bg1->AddComponent<BoxCollider2D>();
 
 		// 스크립트 컴포넌트 추가
 		auto bc = bg1->AddComponent<BackgroundController>();
 		{
 			// 스크립트에 변수 뚫어놓고 수정하듯이 수정하면 됨
-			bc->_scale = Vector3(100.f, 100.f, 1.f);
-			bc->_position = Vector3(-200.f, 0.f, 0.f);
+			bc->_scale = Vector3(150.f, 150.f, 1.f);
+			bc->_position = Vector3(-100.f, 0.f, 0.f);
 		}
 	}
 	auto bg2 = Instantiate();
 	{
 		bg2->AddComponent<SpriteRenderer>();
 
-		auto bc = bg2->AddComponent<BackgroundController>();
+		bg2->transform->SetScale(Vector3(150.f, 150.f, 1.f));
+		bg2->transform->SetPosition(Vector3(100.f, 0.f, 0.f));
+		/*auto bc = bg2->AddComponent<BackgroundController>();
 		{
-			bc->_scale = Vector3(100.f, 100.f, 1.f);
-			bc->_position = Vector3(200.f, 0.f, 0.f);
-		}
+			bc->_scale = Vector3(150.f, 150.f, 1.f);
+			bc->_position = Vector3(100.f, 0.f, 0.f);
+		}*/
 	}
 }

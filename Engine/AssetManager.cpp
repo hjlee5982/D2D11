@@ -25,9 +25,10 @@ void AssetManager::CreateDefaultResource()
 		}
 		// SquareCollider
 		{
-			
+			sptr<Mesh> mesh = makeSptr<Mesh>();
+			mesh->CreateMesh(EMeshType::BoxCollider2D);
+			Add(L"Mesh_BoxCollider2D", mesh);
 		}
-		
 	}
 	// 기본 쉐이더 생성
 	{

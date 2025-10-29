@@ -23,6 +23,10 @@ void Mesh::CreateMesh(EMeshType type)
     case EMeshType::End:
         break;
 
+    case EMeshType::BoxCollider2D:
+        GeometryHelper::CreateSquareCollider(_geometry);
+        break;
+
     default:
         break;
     }
