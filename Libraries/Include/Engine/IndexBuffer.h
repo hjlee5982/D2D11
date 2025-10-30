@@ -28,11 +28,11 @@ public:
 			data.pSysMem = indices.data();
 		}
 
-		CHECK(Device::Instance().GetDevice()->CreateBuffer(&desc, &data, _indexBuffer.GetAddressOf()));
+		CHECK(DEVICE->CreateBuffer(&desc, &data, _indexBuffer.GetAddressOf()));
 	}
 	void PushData()
 	{
-		Device::Instance().GetContext()->IASetIndexBuffer(_indexBuffer.Get(), DXGI_FORMAT_R32_UINT, 0);
+		CONTEXT->IASetIndexBuffer(_indexBuffer.Get(), DXGI_FORMAT_R32_UINT, 0);
 	}
 private:
 	ComPtr<ID3D11Buffer> _indexBuffer;

@@ -39,7 +39,7 @@ void Mesh::Bind()
     _vertexBuffer->PushData();
     _indexBuffer->PushData();
 
-    Device::Instance().GetContext()->DrawIndexed(_indexBuffer->GetIndexCount(), 0, 0);
+    CONTEXT->DrawIndexed(_indexBuffer->GetIndexCount(), 0, 0);
 }
 
 void Mesh::CreateBuffers()

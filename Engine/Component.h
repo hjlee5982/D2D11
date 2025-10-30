@@ -7,10 +7,12 @@ public:
 public:
 	virtual void SetOwner(sptr<class GameObject> owner);
 public:
-	virtual void Awake()      = 0;
-	virtual void Start()      = 0;
-	virtual void Update()     = 0;
-	virtual void LateUpdate() = 0;
+	virtual void Awake()     {}
+	virtual void Start()     {}
+	virtual void Update()    {}
+	virtual void LateUpdate(){}
+public:
+	virtual void OnCollisionEnter(sptr<class BoxCollider2D> collider) {}
 protected:
 	template<typename T>
 	sptr<T> GetComponent()

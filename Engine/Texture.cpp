@@ -18,7 +18,7 @@ void Texture::CreateTexture(const wstring& path)
         CHECK(::LoadFromWICFile(path.c_str(), WIC_FLAGS_NONE, &md, _image));
     }
 
-	CHECK(::CreateShaderResourceView(Device::Instance().GetDevice().Get(), _image.GetImages(), _image.GetImageCount(), md, _shaderResourceView.GetAddressOf()));
+	CHECK(::CreateShaderResourceView(DEVICE.Get(), _image.GetImages(), _image.GetImageCount(), md, _shaderResourceView.GetAddressOf()));
 
     _imagesize.x = md.width;
     _imagesize.y = md.height;

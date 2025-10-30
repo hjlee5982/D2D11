@@ -19,3 +19,12 @@ public:
 	}
 };
 
+#define DEVICE  Device::Instance().GetDevice()
+#define CONTEXT Device::Instance().GetContext()
+
+#define CLIENT     Client::Instance()
+#define GAMEOBJECT GameObjectManager::Instace()
+#define ASSET      AssetManager::Instance()
+#define RENDERER   Renderer::Instance()
+#define COLLISION  CollisionManager::Instance()
+#define TIMER      Timer::Instance()

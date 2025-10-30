@@ -36,10 +36,10 @@ void GeometryHelper::CreateSquareCollider(sptr<Geometry<VertexTextureData>> geom
 	{
 		vtx.resize(4);
 
-		vtx[0].position = Vector3(-0.5f,  0.5f, 0.f);
-		vtx[1].position = Vector3( 0.5f,  0.5f, 0.f);
-		vtx[2].position = Vector3( 0.5f, -0.5f, 0.f);
-		vtx[3].position = Vector3(-0.5f, -0.5f, 0.f);
+		vtx[0].position = Vector3(-0.5f - padding,  0.5f + padding, 0.f);
+		vtx[1].position = Vector3( 0.5f + padding,  0.5f + padding, 0.f);
+		vtx[2].position = Vector3( 0.5f + padding, -0.5f - padding, 0.f);
+		vtx[3].position = Vector3(-0.5f - padding, -0.5f - padding, 0.f);
 
 		geometry->SetVertices(vtx);
 	}

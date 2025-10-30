@@ -23,13 +23,13 @@ void Client::Update()
 {
 	Device::Instance().RenderBegin();
 	{
-		Timer::Instance().Update();
+		TIMER.Update();
 
-		CollisionManager::Instance().Update();
+		COLLISION.Update();
 		GameObjectManager::Instance().Update();
 		GameObjectManager::Instance().LateUpdate();
 
-		Renderer::Instance().Render();
+		RENDERER.Render();
 	}
 	Device::Instance().RenderEnd();
 }

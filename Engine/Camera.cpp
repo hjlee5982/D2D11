@@ -16,17 +16,9 @@ void Camera::Awake()
 	Owner()->transform->SetPosition(Vector3(0.f, 0.f, -_far / 2));
 }
 
-void Camera::Start()
-{
-}
-
 void Camera::Update()
 {
 	Global::ViewMatrix = Owner()->transform->GetWorldMatrix().Invert();
 	// Global::ProjMatrix = ::XMMatrixPerspectiveFovLH(_fov, _width / _height, _near, _far);
 	Global::ProjMatrix = ::XMMatrixOrthographicLH(_width, _height, _near, _far);
-}
-
-void Camera::LateUpdate()
-{
 }

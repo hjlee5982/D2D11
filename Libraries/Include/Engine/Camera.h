@@ -6,9 +6,7 @@ public:
 	virtual ~Camera() = default;
 public:
 	virtual void Awake()      override;
-	virtual void Start()	  override;
 	virtual void Update()     override;
-	virtual void LateUpdate() override;
 public:
 	f32 GetNear() { return _near; }
 	f32 GetFar()  { return _far;  }

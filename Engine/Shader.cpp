@@ -17,7 +17,7 @@ void Shader::CreateShader(const wstring& path)
 	wstring vsPath = path + L"VS.hlsl";
 
 	CHECK(D3DCompileFromFile(vsPath.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE, entry.c_str(), "vs_5_0", compileFlags, 0, shaderBlob.GetAddressOf(), errorBlob.GetAddressOf()));
-	CHECK(Device::Instance().GetDevice()->CreateVertexShader(shaderBlob->GetBufferPointer(), shaderBlob->GetBufferSize(), nullptr, _vs.GetAddressOf()));
+	CHECK(DEVICE->CreateVertexShader(shaderBlob->GetBufferPointer(), shaderBlob->GetBufferSize(), nullptr, _vs.GetAddressOf()));
 	
 	// InputLayout 持失
 	D3D11_INPUT_ELEMENT_DESC inputLayout[] =
@@ -26,21 +26,21 @@ void Shader::CreateShader(const wstring& path)
 		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT,    0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 }
 	};
 
-	CHECK(Device::Instance().GetDevice()->CreateInputLayout(inputLayout, 2, shaderBlob->GetBufferPointer(), shaderBlob->GetBufferSize(), _inputLayout.GetAddressOf()));
+	CHECK(DEVICE->CreateInputLayout(inputLayout, 2, shaderBlob->GetBufferPointer(), shaderBlob->GetBufferSize(), _inputLayout.GetAddressOf()));
 
-	Device::Instance().GetContext()->IASetInputLayout(_inputLayout.Get());
-	Device::Instance().GetContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	CONTEXT->IASetInputLayout(_inputLayout.Get());
+	CONTEXT->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	
 
 	// PS 持失
 	wstring psPath = path + +L"PS.hlsl";
 
 	CHECK(D3DCompileFromFile(psPath.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE, entry.c_str(), "ps_5_0", compileFlags, 0, shaderBlob.GetAddressOf(), errorBlob.GetAddressOf()));
-	CHECK(Device::Instance().GetDevice()->CreatePixelShader(shaderBlob->GetBufferPointer(), shaderBlob->GetBufferSize(), nullptr, _ps.GetAddressOf()));
+	CHECK(DEVICE->CreatePixelShader(shaderBlob->GetBufferPointer(), shaderBlob->GetBufferSize(), nullptr, _ps.GetAddressOf()));
 }
 
 void Shader::Bind()
 {
-	Device::Instance().GetContext()->VSSetShader(_vs.Get(), nullptr, 0);
-	Device::Instance().GetContext()->PSSetShader(_ps.Get(), nullptr, 0);
+	CONTEXT->VSSetShader(_vs.Get(), nullptr, 0);
+	CONTEXT->PSSetShader(_ps.Get(), nullptr, 0);
 }

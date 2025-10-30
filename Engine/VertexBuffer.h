@@ -34,11 +34,11 @@ public:
 			data.pSysMem = vertices.data();
 		}
 
-		CHECK(Device::Instance().GetDevice()->CreateBuffer(&desc, &data, _vertexBuffer.GetAddressOf()));
+		CHECK(DEVICE->CreateBuffer(&desc, &data, _vertexBuffer.GetAddressOf()));
 	}
 	void PushData()
 	{
-		Device::Instance().GetContext()->IASetVertexBuffers(_slot, 1, _vertexBuffer.GetAddressOf(), &_stride, &_offset);
+		CONTEXT->IASetVertexBuffers(_slot, 1, _vertexBuffer.GetAddressOf(), &_stride, &_offset);
 	}
 private:
 	ComPtr<ID3D11Buffer> _vertexBuffer;

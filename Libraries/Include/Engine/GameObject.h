@@ -47,6 +47,8 @@ public:
 	void Start();
 	void Update();
 	void LateUpdate();
+public:
+	void OnCollisionEnter(sptr<class BoxCollider2D> collider);
 private:
 	Dictionary<std::type_index, sptr<class Component>> _components;
 public:

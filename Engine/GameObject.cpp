@@ -32,3 +32,11 @@ void GameObject::LateUpdate()
 		com.second->LateUpdate();
 	}
 }
+
+void GameObject::OnCollisionEnter(sptr<BoxCollider2D> collider)
+{
+	for (auto& com : _components)
+	{
+		com.second->OnCollisionEnter(collider);
+	}
+}

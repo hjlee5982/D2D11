@@ -23,7 +23,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	Global::ClientOption = option;
 
-	Client::Instance().Awake();
+	CLIENT.Awake();
 
 	return 0;
 }

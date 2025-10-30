@@ -9,7 +9,7 @@ void Material::Bind()
 
 	if (_texture != nullptr)
 	{
-		Device::Instance().GetContext()->PSSetShaderResources(0, 1, _texture->GetSRV().GetAddressOf());
+		CONTEXT->PSSetShaderResources(0, 1, _texture->GetSRV().GetAddressOf());
 	}
 }
 

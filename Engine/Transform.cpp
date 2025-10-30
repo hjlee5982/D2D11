@@ -1,14 +1,6 @@
 #include "pch.h"
 #include "Transform.h"
 
-void Transform::Awake()
-{
-}
-
-void Transform::Start()
-{
-}
-
 void Transform::Update()
 {
 	Matrix scale    = Matrix::CreateScale(_scale);
@@ -24,12 +16,52 @@ void Transform::Update()
 	_right.Normalize();
 	_up   .Normalize();
 	_look .Normalize();
-
-	int a = 0;
 }
 
-void Transform::LateUpdate()
+void Transform::UpdateLocalMatrix()
 {
+	Matrix scale    = Matrix::CreateScale(_localScale);
+	Matrix rotation = Matrix::CreateFromQuaternion(_localRotation);
+	Matrix position = Matrix::CreateTranslation(_localPosition);
+
+	_localMatrix = scale * rotation * position;
+}
+
+void Transform::SetLocalMatrix(const Matrix& localMatrix)
+{
+	_localMatrix = localMatrix;
+	UpdateLocalMatrix();
+}
+
+void Transform::SetLocalPosition(const Vector3& localPosition)
+{
+	_localPosition = localPosition;
+	UpdateLocalMatrix();
+}
+
+void Transform::SetLocalScale(const Vector3& localScale)
+{
+	_localScale = localScale;
+	UpdateLocalMatrix();
+}
+
+void Transform::SetLocalRotaion(const Quaternion& localRotation)
+{
+	_localRotation = localRotation;
+	UpdateLocalMatrix();
+}
+
+void Transform::SetWorldMatrix(const Matrix& worldMatrix)
+{
+	_worldMatrix = worldMatrix;
+
+	_right = Vector3(_worldMatrix._11, _worldMatrix._12, _worldMatrix._13);
+	_up    = Vector3(_worldMatrix._21, _worldMatrix._22, _worldMatrix._23);
+	_look  = Vector3(_worldMatrix._31, _worldMatrix._32, _worldMatrix._33);
+
+	_right.Normalize();
+	_up.Normalize();
+	_look.Normalize();
 }
 
 void Transform::SetPosition(const Vector3& position)
@@ -52,6 +84,6 @@ void Transform::SetRotation(const Quaternion& rotation)
 
 void Transform::Translation(const Vector3& dir, float speed)
 {
-	_position += dir * (Timer::Instance().DeltaTime() * speed);
+	_position += dir * (TIMER.DeltaTime() * speed);
 	Update();
 }

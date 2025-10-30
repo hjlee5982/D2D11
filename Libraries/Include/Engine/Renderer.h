@@ -22,4 +22,6 @@ private:
 private:
 	ComPtr<ID3D11RasterizerState> _wireFrameRS;
 	ComPtr<ID3D11RasterizerState> _defaultRS;
+private:
+	ComPtr<ID3D11DepthStencilState> _dss;
 };

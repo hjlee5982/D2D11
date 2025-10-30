@@ -8,10 +8,7 @@ class SpriteRenderer : public Component
 public:
 	virtual ~SpriteRenderer() = default;
 public:
-	virtual void Awake()      override;
-	virtual void Start()	  override;
-	virtual void Update()     override;
-	virtual void LateUpdate() override;
+	virtual void Awake() override;
 public:
 	sptr<Mesh>     GetMesh();
 	sptr<Material> GetMaterial();

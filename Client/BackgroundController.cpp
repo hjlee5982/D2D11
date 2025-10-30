@@ -1,10 +1,6 @@
 #include "pch.h"
 #include "BackgroundController.h"
 
-void BackgroundController::Awake()
-{
-}
-
 void BackgroundController::Start()
 {
 	Owner()->transform->SetScale(_scale);
@@ -16,6 +12,7 @@ void BackgroundController::Update()
 	Owner()->transform->Translation(Vector3::Right, 10.f);
 }
 
-void BackgroundController::LateUpdate()
+void BackgroundController::OnCollisionEnter(sptr<class BoxCollider2D> collider)
 {
+	sptr<int> t;
 }

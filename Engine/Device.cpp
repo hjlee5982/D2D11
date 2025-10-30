@@ -86,7 +86,7 @@ void Device::CreateDSV()
 		textureDesc.CPUAccessFlags     = 0;
 		textureDesc.MiscFlags          = 0;
 	}
-	CHECK(Device::Instance().GetDevice()->CreateTexture2D(&textureDesc, nullptr, _DSTexture.GetAddressOf()));
+	CHECK(DEVICE->CreateTexture2D(&textureDesc, nullptr, _DSTexture.GetAddressOf()));
 
 
 	D3D11_DEPTH_STENCIL_VIEW_DESC dsvDesc;
@@ -96,7 +96,7 @@ void Device::CreateDSV()
 		dsvDesc.ViewDimension      = D3D11_DSV_DIMENSION_TEXTURE2D;
 		dsvDesc.Texture2D.MipSlice = 0;
 	}
-	CHECK(Device::Instance().GetDevice()->CreateDepthStencilView(_DSTexture.Get(), &dsvDesc, _DSV.GetAddressOf()));
+	CHECK(DEVICE->CreateDepthStencilView(_DSTexture.Get(), &dsvDesc, _DSV.GetAddressOf()));
 }
 
 void Device::SetViewport()
@@ -126,11 +126,11 @@ void Device::SetViewport()
 //		texDesc.Usage            = D3D11_USAGE_DEFAULT;
 //		texDesc.BindFlags        = D3D11_BIND_RENDER_TARGET | D3D11_BIND_SHADER_RESOURCE;
 //	}
-//	CHECK(Device::Instance().GetDevice()->CreateTexture2D(&texDesc, nullptr, _editorTexture.GetAddressOf()));
+//	CHECK(DEVICE->CreateTexture2D(&texDesc, nullptr, _editorTexture.GetAddressOf()));
 //
-//	CHECK(Device::Instance().GetDevice()->CreateRenderTargetView(_editorTexture.Get(), nullptr, _editorRTV.GetAddressOf()));
+//	CHECK(DEVICE->CreateRenderTargetView(_editorTexture.Get(), nullptr, _editorRTV.GetAddressOf()));
 //
-//	CHECK(Device::Instance().GetDevice()->CreateShaderResourceView(_editorTexture.Get(), nullptr, _editorSRV.GetAddressOf()));
+//	CHECK(DEVICE->CreateShaderResourceView(_editorTexture.Get(), nullptr, _editorSRV.GetAddressOf()));
 //}
 
 // 백버퍼에서 SRV 뽑아오기
@@ -160,7 +160,7 @@ void Device::SetViewport()
 //	}
 //	
 //	ComPtr<ID3D11Texture2D> tempTexture = nullptr;
-//	hr = Device::Instance().GetDevice()->CreateTexture2D(&tempDesc, nullptr, tempTexture.GetAddressOf());
+//	hr = DEVICE->CreateTexture2D(&tempDesc, nullptr, tempTexture.GetAddressOf());
 //	CHECK(hr);
 //
 //	CONTEXT->CopyResource(tempTexture.Get(), backBuffer.Get());
@@ -198,7 +198,7 @@ void Device::SetViewport()
 //	}
 //	
 //	ComPtr<ID3D11Texture2D> pTexture = nullptr;
-//	hr = Device::Instance().GetDevice()->CreateTexture2D(&textureDesc, &initData, pTexture.GetAddressOf());
+//	hr = DEVICE->CreateTexture2D(&textureDesc, &initData, pTexture.GetAddressOf());
 //	CHECK(hr);
 //
 //	D3D11_SHADER_RESOURCE_VIEW_DESC desc;
@@ -209,7 +209,7 @@ void Device::SetViewport()
 //		desc.Texture2D.MipLevels = 1;
 //	}
 //
-//	hr = Device::Instance().GetDevice()->CreateShaderResourceView(pTexture.Get(), nullptr, _backBufferSRV.GetAddressOf());
+//	hr = DEVICE->CreateShaderResourceView(pTexture.Get(), nullptr, _backBufferSRV.GetAddressOf());
 //	CHECK(hr);
 //
 //	backBuffer->Release();

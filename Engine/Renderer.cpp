@@ -11,6 +11,7 @@
 
 void Renderer::Awake()
 {
+	// 상수 버퍼 생성
 	D3D11_BUFFER_DESC desc;
 	ZeroMemory(&desc, sizeof(desc));
 	{
@@ -20,13 +21,14 @@ void Renderer::Awake()
 	}
 	{
 		desc.ByteWidth = sizeof(CB_PerFrame);
-		Device::Instance().GetDevice()->CreateBuffer(&desc, nullptr, &_cbPerFrame);
+		DEVICE->CreateBuffer(&desc, nullptr, &_cbPerFrame);
 	}
 	{
 		desc.ByteWidth = sizeof(CB_PerObject);
-		Device::Instance().GetDevice()->CreateBuffer(&desc, nullptr, &_cbPerObject);
+		DEVICE->CreateBuffer(&desc, nullptr, &_cbPerObject);
 	}
 
+	// 와이어 프레임 레스터라이저 생성
 	D3D11_RASTERIZER_DESC rsDesc;
 	ZeroMemory(&desc, sizeof(desc));
 	{
@@ -34,15 +36,26 @@ void Renderer::Awake()
 		rsDesc.CullMode      = D3D11_CULL_NONE;
 		rsDesc.ScissorEnable = false;
 	}
-	Device::Instance().GetDevice()->CreateRasterizerState(&rsDesc, _wireFrameRS.GetAddressOf());
+	DEVICE->CreateRasterizerState(&rsDesc, _wireFrameRS.GetAddressOf());
 
+	// 기본 레스터라이저 생성
 	ZeroMemory(&desc, sizeof(desc));
 	{
 		rsDesc.FillMode      = D3D11_FILL_SOLID;
 		rsDesc.CullMode      = D3D11_CULL_NONE;
 		rsDesc.ScissorEnable = false;
 	}
-	Device::Instance().GetDevice()->CreateRasterizerState(&rsDesc, _defaultRS.GetAddressOf());
+	DEVICE->CreateRasterizerState(&rsDesc, _defaultRS.GetAddressOf());
+
+	// DS스테이트 생성
+	D3D11_DEPTH_STENCIL_DESC dsDesc;
+	ZeroMemory(&dsDesc, sizeof(dsDesc));
+	{
+		dsDesc.DepthEnable    = false;
+		dsDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ZERO;
+		dsDesc.DepthFunc      = D3D11_COMPARISON_ALWAYS;
+	}
+	DEVICE->CreateDepthStencilState(&dsDesc, _dss.GetAddressOf());
 }
 
 void Renderer::Render()
@@ -61,8 +74,8 @@ void Renderer::BindConstantBuffer()
 		perFrameData.viewMatrix = Global::ViewMatrix;
 		perFrameData.projMatrix = Global::ProjMatrix;
 	}
-	Device::Instance().GetContext()->UpdateSubresource(_cbPerFrame.Get(), 0, nullptr, &perFrameData, 0, 0);
-	Device::Instance().GetContext()->VSSetConstantBuffers(0, 1, _cbPerFrame.GetAddressOf());
+	CONTEXT->UpdateSubresource(_cbPerFrame.Get(), 0, nullptr, &perFrameData, 0, 0);
+	CONTEXT->VSSetConstantBuffers(0, 1, _cbPerFrame.GetAddressOf());
 }
 
 void Renderer::RenderGameObject()
@@ -75,8 +88,8 @@ void Renderer::RenderGameObject()
 		{
 			perObjectData.worldMatrix = go->transform->GetWorldMatrix();
 		}
-		Device::Instance().GetContext()->UpdateSubresource(_cbPerObject.Get(), 0, nullptr, &perObjectData, 0, 0);
-		Device::Instance().GetContext()->VSSetConstantBuffers(1, 1, _cbPerObject.GetAddressOf());
+		CONTEXT->UpdateSubresource(_cbPerObject.Get(), 0, nullptr, &perObjectData, 0, 0);
+		CONTEXT->VSSetConstantBuffers(1, 1, _cbPerObject.GetAddressOf());
 
 
 		// 2. 머티리얼 바인딩 ( 셰이더 + 텍스쳐 바인딩 )
@@ -94,25 +107,28 @@ void Renderer::RenderGameObject()
 void Renderer::RenderCollider()
 {
 	// 콜라이더는 와이어 프레임
-	Device::Instance().GetContext()->RSSetState(_wireFrameRS.Get());
+	CONTEXT->RSSetState(_wireFrameRS.Get());
 
 	// 콜라이더는 일반 물체와 그리는 법이 달라서 토폴로지를 따로 설정해줘야 함
-	Device::Instance().GetContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_LINELIST);
+	CONTEXT->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_LINELIST);
+
+	// 콜라이더는 깊이테스트를 하지 않고 맨 위에 그림
+	CONTEXT->OMSetDepthStencilState(_dss.Get(), 0);
 
 	// 오브젝트 당 업데이트 해야 할 요소
 	for (sptr<Component> go : _colliders)
 	{
+		auto collider = go->Owner()->GetComponent<BoxCollider2D>();
 		// 1. 상수버퍼 바인딩
 		CB_PerObject perObjectData;
 		{
-			perObjectData.worldMatrix = go->Owner()->transform->GetWorldMatrix();
+			perObjectData.worldMatrix = collider->GetColliderTransform()->GetWorldMatrix();
 		}
-		Device::Instance().GetContext()->UpdateSubresource(_cbPerObject.Get(), 0, nullptr, &perObjectData, 0, 0);
-		Device::Instance().GetContext()->VSSetConstantBuffers(1, 1, _cbPerObject.GetAddressOf());
+		CONTEXT->UpdateSubresource(_cbPerObject.Get(), 0, nullptr, &perObjectData, 0, 0);
+		CONTEXT->VSSetConstantBuffers(1, 1, _cbPerObject.GetAddressOf());
 
 
 		// 2. 머티리얼 바인딩 ( 셰이더 + 텍스쳐 바인딩 )
-		auto collider = go->Owner()->GetComponent<BoxCollider2D>();
 		auto material = collider->GetMaterial();
 		material->Bind();
 
@@ -128,18 +144,21 @@ void Renderer::RenderCollider()
 		u32 offset = vb->GetOffset();
 		u32 icount = ib->GetIndexCount();
 
-		Device::Instance().GetContext()->IASetVertexBuffers(vb->GetSlot(), 1, vb->GetVertexBuffer().GetAddressOf(), &stride, &offset);
-		Device::Instance().GetContext()->IASetIndexBuffer(ib->GetIndexBuffer().Get(), DXGI_FORMAT_R32_UINT, 0);
+		CONTEXT->IASetVertexBuffers(vb->GetSlot(), 1, vb->GetVertexBuffer().GetAddressOf(), &stride, &offset);
+		CONTEXT->IASetIndexBuffer(ib->GetIndexBuffer().Get(), DXGI_FORMAT_R32_UINT, 0);
 
 		// 드로우콜
-		Device::Instance().GetContext()->DrawIndexed(icount, 0, 0);
+		CONTEXT->DrawIndexed(icount, 0, 0);
 	}
 
 	// 와이어 프레임 해제
-	Device::Instance().GetContext()->RSSetState(_defaultRS.Get());
+	CONTEXT->RSSetState(_defaultRS.Get());
 
 	// 토폴로지 원상복구
-	Device::Instance().GetContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	CONTEXT->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+	// 깊이테스트 원상복구
+	CONTEXT->OMSetDepthStencilState(nullptr, 0);
 }
 
 void Renderer::AddGameObjectToRenderer(sptr<GameObject> gameObject)
