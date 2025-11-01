@@ -127,7 +127,8 @@
     </Lib>
     <PreBuildEvent>
       <Command>xcopy /Y /D "$(SolutionDir)Engine\*.h" "$(SolutionDir)Libraries\Include\Engine\"
-xcopy /Y /D "$(SolutionDir)Engine\*.inl" "$(SolutionDir)Libraries\Include\Engine\"</Command>
+xcopy /Y /D "$(SolutionDir)Engine\*.inl" "$(SolutionDir)Libraries\Include\Engine\"
+xcopy /Y /D "$(SolutionDir)Engine\*.hpp" "$(SolutionDir)Libraries\Include\Engine\"</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -148,6 +149,9 @@ xcopy /Y /D "$(SolutionDir)Engine\*.inl" "$(SolutionDir)Libraries\Include\Engine
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AnimationClip.h" />
+    <ClInclude Include="AnimationController.h" />
+    <ClInclude Include="Animator.h" />
     <ClInclude Include="Asset.h" />
     <ClInclude Include="AssetManager.h" />
     <ClInclude Include="BoxCollider2D.h" />
@@ -166,8 +170,10 @@ xcopy /Y /D "$(SolutionDir)Engine\*.inl" "$(SolutionDir)Libraries\Include\Engine
     <ClInclude Include="Geometry.h" />
     <ClInclude Include="GeometryHelper.h" />
     <ClInclude Include="Global.h" />
+    <ClInclude Include="IJson.h" />
     <ClInclude Include="IScene.h" />
     <ClInclude Include="IndexBuffer.h" />
+    <ClInclude Include="json.hpp" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Object.h" />
@@ -186,6 +192,9 @@ xcopy /Y /D "$(SolutionDir)Engine\*.inl" "$(SolutionDir)Libraries\Include\Engine
     <ClInclude Include="VertexData.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AnimationClip.cpp" />
+    <ClCompile Include="AnimationController.cpp" />
+    <ClCompile Include="Animator.cpp" />
     <ClCompile Include="Asset.cpp" />
     <ClCompile Include="AssetManager.cpp" />
     <ClCompile Include="BoxCollider2D.cpp" />
@@ -203,6 +212,7 @@ xcopy /Y /D "$(SolutionDir)Engine\*.inl" "$(SolutionDir)Libraries\Include\Engine
     <ClCompile Include="Geometry.cpp" />
     <ClCompile Include="GeometryHelper.cpp" />
     <ClCompile Include="Global.cpp" />
+    <ClCompile Include="IJson.cpp" />
     <ClCompile Include="IScene.cpp" />
     <ClCompile Include="IndexBuffer.cpp" />
     <ClCompile Include="Material.cpp" />

@@ -21,6 +21,9 @@
     <ClInclude Include="BackgroundController.h">
       <Filter>03. Script</Filter>
     </ClInclude>
+    <ClInclude Include="PlayerController.h">
+      <Filter>03. Script</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -31,6 +34,9 @@
       <Filter>02. Execute</Filter>
     </ClCompile>
     <ClCompile Include="BackgroundController.cpp">
+      <Filter>03. Script</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerController.cpp">
       <Filter>03. Script</Filter>
     </ClCompile>
   </ItemGroup>

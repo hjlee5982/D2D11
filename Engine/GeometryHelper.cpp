@@ -30,7 +30,7 @@ void GeometryHelper::CreateSquare(sptr<Geometry<VertexTextureData>> geometry)
 
 void GeometryHelper::CreateSquareCollider(sptr<Geometry<VertexTextureData>> geometry)
 {
-	f32 padding = 0.01f;
+	f32 padding = 0.0f;
 
 	List<VertexTextureData> vtx;
 	{

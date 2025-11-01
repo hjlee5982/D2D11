@@ -3,16 +3,15 @@
 
 void BackgroundController::Start()
 {
-	Owner()->transform->SetScale(_scale);
-	Owner()->transform->SetPosition(_position);
+	_scale = Owner()->transform->GetScale();
 }
 
 void BackgroundController::Update()
 {
-	Owner()->transform->Translation(Vector3::Right, 10.f);
-}
+	Owner()->transform->Translation(-Vector3::Right, 200.f);
 
-void BackgroundController::OnCollisionEnter(sptr<class BoxCollider2D> collider)
-{
-	sptr<int> t;
+	if (Owner()->transform->GetPosition().x <= -_scale.x)
+	{
+		Owner()->transform->SetPosition(Vector3(_scale.x, 0.f, 0.f));
+	}
 }

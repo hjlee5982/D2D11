@@ -8,30 +8,31 @@
 
 void Client::Initialize()
 {
-	Timer            ::Instance().Awake();
-	Device           ::Instance().Awake();
-	AssetManager     ::Instance().Awake();
-	Renderer         ::Instance().Awake();
+	TIMER   .Awake();
+	DIRECTX .Awake();
+	ASSET   .Awake();
+	RENDERER.Awake();
 
 	Global::ClientOption.scene->InitializeScene();
 
-	GameObjectManager::Instance().Awake();
-	GameObjectManager::Instance().Start();
+	GAMEOBJECT.Awake();
+	GAMEOBJECT.Start();
 }
 
 void Client::Update()
 {
-	Device::Instance().RenderBegin();
+	DIRECTX.RenderBegin();
 	{
 		TIMER.Update();
 
 		COLLISION.Update();
-		GameObjectManager::Instance().Update();
-		GameObjectManager::Instance().LateUpdate();
+
+		GAMEOBJECT.Update();
+		GAMEOBJECT.LateUpdate();
 
 		RENDERER.Render();
 	}
-	Device::Instance().RenderEnd();
+	DIRECTX.RenderEnd();
 }
 
 void Client::Awake()

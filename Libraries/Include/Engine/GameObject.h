@@ -48,7 +48,7 @@ public:
 	void Update();
 	void LateUpdate();
 public:
-	void OnCollisionEnter(sptr<class BoxCollider2D> collider);
+	virtual void OnCollisionEnter(sptr<class BoxCollider2D> collider) override;
 private:
 	Dictionary<std::type_index, sptr<class Component>> _components;
 public:
@@ -62,7 +62,7 @@ static sptr<GameObject> Instantiate(Args&&... args)
 
 	go->transform = go->AddComponent<Transform>(std::forward<Args>(args)...);
 
-	GameObjectManager::Instance().AddGameObject(go);
+	GAMEOBJECT.AddGameObject(go);
 
 	return go;
 }

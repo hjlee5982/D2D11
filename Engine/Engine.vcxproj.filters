@@ -1,14 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <Filter Include="00. Json">
+      <UniqueIdentifier>{e87f30e7-58f0-450b-a376-d32476334bf8}</UniqueIdentifier>
+    </Filter>
     <Filter Include="01. Header">
       <UniqueIdentifier>{5cb15172-0cec-491f-8159-6e28973bc560}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="99. Module">
-      <UniqueIdentifier>{46905baa-3070-43c3-974c-22d104dce545}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="03. Client">
-      <UniqueIdentifier>{ffead1c6-58ab-44da-90dc-63a83d3a32dd}</UniqueIdentifier>
     </Filter>
     <Filter Include="02. DirectX">
       <UniqueIdentifier>{cdf44a36-adb2-4932-a020-776da880ac48}</UniqueIdentifier>
@@ -16,62 +13,77 @@
     <Filter Include="02. DirectX\Buffer">
       <UniqueIdentifier>{4ea7a334-7804-42f6-a4f8-a5c3745c5d40}</UniqueIdentifier>
     </Filter>
-    <Filter Include="04. Asset">
-      <UniqueIdentifier>{088a7dcc-6efc-4751-bc65-b1a7185e772e}</UniqueIdentifier>
+    <Filter Include="04. Client">
+      <UniqueIdentifier>{ffead1c6-58ab-44da-90dc-63a83d3a32dd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="04. Asset\Mesh">
-      <UniqueIdentifier>{a3058ad4-d53a-4f3f-9ef3-145222d049e9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="04. Asset\Texture">
-      <UniqueIdentifier>{069ef677-fa00-44ea-9147-2ebd55755e08}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="04. Asset\Material">
-      <UniqueIdentifier>{a6e13955-c1da-4860-a02f-72805dad9801}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="04. Asset\Shader">
-      <UniqueIdentifier>{8e7566f0-fa72-4be6-bbee-190f3cfea849}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="04. Asset\Shader\HLSL">
-      <UniqueIdentifier>{8dd421e0-e123-4fc8-9247-8659c521f28c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="05. Renderer">
-      <UniqueIdentifier>{f82d1280-7be4-464f-a1c8-171060c3ea94}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="06. Object">
-      <UniqueIdentifier>{d18c4fe6-4e40-4432-857c-7435c1a42152}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="07. Component">
-      <UniqueIdentifier>{384c7032-d462-4bfc-ae3b-615f74e1fd06}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="07. Component\SpriteRenderer">
-      <UniqueIdentifier>{027f5a8d-2fb7-41e4-ae57-b463b11ab812}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="07. Component\Transform">
-      <UniqueIdentifier>{b6dd720a-3f15-4a26-b786-18fb6823854e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="04. Asset\Shader\HLSL\Global">
-      <UniqueIdentifier>{ae94b19c-6501-4172-97ae-68ce37411832}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="04. Asset\Shader\HLSL\Default">
-      <UniqueIdentifier>{edf800ce-8f48-443b-85e3-1cb3736c03c2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="07. Component\Camera">
-      <UniqueIdentifier>{21abb0da-a325-4b11-b4a6-294eb3e0608f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="08. Timer">
+    <Filter Include="05. Timer">
       <UniqueIdentifier>{dbab4074-637c-44c0-a808-744352c2fbec}</UniqueIdentifier>
     </Filter>
-    <Filter Include="09. Scene">
+    <Filter Include="06. Renderer">
+      <UniqueIdentifier>{f82d1280-7be4-464f-a1c8-171060c3ea94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="07. Scene">
       <UniqueIdentifier>{8356201b-eade-4530-be7a-eef3f9f18e97}</UniqueIdentifier>
     </Filter>
-    <Filter Include="07. Component\Collider">
+    <Filter Include="08. Asset">
+      <UniqueIdentifier>{088a7dcc-6efc-4751-bc65-b1a7185e772e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08. Asset\Mesh">
+      <UniqueIdentifier>{a3058ad4-d53a-4f3f-9ef3-145222d049e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08. Asset\Texture">
+      <UniqueIdentifier>{069ef677-fa00-44ea-9147-2ebd55755e08}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08. Asset\Material">
+      <UniqueIdentifier>{a6e13955-c1da-4860-a02f-72805dad9801}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08. Asset\Shader">
+      <UniqueIdentifier>{8e7566f0-fa72-4be6-bbee-190f3cfea849}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08. Asset\Shader\HLSL">
+      <UniqueIdentifier>{8dd421e0-e123-4fc8-9247-8659c521f28c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08. Asset\Shader\HLSL\Global">
+      <UniqueIdentifier>{ae94b19c-6501-4172-97ae-68ce37411832}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08. Asset\Shader\HLSL\Default">
+      <UniqueIdentifier>{edf800ce-8f48-443b-85e3-1cb3736c03c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08. Asset\Shader\HLSL\Collider">
+      <UniqueIdentifier>{49a5682f-1362-44a2-84ba-29fae9b42081}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="09. Object">
+      <UniqueIdentifier>{d18c4fe6-4e40-4432-857c-7435c1a42152}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="10. Component">
+      <UniqueIdentifier>{384c7032-d462-4bfc-ae3b-615f74e1fd06}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="10. Component\SpriteRenderer">
+      <UniqueIdentifier>{027f5a8d-2fb7-41e4-ae57-b463b11ab812}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="10. Component\Transform">
+      <UniqueIdentifier>{b6dd720a-3f15-4a26-b786-18fb6823854e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="10. Component\Camera">
+      <UniqueIdentifier>{21abb0da-a325-4b11-b4a6-294eb3e0608f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="10. Component\Collider">
       <UniqueIdentifier>{ffeb6768-fe2d-4c49-9862-c6a1cd74cd62}</UniqueIdentifier>
     </Filter>
-    <Filter Include="07. Component\Collider\BoxCollider2D">
+    <Filter Include="10. Component\Collider\BoxCollider2D">
       <UniqueIdentifier>{fac9a52e-3695-468e-9db7-86bf3aef8f01}</UniqueIdentifier>
     </Filter>
-    <Filter Include="04. Asset\Shader\HLSL\Collider">
-      <UniqueIdentifier>{49a5682f-1362-44a2-84ba-29fae9b42081}</UniqueIdentifier>
+    <Filter Include="10. Component\Animation">
+      <UniqueIdentifier>{3552fc6c-5fdc-4d9e-a05f-35e9e0ad6317}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="99. Module">
+      <UniqueIdentifier>{46905baa-3070-43c3-974c-22d104dce545}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="99. Module\SimpleMath">
+      <UniqueIdentifier>{132738a9-8f6f-4dec-8eb0-69db9068c760}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="99. Module\nlohmann/json">
+      <UniqueIdentifier>{3a21e05d-a185-4ac5-bb6c-38f5ab9af386}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -84,11 +96,8 @@
     <ClInclude Include="Using.h">
       <Filter>01. Header</Filter>
     </ClInclude>
-    <ClInclude Include="SimpleMath.h">
-      <Filter>99. Module</Filter>
-    </ClInclude>
     <ClInclude Include="Client.h">
-      <Filter>03. Client</Filter>
+      <Filter>04. Client</Filter>
     </ClInclude>
     <ClInclude Include="Device.h">
       <Filter>02. DirectX</Filter>
@@ -97,7 +106,7 @@
       <Filter>01. Header</Filter>
     </ClInclude>
     <ClInclude Include="Object.h">
-      <Filter>06. Object</Filter>
+      <Filter>09. Object</Filter>
     </ClInclude>
     <ClInclude Include="VertexData.h">
       <Filter>02. DirectX\Buffer</Filter>
@@ -118,75 +127,90 @@
       <Filter>02. DirectX\Buffer</Filter>
     </ClInclude>
     <ClInclude Include="AssetManager.h">
-      <Filter>04. Asset</Filter>
+      <Filter>08. Asset</Filter>
     </ClInclude>
     <ClInclude Include="Singleton.h">
       <Filter>01. Header</Filter>
     </ClInclude>
     <ClInclude Include="Asset.h">
-      <Filter>04. Asset</Filter>
+      <Filter>08. Asset</Filter>
     </ClInclude>
     <ClInclude Include="Mesh.h">
-      <Filter>04. Asset\Mesh</Filter>
+      <Filter>08. Asset\Mesh</Filter>
     </ClInclude>
     <ClInclude Include="Texture.h">
-      <Filter>04. Asset\Texture</Filter>
+      <Filter>08. Asset\Texture</Filter>
     </ClInclude>
     <ClInclude Include="Material.h">
-      <Filter>04. Asset\Material</Filter>
+      <Filter>08. Asset\Material</Filter>
     </ClInclude>
     <ClInclude Include="Shader.h">
-      <Filter>04. Asset\Shader</Filter>
+      <Filter>08. Asset\Shader</Filter>
     </ClInclude>
     <ClInclude Include="Renderer.h">
-      <Filter>05. Renderer</Filter>
+      <Filter>06. Renderer</Filter>
     </ClInclude>
     <ClInclude Include="Component.h">
-      <Filter>07. Component</Filter>
+      <Filter>10. Component</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.h">
-      <Filter>06. Object</Filter>
+      <Filter>09. Object</Filter>
     </ClInclude>
     <ClInclude Include="SpriteRenderer.h">
-      <Filter>07. Component\SpriteRenderer</Filter>
+      <Filter>10. Component\SpriteRenderer</Filter>
     </ClInclude>
     <ClInclude Include="Transform.h">
-      <Filter>07. Component\Transform</Filter>
+      <Filter>10. Component\Transform</Filter>
     </ClInclude>
     <ClInclude Include="ConstantBufferDesc.h">
       <Filter>02. DirectX\Buffer</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
-      <Filter>07. Component\Camera</Filter>
+      <Filter>10. Component\Camera</Filter>
     </ClInclude>
     <ClInclude Include="Timer.h">
-      <Filter>08. Timer</Filter>
+      <Filter>05. Timer</Filter>
     </ClInclude>
     <ClInclude Include="GameObjectManager.h">
-      <Filter>06. Object</Filter>
+      <Filter>09. Object</Filter>
     </ClInclude>
     <ClInclude Include="IScene.h">
-      <Filter>09. Scene</Filter>
+      <Filter>07. Scene</Filter>
     </ClInclude>
     <ClInclude Include="Global.h">
       <Filter>01. Header</Filter>
     </ClInclude>
     <ClInclude Include="BoxCollider2D.h">
-      <Filter>07. Component\Collider\BoxCollider2D</Filter>
+      <Filter>10. Component\Collider\BoxCollider2D</Filter>
     </ClInclude>
     <ClInclude Include="CollisionManager.h">
-      <Filter>07. Component\Collider</Filter>
+      <Filter>10. Component\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationClip.h">
+      <Filter>10. Component\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Animator.h">
+      <Filter>10. Component\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationController.h">
+      <Filter>10. Component\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="SimpleMath.h">
+      <Filter>99. Module\SimpleMath</Filter>
+    </ClInclude>
+    <ClInclude Include="json.hpp">
+      <Filter>99. Module\nlohmann/json</Filter>
+    </ClInclude>
+    <ClInclude Include="IJson.h">
+      <Filter>00. Json</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
       <Filter>01. Header</Filter>
     </ClCompile>
-    <ClCompile Include="SimpleMath.cpp">
-      <Filter>99. Module</Filter>
-    </ClCompile>
     <ClCompile Include="Client.cpp">
-      <Filter>03. Client</Filter>
+      <Filter>04. Client</Filter>
     </ClCompile>
     <ClCompile Include="Device.cpp">
       <Filter>02. DirectX</Filter>
@@ -195,7 +219,7 @@
       <Filter>01. Header</Filter>
     </ClCompile>
     <ClCompile Include="Object.cpp">
-      <Filter>06. Object</Filter>
+      <Filter>09. Object</Filter>
     </ClCompile>
     <ClCompile Include="ConstantBuffer.cpp">
       <Filter>02. DirectX\Buffer</Filter>
@@ -216,86 +240,101 @@
       <Filter>02. DirectX\Buffer</Filter>
     </ClCompile>
     <ClCompile Include="AssetManager.cpp">
-      <Filter>04. Asset</Filter>
+      <Filter>08. Asset</Filter>
     </ClCompile>
     <ClCompile Include="Asset.cpp">
-      <Filter>04. Asset</Filter>
+      <Filter>08. Asset</Filter>
     </ClCompile>
     <ClCompile Include="Mesh.cpp">
-      <Filter>04. Asset\Mesh</Filter>
+      <Filter>08. Asset\Mesh</Filter>
     </ClCompile>
     <ClCompile Include="Texture.cpp">
-      <Filter>04. Asset\Texture</Filter>
+      <Filter>08. Asset\Texture</Filter>
     </ClCompile>
     <ClCompile Include="Material.cpp">
-      <Filter>04. Asset\Material</Filter>
+      <Filter>08. Asset\Material</Filter>
     </ClCompile>
     <ClCompile Include="Shader.cpp">
-      <Filter>04. Asset\Shader</Filter>
+      <Filter>08. Asset\Shader</Filter>
     </ClCompile>
     <ClCompile Include="Renderer.cpp">
-      <Filter>05. Renderer</Filter>
+      <Filter>06. Renderer</Filter>
     </ClCompile>
     <ClCompile Include="Component.cpp">
-      <Filter>07. Component</Filter>
+      <Filter>10. Component</Filter>
     </ClCompile>
     <ClCompile Include="GameObject.cpp">
-      <Filter>06. Object</Filter>
+      <Filter>09. Object</Filter>
     </ClCompile>
     <ClCompile Include="SpriteRenderer.cpp">
-      <Filter>07. Component\SpriteRenderer</Filter>
+      <Filter>10. Component\SpriteRenderer</Filter>
     </ClCompile>
     <ClCompile Include="Transform.cpp">
-      <Filter>07. Component\Transform</Filter>
+      <Filter>10. Component\Transform</Filter>
     </ClCompile>
     <ClCompile Include="ConstantBufferDesc.cpp">
       <Filter>02. DirectX\Buffer</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
-      <Filter>07. Component\Camera</Filter>
+      <Filter>10. Component\Camera</Filter>
     </ClCompile>
     <ClCompile Include="Timer.cpp">
-      <Filter>08. Timer</Filter>
+      <Filter>05. Timer</Filter>
     </ClCompile>
     <ClCompile Include="GameObjectManager.cpp">
-      <Filter>06. Object</Filter>
+      <Filter>09. Object</Filter>
     </ClCompile>
     <ClCompile Include="IScene.cpp">
-      <Filter>09. Scene</Filter>
+      <Filter>07. Scene</Filter>
     </ClCompile>
     <ClCompile Include="Global.cpp">
       <Filter>01. Header</Filter>
     </ClCompile>
     <ClCompile Include="BoxCollider2D.cpp">
-      <Filter>07. Component\Collider\BoxCollider2D</Filter>
+      <Filter>10. Component\Collider\BoxCollider2D</Filter>
     </ClCompile>
     <ClCompile Include="CollisionManager.cpp">
-      <Filter>07. Component\Collider</Filter>
+      <Filter>10. Component\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimationClip.cpp">
+      <Filter>10. Component\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Animator.cpp">
+      <Filter>10. Component\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimationController.cpp">
+      <Filter>10. Component\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="SimpleMath.cpp">
+      <Filter>99. Module\SimpleMath</Filter>
+    </ClCompile>
+    <ClCompile Include="IJson.cpp">
+      <Filter>00. Json</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="SimpleMath.inl">
-      <Filter>99. Module</Filter>
-    </None>
     <None Include="..\Assets\Shader\CBuffer.hlsli">
-      <Filter>04. Asset\Shader\HLSL\Global</Filter>
+      <Filter>08. Asset\Shader\HLSL\Global</Filter>
     </None>
     <None Include="..\Assets\Shader\struct.hlsli">
-      <Filter>04. Asset\Shader\HLSL\Global</Filter>
+      <Filter>08. Asset\Shader\HLSL\Global</Filter>
+    </None>
+    <None Include="SimpleMath.inl">
+      <Filter>99. Module\SimpleMath</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="..\Assets\Shader\DefaultVS.hlsl">
-      <Filter>04. Asset\Shader\HLSL\Default</Filter>
+      <Filter>08. Asset\Shader\HLSL\Default</Filter>
     </FxCompile>
     <FxCompile Include="..\Assets\Shader\DefaultPS.hlsl">
-      <Filter>04. Asset\Shader\HLSL\Default</Filter>
+      <Filter>08. Asset\Shader\HLSL\Default</Filter>
     </FxCompile>
     <FxCompile Include="..\Assets\Shader\ColliderPS.hlsl">
-      <Filter>04. Asset\Shader\HLSL\Collider</Filter>
+      <Filter>08. Asset\Shader\HLSL\Collider</Filter>
     </FxCompile>
     <FxCompile Include="..\Assets\Shader\ColliderVS.hlsl">
-      <Filter>04. Asset\Shader\HLSL\Collider</Filter>
+      <Filter>08. Asset\Shader\HLSL\Collider</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>

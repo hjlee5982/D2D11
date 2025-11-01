@@ -41,4 +41,5 @@ void BoxCollider2D::Update()
 
 void BoxCollider2D::OnCollisionEnter(sptr<BoxCollider2D> collider)
 {
+	
 }

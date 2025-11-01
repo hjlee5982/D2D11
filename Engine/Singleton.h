@@ -19,11 +19,12 @@ public:
 	}
 };
 
+#define DIRECTX Device::Instance()
 #define DEVICE  Device::Instance().GetDevice()
 #define CONTEXT Device::Instance().GetContext()
 
 #define CLIENT     Client::Instance()
-#define GAMEOBJECT GameObjectManager::Instace()
+#define GAMEOBJECT GameObjectManager::Instance()
 #define ASSET      AssetManager::Instance()
 #define RENDERER   Renderer::Instance()
 #define COLLISION  CollisionManager::Instance()

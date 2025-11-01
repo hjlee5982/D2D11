@@ -11,8 +11,6 @@ public:
 	virtual void Start()     {}
 	virtual void Update()    {}
 	virtual void LateUpdate(){}
-public:
-	virtual void OnCollisionEnter(sptr<class BoxCollider2D> collider) {}
 protected:
 	template<typename T>
 	sptr<T> GetComponent()

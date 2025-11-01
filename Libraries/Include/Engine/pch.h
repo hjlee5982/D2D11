@@ -19,6 +19,7 @@
 #include <typeindex>
 #include <array>
 #include <chrono>
+#include <fstream>
 
 
 /* DirectX11 헤더 */
@@ -51,12 +52,16 @@ using namespace Microsoft::WRL;
 #pragma comment(lib, "FX11/Effects11.lib")
 #endif
 
+/* 외부 라이브러리 */
+#include "json.hpp"
+
 /* Define */
 #include "Define.h"
 #include "Using.h"
 #include "Singleton.h"
 
 /* 사용자 */
+#include "IJson.h"
 #include "Client.h"
 #include "Device.h"
 #include "Exception.h"
@@ -79,3 +84,8 @@ using namespace Microsoft::WRL;
 #include "Global.h"
 
 #include "BoxCollider2D.h"
+
+#include "AnimationClip.h"
+#include "Animator.h"
+#include "AnimationController.h"
+
