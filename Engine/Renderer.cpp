@@ -60,6 +60,9 @@ void Renderer::Awake()
 
 void Renderer::Render()
 {
+	// 2D게임은 깊이테스트를 꺼야 추가 한 순서대로 그려짐
+	CONTEXT->OMSetDepthStencilState(_dss.Get(), 0);
+
 	BindConstantBuffer();
 	RenderGameObject();
 	RenderCollider();
@@ -80,27 +83,38 @@ void Renderer::BindConstantBuffer()
 
 void Renderer::RenderGameObject()
 {
-	// 오브젝트 당 업데이트 해야 할 요소
-	for(sptr<GameObject> go : _gameObjects)
+	SortedDictionary<int, List<sptr<GameObject>>> orderInLayer;
+
+	for (auto& go : _gameObjects)
 	{
-		// 1. 상수버퍼 바인딩
-		CB_PerObject perObjectData;
+		auto renderer = go->GetComponent<SpriteRenderer>();
+
+		orderInLayer[renderer->OrderInLayer].push_back(go);
+	}
+
+	for (auto& kvp : orderInLayer)
+	{
+		for (auto& go : kvp.second)
 		{
-			perObjectData.worldMatrix = go->transform->GetWorldMatrix();
+			// 1. 상수버퍼 바인딩
+			CB_PerObject perObjectData;
+			{
+				perObjectData.worldMatrix = go->transform->GetWorldMatrix();
+			}
+			CONTEXT->UpdateSubresource(_cbPerObject.Get(), 0, nullptr, &perObjectData, 0, 0);
+			CONTEXT->VSSetConstantBuffers(1, 1, _cbPerObject.GetAddressOf());
+
+
+			// 2. 머티리얼 바인딩 ( 셰이더 + 텍스쳐 바인딩 )
+			auto spriteRenderer = go->GetComponent<SpriteRenderer>();
+			auto material = spriteRenderer->GetMaterial();
+			material->Bind();
+
+
+			// 3. 매시 바인딩 ( 버텍스 + 인덱스 버퍼 바인딩 ) + 드로우 콜
+			auto mesh = spriteRenderer->GetMesh();
+			mesh->Bind();
 		}
-		CONTEXT->UpdateSubresource(_cbPerObject.Get(), 0, nullptr, &perObjectData, 0, 0);
-		CONTEXT->VSSetConstantBuffers(1, 1, _cbPerObject.GetAddressOf());
-
-
-		// 2. 머티리얼 바인딩 ( 셰이더 + 텍스쳐 바인딩 )
-		auto spriteRenderer = go->GetComponent<SpriteRenderer>();
-		auto material       = spriteRenderer->GetMaterial();
-		material->Bind();
-
-
-		// 3. 매시 바인딩 ( 버텍스 + 인덱스 버퍼 바인딩 ) + 드로우 콜
-		auto mesh = spriteRenderer->GetMesh();
-		mesh->Bind();
 	}
 }
 
@@ -112,11 +126,8 @@ void Renderer::RenderCollider()
 	// 콜라이더는 일반 물체와 그리는 법이 달라서 토폴로지를 따로 설정해줘야 함
 	CONTEXT->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_LINELIST);
 
-	// 콜라이더는 깊이테스트를 하지 않고 맨 위에 그림
-	CONTEXT->OMSetDepthStencilState(_dss.Get(), 0);
-
 	// 오브젝트 당 업데이트 해야 할 요소
-	for (sptr<Component> go : _colliders)
+	for (sptr<Component>& go : _colliders)
 	{
 		auto collider = go->Owner()->GetComponent<BoxCollider2D>();
 		// 1. 상수버퍼 바인딩
@@ -156,9 +167,6 @@ void Renderer::RenderCollider()
 
 	// 토폴로지 원상복구
 	CONTEXT->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-
-	// 깊이테스트 원상복구
-	CONTEXT->OMSetDepthStencilState(nullptr, 0);
 }
 
 void Renderer::AddGameObjectToRenderer(sptr<GameObject> gameObject)

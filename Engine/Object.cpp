@@ -3,5 +3,5 @@
 
 const string& Object::GetName()
 {
-	return _name;
+	return name;
 }

@@ -43,12 +43,12 @@ using wptr = std::weak_ptr<T>;
 
 template<typename T>
 using List = std::vector<T>;
-template<typename T>
-using SortedSet = std::set<T>;
+template<typename T, typename Compare = std::less<Key>>
+using SortedSet = std::set<T, Compare>;
 template<typename T>
 using HashSet = std::unordered_set<T>;
-template<typename Key, typename Value>
-using SortedDictionary = std::map<Key, Value>;
+template<typename Key, typename Value, typename Compare = std::less<Key>>
+using SortedDictionary = std::map<Key, Value, Compare>;
 template<typename Key, typename Value>
 using Dictionary = std::unordered_map<Key, Value>;
 

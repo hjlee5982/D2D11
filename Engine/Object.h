@@ -8,7 +8,7 @@ public:
 	virtual void OnCollisionEnter(sptr<class BoxCollider2D> collider) {};
 public:
 	const string& GetName();
-protected:
-	string _name;
+public:
+	string name;
 };
 

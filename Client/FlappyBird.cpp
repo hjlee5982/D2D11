@@ -4,33 +4,53 @@
 #include "Camera.h"
 #include "BackgroundController.h"
 #include "PlayerController.h"
+#include "SpriteRenderer.h"
 
 void FlappyBird::InitializeScene()
 {
 	// 배경화면
 	auto bg1 = Instantiate();
 	{
-		bg1->AddComponent<SpriteRenderer>();
-		bg1->AddComponent<BackgroundController>();
-
-		bg1->transform->SetScale(Vector3(1420.f, 800.f, 1.f));
-		bg1->transform->SetPosition(Vector3(-710.f, 0.f, 0.f));
+		auto tf = bg1->AddComponent<Transform>();
+		{
+			tf->SetScale(Vector3(1420.f, 800.f, 0.f));
+			tf->SetPosition(Vector3(-710.f, 0.f, 0.f));
+		}
+		auto sr = bg1->AddComponent<SpriteRenderer>();
+		{
+			sr->OrderInLayer = 0;
+		}
+		auto bc = bg1->AddComponent<BackgroundController>();
 	}
 	auto bg2 = Instantiate();
 	{
-		bg2->AddComponent<SpriteRenderer>();
+		auto tf = bg2->AddComponent<Transform>();
+		{
+			tf->SetScale(Vector3(1420.f, 800.f, 0.f));
+			tf->SetPosition(Vector3(710.f, 0.f, 0.f));
+		}
+		auto sr = bg2->AddComponent<SpriteRenderer>();
+		{
+			sr->OrderInLayer = 0;
+		}
 		bg2->AddComponent<BackgroundController>();
-
-		bg2->transform->SetScale(Vector3(1420.f, 800.f, 1.f));
-		bg2->transform->SetPosition(Vector3(710.f, 0.f, 0.f));
 	}
 	// 플레이어
-	/*auto player = Instantiate();
+	auto player = Instantiate();
 	{
-		player->AddComponent<SpriteRenderer>();
+		auto tf = player->AddComponent<Transform>();
+		{
+			tf->SetScale(Vector3(100.f, 100.f, 0.f));
+			tf->SetPosition(Vector3(50.f, 50.f, 0.f));
+		}
+		auto sr = player->AddComponent<SpriteRenderer>();
+		{
+			sr->OrderInLayer = 10;
+		}
 		player->AddComponent<BoxCollider2D>();
 		player->AddComponent<PlayerController>();
-	}*/
+	}
+	
 
 	IngredientInfo info;
 	{

@@ -25,7 +25,7 @@ public:
 			return component;
 		}
 
-		return nullptr;
+		return GetComponent<T>();
 	}
 public:
 	template<typename T, typename ...Args>
