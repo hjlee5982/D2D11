@@ -30,7 +30,6 @@ void Transform::UpdateLocalMatrix()
 void Transform::SetLocalMatrix(const Matrix& localMatrix)
 {
 	_localMatrix = localMatrix;
-	UpdateLocalMatrix();
 }
 
 void Transform::SetLocalPosition(const Vector3& localPosition)

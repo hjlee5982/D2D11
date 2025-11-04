@@ -12,7 +12,8 @@ struct AABB
 class BoxCollider2D : public Component, public std::enable_shared_from_this<BoxCollider2D>
 {
 public:
-	virtual void Awake()  override;
+	virtual void Init()  override;
+public:
 	virtual void Start()  override;
 	virtual void Update() override;
 public:
@@ -21,6 +22,9 @@ public:
 	sptr<Transform> GetColliderTransform() { return _colliderTransform; }
 public:
 	AABB GetAABB() { return _aabb; }
+public:
+	void SetPosition(Vector3 position);
+	void SetScale(Vector3 scale);
 private:
 	sptr<Mesh>      _mesh;
 	sptr<Material>  _material;

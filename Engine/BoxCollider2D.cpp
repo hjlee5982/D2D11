@@ -6,7 +6,7 @@
 #include "Material.h"
 #include "CollisionManager.h"
 
-void BoxCollider2D::Awake()
+void BoxCollider2D::Init()
 {
 	_mesh     = ASSET.Get<Mesh>(L"Mesh_BoxCollider2D");
 	_material = ASSET.Get<Material>(L"Material_Collider");
@@ -26,10 +26,6 @@ void BoxCollider2D::Start()
 	_min.y = localPosition.y - localScale.y / 2;
 	_max.x = localPosition.x + localScale.x / 2;
 	_max.y = localPosition.y + localScale.y / 2;
-
-	localScale = Vector3::One / 2.f;
-
-	_colliderTransform->SetLocalScale(localScale);
 }
 
 void BoxCollider2D::Update()
@@ -41,4 +37,14 @@ void BoxCollider2D::Update()
 	// AABB °»½Å
 	_aabb.min = XMVector3TransformCoord(_min, Owner()->transform->GetWorldMatrix());
 	_aabb.max = XMVector3TransformCoord(_max, Owner()->transform->GetWorldMatrix());
+}
+
+void BoxCollider2D::SetPosition(Vector3 position)
+{
+	_colliderTransform->SetLocalPosition(position);
+}
+
+void BoxCollider2D::SetScale(Vector3 scale)
+{
+	_colliderTransform->SetLocalScale(scale);
 }

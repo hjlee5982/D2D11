@@ -48,14 +48,18 @@ void FlappyBird::InitializeScene()
 		auto tf = player->AddComponent<Transform>();
 		{
 			tf->SetScale(Vector3(200.f, 200.f, 0.f));
-			tf->SetPosition(Vector3(50.f, 50.f, 0.f));
+			tf->SetPosition(Vector3(-150.f, 100.f, 0.f));
 		}
 		auto sr = player->AddComponent<SpriteRenderer>();
 		{
 			sr->SetTexture(ASSET.Get<Texture>(L"Texture_Player_1"));
 			sr->OrderInLayer = 10;
 		}
-		player->AddComponent<BoxCollider2D>();
+		auto bc = player->AddComponent<BoxCollider2D>();
+		{
+			bc->SetScale(Vector3(0.35f, 0.35f, 0.35f));
+			bc->SetPosition(Vector3(0.02f, 0.f, 0.f));
+		}
 		player->AddComponent<PlayerController>();
 	}
 }

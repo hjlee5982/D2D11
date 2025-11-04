@@ -7,6 +7,8 @@ class GameObject : public Object, public std::enable_shared_from_this<GameObject
 public:
 	virtual ~GameObject() = default;
 public:
+	virtual void OnCollisionEnter(sptr<class BoxCollider2D> collider) override;
+public:
 	template<typename T, typename ...Args>
 	sptr<T> AddComponent(Args&& ... args)
 	{
@@ -51,8 +53,6 @@ public:
 	void Start();
 	void Update();
 	void LateUpdate();
-public:
-	virtual void OnCollisionEnter(sptr<class BoxCollider2D> collider) override;
 private:
 	Dictionary<std::type_index, sptr<class Component>> _components;
 public:
