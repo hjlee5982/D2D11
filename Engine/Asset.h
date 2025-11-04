@@ -7,6 +7,8 @@ enum class EAssetType : i8
 	Texture,
 	Material,
 	Shader,
+	AnimationClip,
+	Sprite,
 
 	End
 };
@@ -21,8 +23,10 @@ class Asset abstract
 public:
 	Asset(EAssetType type) : _assetType(type) {}
 public:
-	virtual void Load(const wstring& path) = 0;
-	virtual void Save(const wstring& path) = 0;
+	virtual void Load(const wstring& path) {};
+	virtual void Save(const wstring& path) {};
+public:
+	virtual sptr<Asset> Clone() { return nullptr; };
 public:
 	EAssetType GetAssetType();
 protected:

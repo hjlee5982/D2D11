@@ -19,7 +19,7 @@ public:
 	sptr<T> Load(const wstring& key, const wstring& path);
 
 	template<typename T>
-	sptr<T> Get(const wstring& key);
+	sptr<T> Get(const wstring& key, bool clone = false);
 
 	template<typename T>
 	EAssetType GetAssetType();
@@ -67,7 +67,7 @@ inline sptr<T> AssetManager::Load(const wstring& key, const wstring& path)
 }
 
 template<typename T>
-inline sptr<T> AssetManager::Get(const wstring& key)
+inline sptr<T> AssetManager::Get(const wstring& key, bool clone)
 {
 	EAssetType assetType = GetAssetType<T>();
 	KeyAssetPair& kap = _resources[static_cast<int>(assetType)];
@@ -76,7 +76,16 @@ inline sptr<T> AssetManager::Get(const wstring& key)
 
 	if (it != kap.end())
 	{
-		return std::static_pointer_cast<T>(it->second);
+		if (clone == true)
+		{
+			auto cmp = (it->second)->Clone();
+
+			return std::static_pointer_cast<T>(cmp);
+		}
+		else
+		{
+			return std::static_pointer_cast<T>(it->second);
+		}
 	}
 
 	return nullptr;

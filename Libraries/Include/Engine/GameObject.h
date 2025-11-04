@@ -20,6 +20,10 @@ public:
 
 			component->SetOwner(shared_from_this());
 
+			// 컴포넌트 어웨이크 전에 초기화가 필요한 경우
+			// ex) 기본 머티리얼이나 기본 매시 생성해줘야 하는 컴포넌트들이 필요
+			component->Init();
+
 			_components.emplace(idx, component);
 
 			return component;

@@ -4,11 +4,12 @@
 #include "Mesh.h"
 #include "Material.h"
 #include "Renderer.h"
+#include "Texture.h"
 
-void SpriteRenderer::Awake()
+void SpriteRenderer::Init()
 {
 	_mesh     = ASSET.Get<Mesh>(L"Mesh_Square");
-	_material = ASSET.Get<Material>(L"Material_Default");
+	_material = ASSET.Get<Material>(L"Material_Default", true);
 
 	RENDERER.AddGameObjectToRenderer(Owner());
 }
@@ -26,6 +27,11 @@ sptr<Material> SpriteRenderer::GetMaterial()
 void SpriteRenderer::SetMesh(sptr<Mesh> mesh)
 {
 	_mesh = mesh;
+}
+
+void SpriteRenderer::SetTexture(sptr<Texture> texture)
+{
+	_material->SetTexture(texture);
 }
 
 void SpriteRenderer::SetMaterial(sptr<Material> material)

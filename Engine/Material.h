@@ -5,12 +5,12 @@ class Material : public Asset
 public:
 	Material() : Asset(EAssetType::Material) {}
 public:
-	virtual void Load(const wstring& path) override {}
-	virtual void Save(const wstring& path) override {}
+	virtual sptr<Asset> Clone() override;
 public:
 	void Bind();
 public:
-	sptr<class Shader>& GetShader();
+	sptr<class Shader> GetShader();
+	sptr<class Texture> GetTexture();
 public:
 	void SetShader(sptr<class Shader> shader);
 	void SetTexture(sptr<class Texture> texture);

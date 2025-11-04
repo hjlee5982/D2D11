@@ -1,6 +1,7 @@
 #pragma once
 
 class Mesh;
+class Texture;
 class Material;
 
 class SpriteRenderer : public Component
@@ -8,12 +9,13 @@ class SpriteRenderer : public Component
 public:
 	virtual ~SpriteRenderer() = default;
 public:
-	virtual void Awake() override;
+	virtual void Init() override;
 public:
 	sptr<Mesh>     GetMesh();
 	sptr<Material> GetMaterial();
 public:
 	void SetMesh(sptr<Mesh> mesh);
+	void SetTexture(sptr<Texture> texture);
 	void SetMaterial(sptr<Material> material);
 private:
 	sptr<Mesh>     _mesh;

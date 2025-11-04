@@ -24,4 +24,6 @@ private:
 	ComPtr<ID3D11RasterizerState> _defaultRS;
 private:
 	ComPtr<ID3D11DepthStencilState> _dss;
+private:
+	ComPtr<ID3D11BlendState> _bs;
 };

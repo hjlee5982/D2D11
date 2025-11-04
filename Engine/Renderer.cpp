@@ -56,13 +56,32 @@ void Renderer::Awake()
 		dsDesc.DepthFunc      = D3D11_COMPARISON_ALWAYS;
 	}
 	DEVICE->CreateDepthStencilState(&dsDesc, _dss.GetAddressOf());
+
+	// 블랜드 스테이트 생성
+	D3D11_BLEND_DESC blendDesc;
+	ZeroMemory(&blendDesc, sizeof(blendDesc));
+	{
+		blendDesc.RenderTarget[0].BlendEnable			= TRUE;
+		blendDesc.RenderTarget[0].SrcBlend				= D3D11_BLEND_SRC_ALPHA;
+		blendDesc.RenderTarget[0].DestBlend				= D3D11_BLEND_INV_SRC_ALPHA;
+		blendDesc.RenderTarget[0].BlendOp				= D3D11_BLEND_OP_ADD;
+		blendDesc.RenderTarget[0].SrcBlendAlpha			= D3D11_BLEND_ONE;
+		blendDesc.RenderTarget[0].DestBlendAlpha		= D3D11_BLEND_ZERO;
+		blendDesc.RenderTarget[0].BlendOpAlpha			= D3D11_BLEND_OP_ADD;
+		blendDesc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+	}
+	DEVICE->CreateBlendState(&blendDesc, _bs.GetAddressOf());
+
+
+	// 2D게임은 깊이테스트를 꺼야 추가 한 순서대로 그려짐
+	CONTEXT->OMSetDepthStencilState(_dss.Get(), 0);
+
+	// 2D는 블랜드를 켜줘야 함
+	CONTEXT->OMSetBlendState(_bs.Get(), nullptr, 0xffffffff);
 }
 
 void Renderer::Render()
 {
-	// 2D게임은 깊이테스트를 꺼야 추가 한 순서대로 그려짐
-	CONTEXT->OMSetDepthStencilState(_dss.Get(), 0);
-
 	BindConstantBuffer();
 	RenderGameObject();
 	RenderCollider();

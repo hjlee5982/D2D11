@@ -5,3 +5,8 @@ void Component::SetOwner(sptr<class GameObject> owner)
 {
 	gameObject = owner;
 }
+
+sptr<GameObject> Component::Owner()
+{
+	return gameObject.lock();
+}

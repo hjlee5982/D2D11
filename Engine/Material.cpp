@@ -2,6 +2,17 @@
 #include "Material.h"
 #include "Texture.h"
 #include "Shader.h"
+#include "Sprite.h"
+
+sptr<Asset> Material::Clone()
+{
+	auto material = makeSptr<Material>(*this);
+	{
+		material->SetTexture(makeSptr<Texture>(*_texture));
+	}
+
+	return material;
+}
 
 void Material::Bind()
 {
@@ -13,9 +24,14 @@ void Material::Bind()
 	}
 }
 
-sptr<class Shader>& Material::GetShader()
+sptr<class Shader> Material::GetShader()
 {
 	return _shader;
+}
+
+sptr<class Texture> Material::GetTexture()
+{
+	return _texture;
 }
 
 void Material::SetShader(sptr<class Shader> shader)

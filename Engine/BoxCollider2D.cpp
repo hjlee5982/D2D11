@@ -26,6 +26,10 @@ void BoxCollider2D::Start()
 	_min.y = localPosition.y - localScale.y / 2;
 	_max.x = localPosition.x + localScale.x / 2;
 	_max.y = localPosition.y + localScale.y / 2;
+
+	localScale = Vector3::One / 2.f;
+
+	_colliderTransform->SetLocalScale(localScale);
 }
 
 void BoxCollider2D::Update()
@@ -37,9 +41,4 @@ void BoxCollider2D::Update()
 	// AABB °»½Å
 	_aabb.min = XMVector3TransformCoord(_min, Owner()->transform->GetWorldMatrix());
 	_aabb.max = XMVector3TransformCoord(_max, Owner()->transform->GetWorldMatrix());
-}
-
-void BoxCollider2D::OnCollisionEnter(sptr<BoxCollider2D> collider)
-{
-	
 }

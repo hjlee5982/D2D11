@@ -7,6 +7,7 @@
 
 static wstring shaderPath  = L"../Assets/Shader/";
 static wstring texturePath = L"../Assets/Image/";
+static wstring engineAssetPath = L"../Engine/EngineAssets/";
 
 void AssetManager::Awake()
 {
@@ -48,9 +49,11 @@ void AssetManager::CreateDefaultResource()
 	}
 	// 기본 텍스쳐 생성
 	{
-		sptr<Texture> texture = makeSptr<Texture>();
-		texture->CreateTexture(texturePath + L"BackGround.png");
-		Add(L"Texture_BackGround", texture);
+		{
+			sptr<Texture> texture = makeSptr<Texture>();
+			texture->CreateTexture(engineAssetPath + L"Image/DefaultTexture.png");
+			Add(L"Texture_Default", texture);
+		}
 	}
 	// 기본 머티리얼 생성
 	{
@@ -58,7 +61,7 @@ void AssetManager::CreateDefaultResource()
 		{
 			sptr<Material> material = makeSptr<Material>();
 			{
-				material->SetTexture(Get<Texture>(L"Texture_BackGround"));
+				material->SetTexture(Get<Texture>(L"Texture_Default"));
 				material->SetShader(Get<Shader>(L"Shader_Default"));
 			}
 			Add(L"Material_Default", material);

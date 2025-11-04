@@ -85,6 +85,9 @@
     <Filter Include="99. Module\nlohmann/json">
       <UniqueIdentifier>{3a21e05d-a185-4ac5-bb6c-38f5ab9af386}</UniqueIdentifier>
     </Filter>
+    <Filter Include="08. Asset\Animation">
+      <UniqueIdentifier>{ff937077-abf3-4c1a-8495-d4048f6ed529}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -186,13 +189,7 @@
     <ClInclude Include="CollisionManager.h">
       <Filter>10. Component\Collider</Filter>
     </ClInclude>
-    <ClInclude Include="AnimationClip.h">
-      <Filter>10. Component\Animation</Filter>
-    </ClInclude>
     <ClInclude Include="Animator.h">
-      <Filter>10. Component\Animation</Filter>
-    </ClInclude>
-    <ClInclude Include="AnimationController.h">
       <Filter>10. Component\Animation</Filter>
     </ClInclude>
     <ClInclude Include="SimpleMath.h">
@@ -203,6 +200,12 @@
     </ClInclude>
     <ClInclude Include="IJson.h">
       <Filter>00. Json</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationController.h">
+      <Filter>08. Asset\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationClip.h">
+      <Filter>08. Asset\Animation</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -296,13 +299,7 @@
     <ClCompile Include="CollisionManager.cpp">
       <Filter>10. Component\Collider</Filter>
     </ClCompile>
-    <ClCompile Include="AnimationClip.cpp">
-      <Filter>10. Component\Animation</Filter>
-    </ClCompile>
     <ClCompile Include="Animator.cpp">
-      <Filter>10. Component\Animation</Filter>
-    </ClCompile>
-    <ClCompile Include="AnimationController.cpp">
       <Filter>10. Component\Animation</Filter>
     </ClCompile>
     <ClCompile Include="SimpleMath.cpp">
@@ -310,6 +307,12 @@
     </ClCompile>
     <ClCompile Include="IJson.cpp">
       <Filter>00. Json</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimationController.cpp">
+      <Filter>08. Asset\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimationClip.cpp">
+      <Filter>08. Asset\Animation</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

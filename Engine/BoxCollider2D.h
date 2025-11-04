@@ -16,8 +16,6 @@ public:
 	virtual void Start()  override;
 	virtual void Update() override;
 public:
-	virtual void OnCollisionEnter(sptr<BoxCollider2D> collider) override;
-public:
 	sptr<Mesh>      GetMesh()              { return _mesh;              }
 	sptr<Material>  GetMaterial()          { return _material;          }
 	sptr<Transform> GetColliderTransform() { return _colliderTransform; }

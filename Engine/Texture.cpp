@@ -4,6 +4,7 @@
 void Texture::CreateTexture(const wstring& path)
 {
     TexMetadata md;
+    ScratchImage image;
 
     wchar_t szExt[20] = {};
 
@@ -11,44 +12,20 @@ void Texture::CreateTexture(const wstring& path)
 
     if (!wcscmp(szExt, L".dds") || !wcscmp(szExt, L".DDS"))
     {
-        CHECK(::LoadFromDDSFile(path.c_str(), DDS_FLAGS_NONE, &md, _image));
+        CHECK(::LoadFromDDSFile(path.c_str(), DDS_FLAGS_NONE, &md, image));
     }
     else
     {
-        CHECK(::LoadFromWICFile(path.c_str(), WIC_FLAGS_NONE, &md, _image));
+        CHECK(::LoadFromWICFile(path.c_str(), WIC_FLAGS_NONE, &md, image));
     }
 
-	CHECK(::CreateShaderResourceView(DEVICE.Get(), _image.GetImages(), _image.GetImageCount(), md, _shaderResourceView.GetAddressOf()));
+	CHECK(::CreateShaderResourceView(DEVICE.Get(), image.GetImages(), image.GetImageCount(), md, _srv.GetAddressOf()));
 
-    _imagesize.x = md.width;
-    _imagesize.y = md.height;
-}
-
-ComPtr<ID3D11Texture2D> Texture::GetTexture()
-{
-	ComPtr<ID3D11Texture2D> texture;
-
-	_shaderResourceView->GetResource((ID3D11Resource**)texture.GetAddressOf());
-
-	return texture;
+    _textureSize.x = md.width;
+    _textureSize.y = md.height;
 }
 
 ComPtr<ID3D11ShaderResourceView> Texture::GetSRV()
 {
-	return _shaderResourceView;
-}
-
-Vector2 Texture::GetTextureSize()
-{
-	return _imagesize;
-}
-
-ScratchImage& Texture::GetImage()
-{
-	return _image;
-}
-
-void Texture::SetSRV(ComPtr<ID3D11ShaderResourceView> srv)
-{
-	_shaderResourceView = srv;
+    return _srv;
 }

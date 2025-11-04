@@ -45,5 +45,9 @@ class FlappyBird : public IScene
 {
 public:
 	void InitializeScene() override;
+public:
+	void LoadResources();
+public:
+	void JsonTest();
 };
 
