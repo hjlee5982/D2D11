@@ -88,6 +88,9 @@
     <Filter Include="08. Asset\Animation">
       <UniqueIdentifier>{ff937077-abf3-4c1a-8495-d4048f6ed529}</UniqueIdentifier>
     </Filter>
+    <Filter Include="11. Input">
+      <UniqueIdentifier>{d0e319eb-feaf-464b-9f23-9d61173a5d48}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -207,6 +210,9 @@
     <ClInclude Include="AnimationClip.h">
       <Filter>08. Asset\Animation</Filter>
     </ClInclude>
+    <ClInclude Include="InputSystem.h">
+      <Filter>11. Input</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -313,6 +319,9 @@
     </ClCompile>
     <ClCompile Include="AnimationClip.cpp">
       <Filter>08. Asset\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="InputSystem.cpp">
+      <Filter>11. Input</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

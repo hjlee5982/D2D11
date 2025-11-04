@@ -26,6 +26,5 @@ public:
 	// Component는 GameObject를 소유하면 안됨. 순환참조됨
 	// sptr<GameObject> gameObject;
 	wptr<class GameObject> gameObject;
-	wptr<class Transform> transform;
 };
 

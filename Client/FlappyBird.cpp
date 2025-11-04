@@ -13,6 +13,9 @@ void FlappyBird::InitializeScene()
 	// 리소스 로드
 	LoadResources();
 
+	// 인풋 설정
+	SetInputSystem();
+
 	// 배경화면
 	auto bg1 = Instantiate();
 	{
@@ -62,6 +65,20 @@ void FlappyBird::InitializeScene()
 		}
 		player->AddComponent<PlayerController>();
 	}
+	// 콜리전 테스트
+	auto co = Instantiate();
+	{
+		auto tf = co->AddComponent<Transform>();
+		{
+			tf->SetScale(Vector3(200.f, 200.f, 0.f));
+			tf->SetPosition(Vector3(150.f, 100.f, 0.f));
+		}
+		auto sr = co->AddComponent<SpriteRenderer>();
+		{
+			sr->OrderInLayer = 9;
+		}
+		co->AddComponent<BoxCollider2D>();
+	}
 }
 
 void FlappyBird::LoadResources()
@@ -81,6 +98,16 @@ void FlappyBird::LoadResources()
 			ASSET.Add(L"Texture_Player_" + std::to_wstring(i), texture);
 		}
 	}
+}
+
+void FlappyBird::SetInputSystem()
+{
+	InputMap map;
+	{
+		map.AddAction("MoveLeft",  { 'A', VK_LEFT  });
+		map.AddAction("MoveRight", { 'D', VK_RIGHT });
+	}
+	INPUT.AddMap(map);
 }
 
 void FlappyBird::JsonTest()

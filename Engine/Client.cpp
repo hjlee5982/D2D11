@@ -9,6 +9,7 @@
 void Client::Initialize()
 {
 	TIMER   .Awake();
+	INPUT   .Awake();
 	DIRECTX .Awake();
 	ASSET   .Awake();
 	RENDERER.Awake();
@@ -24,6 +25,7 @@ void Client::Update()
 	DIRECTX.RenderBegin();
 	{
 		TIMER.Update();
+		INPUT.Update();
 
 		COLLISION.Update();
 

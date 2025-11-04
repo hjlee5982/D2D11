@@ -47,6 +47,7 @@ public:
 	void InitializeScene() override;
 public:
 	void LoadResources();
+	void SetInputSystem();
 public:
 	void JsonTest();
 };

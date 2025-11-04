@@ -171,6 +171,7 @@ xcopy /Y /D "$(SolutionDir)Engine\*.hpp" "$(SolutionDir)Libraries\Include\Engine
     <ClInclude Include="GeometryHelper.h" />
     <ClInclude Include="Global.h" />
     <ClInclude Include="IJson.h" />
+    <ClInclude Include="InputSystem.h" />
     <ClInclude Include="IScene.h" />
     <ClInclude Include="IndexBuffer.h" />
     <ClInclude Include="json.hpp" />
@@ -213,6 +214,7 @@ xcopy /Y /D "$(SolutionDir)Engine\*.hpp" "$(SolutionDir)Libraries\Include\Engine
     <ClCompile Include="GeometryHelper.cpp" />
     <ClCompile Include="Global.cpp" />
     <ClCompile Include="IJson.cpp" />
+    <ClCompile Include="InputSystem.cpp" />
     <ClCompile Include="IScene.cpp" />
     <ClCompile Include="IndexBuffer.cpp" />
     <ClCompile Include="Material.cpp" />
