@@ -17,9 +17,5 @@ private:
 	f32 _elapsed = 0.f;
 	i32 _index = 1;
 	sptr<class SpriteRenderer> _sr;
-	void ToggleConsole();
-	void OpenConsole();
-	void CloseConsole();
-	bool _isConsoleOpen = false;
 };
 

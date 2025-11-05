@@ -1,5 +1,6 @@
 #pragma once
 
+#define _CRT_SECURE_NO_WARNINGS
 /* C++ Çì´õ */
 #include <Windows.h>
 #include <assert.h>
@@ -92,3 +93,4 @@ using namespace Microsoft::WRL;
 #include "Animator.h"
 #include "AnimationController.h"
 #include "InputSystem.h"
+#include "Log.h"

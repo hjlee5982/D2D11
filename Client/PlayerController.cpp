@@ -5,58 +5,12 @@
 #include "Texture.h"
 #include <variant>
 
-BOOL WINAPI ConsoleHandler(DWORD signal)
-{
-	if (signal == CTRL_CLOSE_EVENT)
-	{
-		FreeConsole();
-		std::cout.clear();
-		return TRUE;
-	}
-	return FALSE;
-}
-
 void PlayerController::Start()
 {
 	_sr = GetComponent<SpriteRenderer>();
 
 	//INPUT.FindAction("Jump")->performed = [this]() { Jump(); };
 	INPUT.FindAction("Jump")->started = std::bind(&PlayerController::Jump, this);
-	INPUT.FindAction("Console")->started = std::bind(&PlayerController::ToggleConsole, this);
-}
-
-void PlayerController::ToggleConsole()
-{
-	if (_isConsoleOpen == false)
-	{
-		OpenConsole();
-		_isConsoleOpen = true;
-	}
-	else
-	{
-		CloseConsole();
-		_isConsoleOpen = false;
-	}
-}
-
-void PlayerController::OpenConsole()
-{
-	if (AllocConsole())
-	{
-		// 표준 입출력 재연결
-		FILE* fp;
-		freopen_s(&fp, "CONOUT$", "w", stdout);
-		freopen_s(&fp, "CONIN$", "r", stdin);
-		SetConsoleCtrlHandler(ConsoleHandler, TRUE);
-
-		std::cout << "Console opened. Type 'exit' to close.\n";
-	}
-}
-
-void PlayerController::CloseConsole()
-{
-	FreeConsole();
-	std::cout.clear();
 }
 
 void PlayerController::Update()
@@ -80,6 +34,7 @@ void PlayerController::Update()
 
 void PlayerController::OnCollisionEnter(sptr<BoxCollider2D> collider)
 {
+
 }
 
 void PlayerController::Jump()

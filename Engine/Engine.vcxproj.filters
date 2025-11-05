@@ -91,6 +91,9 @@
     <Filter Include="11. Input">
       <UniqueIdentifier>{d0e319eb-feaf-464b-9f23-9d61173a5d48}</UniqueIdentifier>
     </Filter>
+    <Filter Include="99. Module\spdlog">
+      <UniqueIdentifier>{bfadff18-f870-47f6-a2c7-10001deee4c6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -213,6 +216,9 @@
     <ClInclude Include="InputSystem.h">
       <Filter>11. Input</Filter>
     </ClInclude>
+    <ClInclude Include="Log.h">
+      <Filter>99. Module\spdlog</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -322,6 +328,9 @@
     </ClCompile>
     <ClCompile Include="InputSystem.cpp">
       <Filter>11. Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Log.cpp">
+      <Filter>99. Module\spdlog</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -174,6 +174,7 @@ xcopy /Y /D "$(SolutionDir)Engine\*.hpp" "$(SolutionDir)Libraries\Include\Engine
     <ClInclude Include="InputSystem.h" />
     <ClInclude Include="IScene.h" />
     <ClInclude Include="IndexBuffer.h" />
+    <ClInclude Include="Log.h" />
     <ClInclude Include="json.hpp" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="Mesh.h" />
@@ -217,6 +218,7 @@ xcopy /Y /D "$(SolutionDir)Engine\*.hpp" "$(SolutionDir)Libraries\Include\Engine
     <ClCompile Include="InputSystem.cpp" />
     <ClCompile Include="IScene.cpp" />
     <ClCompile Include="IndexBuffer.cpp" />
+    <ClCompile Include="Log.cpp" />
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Object.cpp" />

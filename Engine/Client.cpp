@@ -8,6 +8,7 @@
 
 void Client::Initialize()
 {
+	LOG     .Awake();
 	TIMER   .Awake();
 	INPUT   .Awake();
 	DIRECTX .Awake();

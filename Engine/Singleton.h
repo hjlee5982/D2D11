@@ -23,6 +23,7 @@ public:
 #define DEVICE  Device::Instance().GetDevice()
 #define CONTEXT Device::Instance().GetContext()
 
+#define LOG		   Log				::Instance()
 #define ASSET      AssetManager     ::Instance()
 #define TIMER      Timer            ::Instance()
 #define INPUT      InputSystem      ::Instance()
