@@ -8,25 +8,11 @@ void Timer::Awake()
 
 void Timer::Update()
 {
-	std::chrono::duration<f32> sec = std::chrono::steady_clock::now() - _timePoint;
+    auto now = std::chrono::steady_clock::now();
 
-	_deltaTime = sec.count();
+    std::chrono::duration<float> sec = now - _timePoint;
 
-	if (_deltaTime >= 0.0f)
-	{
-		_totalTime += _deltaTime;
+    _deltaTime = sec.count();
 
-		++_frameCount;
-
-		_elapsed += _deltaTime;
-
-		if (_elapsed >= 1.0f)
-		{
-			_FPS        = _frameCount;
-			_frameCount = 0;
-			_elapsed    = 0.0f;
-		}
-	}
-
-	_timePoint = std::chrono::steady_clock::now();
+    _timePoint = now;
 }

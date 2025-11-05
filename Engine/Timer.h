@@ -11,6 +11,10 @@ public:
 	{
 		return _deltaTime;
 	}
+	const f32 FixedDeltaTime()
+	{
+		return _fixedDeltaTime;
+	}
 	const f32 FPS()
 	{
 		return _FPS;
@@ -20,6 +24,7 @@ private:
 private:
 	f32 _totalTime = 0.0f;
 	f32 _deltaTime = 0.0f;
+	f32 _fixedDeltaTime = 1.f / 60.f;
 	f32 _elapsed   = 0.0f;
 private:
 	u32 _FPS        = 0;

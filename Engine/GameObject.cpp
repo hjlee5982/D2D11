@@ -34,6 +34,14 @@ void GameObject::LateUpdate()
 	}
 }
 
+void GameObject::FixedUpdate()
+{
+	for (auto& com : _components)
+	{
+		com.second->FixedUpdate();
+	}
+}
+
 void GameObject::OnCollisionEnter(sptr<BoxCollider2D> collider)
 {
 	for (auto& com : _components)

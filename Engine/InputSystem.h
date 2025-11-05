@@ -59,7 +59,11 @@ class InputSystem : public Singleton<InputSystem>
 public:
 	virtual void Awake() override
 	{
-
+		InputMap map;
+		{
+			map.AddAction("Console", { 'Q', VK_F1});
+		}
+		INPUT.AddMap(map);
 	}
 public:
 	InputAction* FindAction(const string& name)

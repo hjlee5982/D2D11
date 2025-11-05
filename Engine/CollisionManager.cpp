@@ -6,7 +6,7 @@ void CollisionManager::Awake()
 {
 }
 
-void CollisionManager::Update()
+void CollisionManager::FixedUpate()
 {
 	for (auto& co1 : _colliders)
 	{

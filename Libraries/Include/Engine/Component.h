@@ -9,10 +9,11 @@ public:
 public:
 	virtual void Init() {}
 public:
-	virtual void Awake()     {}
-	virtual void Start()     {}
-	virtual void Update()    {}
-	virtual void LateUpdate(){}
+	virtual void Awake()       {}
+	virtual void Start()       {}
+	virtual void Update()      {}
+	virtual void LateUpdate()  {}
+	virtual void FixedUpdate() {}
 public:
 	template<typename T>
 	sptr<T> GetComponent()

@@ -22,18 +22,26 @@ void Client::Initialize()
 
 void Client::Update()
 {
+	TIMER.Update();
+	INPUT.Update();
+
+
+	GAMEOBJECT.Update();
+	GAMEOBJECT.LateUpdate();
+}
+
+void Client::FixedUpdate()
+{
+	GAMEOBJECT.FixedUpdate();
+	COLLISION.FixedUpate();
+}
+
+void Client::Render()
+{
 	DIRECTX.RenderBegin();
-	{
-		TIMER.Update();
-		INPUT.Update();
 
-		COLLISION.Update();
+	RENDERER.Render();
 
-		GAMEOBJECT.Update();
-		GAMEOBJECT.LateUpdate();
-
-		RENDERER.Render();
-	}
 	DIRECTX.RenderEnd();
 }
 
@@ -91,6 +99,9 @@ WPARAM Client::Run()
 
 	MSG msg = { 0 };
 
+	f64 acc = 0.f;
+	f64 FIXED_DELTA = 1.f / 60.f;
+
 	while (msg.message != WM_QUIT)
 	{
 		if (::PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
@@ -99,7 +110,17 @@ WPARAM Client::Run()
 			::DispatchMessage(&msg);
 		}
 
+		acc += TIMER.DeltaTime();
+
+		while (acc >= FIXED_DELTA)
+		{
+			FixedUpdate();
+			acc = 0.f;
+		}
+
 		Update();
+
+		Render();
 	}
 
 	return msg.wParam;

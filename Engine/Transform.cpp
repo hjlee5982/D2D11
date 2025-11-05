@@ -83,6 +83,6 @@ void Transform::SetRotation(const Quaternion& rotation)
 
 void Transform::Translation(const Vector3& dir, float speed)
 {
-	_position += dir * (TIMER.DeltaTime() * speed);
+	_position += dir * speed;
 	Update();
 }

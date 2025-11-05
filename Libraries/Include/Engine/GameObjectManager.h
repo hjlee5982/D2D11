@@ -10,6 +10,7 @@ public:
 	void Start();
 	void Update();
 	void LateUpdate();
+	void FixedUpdate();
 private:
 	List<sptr<class GameObject>> _gameObjects;
 };

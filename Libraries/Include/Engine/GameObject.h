@@ -53,6 +53,7 @@ public:
 	void Start();
 	void Update();
 	void LateUpdate();
+	void FixedUpdate();
 private:
 	Dictionary<std::type_index, sptr<class Component>> _components;
 public:

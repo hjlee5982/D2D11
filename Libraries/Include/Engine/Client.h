@@ -27,4 +27,6 @@ public:
 private:
 	void Initialize();
 	void Update();
+	void FixedUpdate();
+	void Render();
 };

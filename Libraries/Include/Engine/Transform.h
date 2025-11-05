@@ -29,6 +29,10 @@ public:
 	void SetScale      (const Vector3&    scale      );
 	void SetRotation   (const Quaternion& rotation   );
 public:
+	Vector3 GetRight() { return _right; }
+	Vector3 GetUp()    { return _up;	}
+	Vector3 GetLook()  { return _look;  }
+public:
 	void Translation(const Vector3& dir, float speed);
 private:
 	Matrix     _localMatrix   = Matrix::Identity;

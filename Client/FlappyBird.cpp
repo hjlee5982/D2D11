@@ -65,20 +65,6 @@ void FlappyBird::InitializeScene()
 		}
 		player->AddComponent<PlayerController>();
 	}
-	// 콜리전 테스트
-	auto co = Instantiate();
-	{
-		auto tf = co->AddComponent<Transform>();
-		{
-			tf->SetScale(Vector3(200.f, 200.f, 0.f));
-			tf->SetPosition(Vector3(150.f, 100.f, 0.f));
-		}
-		auto sr = co->AddComponent<SpriteRenderer>();
-		{
-			sr->OrderInLayer = 9;
-		}
-		co->AddComponent<BoxCollider2D>();
-	}
 }
 
 void FlappyBird::LoadResources()
@@ -104,10 +90,11 @@ void FlappyBird::SetInputSystem()
 {
 	InputMap map;
 	{
-		map.AddAction("MoveLeft",  { 'A', VK_LEFT  });
-		map.AddAction("MoveRight", { 'D', VK_RIGHT });
+		map.AddAction("Jump", { 'E', VK_SPACE});
 	}
 	INPUT.AddMap(map);
+
+
 }
 
 void FlappyBird::JsonTest()

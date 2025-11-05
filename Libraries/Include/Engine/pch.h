@@ -20,6 +20,9 @@
 #include <array>
 #include <chrono>
 #include <fstream>
+#include <variant>
+#include <iostream>
+#include <thread>
 
 
 /* DirectX11 Çì´õ */

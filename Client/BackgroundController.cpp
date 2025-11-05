@@ -8,10 +8,15 @@ void BackgroundController::Start()
 
 void BackgroundController::Update()
 {
-	Owner()->transform->Translation(-Vector3::Right, 200.f);
+	Owner()->transform->Translation(-Vector3::Right, 200.f * TIMER.DeltaTime());
 
 	if (Owner()->transform->GetPosition().x <= -_scale.x)
 	{
 		Owner()->transform->SetPosition(Vector3(_scale.x, 0.f, 0.f));
 	}
+}
+
+void BackgroundController::FixedUpdate()
+{
+	
 }

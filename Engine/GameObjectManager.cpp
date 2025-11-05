@@ -44,3 +44,11 @@ void GameObjectManager::LateUpdate()
 		go->LateUpdate();
 	}
 }
+
+void GameObjectManager::FixedUpdate()
+{
+	for (auto& go : _gameObjects)
+	{
+		go->FixedUpdate();
+	}
+}
