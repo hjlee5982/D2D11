@@ -94,3 +94,5 @@ using namespace Microsoft::WRL;
 #include "AnimationController.h"
 #include "InputSystem.h"
 #include "Log.h"
+
+#include "DataManager.h"

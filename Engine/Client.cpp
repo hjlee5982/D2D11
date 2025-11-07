@@ -9,6 +9,7 @@
 void Client::Initialize()
 {
 	LOG     .Awake();
+	DATA    .Awake();
 	TIMER   .Awake();
 	INPUT   .Awake();
 	DIRECTX .Awake();
@@ -25,7 +26,6 @@ void Client::Update()
 {
 	TIMER.Update();
 	INPUT.Update();
-
 
 	GAMEOBJECT.Update();
 	GAMEOBJECT.LateUpdate();

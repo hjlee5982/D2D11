@@ -11,10 +11,17 @@ struct IngredientInfo : public IJson
 
 	virtual void MakeJson() override
 	{
-		_json["calories"] = calories;
+		_json["calories"]     = calories;
 		_json["carbohydrate"] = carbohydrate;
-		_json["protein"] = protein;
-		_json["fat"] = fat;
+		_json["protein"]      = protein;
+		_json["fat"]          = fat;
+	}
+	virtual void LoadJson() override
+	{
+		if (_json.contains("calories"))     calories	 = _json["calories"];
+		if (_json.contains("carbohydrate")) carbohydrate = _json["carbohydrate"];
+		if (_json.contains("protein"))      protein      = _json["protein"];
+		if (_json.contains("fat"))          fat		     = _json["fat"];
 	}
 };
 
@@ -22,13 +29,13 @@ struct Product : public IJson
 {
 	int code;
 	string tag;
-	IngredientInfo ingredient;
 	SortedDictionary<string, string> productData;
+	IngredientInfo ingredient;
 
 	virtual void MakeJson() override
 	{
-		_json["code"] = code;
-		_json["tag"] = tag;
+		_json["code"]       = code;
+		_json["tag"]        = tag;
 		ingredient.MakeJson();
 		_json["ingredient"] = ingredient._json;
 
@@ -37,7 +44,25 @@ struct Product : public IJson
 		{
 			productDataJson[kv.first] = kv.second;
 		}
-		_json["productData"] = productData;
+		_json["productData"] = productDataJson;
+	}
+	virtual void LoadJson()
+	{
+		if (_json.contains("code")) code = _json["code"];
+		if (_json.contains("tag"))  tag  = _json["tag"];
+		if (_json.contains("productData"))
+		{
+			productData.clear();
+			for (auto& kvp : _json["productData"].items())
+			{
+				productData[kvp.key()] = kvp.value();
+			}
+		}
+		if (_json.contains("ingredient"))
+		{
+			ingredient._json = _json["ingredient"];
+			ingredient.LoadJson();
+		}
 	}
 };
 

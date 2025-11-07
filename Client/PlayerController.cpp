@@ -44,7 +44,7 @@ void PlayerController::Jump()
 		_trigger = true;
 	}
 
-	_velocity = 600.f;
+	_velocity = 750.f;
 	_index = 5;
 }
 

@@ -24,6 +24,7 @@ public:
 #define CONTEXT Device::Instance().GetContext()
 
 #define LOG		   Log				::Instance()
+#define DATA	   DataManager		::Instance()
 #define ASSET      AssetManager     ::Instance()
 #define TIMER      Timer            ::Instance()
 #define INPUT      InputSystem      ::Instance()

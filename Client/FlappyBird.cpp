@@ -10,6 +10,8 @@
 
 void FlappyBird::InitializeScene()
 {
+	JsonTest();
+
 	// 리소스 로드
 	LoadResources();
 
@@ -93,8 +95,6 @@ void FlappyBird::SetInputSystem()
 		map.AddAction("Jump", { 'E', VK_SPACE});
 	}
 	INPUT.AddMap(map);
-
-
 }
 
 void FlappyBird::JsonTest()
@@ -121,6 +121,28 @@ void FlappyBird::JsonTest()
 	pd.MakeJson();
 	nlohmann::json json = pd._json;
 
-	std::ofstream file("Test.json");
+
+	std::ofstream file("../Data/Test.json");
 	file << json.dump(4);
+	file.close();
+
+	Product loaded;
+	{
+		std::ifstream file("../Data/Test.json", std::ios::binary);
+
+		if (file.is_open())
+		{
+			file >> loaded._json;
+			loaded.LoadJson();
+		}
+	}
+
+	std::cout << "code : " << loaded.code << std::endl;
+	std::cout << "tag : "  << loaded.tag << std::endl;
+	std::cout << "calories : " << loaded.ingredient.calories << std::endl;
+	std::cout << "carbohydrate : " << loaded.ingredient.carbohydrate << std::endl;
+	std::cout << "protein : " << loaded.ingredient.protein << std::endl;
+	std::cout << "fat : " << loaded.ingredient.fat << std::endl;
+	std::cout << "production_data : " << loaded.productData["production_data"] << std::endl;
+	std::cout << "expiry_data : " << loaded.productData["expiry_data"] << std::endl;
 }

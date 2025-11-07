@@ -71,7 +71,7 @@ public:
 
 		switch (level)
 		{
-		case LogLevel::LOG_LEVEL_INIT:    color = 9; break;
+		case LogLevel::LOG_LEVEL_INIT:    color = 10; break;
 		case LogLevel::LOG_LEVEL_INFO:    color = 7;  break;
 		case LogLevel::LOG_LEVEL_WARNING: color = 14; break;
 		case LogLevel::LOG_LEVEL_ERROR:   color = 12; break;
