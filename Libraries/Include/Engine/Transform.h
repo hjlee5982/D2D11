@@ -3,7 +3,8 @@
 class Transform : public Component
 {
 public:
-	virtual ~Transform() = default;
+	virtual void MakeJson() override;
+	virtual void LoadJson() override;
 public:
 	virtual void Update()     override;
 private:

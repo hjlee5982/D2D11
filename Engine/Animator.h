@@ -1,5 +1,6 @@
 #pragma once
-class Animator
+
+class Animator : public Component
 {
 };
 

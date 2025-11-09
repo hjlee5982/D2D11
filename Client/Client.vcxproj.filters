@@ -4,19 +4,19 @@
     <Filter Include="01. Header">
       <UniqueIdentifier>{b3fe7b53-b937-494a-a9b5-a87182dc3d14}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. Execute">
-      <UniqueIdentifier>{92c5b793-e3bb-4a5a-bddd-4f93c53540e0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="03. Script">
       <UniqueIdentifier>{7171b6df-f320-4b47-afe4-ed0f940074cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Scene">
+      <UniqueIdentifier>{92c5b793-e3bb-4a5a-bddd-4f93c53540e0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
       <Filter>01. Header</Filter>
     </ClInclude>
-    <ClInclude Include="FlappyBird.h">
-      <Filter>02. Execute</Filter>
+    <ClInclude Include="MainScene.h">
+      <Filter>02. Scene</Filter>
     </ClInclude>
     <ClInclude Include="BackgroundController.h">
       <Filter>03. Script</Filter>
@@ -30,8 +30,8 @@
       <Filter>01. Header</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="FlappyBird.cpp">
-      <Filter>02. Execute</Filter>
+    <ClCompile Include="MainScene.cpp">
+      <Filter>02. Scene</Filter>
     </ClCompile>
     <ClCompile Include="BackgroundController.cpp">
       <Filter>03. Script</Filter>

@@ -17,6 +17,14 @@ void BoxCollider2D::Init()
 	COLLISION.AddCollider(shared_from_this());
 }
 
+void BoxCollider2D::MakeJson()
+{
+}
+
+void BoxCollider2D::LoadJson()
+{
+}
+
 void BoxCollider2D::Start()
 {
 	Vector3 localScale    = _colliderTransform->GetLocalScale();

@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "Client.h"
-#include "IScene.h"
+#include "Scene.h"
 #include "Renderer.h"
 #include "AssetManager.h"
 #include "GameObjectManager.h"
@@ -15,6 +15,7 @@ void Client::Initialize()
 	DIRECTX .Awake();
 	ASSET   .Awake();
 	RENDERER.Awake();
+	SCENE   .Awake();
 
 	Global::ClientOption.scene->InitializeScene();
 
@@ -44,6 +45,11 @@ void Client::Render()
 	RENDERER.Render();
 
 	DIRECTX.RenderEnd();
+}
+
+void Client::Destroy()
+{
+	SCENE.SaveScene();
 }
 
 void Client::Awake()
@@ -123,6 +129,8 @@ WPARAM Client::Run()
 
 		Render();
 	}
+
+	Destroy();
 
 	return msg.wParam;
 }

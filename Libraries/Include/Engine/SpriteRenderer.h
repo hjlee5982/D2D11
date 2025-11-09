@@ -7,7 +7,8 @@ class Material;
 class SpriteRenderer : public Component
 {
 public:
-	virtual ~SpriteRenderer() = default;
+	virtual void MakeJson() override;
+	virtual void LoadJson() override;
 public:
 	virtual void Init() override;
 public:

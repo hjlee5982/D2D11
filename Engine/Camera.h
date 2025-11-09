@@ -3,7 +3,8 @@
 class Camera : public Component
 {
 public:
-	virtual ~Camera() = default;
+	virtual void MakeJson() override;
+	virtual void LoadJson() override;
 public:
 	virtual void Awake()      override;
 	virtual void Update()     override;

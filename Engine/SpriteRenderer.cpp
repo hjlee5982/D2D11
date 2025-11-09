@@ -6,6 +6,14 @@
 #include "Renderer.h"
 #include "Texture.h"
 
+void SpriteRenderer::MakeJson()
+{
+}
+
+void SpriteRenderer::LoadJson()
+{
+}
+
 void SpriteRenderer::Init()
 {
 	_mesh     = ASSET.Get<Mesh>(L"Mesh_Square");

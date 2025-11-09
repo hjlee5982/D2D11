@@ -173,7 +173,7 @@ xcopy /Y /D "$(SolutionDir)Engine\*.hpp" "$(SolutionDir)Libraries\Include\Engine
     <ClInclude Include="Global.h" />
     <ClInclude Include="IJson.h" />
     <ClInclude Include="InputSystem.h" />
-    <ClInclude Include="IScene.h" />
+    <ClInclude Include="Scene.h" />
     <ClInclude Include="IndexBuffer.h" />
     <ClInclude Include="Log.h" />
     <ClInclude Include="json.hpp" />
@@ -182,6 +182,7 @@ xcopy /Y /D "$(SolutionDir)Engine\*.hpp" "$(SolutionDir)Libraries\Include\Engine
     <ClInclude Include="Object.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Renderer.h" />
+    <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="ConstantBufferDesc.h" />
     <ClInclude Include="SimpleMath.h" />
@@ -218,7 +219,7 @@ xcopy /Y /D "$(SolutionDir)Engine\*.hpp" "$(SolutionDir)Libraries\Include\Engine
     <ClCompile Include="Global.cpp" />
     <ClCompile Include="IJson.cpp" />
     <ClCompile Include="InputSystem.cpp" />
-    <ClCompile Include="IScene.cpp" />
+    <ClCompile Include="Scene.cpp" />
     <ClCompile Include="IndexBuffer.cpp" />
     <ClCompile Include="Log.cpp" />
     <ClCompile Include="Material.cpp" />
@@ -229,6 +230,7 @@ xcopy /Y /D "$(SolutionDir)Engine\*.hpp" "$(SolutionDir)Libraries\Include\Engine
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <ClCompile Include="Renderer.cpp" />
+    <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="ConstantBufferDesc.cpp" />
     <ClCompile Include="SimpleMath.cpp" />

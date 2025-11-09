@@ -28,6 +28,7 @@ public:
 #define ASSET      AssetManager     ::Instance()
 #define TIMER      Timer            ::Instance()
 #define INPUT      InputSystem      ::Instance()
+#define SCENE	   SceneManager     ::Instance()
 #define CLIENT     Client           ::Instance()
 #define RENDERER   Renderer         ::Instance()
 #define COLLISION  CollisionManager ::Instance()

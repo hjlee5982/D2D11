@@ -1,6 +1,5 @@
 #include "pch.h"
-#include "FlappyBird.h"
-#include<iostream>
+#include "MainScene.h"
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
@@ -26,7 +25,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		option.height   = 800;
 		option.windowed = false;
 
-		option.scene = makeSptr<FlappyBird>();
+		option.scene = makeSptr<MainScene>("MainScene");
 	}
 
 	Global::ClientOption = option;

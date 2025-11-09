@@ -2,6 +2,30 @@
 #include "GameObject.h"
 #include "Component.h"
 
+void GameObject::MakeJson()
+{
+	_json["name"] = name;
+	_json["components"] = nlohmann::json::array();
+
+	for (auto& com : _components)
+	{
+		com.second->MakeJson();
+
+		nlohmann::json comJson;
+		comJson["type"] = 0;
+		comJson["data"] = com.second->_json;
+
+		_json["Components"].push_back(comJson);
+	}
+}
+
+void GameObject::LoadJson()
+{
+	for (auto& com : _components)
+	{
+		com.second->LoadJson();
+	}
+}
 void GameObject::Awake()
 {
 	for (auto& com : _components)

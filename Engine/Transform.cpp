@@ -1,6 +1,26 @@
 #include "pch.h"
 #include "Transform.h"
 
+void Transform::MakeJson()
+{
+	_json["localMatrix"]   = _localMatrix;
+	_json["localPosition"] = _localPosition;
+	_json["localScale"]    = _localScale;
+	_json["localRotation"] = _localRotation;
+	_json["worldMatrix"]   = _worldMatrix;
+	_json["position"]      = _position;
+	_json["scale"]         = _scale;
+	_json["rotation"]      = _rotation;
+	_json["right"]         = _right;
+	_json["up"]            = _up;
+	_json["look"]          = _look;
+}
+
+void Transform::LoadJson()
+{
+
+}
+
 void Transform::Update()
 {
 	Matrix scale    = Matrix::CreateScale(_scale);

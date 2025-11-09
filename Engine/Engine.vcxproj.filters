@@ -183,7 +183,7 @@
     <ClInclude Include="GameObjectManager.h">
       <Filter>09. Object</Filter>
     </ClInclude>
-    <ClInclude Include="IScene.h">
+    <ClInclude Include="Scene.h">
       <Filter>07. Scene</Filter>
     </ClInclude>
     <ClInclude Include="Global.h">
@@ -221,6 +221,9 @@
     </ClInclude>
     <ClInclude Include="DataManager.h">
       <Filter>00. Data</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>07. Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -302,7 +305,7 @@
     <ClCompile Include="GameObjectManager.cpp">
       <Filter>09. Object</Filter>
     </ClCompile>
-    <ClCompile Include="IScene.cpp">
+    <ClCompile Include="Scene.cpp">
       <Filter>07. Scene</Filter>
     </ClCompile>
     <ClCompile Include="Global.cpp">
@@ -337,6 +340,9 @@
     </ClCompile>
     <ClCompile Include="DataManager.cpp">
       <Filter>00. Data</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>07. Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

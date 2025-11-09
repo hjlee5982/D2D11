@@ -13,7 +13,7 @@ struct ClientOption
 	f32       height;
 	bool      windowed;
 
-	sptr<class IScene> scene = nullptr;
+	sptr<class Scene> scene = nullptr;
 };
 
 class Client : public Singleton<Client>
@@ -29,4 +29,6 @@ private:
 	void Update();
 	void FixedUpdate();
 	void Render();
+private:
+	void Destroy();
 };

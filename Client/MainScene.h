@@ -1,6 +1,6 @@
 #pragma once
 
-#include "IScene.h"
+#include "Scene.h"
 
 struct IngredientInfo : public IJson
 {
@@ -25,12 +25,16 @@ struct IngredientInfo : public IJson
 	}
 };
 
+
+
 struct Product : public IJson
 {
 	int code;
 	string tag;
 	SortedDictionary<string, string> productData;
 	IngredientInfo ingredient;
+
+	Vector3 v;
 
 	virtual void MakeJson() override
 	{
@@ -66,8 +70,10 @@ struct Product : public IJson
 	}
 };
 
-class FlappyBird : public IScene
+class MainScene : public Scene
 {
+public:
+	MainScene(const string& sceneName) : Scene(sceneName) {}
 public:
 	void InitializeScene() override;
 public:
@@ -76,4 +82,3 @@ public:
 public:
 	void JsonTest();
 };
-

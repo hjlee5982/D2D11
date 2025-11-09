@@ -1,6 +1,7 @@
 #pragma once
 
 #include "GameObjectManager.h"
+#include "SceneManager.h"
 
 class GameObject : public Object, public std::enable_shared_from_this<GameObject>
 {
@@ -8,6 +9,9 @@ public:
 	virtual ~GameObject() = default;
 public:
 	virtual void OnCollisionEnter(sptr<class BoxCollider2D> collider) override;
+public:
+	virtual void MakeJson() override;
+	virtual void LoadJson() override;
 public:
 	template<typename T, typename ...Args>
 	sptr<T> AddComponent(Args&& ... args)
@@ -68,6 +72,7 @@ static sptr<GameObject> Instantiate(Args&&... args)
 	go->transform = go->AddComponent<Transform>(std::forward<Args>(args)...);
 
 	GAMEOBJECT.AddGameObject(go);
+	SCENE.AddGameObject(go);
 
 	return go;
 }

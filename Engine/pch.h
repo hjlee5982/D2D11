@@ -96,3 +96,4 @@ using namespace Microsoft::WRL;
 #include "Log.h"
 
 #include "DataManager.h"
+#include "SceneManager.h"

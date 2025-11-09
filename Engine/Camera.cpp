@@ -1,6 +1,14 @@
 #include "pch.h"
 #include "Camera.h"
 
+void Camera::MakeJson()
+{
+}
+
+void Camera::LoadJson()
+{
+}
+
 void Camera::Awake()
 {
 	_near = 0.1f;

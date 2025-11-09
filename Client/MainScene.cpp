@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "FlappyBird.h"
+#include "MainScene.h"
 #include "GameObject.h"
 #include "Camera.h"
 #include "BackgroundController.h"
@@ -8,7 +8,7 @@
 #include "Texture.h"
 #include "AssetManager.h"
 
-void FlappyBird::InitializeScene()
+void MainScene::InitializeScene()
 {
 	JsonTest();
 
@@ -69,7 +69,7 @@ void FlappyBird::InitializeScene()
 	}
 }
 
-void FlappyBird::LoadResources()
+void MainScene::LoadResources()
 {
 	// 배경화면
 	{
@@ -88,7 +88,7 @@ void FlappyBird::LoadResources()
 	}
 }
 
-void FlappyBird::SetInputSystem()
+void MainScene::SetInputSystem()
 {
 	InputMap map;
 	{
@@ -97,7 +97,7 @@ void FlappyBird::SetInputSystem()
 	INPUT.AddMap(map);
 }
 
-void FlappyBird::JsonTest()
+void MainScene::JsonTest()
 {
 	IngredientInfo info;
 	{

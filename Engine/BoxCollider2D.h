@@ -14,6 +14,9 @@ class BoxCollider2D : public Component, public std::enable_shared_from_this<BoxC
 public:
 	virtual void Init()  override;
 public:
+	virtual void MakeJson() override;
+	virtual void LoadJson() override;
+public:
 	virtual void Start()  override;
 	virtual void Update() override;
 public:

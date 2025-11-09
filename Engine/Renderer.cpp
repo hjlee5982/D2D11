@@ -102,37 +102,43 @@ void Renderer::BindConstantBuffer()
 
 void Renderer::RenderGameObject()
 {
-	SortedDictionary<int, List<sptr<GameObject>>> orderInLayer;
+	SortedDictionary<int, List<wptr<GameObject>>> orderInLayer;
 
-	for (auto& go : _gameObjects)
+	for (auto& gameObject : _gameObjects)
 	{
-		auto renderer = go->GetComponent<SpriteRenderer>();
+		if (auto go = gameObject.lock())
+		{
+			auto renderer = go->GetComponent<SpriteRenderer>();
 
-		orderInLayer[renderer->OrderInLayer].push_back(go);
+			orderInLayer[renderer->OrderInLayer].push_back(go);
+		}
 	}
 
 	for (auto& kvp : orderInLayer)
 	{
-		for (auto& go : kvp.second)
+		for (auto& gameObject : kvp.second)
 		{
-			// 1. 상수버퍼 바인딩
-			CB_PerObject perObjectData;
+			if (auto go = gameObject.lock())
 			{
-				perObjectData.worldMatrix = go->transform->GetWorldMatrix();
+				// 1. 상수버퍼 바인딩
+				CB_PerObject perObjectData;
+				{
+					perObjectData.worldMatrix = go->transform->GetWorldMatrix();
+				}
+				CONTEXT->UpdateSubresource(_cbPerObject.Get(), 0, nullptr, &perObjectData, 0, 0);
+				CONTEXT->VSSetConstantBuffers(1, 1, _cbPerObject.GetAddressOf());
+
+
+				// 2. 머티리얼 바인딩 ( 셰이더 + 텍스쳐 바인딩 )
+				auto spriteRenderer = go->GetComponent<SpriteRenderer>();
+				auto material = spriteRenderer->GetMaterial();
+				material->Bind();
+
+
+				// 3. 매시 바인딩 ( 버텍스 + 인덱스 버퍼 바인딩 ) + 드로우 콜
+				auto mesh = spriteRenderer->GetMesh();
+				mesh->Bind();
 			}
-			CONTEXT->UpdateSubresource(_cbPerObject.Get(), 0, nullptr, &perObjectData, 0, 0);
-			CONTEXT->VSSetConstantBuffers(1, 1, _cbPerObject.GetAddressOf());
-
-
-			// 2. 머티리얼 바인딩 ( 셰이더 + 텍스쳐 바인딩 )
-			auto spriteRenderer = go->GetComponent<SpriteRenderer>();
-			auto material = spriteRenderer->GetMaterial();
-			material->Bind();
-
-
-			// 3. 매시 바인딩 ( 버텍스 + 인덱스 버퍼 바인딩 ) + 드로우 콜
-			auto mesh = spriteRenderer->GetMesh();
-			mesh->Bind();
 		}
 	}
 }
@@ -146,39 +152,42 @@ void Renderer::RenderCollider()
 	CONTEXT->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_LINELIST);
 
 	// 오브젝트 당 업데이트 해야 할 요소
-	for (sptr<Component>& go : _colliders)
+	for (wptr<Component>& collider : _colliders)
 	{
-		auto collider = go->Owner()->GetComponent<BoxCollider2D>();
-		// 1. 상수버퍼 바인딩
-		CB_PerObject perObjectData;
+		if (auto co = collider.lock())
 		{
-			perObjectData.worldMatrix = collider->GetColliderTransform()->GetWorldMatrix();
+			auto collider = co->Owner()->GetComponent<BoxCollider2D>();
+			// 1. 상수버퍼 바인딩
+			CB_PerObject perObjectData;
+			{
+				perObjectData.worldMatrix = collider->GetColliderTransform()->GetWorldMatrix();
+			}
+			CONTEXT->UpdateSubresource(_cbPerObject.Get(), 0, nullptr, &perObjectData, 0, 0);
+			CONTEXT->VSSetConstantBuffers(1, 1, _cbPerObject.GetAddressOf());
+
+
+			// 2. 머티리얼 바인딩 ( 셰이더 + 텍스쳐 바인딩 )
+			auto material = collider->GetMaterial();
+			material->Bind();
+
+
+			// 3. 매시 바인딩 ( 버텍스 + 인덱스 버퍼 바인딩 ) + 드로우 콜
+			// 매시서 바로 바인드 땡기면 안됨, 직접 vb, ib 바인드 하고 드로우콜 해야됨
+			auto mesh = collider->GetMesh();
+
+			sptr<VertexBuffer> vb = mesh->GetVertexBuffer();
+			sptr<IndexBuffer>  ib = mesh->GetIndexBuffer();
+
+			u32 stride = vb->GetStride();
+			u32 offset = vb->GetOffset();
+			u32 icount = ib->GetIndexCount();
+
+			CONTEXT->IASetVertexBuffers(vb->GetSlot(), 1, vb->GetVertexBuffer().GetAddressOf(), &stride, &offset);
+			CONTEXT->IASetIndexBuffer(ib->GetIndexBuffer().Get(), DXGI_FORMAT_R32_UINT, 0);
+
+			// 드로우콜
+			CONTEXT->DrawIndexed(icount, 0, 0);
 		}
-		CONTEXT->UpdateSubresource(_cbPerObject.Get(), 0, nullptr, &perObjectData, 0, 0);
-		CONTEXT->VSSetConstantBuffers(1, 1, _cbPerObject.GetAddressOf());
-
-
-		// 2. 머티리얼 바인딩 ( 셰이더 + 텍스쳐 바인딩 )
-		auto material = collider->GetMaterial();
-		material->Bind();
-
-
-		// 3. 매시 바인딩 ( 버텍스 + 인덱스 버퍼 바인딩 ) + 드로우 콜
-		// 매시서 바로 바인드 땡기면 안됨, 직접 vb, ib 바인드 하고 드로우콜 해야됨
-		auto mesh = collider->GetMesh();
-		
-		sptr<VertexBuffer> vb = mesh->GetVertexBuffer();
-		sptr<IndexBuffer>  ib = mesh->GetIndexBuffer();
-
-		u32 stride = vb->GetStride();
-		u32 offset = vb->GetOffset();
-		u32 icount = ib->GetIndexCount();
-
-		CONTEXT->IASetVertexBuffers(vb->GetSlot(), 1, vb->GetVertexBuffer().GetAddressOf(), &stride, &offset);
-		CONTEXT->IASetIndexBuffer(ib->GetIndexBuffer().Get(), DXGI_FORMAT_R32_UINT, 0);
-
-		// 드로우콜
-		CONTEXT->DrawIndexed(icount, 0, 0);
 	}
 
 	// 와이어 프레임 해제

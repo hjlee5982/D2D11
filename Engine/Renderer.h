@@ -14,8 +14,8 @@ public:
 	void AddGameObjectToRenderer(sptr<GameObject> gameObject);
 	void AddColliderToRenderer(sptr<Component> collider);
 private:
-	List<sptr<GameObject>> _gameObjects;
-	List<sptr<Component>>  _colliders;
+	List<wptr<GameObject>> _gameObjects;
+	List<wptr<Component>>  _colliders;
 private:
 	ComPtr<ID3D11Buffer> _cbPerFrame;
 	ComPtr<ID3D11Buffer> _cbPerObject;
