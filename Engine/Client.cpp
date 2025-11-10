@@ -14,6 +14,7 @@ void Client::Initialize()
 	INPUT   .Awake();
 	DIRECTX .Awake();
 	ASSET   .Awake();
+	FACTORY	.Awake();
 	RENDERER.Awake();
 	SCENE   .Awake();
 

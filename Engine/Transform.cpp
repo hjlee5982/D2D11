@@ -3,6 +3,8 @@
 
 void Transform::MakeJson()
 {
+	_json["type"] = GetTypeName();
+
 	_json["localMatrix"]   = _localMatrix;
 	_json["localPosition"] = _localPosition;
 	_json["localScale"]    = _localScale;

@@ -3,7 +3,7 @@
 class Component abstract : public Object
 {
 public:
-	virtual ~Component() = default;
+	virtual const char* GetTypeName() const = 0;
 public:
 	void SetOwner(sptr<class GameObject> owner);
 public:

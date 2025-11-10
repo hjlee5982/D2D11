@@ -11,6 +11,7 @@ struct AABB
 
 class BoxCollider2D : public Component, public std::enable_shared_from_this<BoxCollider2D>
 {
+	REFLECTION_COMPONENT(BoxCollider2D);
 public:
 	virtual void Init()  override;
 public:

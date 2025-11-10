@@ -225,6 +225,7 @@
     <ClInclude Include="SceneManager.h">
       <Filter>07. Scene</Filter>
     </ClInclude>
+    <ClInclude Include="ComponentFactory.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -344,6 +345,7 @@
     <ClCompile Include="SceneManager.cpp">
       <Filter>07. Scene</Filter>
     </ClCompile>
+    <ClCompile Include="ComponentFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Assets\Shader\CBuffer.hlsli">

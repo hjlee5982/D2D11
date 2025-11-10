@@ -2,6 +2,7 @@
 
 class BackgroundController : public Component
 {
+	REFLECTION_COMPONENT(BackgroundController);
 public:
 	virtual void Start() override;
 	virtual void Update() override;

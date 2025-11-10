@@ -19,7 +19,7 @@ void MainScene::InitializeScene()
 	SetInputSystem();
 
 	// 배경화면
-	auto bg1 = Instantiate();
+	/*auto bg1 = Instantiate();
 	{
 		auto tf = bg1->AddComponent<Transform>();
 		{
@@ -46,7 +46,7 @@ void MainScene::InitializeScene()
 			sr->OrderInLayer = 0;
 		}
 		bg2->AddComponent<BackgroundController>();
-	}
+	}*/
 	// 플레이어
 	auto player = Instantiate();
 	{

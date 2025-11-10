@@ -6,6 +6,7 @@ class Material;
 
 class SpriteRenderer : public Component
 {
+	REFLECTION_COMPONENT(SpriteRenderer);
 public:
 	virtual void MakeJson() override;
 	virtual void LoadJson() override;

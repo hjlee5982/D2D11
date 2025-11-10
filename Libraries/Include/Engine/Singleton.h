@@ -30,6 +30,7 @@ public:
 #define INPUT      InputSystem      ::Instance()
 #define SCENE	   SceneManager     ::Instance()
 #define CLIENT     Client           ::Instance()
+#define FACTORY	   ComponentFactory ::Instance()
 #define RENDERER   Renderer         ::Instance()
 #define COLLISION  CollisionManager ::Instance()
 #define GAMEOBJECT GameObjectManager::Instance()

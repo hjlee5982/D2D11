@@ -2,6 +2,7 @@
 
 class Camera : public Component
 {
+	REFLECTION_COMPONENT(Camera);
 public:
 	virtual void MakeJson() override;
 	virtual void LoadJson() override;

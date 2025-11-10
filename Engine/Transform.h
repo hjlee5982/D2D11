@@ -2,6 +2,7 @@
 
 class Transform : public Component
 {
+	REFLECTION_COMPONENT(Transform);
 public:
 	virtual void MakeJson() override;
 	virtual void LoadJson() override;
@@ -50,3 +51,5 @@ private:
 	Vector3 _up    = Vector3(0.f, 1.f, 0.f);
 	Vector3 _look  = Vector3(0.f, 0.f, 1.f);
 };
+
+

@@ -73,6 +73,7 @@ using namespace Microsoft::WRL;
 #include "Object.h"
 #include "GameObject.h"
 
+#include "ComponentFactory.h"
 #include "Component.h"
 #include "Transform.h"
 #include "SpriteRenderer.h"
@@ -97,3 +98,4 @@ using namespace Microsoft::WRL;
 
 #include "DataManager.h"
 #include "SceneManager.h"
+
