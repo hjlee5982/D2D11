@@ -10,7 +10,7 @@ void SpriteRenderer::MakeJson()
 {
 }
 
-void SpriteRenderer::LoadJson()
+void SpriteRenderer::LoadJson(const nlohmann::json& json)
 {
 }
 
@@ -19,7 +19,7 @@ void SpriteRenderer::Init()
 	_mesh     = ASSET.Get<Mesh>(L"Mesh_Square");
 	_material = ASSET.Get<Material>(L"Material_Default", true);
 
-	RENDERER.AddGameObjectToRenderer(Owner());
+	RENDERER.AddGameObject(Owner());
 }
 
 sptr<Mesh> SpriteRenderer::GetMesh()

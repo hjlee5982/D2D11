@@ -159,9 +159,8 @@ xcopy /Y /D "$(SolutionDir)Engine\*.hpp" "$(SolutionDir)Libraries\Include\Engine
     <ClInclude Include="Client.h" />
     <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="Component.h" />
-    <ClInclude Include="ComponentFactory.h" />
+    <ClInclude Include="ObjectFactory.h" />
     <ClInclude Include="ConstantBuffer.h" />
-    <ClInclude Include="DataManager.h" />
     <ClInclude Include="Define.h" />
     <ClInclude Include="Device.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
@@ -207,9 +206,8 @@ xcopy /Y /D "$(SolutionDir)Engine\*.hpp" "$(SolutionDir)Libraries\Include\Engine
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="Component.cpp" />
-    <ClCompile Include="ComponentFactory.cpp" />
+    <ClCompile Include="ObjectFactory.cpp" />
     <ClCompile Include="ConstantBuffer.cpp" />
-    <ClCompile Include="DataManager.cpp" />
     <ClCompile Include="Device.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClCompile>

@@ -11,12 +11,12 @@ struct AABB
 
 class BoxCollider2D : public Component, public std::enable_shared_from_this<BoxCollider2D>
 {
-	REFLECTION_COMPONENT(BoxCollider2D);
+	REFLECTION(BoxCollider2D);
 public:
 	virtual void Init()  override;
 public:
 	virtual void MakeJson() override;
-	virtual void LoadJson() override;
+	virtual void LoadJson(const nlohmann::json& json) override;
 public:
 	virtual void Start()  override;
 	virtual void Update() override;

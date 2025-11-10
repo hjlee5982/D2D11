@@ -10,8 +10,6 @@
 
 void MainScene::InitializeScene()
 {
-	JsonTest();
-
 	// 리소스 로드
 	LoadResources();
 
@@ -19,7 +17,7 @@ void MainScene::InitializeScene()
 	SetInputSystem();
 
 	// 배경화면
-	/*auto bg1 = Instantiate();
+	auto bg1 = Instantiate("Background_1");
 	{
 		auto tf = bg1->AddComponent<Transform>();
 		{
@@ -33,7 +31,7 @@ void MainScene::InitializeScene()
 		}
 		auto bc = bg1->AddComponent<BackgroundController>();
 	}
-	auto bg2 = Instantiate();
+	auto bg2 = Instantiate("Background_2");
 	{
 		auto tf = bg2->AddComponent<Transform>();
 		{
@@ -46,9 +44,9 @@ void MainScene::InitializeScene()
 			sr->OrderInLayer = 0;
 		}
 		bg2->AddComponent<BackgroundController>();
-	}*/
+	}
 	// 플레이어
-	auto player = Instantiate();
+	auto player = Instantiate("Player");
 	{
 		auto tf = player->AddComponent<Transform>();
 		{
@@ -95,54 +93,4 @@ void MainScene::SetInputSystem()
 		map.AddAction("Jump", { 'E', VK_SPACE});
 	}
 	INPUT.AddMap(map);
-}
-
-void MainScene::JsonTest()
-{
-	IngredientInfo info;
-	{
-		info.calories = 5;
-		info.carbohydrate = 10.f;
-		info.protein = 15.f;
-		info.fat = 20.f;
-	}
-
-	Product pd;
-	{
-		pd.code = 251101;
-		pd.tag = "Pizza";
-
-		pd.ingredient = info;
-
-		pd.productData["production_data"] = "2025-11-01";
-		pd.productData["expiry_data"] = "2026-11-01";
-	}
-
-	pd.MakeJson();
-	nlohmann::json json = pd._json;
-
-
-	std::ofstream file("../Data/Test.json");
-	file << json.dump(4);
-	file.close();
-
-	Product loaded;
-	{
-		std::ifstream file("../Data/Test.json", std::ios::binary);
-
-		if (file.is_open())
-		{
-			file >> loaded._json;
-			loaded.LoadJson();
-		}
-	}
-
-	std::cout << "code : " << loaded.code << std::endl;
-	std::cout << "tag : "  << loaded.tag << std::endl;
-	std::cout << "calories : " << loaded.ingredient.calories << std::endl;
-	std::cout << "carbohydrate : " << loaded.ingredient.carbohydrate << std::endl;
-	std::cout << "protein : " << loaded.ingredient.protein << std::endl;
-	std::cout << "fat : " << loaded.ingredient.fat << std::endl;
-	std::cout << "production_data : " << loaded.productData["production_data"] << std::endl;
-	std::cout << "expiry_data : " << loaded.productData["expiry_data"] << std::endl;
 }

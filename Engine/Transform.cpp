@@ -3,24 +3,34 @@
 
 void Transform::MakeJson()
 {
-	_json["type"] = GetTypeName();
+	_json["Type"] = GetTypeName();
 
-	_json["localMatrix"]   = _localMatrix;
-	_json["localPosition"] = _localPosition;
-	_json["localScale"]    = _localScale;
-	_json["localRotation"] = _localRotation;
-	_json["worldMatrix"]   = _worldMatrix;
-	_json["position"]      = _position;
-	_json["scale"]         = _scale;
-	_json["rotation"]      = _rotation;
-	_json["right"]         = _right;
-	_json["up"]            = _up;
-	_json["look"]          = _look;
+	_json["LocalMatrix"]   = _localMatrix;
+	_json["LocalPosition"] = _localPosition;
+	_json["LocalScale"]    = _localScale;
+	_json["LocalRotation"] = _localRotation;
+	_json["WorldMatrix"]   = _worldMatrix;
+	_json["Position"]      = _position;
+	_json["Scale"]         = _scale;
+	_json["Rotation"]      = _rotation;
+	_json["Right"]         = _right;
+	_json["Up"]            = _up;
+	_json["Look"]          = _look;
 }
 
-void Transform::LoadJson()
+void Transform::LoadJson(const nlohmann::json& json)
 {
-
+	_look          = json["Data"]["Look"];
+	_localMatrix   = json["Data"]["LocalMatrix"];
+	_localPosition = json["Data"]["LocalPosition"];
+	_localScale	   = json["Data"]["LocalScale"];
+	_localRotation = json["Data"]["LocalRotation"];
+	_worldMatrix   = json["Data"]["WorldMatrix"];
+	_position	   = json["Data"]["Position"];
+	_scale		   = json["Data"]["Scale"];
+	_rotation	   = json["Data"]["Rotation"];
+	_right		   = json["Data"]["Right"];
+	_up			   = json["Data"]["Up"];
 }
 
 void Transform::Update()
@@ -87,6 +97,8 @@ void Transform::SetWorldMatrix(const Matrix& worldMatrix)
 
 void Transform::SetPosition(const Vector3& position)
 {
+	auto t = this;
+
 	_position = position;
 	Update();
 }

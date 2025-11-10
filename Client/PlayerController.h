@@ -2,7 +2,7 @@
 
 class PlayerController : public Component
 {
-	REFLECTION_COMPONENT(PlayerController);
+	REFLECTION(PlayerController);
 public:
 	virtual void Start()       override;
 	virtual void Update()      override;

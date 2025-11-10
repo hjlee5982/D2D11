@@ -6,10 +6,10 @@ class Material;
 
 class SpriteRenderer : public Component
 {
-	REFLECTION_COMPONENT(SpriteRenderer);
+	REFLECTION(SpriteRenderer);
 public:
 	virtual void MakeJson() override;
-	virtual void LoadJson() override;
+	virtual void LoadJson(const nlohmann::json& json) override;
 public:
 	virtual void Init() override;
 public:

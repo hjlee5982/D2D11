@@ -16,16 +16,14 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	ClientOption option;
 	{
-		option.hInstance = hInstance;
-		option.vsync = false;
-		option.clearColor = Color(Colors::Gray);
+		option.hInstance  = hInstance;
+		option.vsync      = false;
+		option.clearColor = Color(Colors::Blue);
 
 		option.appName  = L"FlappyBird";
 		option.width    = 600;
 		option.height   = 800;
 		option.windowed = false;
-
-		option.scene = makeSptr<MainScene>("MainScene");
 	}
 
 	Global::ClientOption = option;

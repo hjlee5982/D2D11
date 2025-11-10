@@ -4,7 +4,7 @@ class IJson abstract
 {
 public:
 	virtual void MakeJson() {};
-	virtual void LoadJson() {};
+	virtual void LoadJson(const nlohmann::json& json) {};
 public:
 	nlohmann::json _json;
 };

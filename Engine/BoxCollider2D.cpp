@@ -13,7 +13,7 @@ void BoxCollider2D::Init()
 
 	_colliderTransform = makeSptr<Transform>();
 
-	RENDERER.AddColliderToRenderer(shared_from_this());
+	RENDERER.AddCollider(shared_from_this());
 	COLLISION.AddCollider(shared_from_this());
 }
 
@@ -21,7 +21,7 @@ void BoxCollider2D::MakeJson()
 {
 }
 
-void BoxCollider2D::LoadJson()
+void BoxCollider2D::LoadJson(const nlohmann::json& json)
 {
 }
 

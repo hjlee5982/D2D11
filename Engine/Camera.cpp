@@ -5,7 +5,7 @@ void Camera::MakeJson()
 {
 }
 
-void Camera::LoadJson()
+void Camera::LoadJson(const nlohmann::json& json)
 {
 }
 

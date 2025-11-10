@@ -9,7 +9,6 @@
 void Client::Initialize()
 {
 	LOG     .Awake();
-	DATA    .Awake();
 	TIMER   .Awake();
 	INPUT   .Awake();
 	DIRECTX .Awake();
@@ -18,7 +17,7 @@ void Client::Initialize()
 	RENDERER.Awake();
 	SCENE   .Awake();
 
-	Global::ClientOption.scene->InitializeScene();
+	// Global::ClientOption.scene->InitializeScene();
 
 	GAMEOBJECT.Awake();
 	GAMEOBJECT.Start();

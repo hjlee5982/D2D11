@@ -6,6 +6,8 @@ void GameObject::MakeJson()
 {
 	for (auto& com : _components)
 	{
+		_json["name"] = name;
+
 		com.second->MakeJson();
 
 		nlohmann::json comJson;
@@ -16,13 +18,26 @@ void GameObject::MakeJson()
 	}
 }
 
-void GameObject::LoadJson()
+void GameObject::LoadJson(const nlohmann::json& json)
 {
 	for (auto& com : _components)
 	{
-		com.second->LoadJson();
+		com.second->LoadJson(json);
 	}
 }
+
+void GameObject::AddComponent(sptr<class Component> com)
+{
+	com->SetOwner(shared_from_this());
+	com->Init();
+
+	if (com->GetType() == typeid(Transform).hash_code())
+	{
+		transform = std::static_pointer_cast<Transform>(com);
+	}
+	_components.emplace(com->GetType(), com);
+}
+
 void GameObject::Awake()
 {
 	for (auto& com : _components)

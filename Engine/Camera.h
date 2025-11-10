@@ -2,10 +2,10 @@
 
 class Camera : public Component
 {
-	REFLECTION_COMPONENT(Camera);
+	REFLECTION(Camera);
 public:
 	virtual void MakeJson() override;
-	virtual void LoadJson() override;
+	virtual void LoadJson(const nlohmann::json& json) override;
 public:
 	virtual void Awake()      override;
 	virtual void Update()     override;

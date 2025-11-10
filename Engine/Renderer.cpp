@@ -110,7 +110,10 @@ void Renderer::RenderGameObject()
 		{
 			auto renderer = go->GetComponent<SpriteRenderer>();
 
-			orderInLayer[renderer->OrderInLayer].push_back(go);
+			if (renderer != nullptr)
+			{
+				orderInLayer[renderer->OrderInLayer].push_back(go);
+			}
 		}
 	}
 
@@ -197,12 +200,12 @@ void Renderer::RenderCollider()
 	CONTEXT->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 }
 
-void Renderer::AddGameObjectToRenderer(sptr<GameObject> gameObject)
+void Renderer::AddGameObject(sptr<GameObject> gameObject)
 {
 	_gameObjects.push_back(gameObject);
 }
 
-void Renderer::AddColliderToRenderer(sptr<Component> collider)
+void Renderer::AddCollider(sptr<Component> collider)
 {
 	_colliders.push_back(collider);
 }

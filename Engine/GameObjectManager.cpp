@@ -4,11 +4,11 @@
 void GameObjectManager::Awake()
 {
 	// 기본 카메라 생성
-	auto camera = Instantiate();
+	/*auto camera = Instantiate("MainCamera");
 	{
 		camera->AddComponent<Camera>();
 	}
-	AddGameObject(camera);
+	AddGameObject(camera);*/
 
 	for (auto& go : _gameObjects)
 	{

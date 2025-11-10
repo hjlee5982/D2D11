@@ -1,10 +1,10 @@
 #pragma once
 
-#include "Component.h"
+#include "Object.h"
 
-class ComponentFactory : public Singleton<ComponentFactory>
+class ObjectFactory : public Singleton<ObjectFactory>
 {
-	using CreateFucn = std::function<sptr<Component>()>;
+	using CreateFucn = std::function<sptr<Object>()>;
 public:
 	static Dictionary<string, CreateFucn>& Registry()
 	{
@@ -15,7 +15,7 @@ public:
 	{
 		Registry()[name] = func;
 	}
-	static sptr<Component> Create(const string& name)
+	static sptr<Object> Create(const string& name)
 	{
 		auto& reg = Registry();
 
@@ -30,7 +30,7 @@ public:
 	virtual void Awake() override;
 };
 
-#define REFLECTION_COMPONENT(T)															\
+#define REFLECTION(T)															        \
 public:																					\
 	virtual const uint64_t GetType() const override { return typeid(T).hash_code(); }	\
 	virtual const char* GetTypeName() const override { return #T;}						\
@@ -39,7 +39,7 @@ struct T##_RegisterHelper																\
 {																						\
 	T##_RegisterHelper()																\
 	{																					\
-		ComponentFactory::Register(#T, []() {return makeSptr<T>();});					\
+		ObjectFactory::Register(#T, []() {return makeSptr<T>();});					    \
 	}																					\
 };																						\
 inline static T##_RegisterHelper T##_regHelper;

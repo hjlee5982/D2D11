@@ -11,8 +11,8 @@ private:
 	void RenderGameObject();
 	void RenderCollider();
 public:
-	void AddGameObjectToRenderer(sptr<GameObject> gameObject);
-	void AddColliderToRenderer(sptr<Component> collider);
+	void AddGameObject(sptr<GameObject> gameObject);
+	void AddCollider(sptr<Component> collider);
 private:
 	List<wptr<GameObject>> _gameObjects;
 	List<wptr<Component>>  _colliders;

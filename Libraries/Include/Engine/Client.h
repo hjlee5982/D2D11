@@ -12,8 +12,6 @@ struct ClientOption
 	f32       width;
 	f32       height;
 	bool      windowed;
-
-	sptr<class Scene> scene = nullptr;
 };
 
 class Client : public Singleton<Client>

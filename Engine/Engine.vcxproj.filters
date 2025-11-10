@@ -219,13 +219,12 @@
     <ClInclude Include="Log.h">
       <Filter>99. Module\spdlog</Filter>
     </ClInclude>
-    <ClInclude Include="DataManager.h">
-      <Filter>00. Data</Filter>
-    </ClInclude>
     <ClInclude Include="SceneManager.h">
       <Filter>07. Scene</Filter>
     </ClInclude>
-    <ClInclude Include="ComponentFactory.h" />
+    <ClInclude Include="ObjectFactory.h">
+      <Filter>00. Data</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -339,13 +338,12 @@
     <ClCompile Include="Log.cpp">
       <Filter>99. Module\spdlog</Filter>
     </ClCompile>
-    <ClCompile Include="DataManager.cpp">
-      <Filter>00. Data</Filter>
-    </ClCompile>
     <ClCompile Include="SceneManager.cpp">
       <Filter>07. Scene</Filter>
     </ClCompile>
-    <ClCompile Include="ComponentFactory.cpp" />
+    <ClCompile Include="ObjectFactory.cpp">
+      <Filter>00. Data</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Assets\Shader\CBuffer.hlsli">

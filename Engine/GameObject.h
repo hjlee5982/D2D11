@@ -6,19 +6,22 @@
 class GameObject : public Object, public std::enable_shared_from_this<GameObject>
 {
 public:
-	virtual ~GameObject() = default;
+	GameObject(const string& _name)
+	{
+		name = _name;
+	}
 public:
 	virtual void OnCollisionEnter(sptr<class BoxCollider2D> collider) override;
 public:
 	virtual void MakeJson() override;
-	virtual void LoadJson() override;
+	virtual void LoadJson(const nlohmann::json& json) override;
 public:
 	template<typename T, typename ...Args>
 	sptr<T> AddComponent(Args&& ... args)
 	{
 		static_assert(std::is_base_of<Component, T>::value, "T must be derived from Component");
 
-		auto idx = std::type_index(typeid(T));
+		auto idx = typeid(T).hash_code();
 		
 		if (_components.find(idx) == _components.end())
 		{
@@ -37,13 +40,14 @@ public:
 
 		return GetComponent<T>();
 	}
+	void AddComponent(sptr<class Component> com);
 public:
 	template<typename T, typename ...Args>
 	sptr<T> GetComponent()
 	{
 		static_assert(std::is_base_of<Component, T>::value, "T must be derived from Component");
 
-		auto it = _components.find(std::type_index(typeid(T)));
+		auto it = _components.find(typeid(T).hash_code());
 
 		if (it != _components.end())
 		{
@@ -59,15 +63,15 @@ public:
 	void LateUpdate();
 	void FixedUpdate();
 private:
-	Dictionary<std::type_index, sptr<class Component>> _components;
+	Dictionary<u64, sptr<class Component>> _components;
 public:
 	sptr<class Transform> transform;
 };
 
 template<typename... Args>
-static sptr<GameObject> Instantiate(Args&&... args)
+static sptr<GameObject> Instantiate(const string& name, Args&&... args)
 {
-	sptr<GameObject> go = makeSptr<GameObject>();
+	sptr<GameObject> go = makeSptr<GameObject>(name);
 
 	go->transform = go->AddComponent<Transform>(std::forward<Args>(args)...);
 
