@@ -138,7 +138,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="BackgroundController.h" />
-    <ClInclude Include="Boundary.h" />
     <ClInclude Include="MainScene.h" />
     <ClInclude Include="Obstacle.h" />
     <ClInclude Include="ObstacleGenerator.h" />
@@ -147,7 +146,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BackgroundController.cpp" />
-    <ClCompile Include="Boundary.cpp" />
     <ClCompile Include="MainScene.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Obstacle.cpp" />

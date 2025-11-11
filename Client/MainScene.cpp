@@ -7,7 +7,6 @@
 #include "SpriteRenderer.h"
 #include "Texture.h"
 #include "AssetManager.h"
-#include "Boundary.h"
 #include "ObstacleGenerator.h"
 
 void MainScene::Awake()
@@ -127,7 +126,7 @@ void MainScene::AddGameObject()
 	{
 		{
 			topBoundary->name = "TopBoundary";
-			topBoundary->tag  = "Boundary";
+			topBoundary->tag  = "Obstacle";
 		}
 		auto tf = topBoundary->AddComponent<Transform>();
 		{
@@ -135,14 +134,13 @@ void MainScene::AddGameObject()
 			tf->SetPosition(Vector3(0.f, Global::ClientOption.height / 2, 0.f));
 		}
 		topBoundary->AddComponent<BoxCollider2D>();
-		topBoundary->AddComponent<Boundary>();
 	}
 	// 바운더리(바닥)
 	auto btmBoundary = CreateGameObject();
 	{
 		{
 			btmBoundary->name = "BtmBoundary";
-			btmBoundary->tag  = "Boundary";
+			btmBoundary->tag  = "Obstacle";
 		}
 		auto tf = btmBoundary->AddComponent<Transform>();
 		{
@@ -150,7 +148,6 @@ void MainScene::AddGameObject()
 			tf->SetPosition(Vector3(0.f, -Global::ClientOption.height / 2, 0.f));
 		}
 		btmBoundary->AddComponent<BoxCollider2D>();
-		btmBoundary->AddComponent<Boundary>();
 	}
 	// 장애물 생성기
 	auto oj = CreateGameObject();

@@ -34,7 +34,7 @@ void PlayerController::Update()
 
 void PlayerController::OnCollisionEnter2D(sptr<BoxCollider2D> collider)
 {
-	if (collider->Owner()->tag == "Boundary")
+	if (collider->Owner()->tag == "Obstacle")
 	{
 		std::cout << "Ãæµ¹ÇÔ" << std::endl;
 	}

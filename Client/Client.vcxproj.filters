@@ -24,9 +24,6 @@
     <ClInclude Include="PlayerController.h">
       <Filter>03. Script</Filter>
     </ClInclude>
-    <ClInclude Include="Boundary.h">
-      <Filter>03. Script</Filter>
-    </ClInclude>
     <ClInclude Include="Obstacle.h">
       <Filter>03. Script</Filter>
     </ClInclude>
@@ -46,9 +43,6 @@
       <Filter>03. Script</Filter>
     </ClCompile>
     <ClCompile Include="PlayerController.cpp">
-      <Filter>03. Script</Filter>
-    </ClCompile>
-    <ClCompile Include="Boundary.cpp">
       <Filter>03. Script</Filter>
     </ClCompile>
     <ClCompile Include="Obstacle.cpp">

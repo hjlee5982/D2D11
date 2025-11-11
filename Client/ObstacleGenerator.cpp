@@ -18,18 +18,34 @@ void ObstacleGenerator::Generate()
 
 		_elapsed = 0.f;
 
-		auto obstacle = Instantiate();
+		f32 obstacleWidth  = 50.f;
+		f32 obstacleHeight = 300.f;
+
+		auto topObstacle = Instantiate();
 		{
 			{
-				obstacle->tag = "Obstacle";
+				topObstacle->tag = "Obstacle";
 			}
-			auto tf = obstacle->AddComponent<Transform>();
+			auto tf = topObstacle->AddComponent<Transform>();
 			{
-				tf->SetScale(Vector3(100.f, 300.f, 0.f));
-				tf->SetPosition(Vector3(0.f, (Global::ClientOption.height - 150.f) / 2, 0.f));
+				tf->SetScale(Vector3(obstacleWidth, obstacleHeight, 0.f));
+				tf->SetPosition(Vector3(400.f, (Global::ClientOption.height - (obstacleHeight / 2)) / 2, 0.f));
 			}
-			obstacle->AddComponent<BoxCollider2D>();
-			obstacle->AddComponent<Obstacle>();
+			topObstacle->AddComponent<BoxCollider2D>();
+			topObstacle->AddComponent<Obstacle>();
+		}
+		auto btmObstacle = Instantiate();
+		{
+			{
+				btmObstacle->tag = "Obstacle";
+			}
+			auto tf = btmObstacle->AddComponent<Transform>();
+			{
+				tf->SetScale(Vector3(obstacleWidth, obstacleHeight, 0.f));
+				tf->SetPosition(Vector3(400.f, -(Global::ClientOption.height - (obstacleHeight / 2)) / 2, 0.f));
+			}
+			btmObstacle->AddComponent<BoxCollider2D>();
+			btmObstacle->AddComponent<Obstacle>();
 		}
 	}
 }
