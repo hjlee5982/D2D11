@@ -32,9 +32,12 @@ void PlayerController::Update()
 	}
 }
 
-void PlayerController::OnCollisionEnter(sptr<BoxCollider2D> collider)
+void PlayerController::OnCollisionEnter2D(sptr<BoxCollider2D> collider)
 {
-
+	if (collider->Owner()->tag == "Boundary")
+	{
+		std::cout << "Ãæµ¹ÇÔ" << std::endl;
+	}
 }
 
 void PlayerController::Jump()

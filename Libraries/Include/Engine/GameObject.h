@@ -6,12 +6,7 @@
 class GameObject : public Object, public std::enable_shared_from_this<GameObject>
 {
 public:
-	GameObject(const string& _name)
-	{
-		name = _name;
-	}
-public:
-	virtual void OnCollisionEnter(sptr<class BoxCollider2D> collider) override;
+	virtual void OnCollisionEnter2D(sptr<class BoxCollider2D> collider) override;
 public:
 	virtual void MakeJson() override;
 	virtual void LoadJson(const nlohmann::json& json) override;
@@ -66,16 +61,31 @@ private:
 	Dictionary<u64, sptr<class Component>> _components;
 public:
 	sptr<class Transform> transform;
+public:
+	string tag = "none";
 };
 
 template<typename... Args>
-static sptr<GameObject> Instantiate(const string& name, Args&&... args)
+static sptr<GameObject> CreateGameObject(Args&&... args)
 {
-	sptr<GameObject> go = makeSptr<GameObject>(name);
+	sptr<GameObject> go = makeSptr<GameObject>();
 
 	go->transform = go->AddComponent<Transform>(std::forward<Args>(args)...);
 
 	GAMEOBJECT.AddGameObject(go);
+	SCENE.AddGameObject(go);
+
+	return go;
+}
+
+template<typename... Args>
+static sptr<GameObject> Instantiate(Args&&... args)
+{
+	sptr<GameObject> go = makeSptr<GameObject>();
+
+	go->transform = go->AddComponent<Transform>(std::forward<Args>(args)...);
+
+	GAMEOBJECT.AddLiveGameObject(go);
 	SCENE.AddGameObject(go);
 
 	return go;

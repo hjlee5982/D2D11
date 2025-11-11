@@ -138,14 +138,20 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="BackgroundController.h" />
+    <ClInclude Include="Boundary.h" />
     <ClInclude Include="MainScene.h" />
+    <ClInclude Include="Obstacle.h" />
+    <ClInclude Include="ObstacleGenerator.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="PlayerController.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BackgroundController.cpp" />
+    <ClCompile Include="Boundary.cpp" />
     <ClCompile Include="MainScene.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Obstacle.cpp" />
+    <ClCompile Include="ObstacleGenerator.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">pch.h</PrecompiledHeaderFile>

@@ -78,10 +78,10 @@ void GameObject::FixedUpdate()
 	}
 }
 
-void GameObject::OnCollisionEnter(sptr<BoxCollider2D> collider)
+void GameObject::OnCollisionEnter2D(sptr<BoxCollider2D> collider)
 {
 	for (auto& com : _components)
 	{
-		com.second->OnCollisionEnter(collider);
+		com.second->OnCollisionEnter2D(collider);
 	}
 }

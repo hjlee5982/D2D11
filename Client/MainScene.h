@@ -11,4 +11,5 @@ public:
 public:
 	void LoadResources();
 	void SetInputSystem();
+	void AddGameObject();
 };

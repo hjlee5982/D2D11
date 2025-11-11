@@ -7,7 +7,7 @@ public:
 	virtual void Start()       override;
 	virtual void Update()      override;
 public:
-	virtual void OnCollisionEnter(sptr<BoxCollider2D> collider) override;
+	virtual void OnCollisionEnter2D(sptr<BoxCollider2D> collider) override;
 private:
 	void Jump();
 private:

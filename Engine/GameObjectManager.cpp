@@ -1,24 +1,22 @@
 #include "pch.h"
 #include "GameObjectManager.h"
 
+void GameObjectManager::AddGameObject(sptr<class GameObject> go)
+{
+	_gameObjects.push_back(go);
+}
+
+void GameObjectManager::AddLiveGameObject(sptr<class GameObject> go)
+{
+	_spawnList.push_back(go);
+}
+
 void GameObjectManager::Awake()
 {
-	// 기본 카메라 생성
-	/*auto camera = Instantiate("MainCamera");
-	{
-		camera->AddComponent<Camera>();
-	}
-	AddGameObject(camera);*/
-
 	for (auto& go : _gameObjects)
 	{
 		go->Awake();
 	}
-}
-
-void GameObjectManager::AddGameObject(sptr<class GameObject> go)
-{
-	_gameObjects.push_back(go);
 }
 
 void GameObjectManager::Start()
@@ -35,6 +33,14 @@ void GameObjectManager::Update()
 	{
 		go->Update();
 	}
+
+	for (auto& go : _spawnList)
+	{
+		go->Awake();
+		go->Start();
+		_gameObjects.push_back(go);
+	}
+	_spawnList.clear();
 }
 
 void GameObjectManager::LateUpdate()

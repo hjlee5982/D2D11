@@ -24,6 +24,8 @@
 #include <variant>
 #include <iostream>
 #include <thread>
+#include <coroutine>
+#include <queue>
 
 
 /* DirectX11 Çì´õ */

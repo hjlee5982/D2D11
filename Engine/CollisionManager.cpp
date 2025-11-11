@@ -24,8 +24,8 @@ void CollisionManager::FixedUpate()
 				if (max(lhs.min.x, rhs.min.x) < min(lhs.max.x, rhs.max.x) &&
 					max(lhs.min.y, rhs.min.y) < min(lhs.max.y, rhs.max.y))
 				{
-					co1->Owner()->OnCollisionEnter(co2);
-					co2->Owner()->OnCollisionEnter(co1);
+					co1->Owner()->OnCollisionEnter2D(co2);
+					co2->Owner()->OnCollisionEnter2D(co1);
 				}
 			}
 		}
