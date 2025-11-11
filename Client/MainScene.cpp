@@ -8,13 +8,20 @@
 #include "Texture.h"
 #include "AssetManager.h"
 
-void MainScene::InitializeScene()
+void MainScene::Awake()
 {
 	// 리소스 로드
 	LoadResources();
 
 	// 인풋 설정
 	SetInputSystem();
+
+	// 카메라
+	auto camera = Instantiate("MainCamera");
+	{
+		auto tf = camera->AddComponent<Transform>();
+		auto cm = camera->AddComponent<Camera>();
+	}
 
 	// 배경화면
 	auto bg1 = Instantiate("Background_1");

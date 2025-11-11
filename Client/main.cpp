@@ -25,9 +25,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		option.height   = 800;
 		option.windowed = false;
 	}
-
 	Global::ClientOption = option;
 
+	sptr<MainScene> scene = makeSptr<MainScene>("MainScene");
+
+	SCENE.AddScene(scene);
 	CLIENT.Awake();
 
 	FreeConsole();

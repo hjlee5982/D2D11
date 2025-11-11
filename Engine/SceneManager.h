@@ -1,7 +1,5 @@
 #pragma once
 
-class Scene;
-
 class SceneManager : public Singleton<SceneManager>
 {
 public:
@@ -9,6 +7,7 @@ public:
 public:
 	void SaveScene();
 public:
+	void AddScene(sptr<class Scene> scene);
 	void AddGameObject(wptr<class GameObject> go);
 private:
 	List<sptr<Scene>> _scenes;

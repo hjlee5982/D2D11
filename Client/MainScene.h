@@ -7,7 +7,7 @@ public:
 	MainScene() {}
 	MainScene(const string& sceneName) : Scene(sceneName) {}
 public:
-	void InitializeScene() override;
+	void Awake() override;
 public:
 	void LoadResources();
 	void SetInputSystem();

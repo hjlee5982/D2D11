@@ -4,25 +4,14 @@ class Scene abstract : public Object
 {
 public:
 	Scene() {}
-	Scene(const string& sceneName)
-	{
-		_name = sceneName;
-	}
+	Scene(const string& sceneName) { name = sceneName; }
 public:
-	virtual void InitializeScene() abstract;
+	virtual void Awake() abstract;
 public:
-	void AddGameObject(wptr<class GameObject> go)
-	{
-		_goInScene.push_back(go);
-	}
+	void AddGameObject(wptr<class GameObject> go);
 public:
-	List<wptr<IJson>> GetObjInScene()
-	{
-		return _goInScene;
-	}
-public:
-	string _name;
+	List<wptr<IJson>> GetGameObjects();
 private:
-	List<wptr<IJson>> _goInScene;
+	List<wptr<IJson>> _gameObjects;
 };
 

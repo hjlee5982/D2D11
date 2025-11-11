@@ -8,51 +8,53 @@ namespace fs = std::filesystem;
 
 void SceneManager::Awake()
 {
-	Dictionary<string, nlohmann::json> config;
+	_currentScene->Awake();
 
-	// config.json에 기록되어 있는 마지막에 활성화 되어있던 씬을 불러옴
-	for (auto& entry : fs::recursive_directory_iterator("../Data/Scene"))
-	{
-		std::ifstream file(entry.path());
+	//Dictionary<string, nlohmann::json> config;
 
-		if (file.is_open() == false)
-		{
-			continue;
-		}
-		else
-		{
-			nlohmann::json json;
-			file >> json;
+	//// config.json에 기록되어 있는 마지막에 활성화 되어있던 씬을 불러옴
+	//for (auto& entry : fs::recursive_directory_iterator("../Data/Scene"))
+	//{
+	//	std::ifstream file(entry.path());
 
-			string fileName = entry.path().stem().string();
+	//	if (file.is_open() == false)
+	//	{
+	//		continue;
+	//	}
+	//	else
+	//	{
+	//		nlohmann::json json;
+	//		file >> json;
 
-			config[fileName] = json;
-		}
-	}
+	//		string fileName = entry.path().stem().string();
 
-	string currentSceneName = config.find("config")->second.at("CurrentSceneName");
+	//		config[fileName] = json;
+	//	}
+	//}
 
-	nlohmann::json json = config.find(currentSceneName)->second;
+	//string currentSceneName = config.find("config")->second.at("CurrentSceneName");
 
-	/*_currentScene = std::static_pointer_cast<Scene>(ObjectFactory::Create(json["SceneName"]));
-	_scenes.push_back(_currentScene);*/
+	//nlohmann::json json = config.find(currentSceneName)->second;
 
-	for (auto& goJson : json["GameObjects"])
-	{
-		auto go = makeSptr<GameObject>(goJson.at("Name"));
+	///*_currentScene = std::static_pointer_cast<Scene>(ObjectFactory::Create(json["SceneName"]));
+	//_scenes.push_back(_currentScene);*/
 
-		for (auto& comJson : goJson["Components"])
-		{
-			auto com = std::static_pointer_cast<Component>(ObjectFactory::Create(comJson["Type"]));
+	//for (auto& goJson : json["GameObjects"])
+	//{
+	//	auto go = makeSptr<GameObject>(goJson.at("Name"));
 
-			com->LoadJson(comJson);
+	//	for (auto& comJson : goJson["Components"])
+	//	{
+	//		auto com = std::static_pointer_cast<Component>(ObjectFactory::Create(comJson["Type"]));
 
-			go->AddComponent(com);
+	//		com->LoadJson(comJson);
 
-			GAMEOBJECT.AddGameObject(go);
-			RENDERER.AddGameObject(go);
-		}
-	}
+	//		go->AddComponent(com);
+
+	//		GAMEOBJECT.AddGameObject(go);
+	//		RENDERER.AddGameObject(go);
+	//	}
+	//}
 }
 
 void SceneManager::SaveScene()
@@ -84,6 +86,13 @@ void SceneManager::SaveScene()
 	//	file << sceneJson.dump(4);
 	//	file.close();
 	//}
+}
+
+void SceneManager::AddScene(sptr<class Scene> scene)
+{
+	_currentScene = scene;
+
+	_scenes.push_back(scene);
 }
 
 void SceneManager::AddGameObject(wptr<class GameObject> go)

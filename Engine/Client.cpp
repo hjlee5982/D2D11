@@ -17,8 +17,6 @@ void Client::Initialize()
 	RENDERER.Awake();
 	SCENE   .Awake();
 
-	// Global::ClientOption.scene->InitializeScene();
-
 	GAMEOBJECT.Awake();
 	GAMEOBJECT.Start();
 }
