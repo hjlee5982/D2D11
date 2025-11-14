@@ -63,6 +63,9 @@ void MainScene::AddGameObject()
 		}
 	}
 	// 배경화면
+
+	f32 bgWidth = 2200.f;
+
 	auto bg1 = CreateGameObject();
 	{
 		{
@@ -70,8 +73,8 @@ void MainScene::AddGameObject()
 		}
 		auto tf = bg1->AddComponent<Transform>();
 		{
-			tf->SetScale(Vector3(1420.f, 800.f, 0.f));
-			tf->SetPosition(Vector3(-710.f, 0.f, 0.f));
+			tf->SetScale(Vector3(bgWidth, 800.f, 0.f));
+			tf->SetPosition(Vector3(-bgWidth / 2, 0.f, 0.f));
 		}
 		auto sr = bg1->AddComponent<SpriteRenderer>();
 		{
@@ -87,8 +90,8 @@ void MainScene::AddGameObject()
 		}
 		auto tf = bg2->AddComponent<Transform>();
 		{
-			tf->SetScale(Vector3(1420.f, 800.f, 0.f));
-			tf->SetPosition(Vector3(710.f, 0.f, 0.f));
+			tf->SetScale(Vector3(bgWidth, 800.f, 0.f));
+			tf->SetPosition(Vector3(bgWidth / 2, 0.f, 0.f));
 		}
 		auto sr = bg2->AddComponent<SpriteRenderer>();
 		{

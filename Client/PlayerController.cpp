@@ -16,6 +16,7 @@ void PlayerController::Start()
 void PlayerController::Update()
 {
 	TempAnimation();
+	std::cout << TIMER.DeltaTime() << std::endl;
 
 	if (_trigger == true)
 	{
