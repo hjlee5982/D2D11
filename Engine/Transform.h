@@ -1,6 +1,6 @@
 #pragma once
 
-class Transform : public Component
+class Transform : public Component, public std::enable_shared_from_this<Transform>
 {
 	REFLECTION(Transform);
 public:
@@ -8,32 +8,25 @@ public:
 	virtual void LoadJson(const nlohmann::json& json) override;
 public:
 	virtual void Update()     override;
-private:
-	void UpdateLocalMatrix();
 public:
-	Matrix     GetLocalMatrix()   { return _localMatrix;   }
 	Vector3    GetLocalPosition() { return _localPosition; }
-	Vector3	   GetLocalScale()    { return _localScale;    }
+	Vector3    GetLocalScale()    { return _localScale;    }
 	Quaternion GetLocalRotation() { return _localRotation; }
+	void       SetLocalPosition(const Vector3&    localPosition) { _localPosition = localPosition; Update(); }
+	void       SetLocalScale   (const Vector3&    localScale   ) { _localScale    = localScale;    Update(); }
+	void       SetLocalRotation(const Quaternion& localRotation) { _localRotation = localRotation; Update(); }
 public:
-	void SetLocalMatrix  (const Matrix&     localMatrix  );
-	void SetLocalPosition(const Vector3&    localPosition);
-	void SetLocalScale   (const Vector3&    localScale   );
-	void SetLocalRotaion (const Quaternion& localRotation);
+	Vector3    GetPosition() { return _position; }
+	Vector3    GetScale()	 { return _scale;	 }
+	Quaternion GetRotation() { return _rotation; }
+	void       SetPosition(const Vector3&    worldPosition);
+	void       SetScale   (const Vector3&    worldScale   );
+	void       SetRotation(const Quaternion& worldRotation);
 public:
-	Matrix     GetWorldMatrix()	{ return _worldMatrix;	}
-	Vector3    GetPosition()	{ return _position;		}
-	Vector3    GetScale()	    { return _scale;	    }
-	Quaternion GetRotation()    { return _rotation;		}
-public:
-	void SetWorldMatrix(const Matrix&     worldMatrix);
-	void SetPosition   (const Vector3&    position   );
-	void SetScale      (const Vector3&    scale      );
-	void SetRotation   (const Quaternion& rotation   );
-public:
-	Vector3 GetRight() { return _right; }
-	Vector3 GetUp()    { return _up;	}
-	Vector3 GetLook()  { return _look;  }
+	Matrix  GetWorldMatrix() { return _worldMatrix;     	}
+	Vector3 GetRight()       { return _worldMatrix.Right(); }
+	Vector3 GetUp()          { return _worldMatrix.Up();	}
+	Vector3 GetLook()        { return _worldMatrix.Look();  }
 public:
 	void Translation(const Vector3& dir, float speed);
 private:
@@ -50,4 +43,34 @@ private:
 	Vector3 _right = Vector3(1.f, 0.f, 0.f);
 	Vector3 _up    = Vector3(0.f, 1.f, 0.f);
 	Vector3 _look  = Vector3(0.f, 0.f, 1.f);
+
+public:
+	void SetParent(sptr<Transform> p)
+	{
+		if (_parent != nullptr)
+		{
+			auto& siblings = _parent->_children;
+
+			auto it = std::find_if(siblings.begin(), siblings.end(), [this]
+			(const sptr<Transform>& child)
+				{
+					return child.get() == this;
+				});
+
+			if (it != siblings.end())
+			{
+				siblings.erase(it);
+			}
+		}
+
+		_parent = p;
+
+		if (p != nullptr)
+		{
+			p->_children.push_back(shared_from_this());
+		}
+	}
+private:
+	sptr<Transform> _parent;
+	List<sptr<Transform>> _children;
 };

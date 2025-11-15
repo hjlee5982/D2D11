@@ -12,6 +12,7 @@ void BoxCollider2D::Init()
 	_material = ASSET.Get<Material>(L"Material_Collider");
 
 	_colliderTransform = makeSptr<Transform>();
+	_colliderTransform->SetParent(Owner()->transform);
 
 	RENDERER.AddCollider(shared_from_this());
 	COLLISION.AddCollider(shared_from_this());
@@ -38,21 +39,17 @@ void BoxCollider2D::Start()
 
 void BoxCollider2D::Update()
 {
-	// 월드 갱신
-	Matrix world = _colliderTransform->GetLocalMatrix() * Owner()->transform->GetWorldMatrix();
-	_colliderTransform->SetWorldMatrix(world);
-
 	// AABB 갱신
 	_aabb.min = XMVector3TransformCoord(_min, Owner()->transform->GetWorldMatrix());
 	_aabb.max = XMVector3TransformCoord(_max, Owner()->transform->GetWorldMatrix());
 }
 
-void BoxCollider2D::SetPosition(Vector3 position)
+void BoxCollider2D::SetLocalPosition(Vector3 position)
 {
 	_colliderTransform->SetLocalPosition(position);
 }
 
-void BoxCollider2D::SetScale(Vector3 scale)
+void BoxCollider2D::SetLocalScale(Vector3 scale)
 {
 	_colliderTransform->SetLocalScale(scale);
 }

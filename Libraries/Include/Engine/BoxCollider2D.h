@@ -27,8 +27,8 @@ public:
 public:
 	AABB GetAABB() { return _aabb; }
 public:
-	void SetPosition(Vector3 position);
-	void SetScale(Vector3 scale);
+	void SetLocalPosition(Vector3 position);
+	void SetLocalScale(Vector3 scale);
 private:
 	sptr<Mesh>      _mesh;
 	sptr<Material>  _material;

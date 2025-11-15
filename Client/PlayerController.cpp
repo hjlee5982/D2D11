@@ -16,12 +16,13 @@ void PlayerController::Start()
 void PlayerController::Update()
 {
 	TempAnimation();
-	std::cout << TIMER.DeltaTime() << std::endl;
 
 	if (_trigger == true)
 	{
 		Vector3	pos = Owner()->transform->GetPosition();
 		Vector3 up = Owner()->transform->GetUp();
+
+		up.Normalize();
 
 		f32 gravity = -9.81f * 300.f;
 
@@ -35,10 +36,10 @@ void PlayerController::Update()
 
 void PlayerController::OnCollisionEnter2D(sptr<BoxCollider2D> collider)
 {
-	if (collider->Owner()->tag == "Obstacle")
+	/*if (collider->Owner()->tag == "Obstacle")
 	{
 		std::cout << "Ãæµ¹ÇÔ" << std::endl;
-	}
+	}*/
 }
 
 void PlayerController::Jump()
