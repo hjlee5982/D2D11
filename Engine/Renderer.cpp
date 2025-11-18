@@ -87,7 +87,7 @@ void Renderer::Render()
 
 	if (colliderRendering == true)
 	{
-		//RenderCollider();
+		RenderCollider();
 	}
 }
 

@@ -9,6 +9,6 @@ public:
 public:
 	void AddCollider(sptr<class BoxCollider2D> collider);
 private:
-	List<sptr<class BoxCollider2D>> _colliders;
+	List<wptr<class BoxCollider2D>> _colliders;
 };
 

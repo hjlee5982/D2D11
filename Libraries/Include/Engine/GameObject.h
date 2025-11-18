@@ -65,21 +65,7 @@ public:
 	string tag = "none";
 };
 
-// 게임 시작 전에 오브젝트 추가
-template<typename... Args>
-static sptr<GameObject> CreateGameObject(Args&&... args)
-{
-	sptr<GameObject> go = makeSptr<GameObject>();
 
-	go->transform = go->AddComponent<Transform>(std::forward<Args>(args)...);
-
-	GAMEOBJECT.AddGameObject(go);
-	SCENE.AddGameObject(go);
-
-	return go;
-}
-
-// 게임 실행 도중 오브젝트 추가
 template<typename... Args>
 static sptr<GameObject> Instantiate(Args&&... args)
 {
@@ -87,8 +73,8 @@ static sptr<GameObject> Instantiate(Args&&... args)
 
 	go->transform = go->AddComponent<Transform>(std::forward<Args>(args)...);
 
-	GAMEOBJECT.AddLiveGameObject(go);
-	SCENE.AddGameObject(go);
+	GAMEOBJECT.AddGameObject(go);
+	//SCENE.AddGameObject(go);
 
 	return go;
 }

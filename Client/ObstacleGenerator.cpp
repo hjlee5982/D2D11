@@ -13,7 +13,7 @@ void ObstacleGenerator::Update()
 
 void ObstacleGenerator::Generate()
 {
-	/*_elapsed += TIMER.DeltaTime();
+	_elapsed += TIMER.DeltaTime();
 
 	if (_elapsed >= 3.f)
 	{
@@ -100,6 +100,6 @@ void ObstacleGenerator::Generate()
 				}
 			}
 		}
-	}*/
+	}
 }
 

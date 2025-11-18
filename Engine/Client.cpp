@@ -16,9 +16,6 @@ void Client::Initialize()
 	FACTORY	.Awake();
 	RENDERER.Awake();
 	SCENE   .Awake();
-
-	GAMEOBJECT.Awake();
-	GAMEOBJECT.Start();
 }
 
 void Client::Update()
