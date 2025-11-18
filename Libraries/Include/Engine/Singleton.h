@@ -10,7 +10,7 @@ protected:
 public:
 	virtual ~Singleton() = default;
 public:
-	virtual void Awake() = 0;
+	virtual void Awake() {};
 public:
 	static T& Instance()
 	{

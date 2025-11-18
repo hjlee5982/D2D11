@@ -13,6 +13,8 @@ private:
 public:
 	void AddGameObject(sptr<GameObject> gameObject);
 	void AddCollider(sptr<Component> collider);
+public:
+	bool colliderRendering = false;
 private:
 	List<wptr<GameObject>> _gameObjects;
 	List<wptr<Component>>  _colliders;

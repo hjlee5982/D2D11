@@ -13,14 +13,14 @@ void ObstacleGenerator::Update()
 
 void ObstacleGenerator::Generate()
 {
-	_elapsed += TIMER.DeltaTime();
+	/*_elapsed += TIMER.DeltaTime();
 
 	if (_elapsed >= 3.f)
 	{
 		_elapsed = 0.f;
 
-		f32 obstacleWidth  = 50.f;
-		f32 obstacleHeight = 200.f;
+		f32 obstacleWidth  = 75.f;
+		f32 obstacleHeight = 300.f;
 
 		auto topObstacle = Instantiate();
 		{
@@ -32,8 +32,14 @@ void ObstacleGenerator::Generate()
 				tf->SetScale(Vector3(obstacleWidth, obstacleHeight, 1.f));
 				tf->SetPosition(Vector3(400.f, (Global::ClientOption.height - (obstacleHeight)) / 2, 0.f));
 			}
-			
-			topObstacle->AddComponent<BoxCollider2D>();
+			auto sr = topObstacle->AddComponent<SpriteRenderer>();
+			{
+				sr->SetTexture(ASSET.Get<Texture>(L"Texture_Rope"));
+			}
+			auto bc = topObstacle->AddComponent<BoxCollider2D>();
+			{
+				bc->SetLocalScale(Vector3(0.5f, 1.f, 1.f));
+			}
 			topObstacle->AddComponent<Obstacle>();
 
 			auto cloud = Instantiate();
@@ -49,7 +55,10 @@ void ObstacleGenerator::Generate()
 					sr->SetTexture(ASSET.Get<Texture>(L"Texture_Cloud"));
 					sr->OrderInLayer = 15;
 				}
-				cloud->AddComponent<BoxCollider2D>();
+				auto bc = cloud->AddComponent<BoxCollider2D>();
+				{
+					bc->SetLocalScale(Vector3(0.8f, 0.8f, 1.f));
+				}
 			}
 		}
 		auto btmObstacle = Instantiate();
@@ -62,7 +71,14 @@ void ObstacleGenerator::Generate()
 				tf->SetScale(Vector3(obstacleWidth, obstacleHeight, 1.f));
 				tf->SetPosition(Vector3(400.f, -(Global::ClientOption.height - (obstacleHeight)) / 2, 0.f));
 			}
-			btmObstacle->AddComponent<BoxCollider2D>();
+			auto sr = btmObstacle->AddComponent<SpriteRenderer>();
+			{
+				sr->SetTexture(ASSET.Get<Texture>(L"Texture_Rope"));
+			}
+			auto bc = btmObstacle->AddComponent<BoxCollider2D>();
+			{
+				bc->SetLocalScale(Vector3(0.5f, 1.f, 1.f));
+			}
 			btmObstacle->AddComponent<Obstacle>();
 
 			auto cloud = Instantiate();
@@ -78,9 +94,12 @@ void ObstacleGenerator::Generate()
 					sr->SetTexture(ASSET.Get<Texture>(L"Texture_Cloud"));
 					sr->OrderInLayer = 15;
 				}
-				cloud->AddComponent<BoxCollider2D>();
+				auto bc = cloud->AddComponent<BoxCollider2D>();
+				{
+					bc->SetLocalScale(Vector3(0.8f, 0.8f, 1.f));
+				}
 			}
 		}
-	}
+	}*/
 }
 

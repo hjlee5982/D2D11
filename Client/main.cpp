@@ -21,8 +21,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		option.clearColor = Color(Colors::Blue);
 
 		option.appName  = L"FlappyBird";
-		option.width    = 600;
-		option.height   = 800;
+		option.width    = 700;
+		option.height   = 1000;
 		option.windowed = false;
 	}
 	Global::ClientOption = option;

@@ -29,6 +29,38 @@ void GameObjectManager::Start()
 
 void GameObjectManager::Update()
 {
+	/*if (a == false)
+	{
+		Awake();
+		a = true;
+	}
+	if (s == false)
+	{
+		Start();
+		s = true;
+	}*/
+
+	/*for (auto& go : _newObjects)
+	{
+		_pendingAwake.push_back(go);
+	}
+
+	for (auto& go : _pendingAwake)
+	{
+		go->Awake();
+	}
+
+	_pendingStart.insert(_pendingStart.end(), _pendingAwake.begin(), _pendingAwake.end());
+	_pendingAwake.clear();
+
+	for (auto& go : _pendingStart)
+	{
+		go->Start();
+	}
+
+	_pendingStart.clear();*/
+
+
 	for (auto& go : _gameObjects)
 	{
 		go->Update();

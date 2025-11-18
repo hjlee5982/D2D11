@@ -35,9 +35,9 @@ void Transform::Update()
 
 	_localMatrix = scale * rotation * position;
 
-	if (_parent != nullptr)
+	if (_parent.lock() != nullptr)
 	{
-		_worldMatrix = _localMatrix * _parent->GetWorldMatrix();
+		_worldMatrix = _localMatrix * _parent.lock()->GetWorldMatrix();
 	}
 	else
 	{
@@ -60,9 +60,9 @@ void Transform::Update()
 
 void Transform::SetPosition(const Vector3& worldPosition)
 {
-	if (_parent != nullptr)
+	if (_parent.lock() != nullptr)
 	{
-		Matrix parentWorldMatrixInverse = _parent->GetWorldMatrix().Invert();
+		Matrix parentWorldMatrixInverse = _parent.lock()->GetWorldMatrix().Invert();
 
 		Vector3 localPosision = ::XMVector3TransformCoord(worldPosition, parentWorldMatrixInverse);
 
@@ -76,9 +76,9 @@ void Transform::SetPosition(const Vector3& worldPosition)
 
 void Transform::SetScale(const Vector3& worldScale)
 {
-	if (_parent != nullptr)
+	if (_parent.lock() != nullptr)
 	{
-		Vector3 parentScale = _parent->GetScale();
+		Vector3 parentScale = _parent.lock()->GetScale();
 
 		Vector3 localScale = worldScale / parentScale;
 
@@ -92,9 +92,9 @@ void Transform::SetScale(const Vector3& worldScale)
 
 void Transform::SetRotation(const Quaternion& worldRotation)
 {
-	if (_parent != nullptr)
+	if (_parent.lock() != nullptr)
 	{
-		Quaternion parentWorldRotationInverse = ::XMQuaternionInverse(_parent->GetRotation());
+		Quaternion parentWorldRotationInverse = ::XMQuaternionInverse(_parent.lock()->GetRotation());
 
 		Quaternion localRotation = ::XMQuaternionMultiply(parentWorldRotationInverse, worldRotation);
 

@@ -8,17 +8,21 @@
 #include "Texture.h"
 #include "AssetManager.h"
 #include "ObstacleGenerator.h"
+#include "Renderer.h"
 
 void MainScene::Awake()
 {
 	// 리소스 로드
 	LoadResources();
 
-	// 인풋 설정
+	//// 인풋 설정
 	SetInputSystem();
 
-	// 오브젝트 배치
+	//// 오브젝트 배치
 	AddGameObject();
+
+	//// 엔진 설정
+	EngineSetting();
 }
 
 void MainScene::LoadResources()
@@ -38,11 +42,17 @@ void MainScene::LoadResources()
 			ASSET.Add(L"Texture_Player_" + std::to_wstring(i), texture);
 		}
 	}
-	// 장애물
+	// 장애물(구름)
 	{
 		sptr<Texture> texture = makeSptr<Texture>();
 		texture->CreateTexture(L"../Assets/Image/Cloud.png");
 		ASSET.Add(L"Texture_Cloud", texture);
+	}
+	// 장애물(밧줄)
+	{
+		sptr<Texture> texture = makeSptr<Texture>();
+		texture->CreateTexture(L"../Assets/Image/Rope.png");
+		ASSET.Add(L"Texture_Rope", texture);
 	}
 }
 
@@ -68,7 +78,7 @@ void MainScene::AddGameObject()
 			auto cm = camera->AddComponent<Camera>();
 		}
 	}
-	// 배경화면
+	// 배경화면 
 
 	f32 bgWidth = 2200.f;
 
@@ -79,8 +89,8 @@ void MainScene::AddGameObject()
 		}
 		auto tf = bg1->AddComponent<Transform>();
 		{
-			tf->SetScale(Vector3(bgWidth, 800.f, 1.f));
-			tf->SetPosition(Vector3(-bgWidth / 2, 0.f, 0.f));
+			tf->SetScale(Vector3(bgWidth, 1000.f, 1.f));
+			tf->SetPosition(Vector3(0.f, 0.f, 0.f));
 		}
 		auto sr = bg1->AddComponent<SpriteRenderer>();
 		{
@@ -96,8 +106,8 @@ void MainScene::AddGameObject()
 		}
 		auto tf = bg2->AddComponent<Transform>();
 		{
-			tf->SetScale(Vector3(bgWidth, 800.f, 1.f));
-			tf->SetPosition(Vector3(bgWidth / 2, 0.f, 0.f));
+			tf->SetScale(Vector3(bgWidth, 1000.f, 1.f));
+			tf->SetPosition(Vector3(bgWidth, 0.f, 0.f));
 		}
 		auto sr = bg2->AddComponent<SpriteRenderer>();
 		{
@@ -106,61 +116,67 @@ void MainScene::AddGameObject()
 		}
 		bg2->AddComponent<BackgroundController>();
 	}
-	// 플레이어
-	auto player = CreateGameObject();
-	{
-		{
-			player->name = "Player";
-			player->tag  = "Player";
-		}
-		auto tf = player->AddComponent<Transform>();
-		{
-			tf->SetScale(Vector3(200.f, 200.f, 1.f));
-			tf->SetPosition(Vector3(-150.f, 100.f, 0.f));
-		}
-		auto sr = player->AddComponent<SpriteRenderer>();
-		{
-			sr->SetTexture(ASSET.Get<Texture>(L"Texture_Player_1"));
-			sr->OrderInLayer = 10;
-		}
-		auto bc = player->AddComponent<BoxCollider2D>();
-		{
-			bc->SetLocalScale(Vector3(0.35f, 0.35f, 0.35f));
-			bc->SetLocalPosition(Vector3(0.02f, 0.f, 0.f));
-		}
-		player->AddComponent<PlayerController>();
-	}
+	//// 플레이어
+	//auto player = CreateGameObject();
+	//{
+	//	{
+	//		player->name = "Player";
+	//		player->tag  = "Player";
+	//	}
+	//	auto tf = player->AddComponent<Transform>();
+	//	{
+	//		tf->SetScale(Vector3(200.f, 200.f, 1.f));
+	//		tf->SetPosition(Vector3(-150.f, 100.f, 0.f));
+	//	}
+	//	auto sr = player->AddComponent<SpriteRenderer>();
+	//	{
+	//		sr->SetTexture(ASSET.Get<Texture>(L"Texture_Player_1"));
+	//		sr->OrderInLayer = 30;
+	//	}
+	//	auto bc = player->AddComponent<BoxCollider2D>();
+	//	{
+	//		bc->SetLocalScale(Vector3(0.35f, 0.35f, 0.35f));
+	//		bc->SetLocalPosition(Vector3(0.02f, 0.f, 0.f));
+	//	}
+	//	player->AddComponent<PlayerController>();
+	//}
 	// 바운더리(천장)
-	auto topBoundary = CreateGameObject();
-	{
-		{
-			topBoundary->name = "TopBoundary";
-			topBoundary->tag  = "Obstacle";
-		}
-		auto tf = topBoundary->AddComponent<Transform>();
-		{
-			tf->SetLocalScale(Vector3(Global::ClientOption.width, 1.f, 1.f));
-			tf->SetLocalPosition(Vector3(0.f, Global::ClientOption.height / 2, 0.f));
-		}
-		topBoundary->AddComponent<BoxCollider2D>();
-	}
-	// 바운더리(바닥)
-	auto btmBoundary = CreateGameObject();
-	{
-		{
-			btmBoundary->name = "BtmBoundary";
-			btmBoundary->tag  = "Obstacle";
-		}
-		auto tf = btmBoundary->AddComponent<Transform>();
-		{
-			tf->SetLocalScale(Vector3(Global::ClientOption.width, 1.f, 1.f));
-			tf->SetLocalPosition(Vector3(0.f, -Global::ClientOption.height / 2, 0.f));
-		}
-		btmBoundary->AddComponent<BoxCollider2D>();
-	}
+	//auto topBoundary = CreateGameObject();
+	//{
+	//	{
+	//		topBoundary->name = "TopBoundary";
+	//		topBoundary->tag  = "Obstacle";
+	//	}
+	//	auto tf = topBoundary->AddComponent<Transform>();
+	//	{
+	//		tf->SetLocalScale(Vector3(Global::ClientOption.width, 1.f, 1.f));
+	//		tf->SetLocalPosition(Vector3(0.f, Global::ClientOption.height / 2, 0.f));
+	//	}
+	//	topBoundary->AddComponent<BoxCollider2D>();
+	//}
+	//// 바운더리(바닥)
+	//auto btmBoundary = CreateGameObject();
+	//{
+	//	{
+	//		btmBoundary->name = "BtmBoundary";
+	//		btmBoundary->tag  = "Obstacle";
+	//	}
+	//	auto tf = btmBoundary->AddComponent<Transform>();
+	//	{
+	//		tf->SetLocalScale(Vector3(Global::ClientOption.width, 1.f, 1.f));
+	//		tf->SetLocalPosition(Vector3(0.f, -Global::ClientOption.height / 2, 0.f));
+	//	}
+	//	btmBoundary->AddComponent<BoxCollider2D>();
+	//}
 	// 장애물 생성기
 	auto oj = CreateGameObject();
 	{
 		oj->AddComponent<ObstacleGenerator>();
+		oj->AddComponent<BoxCollider2D>();
 	}
+}
+
+void MainScene::EngineSetting()
+{
+	RENDERER.colliderRendering = true;
 }

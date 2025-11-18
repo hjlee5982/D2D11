@@ -3,5 +3,5 @@
 
 void Obstacle::Update()
 {
-	Owner()->transform->Translation(-Vector3::Right, 200.f * TIMER.DeltaTime());
+	Owner()->transform->Translation(-Vector3::Right, 300.f * TIMER.DeltaTime());
 }

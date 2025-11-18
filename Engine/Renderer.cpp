@@ -84,7 +84,11 @@ void Renderer::Render()
 {
 	BindConstantBuffer();
 	RenderGameObject();
-	RenderCollider();
+
+	if (colliderRendering == true)
+	{
+		//RenderCollider();
+	}
 }
 
 void Renderer::BindConstantBuffer()

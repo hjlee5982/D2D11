@@ -47,9 +47,9 @@ private:
 public:
 	void SetParent(sptr<Transform> p)
 	{
-		if (_parent != nullptr)
+		if (_parent.lock() != nullptr)
 		{
-			auto& siblings = _parent->_children;
+			auto& siblings = _parent.lock()->_children;
 
 			auto it = std::find_if(siblings.begin(), siblings.end(), [this]
 			(const sptr<Transform>& child)
@@ -71,6 +71,8 @@ public:
 		}
 	}
 private:
-	sptr<Transform> _parent;
+	// 부모는 weak로 들고있어야 순환참조가 걸리지 않음
+	//sptr<Transform> _parent;
+	wptr<Transform> _parent;
 	List<sptr<Transform>> _children;
 };
