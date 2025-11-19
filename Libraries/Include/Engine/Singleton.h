@@ -29,6 +29,7 @@ public:
 #define INPUT      InputSystem      ::Instance()
 #define SCENE	   SceneManager     ::Instance()
 #define CLIENT     Client           ::Instance()
+#define RANDOM	   Random			::Instance()
 #define FACTORY	   ObjectFactory    ::Instance()
 #define RENDERER   Renderer         ::Instance()
 #define COLLISION  CollisionManager ::Instance()

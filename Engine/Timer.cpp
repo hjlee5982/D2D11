@@ -10,7 +10,7 @@ void Timer::Update()
 {
     auto now = std::chrono::steady_clock::now();
 
-    std::chrono::duration<float> sec = now - _timePoint;
+    std::chrono::duration<f64> sec = now - _timePoint;
 
     _deltaTime = sec.count();
 

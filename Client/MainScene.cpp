@@ -78,43 +78,10 @@ void MainScene::AddGameObject()
 			auto cm = camera->AddComponent<Camera>();
 		}
 	}
-	// 배경화면 
-
-	f32 bgWidth = 2200.f;
-
-	auto bg1 = Instantiate();
+	// 배경화면 제어기
+	auto bgCtrler = Instantiate();
 	{
-		{
-			bg1->name = "Background_1";
-		}
-		auto tf = bg1->AddComponent<Transform>();
-		{
-			tf->SetScale(Vector3(bgWidth, 1000.f, 1.f));
-			tf->SetPosition(Vector3(0.f, 0.f, 0.f));
-		}
-		auto sr = bg1->AddComponent<SpriteRenderer>();
-		{
-			sr->SetTexture(ASSET.Get<Texture>(L"Texture_BackGround"));
-			sr->OrderInLayer = 0;
-		}
-		auto bc = bg1->AddComponent<BackgroundController>();
-	}
-	auto bg2 = Instantiate();
-	{
-		{
-			bg2->name = "Background_2";
-		}
-		auto tf = bg2->AddComponent<Transform>();
-		{
-			tf->SetScale(Vector3(bgWidth, 1000.f, 1.f));
-			tf->SetPosition(Vector3(bgWidth, 0.f, 0.f));
-		}
-		auto sr = bg2->AddComponent<SpriteRenderer>();
-		{
-			sr->SetTexture(ASSET.Get<Texture>(L"Texture_BackGround"));
-			sr->OrderInLayer = 0;
-		}
-		bg2->AddComponent<BackgroundController>();
+		bgCtrler->AddComponent<BackgroundController>();
 	}
 	// 플레이어
 	auto player = Instantiate();
@@ -125,8 +92,8 @@ void MainScene::AddGameObject()
 		}
 		auto tf = player->AddComponent<Transform>();
 		{
-			tf->SetScale(Vector3(200.f, 200.f, 1.f));
-			tf->SetPosition(Vector3(-150.f, 100.f, 0.f));
+			tf->SetScale(Vector3(2.f, 2.f, 1.f));
+			tf->SetPosition(Vector3(-1.5f, 1.f, 0.f));
 		}
 		auto sr = player->AddComponent<SpriteRenderer>();
 		{
@@ -149,8 +116,8 @@ void MainScene::AddGameObject()
 		}
 		auto tf = topBoundary->AddComponent<Transform>();
 		{
-			tf->SetLocalScale(Vector3(Global::ClientOption.width, 1.f, 1.f));
-			tf->SetLocalPosition(Vector3(0.f, Global::ClientOption.height / 2, 0.f));
+			tf->SetScale(Vector3(8.f, 0.01f, 0.f));
+			tf->SetPosition(Vector3(0.f, 5.f, 0.f));
 		}
 		topBoundary->AddComponent<BoxCollider2D>();
 	}
@@ -163,8 +130,8 @@ void MainScene::AddGameObject()
 		}
 		auto tf = btmBoundary->AddComponent<Transform>();
 		{
-			tf->SetLocalScale(Vector3(Global::ClientOption.width, 1.f, 1.f));
-			tf->SetLocalPosition(Vector3(0.f, -Global::ClientOption.height / 2, 0.f));
+			tf->SetScale(Vector3(8.f, 0.01f, 0.f));
+			tf->SetPosition(Vector3(0.f, -5.f, 0.f));
 		}
 		btmBoundary->AddComponent<BoxCollider2D>();
 	}
@@ -177,5 +144,5 @@ void MainScene::AddGameObject()
 
 void MainScene::EngineSetting()
 {
-	RENDERER.colliderRendering = true;
+	RENDERER.colliderRendering = false;
 }

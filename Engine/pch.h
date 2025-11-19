@@ -67,6 +67,7 @@ using namespace Microsoft::WRL;
 #include "Singleton.h"
 
 /* »ç¿ëÀÚ */
+#include "Random.h"
 #include "IJson.h"
 #include "Client.h"
 #include "Device.h"

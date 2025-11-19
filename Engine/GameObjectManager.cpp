@@ -36,7 +36,10 @@ void GameObjectManager::Update()
 
 	for (auto& go : _gameObjects)
 	{
-		go->Update();
+		if (go->isActive == true)
+		{
+			go->Update();
+		}
 	}
 }
 
@@ -44,7 +47,10 @@ void GameObjectManager::LateUpdate()
 {
 	for (auto& go : _gameObjects)
 	{
-		go->LateUpdate();
+		if (go->isActive == true)
+		{
+			go->LateUpdate();
+		}
 	}
 }
 
@@ -52,6 +58,9 @@ void GameObjectManager::FixedUpdate()
 {
 	for (auto& go : _gameObjects)
 	{
-		go->FixedUpdate();
+		if (go->isActive == true)
+		{
+			go->FixedUpdate();
+		}
 	}
 }

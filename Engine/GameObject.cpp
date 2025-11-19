@@ -78,6 +78,13 @@ void GameObject::FixedUpdate()
 	}
 }
 
+void GameObject::SetActive(bool active)
+{
+	isActive = active;
+
+	transform->SetActive(active);
+}
+
 void GameObject::OnCollisionEnter2D(sptr<BoxCollider2D> collider)
 {
 	for (auto& com : _components)

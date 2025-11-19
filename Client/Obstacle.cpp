@@ -1,7 +1,15 @@
 #include "pch.h"
 #include "Obstacle.h"
+#include "ObstacleGenerator.h"
 
 void Obstacle::Update()
 {
-	Owner()->transform->Translation(-Vector3::Right, 300.f * TIMER.DeltaTime());
+	Owner()->transform->Translation(-Vector3::Right, _speed *TIMER.DeltaTime());
+
+	auto position = Owner()->transform->GetPosition();
+
+	if (position.x <= -4.f)
+	{
+		_generator.lock()->ReturnPool(Owner());
+	}
 }

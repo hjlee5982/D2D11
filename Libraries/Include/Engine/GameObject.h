@@ -57,12 +57,15 @@ public:
 	void Update();
 	void LateUpdate();
 	void FixedUpdate();
+public:
+	void SetActive(bool active);
 private:
 	Dictionary<u64, sptr<class Component>> _components;
 public:
 	sptr<class Transform> transform;
 public:
 	string tag = "none";
+	bool isActive = true;
 };
 
 

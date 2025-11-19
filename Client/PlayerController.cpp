@@ -24,7 +24,7 @@ void PlayerController::Update()
 
 		up.Normalize();
 
-		f32 gravity = -9.81f * 300.f;
+		f32 gravity = -9.81f * 4.f;
 
 		_velocity += gravity * TIMER.DeltaTime();
 
@@ -36,10 +36,10 @@ void PlayerController::Update()
 
 void PlayerController::OnCollisionEnter2D(sptr<BoxCollider2D> collider)
 {
-	/*if (collider->Owner()->tag == "Obstacle")
+	if (collider->Owner()->tag == "Obstacle")
 	{
 		std::cout << "Ãæµ¹ÇÔ" << std::endl;
-	}*/
+	}
 }
 
 void PlayerController::Jump()
@@ -49,7 +49,7 @@ void PlayerController::Jump()
 		_trigger = true;
 	}
 
-	_velocity = 750.f;
+	_velocity = 8.f;
 	_index = 5;
 }
 

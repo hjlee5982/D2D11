@@ -24,6 +24,7 @@ public:
 	void       SetRotation(const Quaternion& worldRotation);
 public:
 	Matrix  GetWorldMatrix() { return _worldMatrix;     	}
+public:
 	Vector3 GetRight()       { return _worldMatrix.Right(); }
 	Vector3 GetUp()          { return _worldMatrix.Up();	}
 	Vector3 GetLook()        { return _worldMatrix.Look();  }
@@ -43,36 +44,23 @@ private:
 	Vector3 _right = Vector3(1.f, 0.f, 0.f);
 	Vector3 _up    = Vector3(0.f, 1.f, 0.f);
 	Vector3 _look  = Vector3(0.f, 0.f, 1.f);
-
 public:
-	void SetParent(sptr<Transform> p)
-	{
-		if (_parent.lock() != nullptr)
-		{
-			auto& siblings = _parent.lock()->_children;
-
-			auto it = std::find_if(siblings.begin(), siblings.end(), [this]
-			(const sptr<Transform>& child)
-				{
-					return child.get() == this;
-				});
-
-			if (it != siblings.end())
-			{
-				siblings.erase(it);
-			}
-		}
-
-		_parent = p;
-
-		if (p != nullptr)
-		{
-			p->_children.push_back(shared_from_this());
-		}
-	}
+	sptr<Transform> GetChild(i32 index);
+public:
+	void SetParent(sptr<Transform> p);
+	void SetActive(bool active);
 private:
 	// 부모는 weak로 들고있어야 순환참조가 걸리지 않음
 	//sptr<Transform> _parent;
 	wptr<Transform> _parent;
 	List<sptr<Transform>> _children;
+private:
+	friend class BoxCollider2D;
+	// 콜라이더 전용
+	void SetParent(sptr<Transform> parent, sptr<Transform> colliderTransform)
+	{
+		parent->_colliderTransform = colliderTransform;
+		colliderTransform->_parent = parent;
+	}
+	sptr<Transform> _colliderTransform = nullptr;
 };

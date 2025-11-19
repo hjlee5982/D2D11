@@ -56,6 +56,13 @@ void Transform::Update()
 	{
 		child->Update();
 	}
+
+	// 콜라이더는 정규 Transform 트리에 소속되면 안되고 따로 돌아야 함
+	// children에 게임오브젝트에 달려있는 트랜스폼만 넣기 위함
+	if (_colliderTransform != nullptr)
+	{
+		_colliderTransform->Update();
+	}
 }
 
 void Transform::SetPosition(const Vector3& worldPosition)
@@ -110,4 +117,53 @@ void Transform::Translation(const Vector3& dir, float speed)
 {
 	_localPosition += dir * speed;
 	Update();
+}
+
+sptr<Transform> Transform::GetChild(i32 index)
+{
+	if (_children.size() == 0 || _children.size() < index)
+	{
+		return nullptr;
+	}
+
+	return _children[index];
+}
+
+void Transform::SetParent(sptr<Transform> parent)
+{
+	{
+		if (_parent.lock() != nullptr)
+		{
+			auto& siblings = _parent.lock()->_children;
+
+			auto it = std::find_if(siblings.begin(), siblings.end(), [this]
+			(const sptr<Transform>& child)
+				{
+					return child.get() == this;
+				});
+
+			if (it != siblings.end())
+			{
+				siblings.erase(it);
+			}
+		}
+
+		_parent = parent;
+
+		if (parent != nullptr)
+		{
+			parent->_children.push_back(shared_from_this());
+		}
+	}
+}
+
+void Transform::SetActive(bool active)
+{
+	for (auto& transform : _children)
+	{
+		if (transform->Owner() != nullptr)
+		{
+			transform->Owner()->SetActive(active);
+		}
+	}
 }

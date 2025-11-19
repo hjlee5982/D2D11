@@ -112,11 +112,14 @@ void Renderer::RenderGameObject()
 	{
 		if (auto go = gameObject.lock())
 		{
-			auto renderer = go->GetComponent<SpriteRenderer>();
-
-			if (renderer != nullptr)
+			if (go->isActive == true)
 			{
-				orderInLayer[renderer->OrderInLayer].push_back(go);
+				auto renderer = go->GetComponent<SpriteRenderer>();
+
+				if (renderer != nullptr)
+				{
+					orderInLayer[renderer->OrderInLayer].push_back(go);
+				}
 			}
 		}
 	}
@@ -163,37 +166,40 @@ void Renderer::RenderCollider()
 	{
 		if (auto co = collider.lock())
 		{
-			auto collider = co->Owner()->GetComponent<BoxCollider2D>();
-			// 1. 상수버퍼 바인딩
-			CB_PerObject perObjectData;
+			if (co->gameObject.lock()->isActive == true)
 			{
-				perObjectData.worldMatrix = collider->GetColliderTransform()->GetWorldMatrix();
+				auto collider = co->Owner()->GetComponent<BoxCollider2D>();
+				// 1. 상수버퍼 바인딩
+				CB_PerObject perObjectData;
+				{
+					perObjectData.worldMatrix = collider->GetColliderTransform()->GetWorldMatrix();
+				}
+				CONTEXT->UpdateSubresource(_cbPerObject.Get(), 0, nullptr, &perObjectData, 0, 0);
+				CONTEXT->VSSetConstantBuffers(1, 1, _cbPerObject.GetAddressOf());
+
+
+				// 2. 머티리얼 바인딩 ( 셰이더 + 텍스쳐 바인딩 )
+				auto material = collider->GetMaterial();
+				material->Bind();
+
+
+				// 3. 매시 바인딩 ( 버텍스 + 인덱스 버퍼 바인딩 ) + 드로우 콜
+				// 매시서 바로 바인드 땡기면 안됨, 직접 vb, ib 바인드 하고 드로우콜 해야됨
+				auto mesh = collider->GetMesh();
+
+				sptr<VertexBuffer> vb = mesh->GetVertexBuffer();
+				sptr<IndexBuffer>  ib = mesh->GetIndexBuffer();
+
+				u32 stride = vb->GetStride();
+				u32 offset = vb->GetOffset();
+				u32 icount = ib->GetIndexCount();
+
+				CONTEXT->IASetVertexBuffers(vb->GetSlot(), 1, vb->GetVertexBuffer().GetAddressOf(), &stride, &offset);
+				CONTEXT->IASetIndexBuffer(ib->GetIndexBuffer().Get(), DXGI_FORMAT_R32_UINT, 0);
+
+				// 드로우콜
+				CONTEXT->DrawIndexed(icount, 0, 0);
 			}
-			CONTEXT->UpdateSubresource(_cbPerObject.Get(), 0, nullptr, &perObjectData, 0, 0);
-			CONTEXT->VSSetConstantBuffers(1, 1, _cbPerObject.GetAddressOf());
-
-
-			// 2. 머티리얼 바인딩 ( 셰이더 + 텍스쳐 바인딩 )
-			auto material = collider->GetMaterial();
-			material->Bind();
-
-
-			// 3. 매시 바인딩 ( 버텍스 + 인덱스 버퍼 바인딩 ) + 드로우 콜
-			// 매시서 바로 바인드 땡기면 안됨, 직접 vb, ib 바인드 하고 드로우콜 해야됨
-			auto mesh = collider->GetMesh();
-
-			sptr<VertexBuffer> vb = mesh->GetVertexBuffer();
-			sptr<IndexBuffer>  ib = mesh->GetIndexBuffer();
-
-			u32 stride = vb->GetStride();
-			u32 offset = vb->GetOffset();
-			u32 icount = ib->GetIndexCount();
-
-			CONTEXT->IASetVertexBuffers(vb->GetSlot(), 1, vb->GetVertexBuffer().GetAddressOf(), &stride, &offset);
-			CONTEXT->IASetIndexBuffer(ib->GetIndexBuffer().Get(), DXGI_FORMAT_R32_UINT, 0);
-
-			// 드로우콜
-			CONTEXT->DrawIndexed(icount, 0, 0);
 		}
 	}
 

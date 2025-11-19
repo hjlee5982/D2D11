@@ -22,10 +22,10 @@ public:
 private:
 	std::chrono::steady_clock::time_point _timePoint;
 private:
-	f32 _totalTime = 0.0f;
-	f32 _deltaTime = 0.0f;
-	f32 _fixedDeltaTime = 1.f / 60.f;
-	f32 _elapsed   = 0.0f;
+	f64 _totalTime = 0.0f;
+	f64 _deltaTime = 0.0f;
+	f64 _fixedDeltaTime = 1.f / 60.f;
+	f64 _elapsed   = 0.0f;
 private:
 	u32 _FPS        = 0;
 	u32 _frameCount = 0;
