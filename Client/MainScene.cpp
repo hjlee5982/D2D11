@@ -68,7 +68,7 @@ void MainScene::SetInputSystem()
 void MainScene::AddGameObject()
 {
 	// 카메라
-	auto camera = Instantiate();
+	auto camera = Instantiate<GameObject>();
 	{
 		{
 			camera->name = "MainCamera";
@@ -76,15 +76,25 @@ void MainScene::AddGameObject()
 		{
 			auto tf = camera->AddComponent<Transform>();
 			auto cm = camera->AddComponent<Camera>();
+			{
+				CameraDesc desc;
+				{
+					desc.Type      = ProjectionType::Orthogonal;
+					desc.Near      = 0.3f;
+					desc.Far       = 1000.f;
+					desc.OrthoSize = 5.f;
+				}
+				cm->Initialize(desc);
+			}
 		}
 	}
 	// 배경화면 제어기
-	auto bgCtrler = Instantiate();
+	auto bgCtrler = Instantiate<GameObject>();
 	{
 		bgCtrler->AddComponent<BackgroundController>();
 	}
 	// 플레이어
-	auto player = Instantiate();
+	auto player = Instantiate<GameObject>();
 	{
 		{
 			player->name = "Player";
@@ -108,7 +118,7 @@ void MainScene::AddGameObject()
 		player->AddComponent<PlayerController>();
 	}
 	// 바운더리(천장)
-	auto topBoundary = Instantiate();
+	auto topBoundary = Instantiate<GameObject>();
 	{
 		{
 			topBoundary->name = "TopBoundary";
@@ -122,7 +132,7 @@ void MainScene::AddGameObject()
 		topBoundary->AddComponent<BoxCollider2D>();
 	}
 	// 바운더리(바닥)
-	auto btmBoundary = Instantiate();
+	auto btmBoundary = Instantiate<GameObject>();
 	{
 		{
 			btmBoundary->name = "BtmBoundary";
@@ -136,7 +146,7 @@ void MainScene::AddGameObject()
 		btmBoundary->AddComponent<BoxCollider2D>();
 	}
 	// 장애물 생성기
-	auto oj = Instantiate();
+	auto oj = Instantiate<GameObject>();
 	{
 		oj->AddComponent<ObstacleGenerator>();
 	}

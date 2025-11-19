@@ -1,7 +1,5 @@
 #pragma once
 
-#include "GameObjectManager.h"
-#include "SceneManager.h"
 
 class GameObject : public Object, public std::enable_shared_from_this<GameObject>
 {
@@ -63,21 +61,6 @@ private:
 	Dictionary<u64, sptr<class Component>> _components;
 public:
 	sptr<class Transform> transform;
-public:
-	string tag = "none";
-	bool isActive = true;
 };
 
 
-template<typename... Args>
-static sptr<GameObject> Instantiate(Args&&... args)
-{
-	sptr<GameObject> go = makeSptr<GameObject>();
-
-	go->transform = go->AddComponent<Transform>(std::forward<Args>(args)...);
-
-	GAMEOBJECT.AddGameObject(go);
-	//SCENE.AddGameObject(go);
-
-	return go;
-}

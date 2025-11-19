@@ -16,6 +16,7 @@ void Client::Initialize()
 	FACTORY	.Awake();
 	RENDERER.Awake();
 	SCENE   .Awake();
+	UI      .Awake();
 }
 
 void Client::Update()
@@ -25,6 +26,8 @@ void Client::Update()
 
 	GAMEOBJECT.Update();
 	GAMEOBJECT.LateUpdate();
+
+	UI.Update();
 }
 
 void Client::FixedUpdate()
@@ -38,6 +41,8 @@ void Client::Render()
 	DIRECTX.RenderBegin();
 
 	RENDERER.Render();
+
+	UIRENDERER.Render();
 
 	DIRECTX.RenderEnd();
 }

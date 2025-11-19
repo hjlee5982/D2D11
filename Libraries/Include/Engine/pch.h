@@ -101,3 +101,7 @@ using namespace Microsoft::WRL;
 
 #include "Scene.h"
 #include "SceneManager.h"
+
+#include "UIManager.h"
+#include "UIRenderer.h"
+#include "UIObject.h"

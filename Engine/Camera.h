@@ -1,5 +1,20 @@
 #pragma once
 
+enum class ProjectionType
+{
+	Perspective,
+	Orthogonal,
+	OrthoUI
+};
+
+struct CameraDesc
+{
+	ProjectionType Type;
+	f32 Near;
+	f32 Far;
+	f32 OrthoSize;
+};
+
 class Camera : public Component
 {
 	REFLECTION(Camera);
@@ -7,7 +22,8 @@ public:
 	virtual void MakeJson() override;
 	virtual void LoadJson(const nlohmann::json& json) override;
 public:
-	virtual void Awake()      override;
+	void Initialize(CameraDesc desc);
+public:
 	virtual void Update()     override;
 public:
 	f32 GetNear() { return _near; }
@@ -18,10 +34,10 @@ public:
 	void SetFar(f32 Far)   { _far  = Far;  }
 	void SetFov(f32 fov)   { _fov  = fov;  }
 private:
+	ProjectionType _type;
 	f32 _near;
 	f32 _far;
 	f32 _fov;
-	f32 _width;
-	f32 _height;
+	f32 _orthoSize;
 };
 

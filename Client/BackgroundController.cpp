@@ -7,7 +7,7 @@
 
 void BackgroundController::Start()
 {
-	_bg1 = Instantiate();
+	_bg1 = Instantiate<GameObject>();
 	{
 		auto tf = _bg1->AddComponent<Transform>();
 		{
@@ -18,7 +18,7 @@ void BackgroundController::Start()
 			sr->SetTexture(ASSET.Get<Texture>(L"Texture_BackGround"));
 		}
 	}
-	_bg2 = Instantiate();
+	_bg2 = Instantiate<GameObject>();
 	{
 		auto tf = _bg2->AddComponent<Transform>();
 		{

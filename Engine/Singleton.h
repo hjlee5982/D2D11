@@ -23,6 +23,7 @@ public:
 #define DEVICE  Device::Instance().GetDevice()
 #define CONTEXT Device::Instance().GetContext()
 
+#define UI		   UIManager		::Instance()
 #define LOG		   Log				::Instance()
 #define ASSET      AssetManager     ::Instance()
 #define TIMER      Timer            ::Instance()
@@ -34,3 +35,4 @@ public:
 #define RENDERER   Renderer         ::Instance()
 #define COLLISION  CollisionManager ::Instance()
 #define GAMEOBJECT GameObjectManager::Instance()
+#define UIRENDERER UIRenderer		::Instance()

@@ -13,9 +13,6 @@
     <Filter Include="04. Client">
       <UniqueIdentifier>{ffead1c6-58ab-44da-90dc-63a83d3a32dd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="05. Timer">
-      <UniqueIdentifier>{dbab4074-637c-44c0-a808-744352c2fbec}</UniqueIdentifier>
-    </Filter>
     <Filter Include="06. Renderer">
       <UniqueIdentifier>{f82d1280-7be4-464f-a1c8-171060c3ea94}</UniqueIdentifier>
     </Filter>
@@ -85,17 +82,35 @@
     <Filter Include="08. Asset\Animation">
       <UniqueIdentifier>{ff937077-abf3-4c1a-8495-d4048f6ed529}</UniqueIdentifier>
     </Filter>
-    <Filter Include="11. Input">
-      <UniqueIdentifier>{d0e319eb-feaf-464b-9f23-9d61173a5d48}</UniqueIdentifier>
-    </Filter>
     <Filter Include="99. Module\spdlog">
       <UniqueIdentifier>{bfadff18-f870-47f6-a2c7-10001deee4c6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="00. Data">
+    <Filter Include="09. Object\UIObject">
+      <UniqueIdentifier>{679cf4b6-8d30-4c84-a76d-47d0c9788e03}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="10. Component\RectTransform">
+      <UniqueIdentifier>{96bac1df-439b-4308-8772-2e66dc0f2a4d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="10. Component\Image">
+      <UniqueIdentifier>{5b379461-aaec-4d07-ac5c-7b3057b59336}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="09. Object\GameObject">
+      <UniqueIdentifier>{99c9f15a-088a-4caa-a106-bddd826f62e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00. Utility">
       <UniqueIdentifier>{e87f30e7-58f0-450b-a376-d32476334bf8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="12. Random">
-      <UniqueIdentifier>{6bf88e03-56e2-4412-9535-06d1e72a1ac9}</UniqueIdentifier>
+    <Filter Include="00. Utility\Data">
+      <UniqueIdentifier>{804a5328-a72c-452e-bb76-d0a56828384d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00. Utility\Timer">
+      <UniqueIdentifier>{9281199d-a312-43a2-9771-3c9658fe68c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00. Utility\Random">
+      <UniqueIdentifier>{7fa895aa-3878-4d15-895c-7a09e2a22e99}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00. Utility\Input">
+      <UniqueIdentifier>{d0e319eb-feaf-464b-9f23-9d61173a5d48}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -165,9 +180,6 @@
     <ClInclude Include="Component.h">
       <Filter>10. Component</Filter>
     </ClInclude>
-    <ClInclude Include="GameObject.h">
-      <Filter>09. Object</Filter>
-    </ClInclude>
     <ClInclude Include="SpriteRenderer.h">
       <Filter>10. Component\SpriteRenderer</Filter>
     </ClInclude>
@@ -179,9 +191,6 @@
     </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>10. Component\Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObjectManager.h">
-      <Filter>09. Object</Filter>
     </ClInclude>
     <ClInclude Include="Scene.h">
       <Filter>07. Scene</Filter>
@@ -204,9 +213,6 @@
     <ClInclude Include="json.hpp">
       <Filter>99. Module\nlohmann/json</Filter>
     </ClInclude>
-    <ClInclude Include="IJson.h">
-      <Filter>00. Data</Filter>
-    </ClInclude>
     <ClInclude Include="AnimationController.h">
       <Filter>08. Asset\Animation</Filter>
     </ClInclude>
@@ -214,7 +220,7 @@
       <Filter>08. Asset\Animation</Filter>
     </ClInclude>
     <ClInclude Include="InputSystem.h">
-      <Filter>11. Input</Filter>
+      <Filter>00. Utility\Input</Filter>
     </ClInclude>
     <ClInclude Include="Log.h">
       <Filter>99. Module\spdlog</Filter>
@@ -222,14 +228,38 @@
     <ClInclude Include="SceneManager.h">
       <Filter>07. Scene</Filter>
     </ClInclude>
+    <ClInclude Include="UIRenderer.h">
+      <Filter>06. Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Image.h">
+      <Filter>10. Component\Image</Filter>
+    </ClInclude>
+    <ClInclude Include="RectTransform.h">
+      <Filter>10. Component\RectTransform</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>09. Object\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjectManager.h">
+      <Filter>09. Object\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="UIObject.h">
+      <Filter>09. Object\UIObject</Filter>
+    </ClInclude>
+    <ClInclude Include="UIManager.h">
+      <Filter>09. Object\UIObject</Filter>
+    </ClInclude>
+    <ClInclude Include="IJson.h">
+      <Filter>00. Utility\Data</Filter>
+    </ClInclude>
     <ClInclude Include="ObjectFactory.h">
-      <Filter>00. Data</Filter>
+      <Filter>00. Utility\Data</Filter>
     </ClInclude>
     <ClInclude Include="Timer.h">
-      <Filter>05. Timer</Filter>
+      <Filter>00. Utility\Timer</Filter>
     </ClInclude>
     <ClInclude Include="Random.h">
-      <Filter>12. Random</Filter>
+      <Filter>00. Utility\Random</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -290,9 +320,6 @@
     <ClCompile Include="Component.cpp">
       <Filter>10. Component</Filter>
     </ClCompile>
-    <ClCompile Include="GameObject.cpp">
-      <Filter>09. Object</Filter>
-    </ClCompile>
     <ClCompile Include="SpriteRenderer.cpp">
       <Filter>10. Component\SpriteRenderer</Filter>
     </ClCompile>
@@ -304,9 +331,6 @@
     </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>10. Component\Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObjectManager.cpp">
-      <Filter>09. Object</Filter>
     </ClCompile>
     <ClCompile Include="Scene.cpp">
       <Filter>07. Scene</Filter>
@@ -326,9 +350,6 @@
     <ClCompile Include="SimpleMath.cpp">
       <Filter>99. Module\SimpleMath</Filter>
     </ClCompile>
-    <ClCompile Include="IJson.cpp">
-      <Filter>00. Data</Filter>
-    </ClCompile>
     <ClCompile Include="AnimationController.cpp">
       <Filter>08. Asset\Animation</Filter>
     </ClCompile>
@@ -336,7 +357,7 @@
       <Filter>08. Asset\Animation</Filter>
     </ClCompile>
     <ClCompile Include="InputSystem.cpp">
-      <Filter>11. Input</Filter>
+      <Filter>00. Utility\Input</Filter>
     </ClCompile>
     <ClCompile Include="Log.cpp">
       <Filter>99. Module\spdlog</Filter>
@@ -344,14 +365,38 @@
     <ClCompile Include="SceneManager.cpp">
       <Filter>07. Scene</Filter>
     </ClCompile>
+    <ClCompile Include="UIRenderer.cpp">
+      <Filter>06. Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Image.cpp">
+      <Filter>10. Component\Image</Filter>
+    </ClCompile>
+    <ClCompile Include="RectTransform.cpp">
+      <Filter>10. Component\RectTransform</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>09. Object\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjectManager.cpp">
+      <Filter>09. Object\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="UIManager.cpp">
+      <Filter>09. Object\UIObject</Filter>
+    </ClCompile>
+    <ClCompile Include="UIObject.cpp">
+      <Filter>09. Object\UIObject</Filter>
+    </ClCompile>
+    <ClCompile Include="IJson.cpp">
+      <Filter>00. Utility\Data</Filter>
+    </ClCompile>
     <ClCompile Include="ObjectFactory.cpp">
-      <Filter>00. Data</Filter>
+      <Filter>00. Utility\Data</Filter>
     </ClCompile>
     <ClCompile Include="Timer.cpp">
-      <Filter>05. Timer</Filter>
+      <Filter>00. Utility\Timer</Filter>
     </ClCompile>
     <ClCompile Include="Random.cpp">
-      <Filter>12. Random</Filter>
+      <Filter>00. Utility\Random</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

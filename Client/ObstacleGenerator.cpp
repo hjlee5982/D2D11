@@ -10,7 +10,7 @@ void ObstacleGenerator::Start()
 {
 	for (int i = 0; i < _poolSize; ++i)
 	{
-		auto obstacle = Instantiate();
+		auto obstacle = Instantiate<GameObject>();
 		{
 			{
 				obstacle->tag = "Obstacle";
@@ -32,7 +32,7 @@ void ObstacleGenerator::Start()
 				ot->SetGenerator(shared_from_this());
 			}
 
-			auto cloud = Instantiate();
+			auto cloud = Instantiate<GameObject>();
 			{
 				{
 					cloud->name = "Cloud";

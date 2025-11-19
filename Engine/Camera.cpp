@@ -9,32 +9,51 @@ void Camera::LoadJson(const nlohmann::json& json)
 {
 }
 
-void Camera::Awake()
+void Camera::Initialize(CameraDesc desc)
 {
-	_near = 0.3f;
-	_far  = 1000.f;
-	_fov  = ::XMConvertToRadians(60.f);
+	_type      = desc.Type;
+	_near      = desc.Near;
+	_far       = desc.Far;
+	_fov       = ::XMConvertToRadians(60.f);
+	_orthoSize = desc.OrthoSize;
 
-	_width  = Device::Instance().GetWidth();
-	_height = Device::Instance().GetHeight();
+	switch (_type)
+	{
+	case ProjectionType::Perspective:
 
-	f32 orthoSize = 5.f;
-	f32 aspect = _width / _height;
+		Owner()->transform->SetPosition(Vector3(0.f, 0.f, -_far / 2));
+		break;
 
-	//Global::ProjMatrix = ::XMMatrixPerspectiveFovLH(_fov, _width / _height, _near, _far);
-	//Global::ProjMatrix = ::XMMatrixOrthographicLH(_width, _height, _near, _far);
-	Global::ProjMatrix = ::XMMatrixOrthographicLH(orthoSize * aspect * 2, orthoSize * 2, _near, _far);
+	case ProjectionType::Orthogonal:
 
-	Owner()->transform->SetPosition(Vector3(0.f, 0.f, -_far / 2));
+		Owner()->transform->SetPosition(Vector3(0.f, 0.f, -_far / 2));
+		break;
+
+	case ProjectionType::OrthoUI:
+		break;
+	}
 }
 
 void Camera::Update()
 {
-	f32 orthoSize = 5.f;
-	f32 aspect = _width / _height;
+	switch (_type)
+	{
+	case ProjectionType::Perspective:
+		Global::ViewMatrix = Owner()->transform->GetWorldMatrix().Invert();
+		Global::ProjMatrix = ::XMMatrixPerspectiveFovLH(_fov, Global::Aspect(), _near, _far);
+		break;
 
-	Global::ViewMatrix = Owner()->transform->GetWorldMatrix().Invert();
-	// Global::ProjMatrix = ::XMMatrixPerspectiveFovLH(_fov, _width / _height, _near, _far);
-	//Global::ProjMatrix = ::XMMatrixOrthographicLH(_width, _height, _near, _far);
-	Global::ProjMatrix = ::XMMatrixOrthographicLH(orthoSize * aspect * 2, orthoSize * 2, _near, _far);
+
+	case ProjectionType::Orthogonal:
+
+		Global::ViewMatrix = Owner()->transform->GetWorldMatrix().Invert();
+		Global::ProjMatrix = ::XMMatrixOrthographicLH(_orthoSize * Global::Aspect() * 2, _orthoSize * 2, _near, _far);
+		break;
+
+
+	case ProjectionType::OrthoUI:
+		Global::UIViewMatrix = Matrix::Identity;
+		Global::UIProjMatrix = ::XMMatrixOrthographicLH(Global::ClientOption.width, Global::ClientOption.width, 0, 1);
+		break;
+	}
 }
