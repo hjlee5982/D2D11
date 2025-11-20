@@ -261,6 +261,9 @@
     <ClInclude Include="Random.h">
       <Filter>00. Utility\Random</Filter>
     </ClInclude>
+    <ClInclude Include="IReflection.h">
+      <Filter>00. Utility\Data</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -397,6 +400,9 @@
     </ClCompile>
     <ClCompile Include="Random.cpp">
       <Filter>00. Utility\Random</Filter>
+    </ClCompile>
+    <ClCompile Include="IReflection.cpp">
+      <Filter>00. Utility\Data</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -161,6 +161,7 @@ xcopy /Y /D "$(SolutionDir)Engine\*.hpp" "$(SolutionDir)Libraries\Include\Engine
     <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="Image.h" />
+    <ClInclude Include="IReflection.h" />
     <ClInclude Include="ObjectFactory.h" />
     <ClInclude Include="ConstantBuffer.h" />
     <ClInclude Include="Define.h" />
@@ -214,6 +215,7 @@ xcopy /Y /D "$(SolutionDir)Engine\*.hpp" "$(SolutionDir)Libraries\Include\Engine
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="Image.cpp" />
+    <ClCompile Include="IReflection.cpp" />
     <ClCompile Include="ObjectFactory.cpp" />
     <ClCompile Include="ConstantBuffer.cpp" />
     <ClCompile Include="Device.cpp">

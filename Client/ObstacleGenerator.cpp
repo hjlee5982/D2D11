@@ -16,9 +16,6 @@ void ObstacleGenerator::Start()
 				obstacle->tag = "Obstacle";
 			}
 			auto tf = obstacle->AddComponent<Transform>();
-			{
-				tf->name = "Parent";
-			}
 			auto sr = obstacle->AddComponent<SpriteRenderer>();
 			{
 				sr->SetTexture(ASSET.Get<Texture>(L"Texture_Rope"));

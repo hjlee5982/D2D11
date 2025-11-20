@@ -105,3 +105,5 @@ using namespace Microsoft::WRL;
 #include "UIManager.h"
 #include "UIRenderer.h"
 #include "UIObject.h"
+
+#include "RectTransform.h"

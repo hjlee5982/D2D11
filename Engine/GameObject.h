@@ -4,10 +4,7 @@
 class GameObject : public Object, public std::enable_shared_from_this<GameObject>
 {
 public:
-	virtual void OnCollisionEnter2D(sptr<class BoxCollider2D> collider) override;
-public:
-	virtual void MakeJson() override;
-	virtual void LoadJson(const nlohmann::json& json) override;
+	void OnCollisionEnter2D(sptr<class BoxCollider2D> collider);
 public:
 	template<typename T, typename ...Args>
 	sptr<T> AddComponent(Args&& ... args)
@@ -33,7 +30,6 @@ public:
 
 		return GetComponent<T>();
 	}
-	void AddComponent(sptr<class Component> com);
 public:
 	template<typename T, typename ...Args>
 	sptr<T> GetComponent()

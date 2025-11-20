@@ -21,6 +21,9 @@ void MainScene::Awake()
 	//// 오브젝트 배치
 	AddGameObject();
 
+	//// UI 배치
+	AddUIObject();
+
 	//// 엔진 설정
 	EngineSetting();
 }
@@ -149,6 +152,17 @@ void MainScene::AddGameObject()
 	auto oj = Instantiate<GameObject>();
 	{
 		oj->AddComponent<ObstacleGenerator>();
+	}
+}
+
+void MainScene::AddUIObject()
+{
+	auto canvas = Instantiate<UIObject>();
+	{
+		auto img = Instantiate<UIObject>();
+		{
+			img->AddComponent<class Image>();
+		}
 	}
 }
 

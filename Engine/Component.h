@@ -1,11 +1,13 @@
 #pragma once
 
-class Component abstract : public Object
+class Component abstract : public IReflection
 {
 public:
 	void SetOwner(sptr<class GameObject> owner);
 public:
 	virtual void Init() {}
+public:
+	virtual void OnCollisionEnter2D(sptr<class BoxCollider2D> collider) {};
 public:
 	virtual void Awake()       {}
 	virtual void Start()       {}

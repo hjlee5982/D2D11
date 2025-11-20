@@ -1,6 +1,11 @@
 #pragma once
 
-class RectTransform
+class RectTransform : public Component
 {
+public:
+	void SetActive(bool active)
+	{
+
+	}
 };
 

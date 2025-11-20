@@ -27,7 +27,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	}
 	Global::ClientOption = option;
 
-	sptr<MainScene> scene = makeSptr<MainScene>("MainScene");
+	sptr<MainScene> scene = makeSptr<MainScene>();
 
 	SCENE.AddScene(scene);
 	CLIENT.Awake();

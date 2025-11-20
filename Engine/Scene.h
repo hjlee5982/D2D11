@@ -1,10 +1,9 @@
 #pragma once
 
-class Scene abstract : public Object
+#include "IReflection.h"
+
+class Scene abstract : public IReflection
 {
-public:
-	Scene() {}
-	Scene(const string& sceneName) { name = sceneName; }
 public:
 	virtual void Awake() abstract;
 public:

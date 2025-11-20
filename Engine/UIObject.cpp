@@ -17,6 +17,13 @@ void UIObject::LateUpdate()
 {
 }
 
+void UIObject::FixedUpdate()
+{
+}
+
 void UIObject::SetActive(bool active)
 {
+	isActive = active;
+
+	rectTransform->SetActive(active);
 }

@@ -1,22 +1,22 @@
 #pragma once
 
-#include "Object.h"
+#include "IReflection.h"
 
 struct PropertyInfo
 {
 	string name;
 	size_t offset;
 
-	std::function<void*(sptr<Object>)> getPtr;
-	std::function<void(sptr<Object>, const string&)> fromString;
-	std::function<string(sptr<Object>)> toString;
+	std::function<void*(sptr<IReflection>)> getPtr;
+	std::function<void(sptr<IReflection>, const string&)> fromString;
+	std::function<string(sptr<IReflection>)> toString;
 };
 
 
 
 class ObjectFactory : public Singleton<ObjectFactory>
 {
-	using CreateFunc = std::function<sptr<Object>()>;
+	using CreateFunc = std::function<sptr<IReflection>()>;
 public:
 	struct ObjectInfo
 	{
@@ -37,7 +37,7 @@ public:
 	{
 		Registry()[name].properties.push_back(prop);
 	}
-	static sptr<Object> Create(const string& name)
+	static sptr<IReflection> Create(const string& name)
 	{
 		auto it = Registry().find(name);
 		
