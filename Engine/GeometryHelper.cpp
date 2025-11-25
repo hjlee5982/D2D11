@@ -49,3 +49,7 @@ void GeometryHelper::CreateSquareCollider(sptr<Geometry<VertexTextureData>> geom
 		geometry->SetIndices(idx);
 	}
 }
+
+void GeometryHelper::CreateSquareUI(sptr<Geometry<VertexUIData>> geometry)
+{
+}

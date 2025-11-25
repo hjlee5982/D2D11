@@ -160,7 +160,11 @@ xcopy /Y /D "$(SolutionDir)Engine\*.hpp" "$(SolutionDir)Libraries\Include\Engine
     <ClInclude Include="Client.h" />
     <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="Component.h" />
-    <ClInclude Include="Image.h" />
+    <ClInclude Include="FontManager.h" />
+    <ClInclude Include="UIBoundary.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="UIImage.h" />
     <ClInclude Include="IReflection.h" />
     <ClInclude Include="ObjectFactory.h" />
     <ClInclude Include="ConstantBuffer.h" />
@@ -196,9 +200,8 @@ xcopy /Y /D "$(SolutionDir)Engine\*.hpp" "$(SolutionDir)Libraries\Include\Engine
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Transform.h" />
-    <ClInclude Include="UIManager.h" />
-    <ClInclude Include="UIObject.h" />
     <ClInclude Include="UIRenderer.h" />
+    <ClInclude Include="UIText.h" />
     <ClInclude Include="Using.h" />
     <ClInclude Include="VertexBuffer.h" />
     <ClInclude Include="VertexData.h" />
@@ -214,7 +217,11 @@ xcopy /Y /D "$(SolutionDir)Engine\*.hpp" "$(SolutionDir)Libraries\Include\Engine
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="Component.cpp" />
-    <ClCompile Include="Image.cpp" />
+    <ClCompile Include="FontManager.cpp" />
+    <ClCompile Include="UIBoundary.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="UIImage.cpp" />
     <ClCompile Include="IReflection.cpp" />
     <ClCompile Include="ObjectFactory.cpp" />
     <ClCompile Include="ConstantBuffer.cpp" />
@@ -250,9 +257,8 @@ xcopy /Y /D "$(SolutionDir)Engine\*.hpp" "$(SolutionDir)Libraries\Include\Engine
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Transform.cpp" />
-    <ClCompile Include="UIManager.cpp" />
-    <ClCompile Include="UIObject.cpp" />
     <ClCompile Include="UIRenderer.cpp" />
+    <ClCompile Include="UIText.cpp" />
     <ClCompile Include="VertexBuffer.cpp" />
     <ClCompile Include="VertexData.cpp" />
   </ItemGroup>
@@ -281,6 +287,18 @@ xcopy /Y /D "$(SolutionDir)Engine\*.hpp" "$(SolutionDir)Libraries\Include\Engine
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
     </FxCompile>
     <FxCompile Include="..\Assets\Shader\DefaultVS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+    </FxCompile>
+    <FxCompile Include="..\Assets\Shader\FontPS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="..\Assets\Shader\FontVS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>

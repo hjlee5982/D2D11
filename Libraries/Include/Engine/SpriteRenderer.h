@@ -1,15 +1,13 @@
 #pragma once
 
+#include "Component.h"
+
 class Mesh;
 class Texture;
 class Material;
 
 class SpriteRenderer : public Component
 {
-	REFLECTION(SpriteRenderer);
-public:
-	virtual void MakeJson() override;
-	virtual void LoadJson(const nlohmann::json& json) override;
 public:
 	virtual void Init() override;
 public:

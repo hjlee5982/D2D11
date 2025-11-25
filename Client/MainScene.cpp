@@ -9,6 +9,10 @@
 #include "AssetManager.h"
 #include "ObstacleGenerator.h"
 #include "Renderer.h"
+#include "UIText.h"
+#include "BoxCollider2D.h"
+#include "InputSystem.h"
+#include "Transform.h"
 
 void MainScene::Awake()
 {
@@ -71,7 +75,7 @@ void MainScene::SetInputSystem()
 void MainScene::AddGameObject()
 {
 	// 카메라
-	auto camera = Instantiate<GameObject>();
+	auto camera = Instantiate();
 	{
 		{
 			camera->name = "MainCamera";
@@ -92,12 +96,12 @@ void MainScene::AddGameObject()
 		}
 	}
 	// 배경화면 제어기
-	auto bgCtrler = Instantiate<GameObject>();
+	auto bgCtrler = Instantiate();
 	{
 		bgCtrler->AddComponent<BackgroundController>();
 	}
 	// 플레이어
-	auto player = Instantiate<GameObject>();
+	auto player = Instantiate();
 	{
 		{
 			player->name = "Player";
@@ -121,7 +125,7 @@ void MainScene::AddGameObject()
 		player->AddComponent<PlayerController>();
 	}
 	// 바운더리(천장)
-	auto topBoundary = Instantiate<GameObject>();
+	auto topBoundary = Instantiate();
 	{
 		{
 			topBoundary->name = "TopBoundary";
@@ -135,7 +139,7 @@ void MainScene::AddGameObject()
 		topBoundary->AddComponent<BoxCollider2D>();
 	}
 	// 바운더리(바닥)
-	auto btmBoundary = Instantiate<GameObject>();
+	auto btmBoundary = Instantiate();
 	{
 		{
 			btmBoundary->name = "BtmBoundary";
@@ -149,24 +153,32 @@ void MainScene::AddGameObject()
 		btmBoundary->AddComponent<BoxCollider2D>();
 	}
 	// 장애물 생성기
-	auto oj = Instantiate<GameObject>();
+	auto oj = Instantiate();
 	{
 		oj->AddComponent<ObstacleGenerator>();
+	}
+	// 스코어 UI
+	auto score = Instantiate(EObjectType::UI);
+	{
+		auto tr = score->AddComponent<Transform>();
+		{
+			tr->SetPosition(Vector3(100.f, 450.f, 0.f));
+			tr->SetScale(Vector3(20.f, 20.f, 0.f));
+		}
+		auto co = score->AddComponent<BoxCollider2D>();
+		auto ut = score->AddComponent<UIText>();
+		{
+			ut->Text(L"하고고");
+		}
 	}
 }
 
 void MainScene::AddUIObject()
 {
-	auto canvas = Instantiate<UIObject>();
-	{
-		auto img = Instantiate<UIObject>();
-		{
-			img->AddComponent<class Image>();
-		}
-	}
+
 }
 
 void MainScene::EngineSetting()
 {
-	RENDERER.colliderRendering = false;
+	RENDERER.colliderRendering = true;
 }

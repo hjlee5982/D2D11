@@ -1,11 +1,9 @@
 #pragma once
 
+#include "Component.h"
+
 class RectTransform : public Component
 {
-public:
-	void SetActive(bool active)
-	{
 
-	}
 };
 

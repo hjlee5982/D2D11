@@ -1,5 +1,7 @@
 #pragma once
 
+#include "IJson.h"
+
 class IReflection : public IJson
 {
 public:

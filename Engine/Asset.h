@@ -28,7 +28,10 @@ public:
 public:
 	virtual sptr<Asset> Clone() { return nullptr; };
 public:
-	EAssetType GetAssetType();
+	EAssetType GetAssetType()
+	{
+		return _assetType;
+	}
 protected:
 	EAssetType _assetType = EAssetType::None;
 protected:

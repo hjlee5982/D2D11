@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Component.h"
+
 class ObstacleGenerator : public Component, public std::enable_shared_from_this<ObstacleGenerator>
 {
 public:

@@ -1,10 +1,8 @@
 #pragma once
 
-class UIRenderer : public Singleton<UIRenderer>
+#include "Component.h"
+
+class UIRenderer : public Component
 {
-public:
-	void Render();
-private:
-	List<wptr<class UIObject>> _uiObjects;
 };
 

@@ -1,11 +1,9 @@
 #pragma once
 
+#include "Component.h"
+
 class Transform : public Component, public std::enable_shared_from_this<Transform>
 {
-	REFLECTION(Transform);
-public:
-	virtual void MakeJson() override;
-	virtual void LoadJson(const nlohmann::json& json) override;
 public:
 	virtual void Update()     override;
 public:
@@ -55,8 +53,9 @@ private:
 	wptr<Transform> _parent;
 	List<sptr<Transform>> _children;
 private:
+	// 디버깅용
 	friend class BoxCollider2D;
-	// 콜라이더 전용
+	friend class UIBoundary;
 	void SetParent(sptr<Transform> parent, sptr<Transform> colliderTransform)
 	{
 		parent->_colliderTransform = colliderTransform;

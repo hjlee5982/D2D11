@@ -27,6 +27,10 @@ void Mesh::CreateMesh(EMeshType type)
         GeometryHelper::CreateSquareCollider(_geometry);
         break;
 
+    case EMeshType::Font:
+
+        break;
+
     default:
         break;
     }

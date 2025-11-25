@@ -1,8 +1,9 @@
 #pragma once
 
+#include "Component.h"
+
 class PlayerController : public Component
 {
-	REFLECTION(PlayerController);
 public:
 	virtual void Start()       override;
 	virtual void Update()      override;

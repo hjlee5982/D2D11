@@ -12,7 +12,7 @@ PS_IN main(VS_IN input)
     position = mul(position, ProjMatrix);
     
     output.position = position;
-    output.uv       = input.uv;
-
+    output.uv = input.uv;
+    
     return output;
 }

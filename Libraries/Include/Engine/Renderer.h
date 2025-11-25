@@ -1,5 +1,8 @@
 #pragma once
 
+class Component;
+class GameObject;
+
 class Renderer : public Singleton<Renderer>
 {
 public:
@@ -7,17 +10,23 @@ public:
 public:
 	void Render();
 private:
-	void BindConstantBuffer();
 	void RenderGameObject();
 	void RenderCollider();
+	void RenderUI();
+	void RenderUIBoundary();
 public:
 	void AddGameObject(sptr<GameObject> gameObject);
 	void AddCollider(sptr<Component> collider);
+	void AddUI(sptr<GameObject> ui);
+	void AddUIBoundary(sptr<Component> boundary);
 public:
 	bool colliderRendering = false;
+	bool uiBoundaryRendering = false;
 private:
 	List<wptr<GameObject>> _gameObjects;
 	List<wptr<Component>>  _colliders;
+	List<wptr<GameObject>> _uis;
+	List<wptr<Component>>  _boundaries;
 private:
 	ComPtr<ID3D11Buffer> _cbPerFrame;
 	ComPtr<ID3D11Buffer> _cbPerObject;

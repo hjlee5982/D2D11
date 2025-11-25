@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Asset.h"
+
 class Shader : public Asset
 {
 public:

@@ -30,6 +30,9 @@
     <ClInclude Include="ObstacleGenerator.h">
       <Filter>03. Script</Filter>
     </ClInclude>
+    <ClInclude Include="TextTest.h">
+      <Filter>02. Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -50,6 +53,9 @@
     </ClCompile>
     <ClCompile Include="ObstacleGenerator.cpp">
       <Filter>03. Script</Filter>
+    </ClCompile>
+    <ClCompile Include="TextTest.cpp">
+      <Filter>02. Scene</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

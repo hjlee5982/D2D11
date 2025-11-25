@@ -1,31 +1,32 @@
 #include "pch.h"
 #include "Transform.h"
+#include "GameObject.h"
 
-void Transform::MakeJson()
-{
-	_json["Type"] = GetTypeName();
-
-	_json["LocalMatrix"]   = _localMatrix;
-	_json["WorldMatrix"]   = _worldMatrix;
-	_json["Position"]      = _position;
-	_json["Scale"]         = _scale;
-	_json["Rotation"]      = _rotation;
-	_json["Right"]         = _right;
-	_json["Up"]            = _up;
-	_json["Look"]          = _look;
-}
-
-void Transform::LoadJson(const nlohmann::json& json)
-{
-	_look          = json["Data"]["Look"];
-	_localMatrix   = json["Data"]["LocalMatrix"];
-	_worldMatrix   = json["Data"]["WorldMatrix"];
-	_position	   = json["Data"]["Position"];
-	_scale		   = json["Data"]["Scale"];
-	_rotation	   = json["Data"]["Rotation"];
-	_right		   = json["Data"]["Right"];
-	_up			   = json["Data"]["Up"];
-}
+//void Transform::MakeJson()
+//{
+//	_json["Type"] = GetTypeName();
+//
+//	_json["LocalMatrix"]   = _localMatrix;
+//	_json["WorldMatrix"]   = _worldMatrix;
+//	_json["Position"]      = _position;
+//	_json["Scale"]         = _scale;
+//	_json["Rotation"]      = _rotation;
+//	_json["Right"]         = _right;
+//	_json["Up"]            = _up;
+//	_json["Look"]          = _look;
+//}
+//
+//void Transform::LoadJson(const nlohmann::json& json)
+//{
+//	_look          = json["Data"]["Look"];
+//	_localMatrix   = json["Data"]["LocalMatrix"];
+//	_worldMatrix   = json["Data"]["WorldMatrix"];
+//	_position	   = json["Data"]["Position"];
+//	_scale		   = json["Data"]["Scale"];
+//	_rotation	   = json["Data"]["Rotation"];
+//	_right		   = json["Data"]["Right"];
+//	_up			   = json["Data"]["Up"];
+//}
 
 void Transform::Update()
 {

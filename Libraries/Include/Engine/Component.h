@@ -1,5 +1,8 @@
 #pragma once
 
+#include "IReflection.h"
+#include "GameObject.h"
+
 class Component abstract : public IReflection
 {
 public:

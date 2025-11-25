@@ -1,9 +1,11 @@
 #pragma once
 
+#include "Asset.h"
+
 class Mesh;
+class Shader;
 class Texture;
 class Material;
-class Shader;
 
 class AssetManager : public Singleton<AssetManager>
 {

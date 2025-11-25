@@ -5,6 +5,11 @@
 #include "AssetManager.h"
 #include "GameObjectManager.h"
 #include "CollisionManager.h"
+#include "Log.h"
+#include "InputSystem.h"
+#include "ObjectFactory.h"
+#include "FontManager.h"
+#include "SceneManager.h"
 
 void Client::Initialize()
 {
@@ -14,9 +19,12 @@ void Client::Initialize()
 	DIRECTX .Awake();
 	ASSET   .Awake();
 	FACTORY	.Awake();
+	FONT	.Awake();
 	RENDERER.Awake();
 	SCENE   .Awake();
-	UI      .Awake();
+
+	GAMEOBJECT.Awake();
+	GAMEOBJECT.Start();
 }
 
 void Client::Update()
@@ -26,8 +34,6 @@ void Client::Update()
 
 	GAMEOBJECT.Update();
 	GAMEOBJECT.LateUpdate();
-
-	UI.Update();
 }
 
 void Client::FixedUpdate()
@@ -41,8 +47,6 @@ void Client::Render()
 	DIRECTX.RenderBegin();
 
 	RENDERER.Render();
-
-	UIRENDERER.Render();
 
 	DIRECTX.RenderEnd();
 }

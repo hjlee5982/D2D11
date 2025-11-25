@@ -8,6 +8,10 @@
 #include "BoxCollider2D.h"
 #include "VertexBuffer.h"
 #include "IndexBuffer.h"
+#include "UIText.h"
+#include "SpriteRenderer.h"
+#include "GameObject.h"
+#include "Transform.h"
 
 void Renderer::Awake()
 {
@@ -82,16 +86,22 @@ void Renderer::Awake()
 
 void Renderer::Render()
 {
-	BindConstantBuffer();
 	RenderGameObject();
 
 	if (colliderRendering == true)
 	{
 		RenderCollider();
 	}
+
+	RenderUI();
+
+	if (uiBoundaryRendering == true)
+	{
+		RenderUIBoundary();
+	}
 }
 
-void Renderer::BindConstantBuffer()
+void Renderer::RenderGameObject()
 {
 	// 프레임 당 업데이트 해야 할 요소
 	// 1. 상수버퍼 바인딩
@@ -102,10 +112,9 @@ void Renderer::BindConstantBuffer()
 	}
 	CONTEXT->UpdateSubresource(_cbPerFrame.Get(), 0, nullptr, &perFrameData, 0, 0);
 	CONTEXT->VSSetConstantBuffers(0, 1, _cbPerFrame.GetAddressOf());
-}
 
-void Renderer::RenderGameObject()
-{
+
+	// 레이어 정렬
 	SortedDictionary<int, List<wptr<GameObject>>> orderInLayer;
 
 	for (auto& gameObject : _gameObjects)
@@ -210,6 +219,51 @@ void Renderer::RenderCollider()
 	CONTEXT->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 }
 
+void Renderer::RenderUI()
+{
+	// 프레임 당 업데이트 해야 할 요소
+	// 1. 상수버퍼 바인딩
+	CB_PerFrame perFrameData;
+	{
+		perFrameData.viewMatrix = Global::UIViewMatrix;
+		perFrameData.projMatrix = Global::UIProjMatrix;
+	}
+	CONTEXT->UpdateSubresource(_cbPerFrame.Get(), 0, nullptr, &perFrameData, 0, 0);
+	CONTEXT->VSSetConstantBuffers(0, 1, _cbPerFrame.GetAddressOf());
+
+
+	for (auto& gameObject : _uis)
+	{
+		if (auto go = gameObject.lock())
+		{
+			// 1. 상수버퍼 바인딩
+			CB_PerObject perObjectData;
+			{
+				perObjectData.worldMatrix = go->transform->GetWorldMatrix();
+			}
+			CONTEXT->UpdateSubresource(_cbPerObject.Get(), 0, nullptr, &perObjectData, 0, 0);
+			CONTEXT->VSSetConstantBuffers(1, 1, _cbPerObject.GetAddressOf());
+
+
+			// 2. 머티리얼 바인딩 ( 셰이더 + 텍스쳐 바인딩 )
+			auto uiText = go->GetComponent<UIText>();
+			auto material = uiText->GetMaterial();
+			material->Bind();
+
+
+			// 3. 매시 바인딩 ( 버텍스 + 인덱스 버퍼 바인딩 ) + 드로우 콜
+			uiText->_vertexBuffer->PushData();
+			uiText->_indexBuffer->PushData();
+
+			CONTEXT->DrawIndexed(uiText->_indexBuffer->GetIndexCount(), 0, 0);
+		}
+	}
+}
+
+void Renderer::RenderUIBoundary()
+{
+}
+
 void Renderer::AddGameObject(sptr<GameObject> gameObject)
 {
 	_gameObjects.push_back(gameObject);
@@ -218,4 +272,14 @@ void Renderer::AddGameObject(sptr<GameObject> gameObject)
 void Renderer::AddCollider(sptr<Component> collider)
 {
 	_colliders.push_back(collider);
+}
+
+void Renderer::AddUI(sptr<GameObject> ui)
+{
+	_uis.push_back(ui);
+}
+
+void Renderer::AddUIBoundary(sptr<Component> boundary)
+{
+	_boundaries.push_back(boundary);
 }

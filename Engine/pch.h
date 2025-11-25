@@ -68,42 +68,8 @@ using namespace Microsoft::WRL;
 
 /* »ç¿ëÀÚ */
 #include "Random.h"
-#include "IJson.h"
 #include "Client.h"
 #include "Device.h"
 #include "Exception.h"
-
-#include "Object.h"
-#include "GameObject.h"
-
-#include "ObjectFactory.h"
-#include "Component.h"
-#include "Transform.h"
-#include "SpriteRenderer.h"
-
-#include "VertexData.h"
-#include "Asset.h"
-#include "ConstantBufferDesc.h"
-
-#include "Camera.h"
-
-#include "Timer.h"
-
 #include "Global.h"
-
-#include "BoxCollider2D.h"
-
-#include "AnimationClip.h"
-#include "Animator.h"
-#include "AnimationController.h"
-#include "InputSystem.h"
-#include "Log.h"
-
-#include "Scene.h"
-#include "SceneManager.h"
-
-#include "UIManager.h"
-#include "UIRenderer.h"
-#include "UIObject.h"
-
-#include "RectTransform.h"
+#include "Timer.h"

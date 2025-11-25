@@ -144,6 +144,7 @@
     <ClInclude Include="ObstacleGenerator.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="PlayerController.h" />
+    <ClInclude Include="TextTest.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BackgroundController.cpp" />
@@ -156,6 +157,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <ClCompile Include="PlayerController.cpp" />
+    <ClCompile Include="TextTest.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

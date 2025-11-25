@@ -45,6 +45,12 @@ void AssetManager::CreateDefaultResource()
 			shader->CreateShader(shaderPath + L"Collider");
 			Add(L"Shader_Collider", shader);
 		}
+		// 폰트 쉐이더
+		{
+			sptr<Shader> shader = makeSptr<Shader>();
+			shader->CreateShader(shaderPath + L"Font");
+			Add(L"Shader_Font", shader);
+		}
 		
 	}
 	// 기본 텍스쳐 생성
@@ -53,6 +59,12 @@ void AssetManager::CreateDefaultResource()
 			sptr<Texture> texture = makeSptr<Texture>();
 			texture->CreateTexture(engineAssetPath + L"Image/DefaultTexture.png");
 			Add(L"Texture_Default", texture);
+		}
+		// 폰트 아틀라스 로드
+		{
+			sptr<Texture> texture = makeSptr<Texture>();
+			texture->CreateTexture(L"../Data/Font/EngineFont.png");
+			ASSET.Add(L"Texture_Font", texture);
 		}
 	}
 	// 기본 머티리얼 생성
@@ -75,6 +87,14 @@ void AssetManager::CreateDefaultResource()
 			}
 			Add(L"Material_Collider", material);
 		}
-
+		// 폰트 머티리얼
+		{
+			sptr<Material> material = makeSptr<Material>();
+			{
+				material->SetTexture(Get<Texture>(L"Texture_Font"));
+				material->SetShader(Get<Shader>(L"Shader_Font"));
+			}
+			Add(L"Material_Font", material);
+		}
 	}
 }

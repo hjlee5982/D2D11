@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Asset.h"
+
 class Texture : public Asset
 {
 public:

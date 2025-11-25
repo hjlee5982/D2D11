@@ -1,8 +1,9 @@
 #pragma once
 
+#include "Component.h"
+
 class BackgroundController : public Component
 {
-	REFLECTION(BackgroundController);
 public:
 	virtual void Start() override;
 	virtual void Update() override;

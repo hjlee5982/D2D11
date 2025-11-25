@@ -4,10 +4,11 @@
 #include "AssetManager.h"
 #include "BoxCollider2D.h"
 #include "SpriteRenderer.h"
+#include "Transform.h"
 
 void BackgroundController::Start()
 {
-	_bg1 = Instantiate<GameObject>();
+	_bg1 = Instantiate();
 	{
 		auto tf = _bg1->AddComponent<Transform>();
 		{
@@ -18,7 +19,7 @@ void BackgroundController::Start()
 			sr->SetTexture(ASSET.Get<Texture>(L"Texture_BackGround"));
 		}
 	}
-	_bg2 = Instantiate<GameObject>();
+	_bg2 = Instantiate();
 	{
 		auto tf = _bg2->AddComponent<Transform>();
 		{

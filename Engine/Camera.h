@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Component.h"
+
 enum class ProjectionType
 {
 	Perspective,
@@ -17,10 +19,6 @@ struct CameraDesc
 
 class Camera : public Component
 {
-	REFLECTION(Camera);
-public:
-	virtual void MakeJson() override;
-	virtual void LoadJson(const nlohmann::json& json) override;
 public:
 	void Initialize(CameraDesc desc);
 public:

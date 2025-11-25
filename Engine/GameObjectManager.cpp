@@ -1,9 +1,46 @@
 #include "pch.h"
 #include "GameObjectManager.h"
+#include "GameObject.h"
+#include "Transform.h"
+#include "Camera.h"
 
 void GameObjectManager::AddGameObject(sptr<class GameObject> go)
 {
 	_newObjects.push_back(go);
+}
+
+void GameObjectManager::AddUIObject(sptr<class GameObject> go)
+{
+	_uiObject.push_back(go);
+}
+
+void GameObjectManager::Awake()
+{
+	auto go = Instantiate();
+	{
+		go->AddComponent<Transform>();
+		auto camera = go->AddComponent<Camera>();
+		{
+			CameraDesc desc;
+			{
+				desc.Type = ProjectionType::OrthoUI;
+			}
+			camera->Initialize(desc);
+		}
+	}
+
+	for (auto& ui : _uiObject)
+	{
+		ui->Awake();
+	}
+}
+
+void GameObjectManager::Start()
+{
+	for (auto& ui : _uiObject)
+	{
+		ui->Start();
+	}
 }
 
 void GameObjectManager::Update()
@@ -41,6 +78,11 @@ void GameObjectManager::Update()
 			go->Update();
 		}
 	}
+
+	for (auto& ui : _uiObject)
+	{
+		ui->Update();
+	}
 }
 
 void GameObjectManager::LateUpdate()
@@ -52,6 +94,11 @@ void GameObjectManager::LateUpdate()
 			go->LateUpdate();
 		}
 	}
+
+	for (auto& ui : _uiObject)
+	{
+		ui->LateUpdate();
+	}
 }
 
 void GameObjectManager::FixedUpdate()
@@ -62,5 +109,10 @@ void GameObjectManager::FixedUpdate()
 		{
 			go->FixedUpdate();
 		}
+	}
+
+	for (auto& ui : _uiObject)
+	{
+		ui->FixedUpdate();
 	}
 }

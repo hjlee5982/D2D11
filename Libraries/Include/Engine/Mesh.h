@@ -1,9 +1,11 @@
 #pragma once
 
+#include "Asset.h"
 #include "Geometry.h"
+#include "VertexData.h"
 
-class VertexBuffer;
 class IndexBuffer;
+class VertexBuffer;
 
 enum class EMeshType
 {
@@ -12,6 +14,8 @@ enum class EMeshType
 	Sphere,
 
 	BoxCollider2D,
+
+	Font,
 
 	End
 };

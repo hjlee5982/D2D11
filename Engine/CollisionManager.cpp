@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "CollisionManager.h"
 #include "BoxCollider2D.h"
+#include "GameObject.h"
 
 void CollisionManager::Awake()
 {

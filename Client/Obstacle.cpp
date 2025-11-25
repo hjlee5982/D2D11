@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "Obstacle.h"
 #include "ObstacleGenerator.h"
+#include "GameObject.h"
+#include "Transform.h"
 
 void Obstacle::Update()
 {

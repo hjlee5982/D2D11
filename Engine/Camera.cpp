@@ -1,13 +1,7 @@
 #include "pch.h"
 #include "Camera.h"
-
-void Camera::MakeJson()
-{
-}
-
-void Camera::LoadJson(const nlohmann::json& json)
-{
-}
+#include "Transform.h"
+#include "GameObject.h"
 
 void Camera::Initialize(CameraDesc desc)
 {
@@ -30,6 +24,8 @@ void Camera::Initialize(CameraDesc desc)
 		break;
 
 	case ProjectionType::OrthoUI:
+
+		Owner()->transform->SetPosition(Vector3(0.f, 0.f, -10.f));
 		break;
 	}
 }
@@ -53,7 +49,7 @@ void Camera::Update()
 
 	case ProjectionType::OrthoUI:
 		Global::UIViewMatrix = Matrix::Identity;
-		Global::UIProjMatrix = ::XMMatrixOrthographicLH(Global::ClientOption.width, Global::ClientOption.width, 0, 1);
+		Global::UIProjMatrix = ::XMMatrixOrthographicLH(Global::ClientOption.width, Global::ClientOption.height, 0, 1);
 		break;
 	}
 }

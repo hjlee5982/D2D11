@@ -4,6 +4,10 @@
 #include "AssetManager.h"
 #include "Texture.h"
 #include <variant>
+#include "InputSystem.h"
+#include "GameObject.h"
+#include "Transform.h"
+#include "BoxCollider2D.h"
 
 void PlayerController::Start()
 {

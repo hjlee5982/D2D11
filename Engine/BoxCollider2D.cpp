@@ -5,6 +5,8 @@
 #include "Mesh.h"
 #include "Material.h"
 #include "CollisionManager.h"
+#include "GameObject.h"
+#include "Transform.h"
 
 void BoxCollider2D::Init()
 {
@@ -16,14 +18,6 @@ void BoxCollider2D::Init()
 
 	RENDERER.AddCollider(shared_from_this());
 	COLLISION.AddCollider(shared_from_this());
-}
-
-void BoxCollider2D::MakeJson()
-{
-}
-
-void BoxCollider2D::LoadJson(const nlohmann::json& json)
-{
 }
 
 void BoxCollider2D::Start()

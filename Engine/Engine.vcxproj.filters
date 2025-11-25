@@ -52,24 +52,6 @@
     <Filter Include="10. Component">
       <UniqueIdentifier>{384c7032-d462-4bfc-ae3b-615f74e1fd06}</UniqueIdentifier>
     </Filter>
-    <Filter Include="10. Component\SpriteRenderer">
-      <UniqueIdentifier>{027f5a8d-2fb7-41e4-ae57-b463b11ab812}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="10. Component\Transform">
-      <UniqueIdentifier>{b6dd720a-3f15-4a26-b786-18fb6823854e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="10. Component\Camera">
-      <UniqueIdentifier>{21abb0da-a325-4b11-b4a6-294eb3e0608f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="10. Component\Collider">
-      <UniqueIdentifier>{ffeb6768-fe2d-4c49-9862-c6a1cd74cd62}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="10. Component\Collider\BoxCollider2D">
-      <UniqueIdentifier>{fac9a52e-3695-468e-9db7-86bf3aef8f01}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="10. Component\Animation">
-      <UniqueIdentifier>{3552fc6c-5fdc-4d9e-a05f-35e9e0ad6317}</UniqueIdentifier>
-    </Filter>
     <Filter Include="99. Module">
       <UniqueIdentifier>{46905baa-3070-43c3-974c-22d104dce545}</UniqueIdentifier>
     </Filter>
@@ -85,23 +67,8 @@
     <Filter Include="99. Module\spdlog">
       <UniqueIdentifier>{bfadff18-f870-47f6-a2c7-10001deee4c6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="09. Object\UIObject">
-      <UniqueIdentifier>{679cf4b6-8d30-4c84-a76d-47d0c9788e03}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="10. Component\RectTransform">
-      <UniqueIdentifier>{96bac1df-439b-4308-8772-2e66dc0f2a4d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="10. Component\Image">
-      <UniqueIdentifier>{5b379461-aaec-4d07-ac5c-7b3057b59336}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="09. Object\GameObject">
-      <UniqueIdentifier>{99c9f15a-088a-4caa-a106-bddd826f62e9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="00. Utility">
       <UniqueIdentifier>{e87f30e7-58f0-450b-a376-d32476334bf8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="00. Utility\Data">
-      <UniqueIdentifier>{804a5328-a72c-452e-bb76-d0a56828384d}</UniqueIdentifier>
     </Filter>
     <Filter Include="00. Utility\Timer">
       <UniqueIdentifier>{9281199d-a312-43a2-9771-3c9658fe68c6}</UniqueIdentifier>
@@ -111,6 +78,54 @@
     </Filter>
     <Filter Include="00. Utility\Input">
       <UniqueIdentifier>{d0e319eb-feaf-464b-9f23-9d61173a5d48}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00. Utility\Reflection">
+      <UniqueIdentifier>{804a5328-a72c-452e-bb76-d0a56828384d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00. Utility\Font">
+      <UniqueIdentifier>{296c837d-e21f-4868-8bd2-46db596e1cec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08. Asset\Shader\HLSL\Text">
+      <UniqueIdentifier>{aa4cbe03-a081-4866-9b7b-30763be5fc41}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="10. Component\UI">
+      <UniqueIdentifier>{57b445af-2895-4c25-911a-2d96c6f21bd3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="10. Component\GameObject">
+      <UniqueIdentifier>{ad0cc430-896a-421a-894d-970c671d1472}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="10. Component\GameObject\Animation">
+      <UniqueIdentifier>{3552fc6c-5fdc-4d9e-a05f-35e9e0ad6317}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="10. Component\GameObject\Camera">
+      <UniqueIdentifier>{21abb0da-a325-4b11-b4a6-294eb3e0608f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="10. Component\GameObject\Collider">
+      <UniqueIdentifier>{ffeb6768-fe2d-4c49-9862-c6a1cd74cd62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="10. Component\GameObject\Collider\BoxCollider2D">
+      <UniqueIdentifier>{fac9a52e-3695-468e-9db7-86bf3aef8f01}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="10. Component\GameObject\SpriteRenderer">
+      <UniqueIdentifier>{027f5a8d-2fb7-41e4-ae57-b463b11ab812}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="10. Component\GameObject\Transform">
+      <UniqueIdentifier>{b6dd720a-3f15-4a26-b786-18fb6823854e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="10. Component\UI\RectTransform">
+      <UniqueIdentifier>{96bac1df-439b-4308-8772-2e66dc0f2a4d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="10. Component\UI\UIImage">
+      <UniqueIdentifier>{5b379461-aaec-4d07-ac5c-7b3057b59336}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="10. Component\UI\UIRenderer">
+      <UniqueIdentifier>{c91178a8-ba04-4af5-801e-eb0dbcee6ef7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="10. Component\UI\UIText">
+      <UniqueIdentifier>{99a51466-bc16-4c1e-b1bd-473954ad9348}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="10. Component\UI\UIBoundary">
+      <UniqueIdentifier>{93f63779-ee9f-48b6-89b7-f8ce52dbed51}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -181,16 +196,16 @@
       <Filter>10. Component</Filter>
     </ClInclude>
     <ClInclude Include="SpriteRenderer.h">
-      <Filter>10. Component\SpriteRenderer</Filter>
+      <Filter>10. Component\GameObject\SpriteRenderer</Filter>
     </ClInclude>
     <ClInclude Include="Transform.h">
-      <Filter>10. Component\Transform</Filter>
+      <Filter>10. Component\GameObject\Transform</Filter>
     </ClInclude>
     <ClInclude Include="ConstantBufferDesc.h">
       <Filter>02. DirectX\Buffer</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
-      <Filter>10. Component\Camera</Filter>
+      <Filter>10. Component\GameObject\Camera</Filter>
     </ClInclude>
     <ClInclude Include="Scene.h">
       <Filter>07. Scene</Filter>
@@ -199,13 +214,13 @@
       <Filter>01. Header</Filter>
     </ClInclude>
     <ClInclude Include="BoxCollider2D.h">
-      <Filter>10. Component\Collider\BoxCollider2D</Filter>
+      <Filter>10. Component\GameObject\Collider\BoxCollider2D</Filter>
     </ClInclude>
     <ClInclude Include="CollisionManager.h">
-      <Filter>10. Component\Collider</Filter>
+      <Filter>10. Component\GameObject\Collider</Filter>
     </ClInclude>
     <ClInclude Include="Animator.h">
-      <Filter>10. Component\Animation</Filter>
+      <Filter>10. Component\GameObject\Animation</Filter>
     </ClInclude>
     <ClInclude Include="SimpleMath.h">
       <Filter>99. Module\SimpleMath</Filter>
@@ -228,32 +243,17 @@
     <ClInclude Include="SceneManager.h">
       <Filter>07. Scene</Filter>
     </ClInclude>
-    <ClInclude Include="UIRenderer.h">
-      <Filter>06. Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="Image.h">
-      <Filter>10. Component\Image</Filter>
+    <ClInclude Include="UIImage.h">
+      <Filter>10. Component\UI\UIImage</Filter>
     </ClInclude>
     <ClInclude Include="RectTransform.h">
-      <Filter>10. Component\RectTransform</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject.h">
-      <Filter>09. Object\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObjectManager.h">
-      <Filter>09. Object\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="UIObject.h">
-      <Filter>09. Object\UIObject</Filter>
-    </ClInclude>
-    <ClInclude Include="UIManager.h">
-      <Filter>09. Object\UIObject</Filter>
+      <Filter>10. Component\UI\RectTransform</Filter>
     </ClInclude>
     <ClInclude Include="IJson.h">
-      <Filter>00. Utility\Data</Filter>
+      <Filter>00. Utility\Reflection</Filter>
     </ClInclude>
     <ClInclude Include="ObjectFactory.h">
-      <Filter>00. Utility\Data</Filter>
+      <Filter>00. Utility\Reflection</Filter>
     </ClInclude>
     <ClInclude Include="Timer.h">
       <Filter>00. Utility\Timer</Filter>
@@ -262,7 +262,25 @@
       <Filter>00. Utility\Random</Filter>
     </ClInclude>
     <ClInclude Include="IReflection.h">
-      <Filter>00. Utility\Data</Filter>
+      <Filter>00. Utility\Reflection</Filter>
+    </ClInclude>
+    <ClInclude Include="UIText.h">
+      <Filter>10. Component\UI\UIText</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjectManager.h">
+      <Filter>09. Object</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>09. Object</Filter>
+    </ClInclude>
+    <ClInclude Include="UIRenderer.h">
+      <Filter>10. Component\UI\UIRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="FontManager.h">
+      <Filter>00. Utility\Font</Filter>
+    </ClInclude>
+    <ClInclude Include="UIBoundary.h">
+      <Filter>10. Component\UI\UIBoundary</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -324,16 +342,16 @@
       <Filter>10. Component</Filter>
     </ClCompile>
     <ClCompile Include="SpriteRenderer.cpp">
-      <Filter>10. Component\SpriteRenderer</Filter>
+      <Filter>10. Component\GameObject\SpriteRenderer</Filter>
     </ClCompile>
     <ClCompile Include="Transform.cpp">
-      <Filter>10. Component\Transform</Filter>
+      <Filter>10. Component\GameObject\Transform</Filter>
     </ClCompile>
     <ClCompile Include="ConstantBufferDesc.cpp">
       <Filter>02. DirectX\Buffer</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
-      <Filter>10. Component\Camera</Filter>
+      <Filter>10. Component\GameObject\Camera</Filter>
     </ClCompile>
     <ClCompile Include="Scene.cpp">
       <Filter>07. Scene</Filter>
@@ -342,13 +360,13 @@
       <Filter>01. Header</Filter>
     </ClCompile>
     <ClCompile Include="BoxCollider2D.cpp">
-      <Filter>10. Component\Collider\BoxCollider2D</Filter>
+      <Filter>10. Component\GameObject\Collider\BoxCollider2D</Filter>
     </ClCompile>
     <ClCompile Include="CollisionManager.cpp">
-      <Filter>10. Component\Collider</Filter>
+      <Filter>10. Component\GameObject\Collider</Filter>
     </ClCompile>
     <ClCompile Include="Animator.cpp">
-      <Filter>10. Component\Animation</Filter>
+      <Filter>10. Component\GameObject\Animation</Filter>
     </ClCompile>
     <ClCompile Include="SimpleMath.cpp">
       <Filter>99. Module\SimpleMath</Filter>
@@ -368,32 +386,17 @@
     <ClCompile Include="SceneManager.cpp">
       <Filter>07. Scene</Filter>
     </ClCompile>
-    <ClCompile Include="UIRenderer.cpp">
-      <Filter>06. Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="Image.cpp">
-      <Filter>10. Component\Image</Filter>
+    <ClCompile Include="UIImage.cpp">
+      <Filter>10. Component\UI\UIImage</Filter>
     </ClCompile>
     <ClCompile Include="RectTransform.cpp">
-      <Filter>10. Component\RectTransform</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObject.cpp">
-      <Filter>09. Object\GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObjectManager.cpp">
-      <Filter>09. Object\GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="UIManager.cpp">
-      <Filter>09. Object\UIObject</Filter>
-    </ClCompile>
-    <ClCompile Include="UIObject.cpp">
-      <Filter>09. Object\UIObject</Filter>
+      <Filter>10. Component\UI\RectTransform</Filter>
     </ClCompile>
     <ClCompile Include="IJson.cpp">
-      <Filter>00. Utility\Data</Filter>
+      <Filter>00. Utility\Reflection</Filter>
     </ClCompile>
     <ClCompile Include="ObjectFactory.cpp">
-      <Filter>00. Utility\Data</Filter>
+      <Filter>00. Utility\Reflection</Filter>
     </ClCompile>
     <ClCompile Include="Timer.cpp">
       <Filter>00. Utility\Timer</Filter>
@@ -402,7 +405,25 @@
       <Filter>00. Utility\Random</Filter>
     </ClCompile>
     <ClCompile Include="IReflection.cpp">
-      <Filter>00. Utility\Data</Filter>
+      <Filter>00. Utility\Reflection</Filter>
+    </ClCompile>
+    <ClCompile Include="UIText.cpp">
+      <Filter>10. Component\UI\UIText</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>09. Object</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjectManager.cpp">
+      <Filter>09. Object</Filter>
+    </ClCompile>
+    <ClCompile Include="UIRenderer.cpp">
+      <Filter>10. Component\UI\UIRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="FontManager.cpp">
+      <Filter>00. Utility\Font</Filter>
+    </ClCompile>
+    <ClCompile Include="UIBoundary.cpp">
+      <Filter>10. Component\UI\UIBoundary</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -428,6 +449,12 @@
     </FxCompile>
     <FxCompile Include="..\Assets\Shader\ColliderVS.hlsl">
       <Filter>08. Asset\Shader\HLSL\Collider</Filter>
+    </FxCompile>
+    <FxCompile Include="..\Assets\Shader\FontVS.hlsl">
+      <Filter>08. Asset\Shader\HLSL\Text</Filter>
+    </FxCompile>
+    <FxCompile Include="..\Assets\Shader\FontPS.hlsl">
+      <Filter>08. Asset\Shader\HLSL\Text</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>

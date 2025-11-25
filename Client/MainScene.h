@@ -1,8 +1,9 @@
 #pragma once
 
+#include "Scene.h"
+
 class MainScene : public Scene
 {
-	REFLECTION(MainScene);
 public:
 	void Awake() override;
 public:
