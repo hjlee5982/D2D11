@@ -33,6 +33,9 @@
     <ClInclude Include="TextTest.h">
       <Filter>02. Scene</Filter>
     </ClInclude>
+    <ClInclude Include="UI_Score.h">
+      <Filter>03. Script</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -56,6 +59,9 @@
     </ClCompile>
     <ClCompile Include="TextTest.cpp">
       <Filter>02. Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="UI_Score.cpp">
+      <Filter>03. Script</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

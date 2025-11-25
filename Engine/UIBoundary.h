@@ -2,11 +2,21 @@
 
 #include "Component.h"
 
+class Mesh;
+class Material;
+class Transform;
+
 class UIBoundary : public Component, public std::enable_shared_from_this<UIBoundary>
 {
 public:
-	sptr<class Mesh>      _mesh;
-	sptr<class Material>  _material;
-	sptr<class Transform> _boundaryTransform;
+	virtual void Init() override;
+public:
+	sptr<Mesh>      GetMesh()              { return _mesh;              }
+	sptr<Material>  GetMaterial()          { return _material;          }
+	sptr<Transform> GetBoundaryTransform() { return _boundaryTransform; }
+public:
+	sptr<Mesh>      _mesh;
+	sptr<Material>  _material;
+	sptr<Transform> _boundaryTransform;
 };
 

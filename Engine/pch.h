@@ -73,3 +73,4 @@ using namespace Microsoft::WRL;
 #include "Exception.h"
 #include "Global.h"
 #include "Timer.h"
+#include "Instantiate.h"

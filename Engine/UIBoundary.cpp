@@ -4,14 +4,16 @@
 #include "Mesh.h"
 #include "Material.h"
 #include "Renderer.h"
+#include "GameObject.h"
+#include "Transform.h"
 
-//void UIBoundary::Init()
-//{
-//	_mesh = ASSET.Get<Mesh>(L"Mesh_BoxCollider2D");
-//	_material = ASSET.Get<Material>(L"Material_Collider");
-//
-//	_boundaryTransform = makeSptr<Transform>();
-//	_boundaryTransform->SetParent(Owner()->transform, _boundaryTransform);
-//
-//	RENDERER.AddUIBoundary(shared_from_this());
-//}
+void UIBoundary::Init()
+{
+	_mesh = ASSET.Get<Mesh>(L"Mesh_BoxCollider2D");
+	_material = ASSET.Get<Material>(L"Material_Collider");
+
+	_boundaryTransform = makeSptr<Transform>();
+	_boundaryTransform->SetParent(Owner()->transform, _boundaryTransform);
+
+	RENDERER.AddUIBoundary(shared_from_this());
+}

@@ -13,6 +13,8 @@
 #include "BoxCollider2D.h"
 #include "InputSystem.h"
 #include "Transform.h"
+#include "UIBoundary.h"
+#include "UI_Score.h"
 
 void MainScene::Awake()
 {
@@ -68,6 +70,7 @@ void MainScene::SetInputSystem()
 	InputMap map;
 	{
 		map.AddAction("Jump", { 'E', VK_SPACE});
+		map.AddAction("AddScore", { 'Q' });
 	}
 	INPUT.AddMap(map);
 }
@@ -162,14 +165,14 @@ void MainScene::AddGameObject()
 	{
 		auto tr = score->AddComponent<Transform>();
 		{
-			tr->SetPosition(Vector3(100.f, 450.f, 0.f));
-			tr->SetScale(Vector3(20.f, 20.f, 0.f));
+			tr->SetPosition(Vector3(-280.f, 460.f, 0.f));
+			tr->SetScale(Vector3(100.f, 50.f, 0.f));
 		}
-		auto co = score->AddComponent<BoxCollider2D>();
 		auto ut = score->AddComponent<UIText>();
 		{
-			ut->Text(L"ÇÏ°í°í");
+			ut->Text(L"000");
 		}
+		score->AddComponent<UI_Score>();
 	}
 }
 
@@ -180,5 +183,6 @@ void MainScene::AddUIObject()
 
 void MainScene::EngineSetting()
 {
-	RENDERER.colliderRendering = true;
+	RENDERER.colliderRendering = false;
+	RENDERER.uiBoundaryRendering = false;
 }

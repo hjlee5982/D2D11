@@ -85,9 +85,6 @@
     <Filter Include="00. Utility\Font">
       <UniqueIdentifier>{296c837d-e21f-4868-8bd2-46db596e1cec}</UniqueIdentifier>
     </Filter>
-    <Filter Include="08. Asset\Shader\HLSL\Text">
-      <UniqueIdentifier>{aa4cbe03-a081-4866-9b7b-30763be5fc41}</UniqueIdentifier>
-    </Filter>
     <Filter Include="10. Component\UI">
       <UniqueIdentifier>{57b445af-2895-4c25-911a-2d96c6f21bd3}</UniqueIdentifier>
     </Filter>
@@ -126,6 +123,12 @@
     </Filter>
     <Filter Include="10. Component\UI\UIBoundary">
       <UniqueIdentifier>{93f63779-ee9f-48b6-89b7-f8ce52dbed51}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08. Asset\Shader\HLSL\UI">
+      <UniqueIdentifier>{aa4cbe03-a081-4866-9b7b-30763be5fc41}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08. Asset\Shader\HLSL\UI\Font">
+      <UniqueIdentifier>{de85b834-8e71-4ddb-aad7-bc23110d2b07}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -281,6 +284,9 @@
     </ClInclude>
     <ClInclude Include="UIBoundary.h">
       <Filter>10. Component\UI\UIBoundary</Filter>
+    </ClInclude>
+    <ClInclude Include="Instantiate.h">
+      <Filter>01. Header</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -451,10 +457,10 @@
       <Filter>08. Asset\Shader\HLSL\Collider</Filter>
     </FxCompile>
     <FxCompile Include="..\Assets\Shader\FontVS.hlsl">
-      <Filter>08. Asset\Shader\HLSL\Text</Filter>
+      <Filter>08. Asset\Shader\HLSL\UI\Font</Filter>
     </FxCompile>
     <FxCompile Include="..\Assets\Shader\FontPS.hlsl">
-      <Filter>08. Asset\Shader\HLSL\Text</Filter>
+      <Filter>08. Asset\Shader\HLSL\UI\Font</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>

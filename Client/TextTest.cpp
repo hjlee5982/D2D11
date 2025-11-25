@@ -6,9 +6,14 @@
 #include "UIText.h"
 #include "Transform.h"
 #include "Camera.h"
+#include "UIBoundary.h"
+#include "Renderer.h"
 
 void TextTest::Awake()
 {
+	RENDERER.colliderRendering = true;
+	RENDERER.uiBoundaryRendering = true;
+
 	{
 		auto camera = Instantiate();
 		{
@@ -31,7 +36,7 @@ void TextTest::Awake()
 			}
 		}
 	}
-	{
+	/*{
 		auto go = Instantiate();
 		{
 			auto tr = go->AddComponent<Transform>();
@@ -43,18 +48,29 @@ void TextTest::Awake()
 				sr->SetTexture(ASSET.Get<Texture>(L"Texture_Default"));
 			}
 		}
-	}
+	}*/
+	// 스코어 UI
+	auto score = Instantiate(EObjectType::UI);
 	{
-		auto go = Instantiate(EObjectType::UI);
+		auto tr = score->AddComponent<Transform>();
 		{
-			auto tr = go->AddComponent<Transform>();
+			tr->SetPosition(Vector3(0.f, 460.f, 0.f));
+			tr->SetScale(Vector3(200.f, 80.f, 0.f));
+		}
+		score->AddComponent<UIBoundary>();
+
+		auto test = Instantiate(EObjectType::UI);
+		{
+			auto testT = test->AddComponent<Transform>();
 			{
-				tr->SetPosition(Vector3(250.f, 450.f, 0.f));
-				tr->SetScale(Vector3(30.f, 30.f, 0.f));
+				testT->SetParent(tr);
+				testT->SetLocalScale(Vector3(1.f, 0.8f, 0.f));
+				testT->SetLocalPosition(Vector3(-0.25f, 0.f, 0.f));
 			}
-			auto ut = go->AddComponent<UIText>();
+			test->AddComponent<UIBoundary>();
+			auto ut = test->AddComponent<UIText>();
 			{
-				ut->Text(L"A");
+				ut->Text(L"가나다라");
 			}
 		}
 	}

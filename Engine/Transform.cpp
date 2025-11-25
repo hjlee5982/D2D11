@@ -132,29 +132,27 @@ sptr<Transform> Transform::GetChild(i32 index)
 
 void Transform::SetParent(sptr<Transform> parent)
 {
+	if (_parent.lock() != nullptr)
 	{
-		if (_parent.lock() != nullptr)
-		{
-			auto& siblings = _parent.lock()->_children;
+		auto& siblings = _parent.lock()->_children;
 
-			auto it = std::find_if(siblings.begin(), siblings.end(), [this]
-			(const sptr<Transform>& child)
-				{
-					return child.get() == this;
-				});
-
-			if (it != siblings.end())
+		auto it = std::find_if(siblings.begin(), siblings.end(), [this]
+		(const sptr<Transform>& child)
 			{
-				siblings.erase(it);
-			}
-		}
+				return child.get() == this;
+			});
 
-		_parent = parent;
-
-		if (parent != nullptr)
+		if (it != siblings.end())
 		{
-			parent->_children.push_back(shared_from_this());
+			siblings.erase(it);
 		}
+	}
+
+	_parent = parent;
+
+	if (parent != nullptr)
+	{
+		parent->_children.push_back(shared_from_this());
 	}
 }
 

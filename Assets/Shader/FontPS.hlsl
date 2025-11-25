@@ -5,5 +5,12 @@ float4 main(PS_IN input) : SV_TARGET
 {
     float4 color = gTexture_0.Sample(gLinearSampler, input.uv);
     
+    if(color.a != 0)
+    {
+        color.r = 1.f;
+        color.g = 1.f;
+        color.b = 1.f;
+    }
+    
     return color;
 }

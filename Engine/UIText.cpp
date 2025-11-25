@@ -27,7 +27,7 @@ void UIText::Update()
 	vtx.reserve(_text.size() * 4);
 	idx.reserve(_text.size() * 6);
 
-	f32 cursorX = 0.f;
+	f32 cursorX = -0.5f;
 
 	for (i32 i = 0; i < _text.size(); ++i)
 	{
@@ -38,7 +38,7 @@ void UIText::Update()
 			continue;
 		}
 
-		f32 scale = 0.04f;
+		f32 scale = 0.015f;
 
 		const Glyph& g = iter->second;
 
@@ -63,7 +63,8 @@ void UIText::Update()
 		idx.push_back(base + 2);
 		idx.push_back(base + 3);
 
-		cursorX += g.xAdvance * scale;
+		cursorX += g.xAdvance * scale + 0.1f;
+		
 	}
 
 	_geometry->SetVertices(vtx);

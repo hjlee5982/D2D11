@@ -12,6 +12,7 @@
 #include "SpriteRenderer.h"
 #include "GameObject.h"
 #include "Transform.h"
+#include "UIBoundary.h"
 
 void Renderer::Awake()
 {
@@ -262,6 +263,59 @@ void Renderer::RenderUI()
 
 void Renderer::RenderUIBoundary()
 {
+	// 콜라이더는 와이어 프레임
+	CONTEXT->RSSetState(_wireFrameRS.Get());
+
+	// 콜라이더는 일반 물체와 그리는 법이 달라서 토폴로지를 따로 설정해줘야 함
+	CONTEXT->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_LINELIST);
+
+	// 오브젝트 당 업데이트 해야 할 요소
+	for (wptr<Component>& boundary : _boundaries)
+	{
+		if (auto co = boundary.lock())
+		{
+			if (co->gameObject.lock()->isActive == true)
+			{
+				auto b = co->Owner()->GetComponent<UIBoundary>();
+				// 1. 상수버퍼 바인딩
+				CB_PerObject perObjectData;
+				{
+					perObjectData.worldMatrix = b->GetBoundaryTransform()->GetWorldMatrix();
+				}
+				CONTEXT->UpdateSubresource(_cbPerObject.Get(), 0, nullptr, &perObjectData, 0, 0);
+				CONTEXT->VSSetConstantBuffers(1, 1, _cbPerObject.GetAddressOf());
+
+
+				// 2. 머티리얼 바인딩 ( 셰이더 + 텍스쳐 바인딩 )
+				auto material = b->GetMaterial();
+				material->Bind();
+
+
+				// 3. 매시 바인딩 ( 버텍스 + 인덱스 버퍼 바인딩 ) + 드로우 콜
+				// 매시서 바로 바인드 땡기면 안됨, 직접 vb, ib 바인드 하고 드로우콜 해야됨
+				auto mesh = b->GetMesh();
+
+				sptr<VertexBuffer> vb = mesh->GetVertexBuffer();
+				sptr<IndexBuffer>  ib = mesh->GetIndexBuffer();
+
+				u32 stride = vb->GetStride();
+				u32 offset = vb->GetOffset();
+				u32 icount = ib->GetIndexCount();
+
+				CONTEXT->IASetVertexBuffers(vb->GetSlot(), 1, vb->GetVertexBuffer().GetAddressOf(), &stride, &offset);
+				CONTEXT->IASetIndexBuffer(ib->GetIndexBuffer().Get(), DXGI_FORMAT_R32_UINT, 0);
+
+				// 드로우콜
+				CONTEXT->DrawIndexed(icount, 0, 0);
+			}
+		}
+	}
+
+	// 와이어 프레임 해제
+	CONTEXT->RSSetState(_defaultRS.Get());
+
+	// 토폴로지 원상복구
+	CONTEXT->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 }
 
 void Renderer::AddGameObject(sptr<GameObject> gameObject)
