@@ -15,6 +15,8 @@ void PlayerController::Start()
 
 	//INPUT.FindAction("Jump")->performed = [this]() { Jump(); };
 	INPUT.FindAction("Jump")->started = std::bind(&PlayerController::Jump, this);
+
+	
 }
 
 void PlayerController::Update()
@@ -42,7 +44,7 @@ void PlayerController::OnCollisionEnter2D(sptr<BoxCollider2D> collider)
 {
 	if (collider->Owner()->tag == "Obstacle")
 	{
-		std::cout << "충돌함" << std::endl;
+		LOG_INFO("충돌함");
 	}
 }
 

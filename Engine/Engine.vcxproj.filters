@@ -52,20 +52,8 @@
     <Filter Include="10. Component">
       <UniqueIdentifier>{384c7032-d462-4bfc-ae3b-615f74e1fd06}</UniqueIdentifier>
     </Filter>
-    <Filter Include="99. Module">
-      <UniqueIdentifier>{46905baa-3070-43c3-974c-22d104dce545}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="99. Module\SimpleMath">
-      <UniqueIdentifier>{132738a9-8f6f-4dec-8eb0-69db9068c760}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="99. Module\nlohmann/json">
-      <UniqueIdentifier>{3a21e05d-a185-4ac5-bb6c-38f5ab9af386}</UniqueIdentifier>
-    </Filter>
     <Filter Include="08. Asset\Animation">
       <UniqueIdentifier>{ff937077-abf3-4c1a-8495-d4048f6ed529}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="99. Module\spdlog">
-      <UniqueIdentifier>{bfadff18-f870-47f6-a2c7-10001deee4c6}</UniqueIdentifier>
     </Filter>
     <Filter Include="00. Utility">
       <UniqueIdentifier>{e87f30e7-58f0-450b-a376-d32476334bf8}</UniqueIdentifier>
@@ -129,6 +117,18 @@
     </Filter>
     <Filter Include="08. Asset\Shader\HLSL\UI\Font">
       <UniqueIdentifier>{de85b834-8e71-4ddb-aad7-bc23110d2b07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00. Utility\Event">
+      <UniqueIdentifier>{5b8a2cd1-073e-4fd6-8e82-61c2a7c3bdca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00. Utility\spdlog">
+      <UniqueIdentifier>{bfadff18-f870-47f6-a2c7-10001deee4c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00. Utility\SimpleMath">
+      <UniqueIdentifier>{132738a9-8f6f-4dec-8eb0-69db9068c760}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00. Utility\nlohmann/json">
+      <UniqueIdentifier>{3a21e05d-a185-4ac5-bb6c-38f5ab9af386}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -226,10 +226,10 @@
       <Filter>10. Component\GameObject\Animation</Filter>
     </ClInclude>
     <ClInclude Include="SimpleMath.h">
-      <Filter>99. Module\SimpleMath</Filter>
+      <Filter>00. Utility\SimpleMath</Filter>
     </ClInclude>
     <ClInclude Include="json.hpp">
-      <Filter>99. Module\nlohmann/json</Filter>
+      <Filter>00. Utility\nlohmann/json</Filter>
     </ClInclude>
     <ClInclude Include="AnimationController.h">
       <Filter>08. Asset\Animation</Filter>
@@ -241,7 +241,7 @@
       <Filter>00. Utility\Input</Filter>
     </ClInclude>
     <ClInclude Include="Log.h">
-      <Filter>99. Module\spdlog</Filter>
+      <Filter>00. Utility\spdlog</Filter>
     </ClInclude>
     <ClInclude Include="SceneManager.h">
       <Filter>07. Scene</Filter>
@@ -287,6 +287,12 @@
     </ClInclude>
     <ClInclude Include="Instantiate.h">
       <Filter>01. Header</Filter>
+    </ClInclude>
+    <ClInclude Include="EventManager.h">
+      <Filter>00. Utility\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="Event.h">
+      <Filter>00. Utility\Event</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -375,7 +381,7 @@
       <Filter>10. Component\GameObject\Animation</Filter>
     </ClCompile>
     <ClCompile Include="SimpleMath.cpp">
-      <Filter>99. Module\SimpleMath</Filter>
+      <Filter>00. Utility\SimpleMath</Filter>
     </ClCompile>
     <ClCompile Include="AnimationController.cpp">
       <Filter>08. Asset\Animation</Filter>
@@ -387,7 +393,7 @@
       <Filter>00. Utility\Input</Filter>
     </ClCompile>
     <ClCompile Include="Log.cpp">
-      <Filter>99. Module\spdlog</Filter>
+      <Filter>00. Utility\spdlog</Filter>
     </ClCompile>
     <ClCompile Include="SceneManager.cpp">
       <Filter>07. Scene</Filter>
@@ -431,6 +437,9 @@
     <ClCompile Include="UIBoundary.cpp">
       <Filter>10. Component\UI\UIBoundary</Filter>
     </ClCompile>
+    <ClCompile Include="EventManager.cpp">
+      <Filter>00. Utility\Event</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Assets\Shader\CBuffer.hlsli">
@@ -440,7 +449,7 @@
       <Filter>08. Asset\Shader\HLSL\Global</Filter>
     </None>
     <None Include="SimpleMath.inl">
-      <Filter>99. Module\SimpleMath</Filter>
+      <Filter>00. Utility\SimpleMath</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

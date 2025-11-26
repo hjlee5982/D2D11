@@ -160,6 +160,8 @@ xcopy /Y /D "$(SolutionDir)Engine\*.hpp" "$(SolutionDir)Libraries\Include\Engine
     <ClInclude Include="Client.h" />
     <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="Component.h" />
+    <ClInclude Include="Event.h" />
+    <ClInclude Include="EventManager.h" />
     <ClInclude Include="FontManager.h" />
     <ClInclude Include="Instantiate.h" />
     <ClInclude Include="UIBoundary.h">
@@ -218,6 +220,7 @@ xcopy /Y /D "$(SolutionDir)Engine\*.hpp" "$(SolutionDir)Libraries\Include\Engine
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="Component.cpp" />
+    <ClCompile Include="EventManager.cpp" />
     <ClCompile Include="FontManager.cpp" />
     <ClCompile Include="UIBoundary.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>

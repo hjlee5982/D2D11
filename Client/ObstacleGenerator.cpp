@@ -6,6 +6,7 @@
 #include "SpriteRenderer.h"
 #include "Texture.h"
 #include "Transform.h"
+#include "EventManager.h"
 
 void ObstacleGenerator::Start()
 {
@@ -56,6 +57,8 @@ void ObstacleGenerator::Start()
 
 		_obstacles.push(obstacle);
 	}
+
+	EVENT::Subscribe<StartGenerateEvent>(&ObstacleGenerator::StartGenerate, this);
 }
 
 void ObstacleGenerator::Update()
@@ -67,6 +70,13 @@ void ObstacleGenerator::ReturnPool(sptr<class GameObject> obstacle)
 {
 	_obstacles.push(obstacle);
 	obstacle->SetActive(false);
+}
+
+bool ObstacleGenerator::StartGenerate(const StartGenerateEvent& e)
+{
+	LOG_INFO("이벤트 수신");
+
+	return true;
 }
 
 void ObstacleGenerator::Generate()

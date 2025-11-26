@@ -67,6 +67,7 @@ using namespace Microsoft::WRL;
 #include "Singleton.h"
 
 /* »ç¿ëÀÚ */
+#include "Log.h"
 #include "Random.h"
 #include "Client.h"
 #include "Device.h"

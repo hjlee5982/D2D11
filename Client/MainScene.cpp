@@ -170,7 +170,7 @@ void MainScene::AddGameObject()
 		}
 		auto ut = score->AddComponent<UIText>();
 		{
-			ut->Text(L"000");
+			ut->Text(L"ÇÑ±¹¾î");
 		}
 		score->AddComponent<UI_Score>();
 	}
@@ -183,6 +183,6 @@ void MainScene::AddUIObject()
 
 void MainScene::EngineSetting()
 {
-	RENDERER.colliderRendering = false;
-	RENDERER.uiBoundaryRendering = false;
+	RENDERER.colliderRendering = true;
+	RENDERER.uiBoundaryRendering = true;
 }

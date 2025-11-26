@@ -25,6 +25,7 @@ public:
 
 #define LOG		   Log				::Instance()
 #define FONT	   FontManager		::Instance()
+#define EVENT      EventManager
 #define ASSET      AssetManager     ::Instance()
 #define TIMER      Timer            ::Instance()
 #define INPUT      InputSystem      ::Instance()
