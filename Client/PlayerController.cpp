@@ -8,6 +8,9 @@
 #include "GameObject.h"
 #include "Transform.h"
 #include "BoxCollider2D.h"
+#include "Event.h"
+#include "EventManager.h"
+#include "Obstacle.h"
 
 void PlayerController::Start()
 {
@@ -44,7 +47,16 @@ void PlayerController::OnCollisionEnter2D(sptr<BoxCollider2D> collider)
 {
 	if (collider->Owner()->tag == "Obstacle")
 	{
-		LOG_INFO("충돌함");
+		auto obstacle = collider->Owner()->GetComponent<Obstacle>();
+
+		// 장애물 충돌
+		if (obstacle != nullptr && obstacle->_isColliding == false)
+		{
+			LOG_INFO("충돌함");
+			EVENT::SendEvent(AddScoreEvent{});
+
+			obstacle->_isColliding = true;
+		}
 	}
 }
 

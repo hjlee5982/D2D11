@@ -132,7 +132,7 @@ void MainScene::AddGameObject()
 	{
 		{
 			topBoundary->name = "TopBoundary";
-			topBoundary->tag  = "Obstacle";
+			topBoundary->tag  = "Boundary";
 		}
 		auto tf = topBoundary->AddComponent<Transform>();
 		{
@@ -146,7 +146,7 @@ void MainScene::AddGameObject()
 	{
 		{
 			btmBoundary->name = "BtmBoundary";
-			btmBoundary->tag  = "Obstacle";
+			btmBoundary->tag  = "Boundary";
 		}
 		auto tf = btmBoundary->AddComponent<Transform>();
 		{
@@ -170,7 +170,7 @@ void MainScene::AddGameObject()
 		}
 		auto ut = score->AddComponent<UIText>();
 		{
-			ut->Text(L"ÇÑ±¹¾î");
+			ut->Text(L"000");
 		}
 		score->AddComponent<UI_Score>();
 	}

@@ -1,13 +1,13 @@
 #pragma once
 
-#include "Event.h"
+#include "EngineEvent.h"
 
 class EventManager : public Singleton<EventManager>
 {
 public:
 	virtual ~EventManager()
 	{
-		for (auto& unsub : _unsubs)
+		for (auto& unsub : _callbackCache)
 		{
 			unsub();
 		}
@@ -15,7 +15,7 @@ public:
 public:
 	using CallbackID = size_t;
 private:
-	List<std::function<void()>> _unsubs;
+	List<std::function<void()>> _callbackCache;
 public:
 	template<typename T>
 	static CallbackID Subscribe(std::function<bool(const T&)> callback)
@@ -36,7 +36,7 @@ public:
 				return (instance->*method)(e);
 			});
 
-		EventManager::Instance()._unsubs.push_back([id]() {
+		EventManager::Instance()._callbackCache.push_back([id]() {
 			Unsubscribe<T>(id);
 			});
 	}

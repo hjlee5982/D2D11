@@ -2,5 +2,5 @@
 
 struct StartGenerateEvent
 {
-
+	int value;
 };

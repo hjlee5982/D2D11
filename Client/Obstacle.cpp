@@ -12,6 +12,7 @@ void Obstacle::Update()
 
 	if (position.x <= -4.f)
 	{
+		_isColliding = false;
 		_generator.lock()->ReturnPool(Owner());
 	}
 }

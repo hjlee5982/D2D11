@@ -3,27 +3,23 @@
 #include "InputSystem.h"
 #include "UIText.h"
 #include <format>
+#include "Event.h"
 #include "EventManager.h"
 
 void UI_Score::Awake()
 {
 	_scoreText = Owner()->GetComponent<UIText>();
+
+	EVENT::Subscribe<AddScoreEvent>(&UI_Score::AddScore, this);
 }
 
-void UI_Score::Start()
+bool UI_Score::AddScore(const AddScoreEvent& e)
 {
-	INPUT.FindAction("AddScore")->started = std::bind(&UI_Score::AddScore, this);
-}
-
-void UI_Score::AddScore()
-{
-	/*++_score;
+	++_score;
 
 	wstring wstr = std::format(L"{:03}", _score);
 	
-	_scoreText->Text(wstr);*/
+	_scoreText->Text(wstr);
 
-	LOG_INFO("이벤트 송신");
-
-	EVENT::SendEvent(StartGenerateEvent{});
+	return true;
 }

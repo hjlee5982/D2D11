@@ -15,5 +15,7 @@ private:
 	f32 _speed = 3.f;
 private:
 	wptr<class ObstacleGenerator> _generator;
+public:
+	bool _isColliding = false;
 };
 

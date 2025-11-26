@@ -10,6 +10,15 @@
     <Filter Include="02. Scene">
       <UniqueIdentifier>{92c5b793-e3bb-4a5a-bddd-4f93c53540e0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03. Script\Global">
+      <UniqueIdentifier>{7d33a71d-98e2-42fc-ba34-bbe1aaba77cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Script\UI">
+      <UniqueIdentifier>{73818efc-e4a5-4033-a1c3-f8b409b0cde8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Script\GameObject">
+      <UniqueIdentifier>{388cdf9d-83e1-4f47-89d0-4e44456d0186}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -18,23 +27,26 @@
     <ClInclude Include="MainScene.h">
       <Filter>02. Scene</Filter>
     </ClInclude>
-    <ClInclude Include="BackgroundController.h">
-      <Filter>03. Script</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerController.h">
-      <Filter>03. Script</Filter>
-    </ClInclude>
-    <ClInclude Include="Obstacle.h">
-      <Filter>03. Script</Filter>
-    </ClInclude>
-    <ClInclude Include="ObstacleGenerator.h">
-      <Filter>03. Script</Filter>
-    </ClInclude>
     <ClInclude Include="TextTest.h">
       <Filter>02. Scene</Filter>
     </ClInclude>
+    <ClInclude Include="Event.h">
+      <Filter>03. Script\Global</Filter>
+    </ClInclude>
+    <ClInclude Include="BackgroundController.h">
+      <Filter>03. Script\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Obstacle.h">
+      <Filter>03. Script\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="ObstacleGenerator.h">
+      <Filter>03. Script\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerController.h">
+      <Filter>03. Script\GameObject</Filter>
+    </ClInclude>
     <ClInclude Include="UI_Score.h">
-      <Filter>03. Script</Filter>
+      <Filter>03. Script\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -45,23 +57,23 @@
     <ClCompile Include="MainScene.cpp">
       <Filter>02. Scene</Filter>
     </ClCompile>
-    <ClCompile Include="BackgroundController.cpp">
-      <Filter>03. Script</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerController.cpp">
-      <Filter>03. Script</Filter>
-    </ClCompile>
-    <ClCompile Include="Obstacle.cpp">
-      <Filter>03. Script</Filter>
-    </ClCompile>
-    <ClCompile Include="ObstacleGenerator.cpp">
-      <Filter>03. Script</Filter>
-    </ClCompile>
     <ClCompile Include="TextTest.cpp">
       <Filter>02. Scene</Filter>
     </ClCompile>
+    <ClCompile Include="BackgroundController.cpp">
+      <Filter>03. Script\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Obstacle.cpp">
+      <Filter>03. Script\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="ObstacleGenerator.cpp">
+      <Filter>03. Script\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerController.cpp">
+      <Filter>03. Script\GameObject</Filter>
+    </ClCompile>
     <ClCompile Include="UI_Score.cpp">
-      <Filter>03. Script</Filter>
+      <Filter>03. Script\UI</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -8,9 +8,8 @@ class UI_Score : public Component
 {
 public:
 	virtual void Awake() override;
-	virtual void Start() override;
-private:
-	void AddScore();
+public:
+	bool AddScore(const struct AddScoreEvent& e);
 private:
 	sptr<UIText> _scoreText;
 	i32 _score = 0;
