@@ -7,7 +7,7 @@
 #include "SpriteRenderer.h"
 #include "Texture.h"
 #include "AssetManager.h"
-#include "ObstacleGenerator.h"
+#include "ObjectGenerator.h"
 #include "Renderer.h"
 #include "UIText.h"
 #include "BoxCollider2D.h"
@@ -15,6 +15,7 @@
 #include "Transform.h"
 #include "UIBoundary.h"
 #include "UI_Score.h"
+#include "GameManager.h"
 
 void MainScene::Awake()
 {
@@ -70,7 +71,6 @@ void MainScene::SetInputSystem()
 	InputMap map;
 	{
 		map.AddAction("Jump", { 'E', VK_SPACE});
-		map.AddAction("AddScore", { 'Q' });
 	}
 	INPUT.AddMap(map);
 }
@@ -97,6 +97,11 @@ void MainScene::AddGameObject()
 				cm->Initialize(desc);
 			}
 		}
+	}
+	// 게임 매니저
+	auto manager = Instantiate();
+	{
+		manager->AddComponent<GameManager>();
 	}
 	// 배경화면 제어기
 	auto bgCtrler = Instantiate();
@@ -158,7 +163,7 @@ void MainScene::AddGameObject()
 	// 장애물 생성기
 	auto oj = Instantiate();
 	{
-		oj->AddComponent<ObstacleGenerator>();
+		oj->AddComponent<ObjectGenerator>();
 	}
 	// 스코어 UI
 	auto score = Instantiate(EObjectType::UI);
@@ -183,6 +188,6 @@ void MainScene::AddUIObject()
 
 void MainScene::EngineSetting()
 {
-	RENDERER.colliderRendering = true;
-	RENDERER.uiBoundaryRendering = true;
+	RENDERER.colliderRendering = false;
+	RENDERER.uiBoundaryRendering = false;
 }

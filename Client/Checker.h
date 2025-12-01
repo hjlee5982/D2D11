@@ -2,7 +2,7 @@
 
 #include "Component.h"
 
-class Obstacle : public Component
+class Checker : public Component
 {
 public:
 	virtual void Update() override;

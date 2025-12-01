@@ -12,7 +12,9 @@ void Timer::Update()
 
     std::chrono::duration<f64> sec = now - _timePoint;
 
-    _deltaTime = sec.count();
+    _realDeltaTime = sec.count();
+
+    _deltaTime = _realDeltaTime * _timeScale;
 
     _timePoint = now;
 }

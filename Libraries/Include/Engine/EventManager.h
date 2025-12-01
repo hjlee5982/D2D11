@@ -7,13 +7,15 @@ class EventManager : public Singleton<EventManager>
 public:
 	virtual ~EventManager()
 	{
-		for (auto& unsub : _callbackCache)
+		/*for (auto& unsub : _callbackCache)
 		{
 			unsub();
-		}
+		}*/
 	}
 public:
 	using CallbackID = size_t;
+private:
+	static inline CallbackID _globalID = 0;
 private:
 	List<std::function<void()>> _callbackCache;
 public:
@@ -22,7 +24,7 @@ public:
 	{
 		auto& data = GetData<T>();
 
-		CallbackID id = ++data.lastID;
+		CallbackID id = ++_globalID;
 		data.callbacks.push_back({ id, callback });
 
 		return id;

@@ -11,6 +11,7 @@
 #include "Event.h"
 #include "EventManager.h"
 #include "Obstacle.h"
+#include "Checker.h"
 
 void PlayerController::Start()
 {
@@ -47,15 +48,21 @@ void PlayerController::OnCollisionEnter2D(sptr<BoxCollider2D> collider)
 {
 	if (collider->Owner()->tag == "Obstacle")
 	{
-		auto obstacle = collider->Owner()->GetComponent<Obstacle>();
+		EVENT::SendEvent(GameOverEvent{});
+	}
+	else if (collider->Owner()->tag == "Boundary")
+	{
+		EVENT::SendEvent(GameOverEvent{});
+	}
+	else if (collider->Owner()->tag == "Checker")
+	{
+		auto checker = collider->Owner()->GetComponent<Checker>();
 
-		// 장애물 충돌
-		if (obstacle != nullptr && obstacle->_isColliding == false)
+		if (checker != nullptr && checker->_isColliding == false)
 		{
-			LOG_INFO("충돌함");
 			EVENT::SendEvent(AddScoreEvent{});
 
-			obstacle->_isColliding = true;
+			checker->_isColliding = true;
 		}
 	}
 }

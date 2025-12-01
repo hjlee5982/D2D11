@@ -82,7 +82,7 @@ public:
 		const char* simplePath = strrchr(sourceFile.c_str(), '\\') + 1;
 
 		std::cout << "[" << ss.str() << "] "
-			<< simplePath << ":" << lineNumber << " - "
+			<< simplePath << ":" << lineNumber << " : "
 			<< message_to_string.str() << std::endl;
 
 		SetConsoleTextAttribute(hConsole, 7);

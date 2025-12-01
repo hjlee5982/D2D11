@@ -39,7 +39,7 @@
     <ClInclude Include="Obstacle.h">
       <Filter>03. Script\GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="ObstacleGenerator.h">
+    <ClInclude Include="ObjectGenerator.h">
       <Filter>03. Script\GameObject</Filter>
     </ClInclude>
     <ClInclude Include="PlayerController.h">
@@ -47,6 +47,12 @@
     </ClInclude>
     <ClInclude Include="UI_Score.h">
       <Filter>03. Script\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Checker.h">
+      <Filter>03. Script\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="GameManager.h">
+      <Filter>03. Script\Global</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -66,7 +72,7 @@
     <ClCompile Include="Obstacle.cpp">
       <Filter>03. Script\GameObject</Filter>
     </ClCompile>
-    <ClCompile Include="ObstacleGenerator.cpp">
+    <ClCompile Include="ObjectGenerator.cpp">
       <Filter>03. Script\GameObject</Filter>
     </ClCompile>
     <ClCompile Include="PlayerController.cpp">
@@ -74,6 +80,12 @@
     </ClCompile>
     <ClCompile Include="UI_Score.cpp">
       <Filter>03. Script\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Checker.cpp">
+      <Filter>03. Script\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="GameManager.cpp">
+      <Filter>03. Script\Global</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -10,14 +10,12 @@ void UI_Score::Awake()
 {
 	_scoreText = Owner()->GetComponent<UIText>();
 
-	EVENT::Subscribe<AddScoreEvent>(&UI_Score::AddScore, this);
+	EVENT::Subscribe<RefreshUIEvent>(&UI_Score::Refresh, this);
 }
 
-bool UI_Score::AddScore(const AddScoreEvent& e)
+bool UI_Score::Refresh(const RefreshUIEvent& e)
 {
-	++_score;
-
-	wstring wstr = std::format(L"{:03}", _score);
+	wstring wstr = std::format(L"{:03}", e.score);
 	
 	_scoreText->Text(wstr);
 
