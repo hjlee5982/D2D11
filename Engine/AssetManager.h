@@ -26,6 +26,12 @@ public:
 	template<typename T>
 	EAssetType GetAssetType();
 private:
+	// 엔진에서 사용될 기본 에셋들을 생성
+	void CreateMesh();
+	void CreateShader();
+	void CreateTexture();
+	void CreateMaterial();
+private:
 	using KeyAssetPair = Dictionary<wstring, sptr<Asset>>;
 	std::array<KeyAssetPair, Asset_Type_Count> _resources;
 };

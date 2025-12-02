@@ -26,6 +26,7 @@ public:
 	Mesh() : Asset(EAssetType::Mesh) {}
 public:
 	void CreateMesh(EMeshType type);
+	void CreateMesh(sptr<Geometry<VertexTextureData>> geometry);
 	void Bind();
 private:
 	void CreateBuffers();

@@ -103,9 +103,6 @@
     <Filter Include="10. Component\UI\UIImage">
       <UniqueIdentifier>{5b379461-aaec-4d07-ac5c-7b3057b59336}</UniqueIdentifier>
     </Filter>
-    <Filter Include="10. Component\UI\UIRenderer">
-      <UniqueIdentifier>{c91178a8-ba04-4af5-801e-eb0dbcee6ef7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="10. Component\UI\UIText">
       <UniqueIdentifier>{99a51466-bc16-4c1e-b1bd-473954ad9348}</UniqueIdentifier>
     </Filter>
@@ -129,6 +126,9 @@
     </Filter>
     <Filter Include="00. Utility\nlohmann/json">
       <UniqueIdentifier>{3a21e05d-a185-4ac5-bb6c-38f5ab9af386}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08. Asset\Shader\HLSL\UI\Image">
+      <UniqueIdentifier>{f00041f3-d984-483e-b0cb-d5ed10407455}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -276,9 +276,6 @@
     <ClInclude Include="GameObject.h">
       <Filter>09. Object</Filter>
     </ClInclude>
-    <ClInclude Include="UIRenderer.h">
-      <Filter>10. Component\UI\UIRenderer</Filter>
-    </ClInclude>
     <ClInclude Include="FontManager.h">
       <Filter>00. Utility\Font</Filter>
     </ClInclude>
@@ -293,6 +290,9 @@
     </ClInclude>
     <ClInclude Include="EngineEvent.h">
       <Filter>00. Utility\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="UIComponent.h">
+      <Filter>10. Component\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -428,9 +428,6 @@
     <ClCompile Include="GameObjectManager.cpp">
       <Filter>09. Object</Filter>
     </ClCompile>
-    <ClCompile Include="UIRenderer.cpp">
-      <Filter>10. Component\UI\UIRenderer</Filter>
-    </ClCompile>
     <ClCompile Include="FontManager.cpp">
       <Filter>00. Utility\Font</Filter>
     </ClCompile>
@@ -439,6 +436,9 @@
     </ClCompile>
     <ClCompile Include="EventManager.cpp">
       <Filter>00. Utility\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="UIComponent.cpp">
+      <Filter>10. Component\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -470,6 +470,12 @@
     </FxCompile>
     <FxCompile Include="..\Assets\Shader\FontPS.hlsl">
       <Filter>08. Asset\Shader\HLSL\UI\Font</Filter>
+    </FxCompile>
+    <FxCompile Include="..\Assets\Shader\ImageVS.hlsl">
+      <Filter>08. Asset\Shader\HLSL\UI\Image</Filter>
+    </FxCompile>
+    <FxCompile Include="..\Assets\Shader\ImagePS.hlsl">
+      <Filter>08. Asset\Shader\HLSL\UI\Image</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>

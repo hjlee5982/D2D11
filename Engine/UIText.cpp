@@ -8,13 +8,13 @@
 #include "VertexData.h"
 #include "FontManager.h"
 #include "Geometry.h"
+#include "Mesh.h"
 
 void UIText::Init()
 {
-	_material = ASSET.Get<Material>(L"Material_Font", true);
-
+	_mesh     = makeSptr<Mesh>();
 	_geometry = makeSptr<Geometry<VertexTextureData>>();
-
+	_material = ASSET.Get<Material>(L"Material_Font", true);
 
 	RENDERER.AddUI(Owner());
 }
@@ -64,25 +64,10 @@ void UIText::Update()
 		idx.push_back(base + 3);
 
 		cursorX += g.xAdvance * scale + 0.1f;
-		
 	}
 
 	_geometry->SetVertices(vtx);
 	_geometry->SetIndices(idx);
 
-	CreateBuffer();
-}
-
-void UIText::CreateBuffer()
-{
-	_vertexBuffer = makeSptr<VertexBuffer>();
-	_vertexBuffer->Create(_geometry->GetVertices());
-
-	_indexBuffer = makeSptr<IndexBuffer>();
-	_indexBuffer->Create(_geometry->GetIndices());
-}
-
-sptr<class Material> UIText::GetMaterial()
-{
-	return _material;
+	_mesh->CreateMesh(_geometry);
 }

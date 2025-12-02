@@ -98,6 +98,10 @@ void MainScene::AddGameObject()
 			}
 		}
 	}
+	//auto t = Instantiate();
+	//{
+	//	t->AddComponent<SpriteRenderer>();
+	//}
 	// 게임 매니저
 	auto manager = Instantiate();
 	{

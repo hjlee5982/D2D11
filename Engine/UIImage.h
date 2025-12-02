@@ -1,8 +1,10 @@
 #pragma once
 
-#include "Component.h"
+#include "UIComponent.h"
 
-class UIImage : public Component
+class UIImage : public UIComponent
 {
+public:
+	virtual void Init() override;
 };
 

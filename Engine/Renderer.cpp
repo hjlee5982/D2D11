@@ -13,6 +13,7 @@
 #include "GameObject.h"
 #include "Transform.h"
 #include "UIBoundary.h"
+#include "UIComponent.h"
 
 void Renderer::Awake()
 {
@@ -247,16 +248,13 @@ void Renderer::RenderUI()
 
 
 			// 2. 머티리얼 바인딩 ( 셰이더 + 텍스쳐 바인딩 )
-			auto uiText = go->GetComponent<UIText>();
-			auto material = uiText->GetMaterial();
+			auto uiComponent = go->GetComponent<UIText>();
+			auto material = uiComponent->GetMaterial();
 			material->Bind();
 
-
 			// 3. 매시 바인딩 ( 버텍스 + 인덱스 버퍼 바인딩 ) + 드로우 콜
-			uiText->_vertexBuffer->PushData();
-			uiText->_indexBuffer->PushData();
-
-			CONTEXT->DrawIndexed(uiText->_indexBuffer->GetIndexCount(), 0, 0);
+			auto mesh = uiComponent->GetMesh();
+			mesh->Bind();
 		}
 	}
 }

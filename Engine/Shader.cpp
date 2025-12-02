@@ -33,7 +33,7 @@ void Shader::CreateShader(const wstring& path)
 	
 
 	// PS »ý¼º
-	wstring psPath = path + +L"PS.hlsl";
+	wstring psPath = path + L"PS.hlsl";
 
 	CHECK(D3DCompileFromFile(psPath.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE, entry.c_str(), "ps_5_0", compileFlags, 0, shaderBlob.GetAddressOf(), errorBlob.GetAddressOf()));
 	CHECK(DEVICE->CreatePixelShader(shaderBlob->GetBufferPointer(), shaderBlob->GetBufferSize(), nullptr, _ps.GetAddressOf()));

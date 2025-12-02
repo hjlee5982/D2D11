@@ -16,85 +16,114 @@ void AssetManager::Awake()
 
 void AssetManager::CreateDefaultResource()
 {
-	// 기본 메시 생성
+	CreateMesh();
+	CreateShader();
+	CreateTexture();
+	CreateMaterial();
+}
+
+void AssetManager::CreateMesh()
+{
+	// Square
 	{
-		// Square
-		{
-			sptr<Mesh> mesh = makeSptr<Mesh>();
-			mesh->CreateMesh(EMeshType::Square);
-			Add(L"Mesh_Square", mesh);
-		}
-		// SquareCollider
-		{
-			sptr<Mesh> mesh = makeSptr<Mesh>();
-			mesh->CreateMesh(EMeshType::BoxCollider2D);
-			Add(L"Mesh_BoxCollider2D", mesh);
-		}
+		sptr<Mesh> mesh = makeSptr<Mesh>();
+		mesh->CreateMesh(EMeshType::Square);
+		Add(L"Mesh_Square", mesh);
 	}
-	// 기본 쉐이더 생성
+	// SquareCollider
 	{
-		// 기본 쉐이더
-		{
-			sptr<Shader> shader = makeSptr<Shader>();
-			shader->CreateShader(shaderPath + L"Default");
-			Add(L"Shader_Default", shader);
-		}
-		// 콜라이더 쉐이더
-		{
-			sptr<Shader> shader = makeSptr<Shader>();
-			shader->CreateShader(shaderPath + L"Collider");
-			Add(L"Shader_Collider", shader);
-		}
-		// 폰트 쉐이더
-		{
-			sptr<Shader> shader = makeSptr<Shader>();
-			shader->CreateShader(shaderPath + L"Font");
-			Add(L"Shader_Font", shader);
-		}
-		
+		sptr<Mesh> mesh = makeSptr<Mesh>();
+		mesh->CreateMesh(EMeshType::BoxCollider2D);
+		Add(L"Mesh_BoxCollider2D", mesh);
 	}
-	// 기본 텍스쳐 생성
+}
+
+void AssetManager::CreateShader()
+{
+	// 기본 쉐이더
 	{
-		{
-			sptr<Texture> texture = makeSptr<Texture>();
-			texture->CreateTexture(engineAssetPath + L"Image/DefaultTexture.png");
-			Add(L"Texture_Default", texture);
-		}
-		// 폰트 아틀라스 로드
-		{
-			sptr<Texture> texture = makeSptr<Texture>();
-			texture->CreateTexture(L"../Data/Font/EngineFont.png");
-			ASSET.Add(L"Texture_Font", texture);
-		}
+		sptr<Shader> shader = makeSptr<Shader>();
+		shader->CreateShader(shaderPath + L"Default");
+		Add(L"Shader_Default", shader);
 	}
-	// 기본 머티리얼 생성
+	// 콜라이더 쉐이더
 	{
-		// 기본 머티리얼
-		{
-			sptr<Material> material = makeSptr<Material>();
-			{
-				material->SetTexture(Get<Texture>(L"Texture_Default"));
-				material->SetShader(Get<Shader>(L"Shader_Default"));
-			}
-			Add(L"Material_Default", material);
-		}
-		// 콜라이더 머티리얼
-		{
-			sptr<Material> material = makeSptr<Material>();
-			{
-				// 콜라이더는 텍스쳐 안씀
-				material->SetShader(Get<Shader>(L"Shader_Collider"));
-			}
-			Add(L"Material_Collider", material);
-		}
-		// 폰트 머티리얼
-		{
-			sptr<Material> material = makeSptr<Material>();
-			{
-				material->SetTexture(Get<Texture>(L"Texture_Font"));
-				material->SetShader(Get<Shader>(L"Shader_Font"));
-			}
-			Add(L"Material_Font", material);
-		}
+		sptr<Shader> shader = makeSptr<Shader>();
+		shader->CreateShader(shaderPath + L"Collider");
+		Add(L"Shader_Collider", shader);
 	}
+	// 폰트 쉐이더
+	{
+		sptr<Shader> shader = makeSptr<Shader>();
+		shader->CreateShader(shaderPath + L"Font");
+		Add(L"Shader_Font", shader);
+	}
+	//// UI 이미지 쉐이더
+	//{
+	//	sptr<Shader> shader = makeSptr<Shader>();
+	//	shader->CreateShader(shaderPath + L"Image");
+	//	Add(L"Shader_Image", shader);
+	//}
+}
+
+void AssetManager::CreateTexture()
+{
+	// 스프라이트 렌더러 디폴트 텍스쳐
+	{
+		sptr<Texture> texture = makeSptr<Texture>();
+		texture->CreateTexture(engineAssetPath + L"Image/DefaultTexture.png");
+		Add(L"Texture_Default", texture);
+	}
+	// 폰트 아틀라스
+	{
+		sptr<Texture> texture = makeSptr<Texture>();
+		texture->CreateTexture(L"../Data/Font/EngineFont.png");
+		Add(L"Texture_Font", texture);
+	}
+	//// UI 이미지 기본 텍스쳐
+	//{
+	//	sptr<Texture> texture = makeSptr<Texture>();
+	//	texture->CreateTexture(engineAssetPath + L"Image/Square.png");
+	//	Add(L"Texture_Square", texture);
+	//}
+}
+
+void AssetManager::CreateMaterial()
+{
+	// 스프라이트 렌더러 기본 머티리얼
+	{
+		sptr<Material> material = makeSptr<Material>();
+		{
+			material->SetTexture(Get<Texture>(L"Texture_Default"));
+			material->SetShader(Get<Shader>(L"Shader_Default"));
+		}
+		Add(L"Material_Default", material);
+	}
+	// 콜라이더 머티리얼
+	{
+		sptr<Material> material = makeSptr<Material>();
+		{
+			// 콜라이더는 텍스쳐 안씀
+			material->SetShader(Get<Shader>(L"Shader_Collider"));
+		}
+		Add(L"Material_Collider", material);
+	}
+	// 폰트 머티리얼
+	{
+		sptr<Material> material = makeSptr<Material>();
+		{
+			material->SetTexture(Get<Texture>(L"Texture_Font"));
+			material->SetShader(Get<Shader>(L"Shader_Font"));
+		}
+		Add(L"Material_Font", material);
+	}
+	// UI 이미지 머티리얼
+	/*{
+		sptr<Material> material = makeSptr<Material>();
+		{
+			material->SetTexture(Get<Texture>(L"Texture_Square"));
+			material->SetShader(Get<Shader>(L"Shader_Image"));
+		}
+		Add(L"Material_Image", material);
+	}*/
 }

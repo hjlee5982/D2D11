@@ -38,6 +38,15 @@ void Mesh::CreateMesh(EMeshType type)
     CreateBuffers();
 }
 
+void Mesh::CreateMesh(sptr<Geometry<VertexTextureData>> geometry)
+{
+    _vertexBuffer = makeSptr<VertexBuffer>();
+    _vertexBuffer->Create(geometry->GetVertices());
+
+    _indexBuffer = makeSptr<IndexBuffer>();
+    _indexBuffer->Create(geometry->GetIndices());
+}
+
 void Mesh::Bind()
 {
     _vertexBuffer->PushData();

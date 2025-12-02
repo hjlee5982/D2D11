@@ -21,7 +21,7 @@ bool GameManager::AddScore(const AddScoreEvent& e)
 {
 	++_score;
 
-	EVENT::SendEvent(RefreshUIEvent{ _score });
+	//EVENT::SendEvent(RefreshUIEvent{ _score });
 
 	return false;
 }
