@@ -24,7 +24,7 @@ void Mesh::CreateMesh(EMeshType type)
         break;
 
     case EMeshType::BoxCollider2D:
-        GeometryHelper::CreateSquareCollider(_geometry);
+        GeometryHelper::CreateSquare(_geometry);
         break;
 
     case EMeshType::Font:

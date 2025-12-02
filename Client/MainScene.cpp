@@ -17,6 +17,8 @@
 #include "UI_Score.h"
 #include "GameManager.h"
 
+#include "Checker.h"
+
 void MainScene::Awake()
 {
 	// 리소스 로드
@@ -98,10 +100,6 @@ void MainScene::AddGameObject()
 			}
 		}
 	}
-	//auto t = Instantiate();
-	//{
-	//	t->AddComponent<SpriteRenderer>();
-	//}
 	// 게임 매니저
 	auto manager = Instantiate();
 	{
@@ -192,6 +190,6 @@ void MainScene::AddUIObject()
 
 void MainScene::EngineSetting()
 {
-	RENDERER.colliderRendering = false;
+	RENDERER.colliderRendering   = true;
 	RENDERER.uiBoundaryRendering = false;
 }

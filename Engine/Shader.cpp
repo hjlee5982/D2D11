@@ -3,7 +3,6 @@
 
 void Shader::CreateShader(const wstring& path)
 {
-	ComPtr<ID3DBlob> shaderBlob;
 	ComPtr<ID3DBlob> errorBlob;
 	UINT compileFlags;
 
@@ -16,27 +15,14 @@ void Shader::CreateShader(const wstring& path)
 	// VS 持失
 	wstring vsPath = path + L"VS.hlsl";
 
-	CHECK(D3DCompileFromFile(vsPath.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE, entry.c_str(), "vs_5_0", compileFlags, 0, shaderBlob.GetAddressOf(), errorBlob.GetAddressOf()));
-	CHECK(DEVICE->CreateVertexShader(shaderBlob->GetBufferPointer(), shaderBlob->GetBufferSize(), nullptr, _vs.GetAddressOf()));
+	CHECK(D3DCompileFromFile(vsPath.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE, entry.c_str(), "vs_5_0", compileFlags, 0, _vsByteCode.GetAddressOf(), errorBlob.GetAddressOf()));
+	CHECK(DEVICE->CreateVertexShader(_vsByteCode->GetBufferPointer(), _vsByteCode->GetBufferSize(), nullptr, _vs.GetAddressOf()));
 	
-	// InputLayout 持失
-	D3D11_INPUT_ELEMENT_DESC inputLayout[] =
-	{
-		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0,  0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT,    0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 }
-	};
-
-	CHECK(DEVICE->CreateInputLayout(inputLayout, 2, shaderBlob->GetBufferPointer(), shaderBlob->GetBufferSize(), _inputLayout.GetAddressOf()));
-
-	CONTEXT->IASetInputLayout(_inputLayout.Get());
-	CONTEXT->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-	
-
 	// PS 持失
 	wstring psPath = path + L"PS.hlsl";
 
-	CHECK(D3DCompileFromFile(psPath.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE, entry.c_str(), "ps_5_0", compileFlags, 0, shaderBlob.GetAddressOf(), errorBlob.GetAddressOf()));
-	CHECK(DEVICE->CreatePixelShader(shaderBlob->GetBufferPointer(), shaderBlob->GetBufferSize(), nullptr, _ps.GetAddressOf()));
+	CHECK(D3DCompileFromFile(psPath.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE, entry.c_str(), "ps_5_0", compileFlags, 0, _psByteCode.GetAddressOf(), errorBlob.GetAddressOf()));
+	CHECK(DEVICE->CreatePixelShader(_psByteCode->GetBufferPointer(), _psByteCode->GetBufferSize(), nullptr, _ps.GetAddressOf()));
 }
 
 void Shader::Bind()

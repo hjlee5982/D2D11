@@ -8,13 +8,13 @@
 
 void SpriteRenderer::Init()
 {
-	_mesh     = ASSET.Get<Mesh>(L"Mesh_Square");
+	_mesh     = ASSET.Get<TMesh<VertexTextureData>>(L"Mesh_TSquare");
 	_material = ASSET.Get<Material>(L"Material_Default", true);
 
 	RENDERER.AddGameObject(Owner());
 }
 
-sptr<Mesh> SpriteRenderer::GetMesh()
+sptr<TMeshBase> SpriteRenderer::GetMesh()
 {
 	return _mesh;
 }
@@ -24,7 +24,7 @@ sptr<Material> SpriteRenderer::GetMaterial()
 	return _material;
 }
 
-void SpriteRenderer::SetMesh(sptr<Mesh> mesh)
+void SpriteRenderer::SetMesh(sptr<TMeshBase> mesh)
 {
 	_mesh = mesh;
 }

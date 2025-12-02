@@ -9,6 +9,7 @@ enum class EAssetType : i8
 	Shader,
 	AnimationClip,
 	Sprite,
+	TMesh,
 
 	End
 };

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Component.h"
+#include "TMesh.h"
 
 class Mesh;
 class Material;
@@ -20,7 +21,7 @@ public:
 	virtual void Start()  override;
 	virtual void Update() override;
 public:
-	sptr<Mesh>      GetMesh()              { return _mesh;              }
+	sptr<TMeshBase>      GetMesh()         { return _mesh;              }
 	sptr<Material>  GetMaterial()          { return _material;          }
 	sptr<Transform> GetColliderTransform() { return _colliderTransform; }
 public:
@@ -29,7 +30,7 @@ public:
 	void SetLocalPosition(Vector3 position);
 	void SetLocalScale(Vector3 scale);
 private:
-	sptr<Mesh>      _mesh;
+	sptr<TMeshBase> _mesh;
 	sptr<Material>  _material;
 	sptr<Transform> _colliderTransform;
 private:

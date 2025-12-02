@@ -4,38 +4,19 @@
 #include "Shader.h"
 #include "Texture.h"
 #include "Material.h"
+#include "VertexData.h"
+#include "TMesh.h"
 
-static wstring shaderPath  = L"../Assets/Shader/";
-static wstring texturePath = L"../Assets/Image/";
+static wstring shaderPath      = L"../Assets/Shader/";
+static wstring texturePath     = L"../Assets/Image/";
 static wstring engineAssetPath = L"../Engine/EngineAssets/";
 
 void AssetManager::Awake()
 {
-	CreateDefaultResource();
-}
-
-void AssetManager::CreateDefaultResource()
-{
-	CreateMesh();
 	CreateShader();
+	CreateMesh();
 	CreateTexture();
 	CreateMaterial();
-}
-
-void AssetManager::CreateMesh()
-{
-	// Square
-	{
-		sptr<Mesh> mesh = makeSptr<Mesh>();
-		mesh->CreateMesh(EMeshType::Square);
-		Add(L"Mesh_Square", mesh);
-	}
-	// SquareCollider
-	{
-		sptr<Mesh> mesh = makeSptr<Mesh>();
-		mesh->CreateMesh(EMeshType::BoxCollider2D);
-		Add(L"Mesh_BoxCollider2D", mesh);
-	}
 }
 
 void AssetManager::CreateShader()
@@ -58,12 +39,28 @@ void AssetManager::CreateShader()
 		shader->CreateShader(shaderPath + L"Font");
 		Add(L"Shader_Font", shader);
 	}
-	//// UI 이미지 쉐이더
-	//{
-	//	sptr<Shader> shader = makeSptr<Shader>();
-	//	shader->CreateShader(shaderPath + L"Image");
-	//	Add(L"Shader_Image", shader);
-	//}
+	// UI 이미지 쉐이더
+	/*{
+		sptr<Shader> shader = makeSptr<Shader>();
+		shader->CreateShader(shaderPath + L"Image");
+		Add(L"Shader_Image", shader);
+	}*/
+}
+
+void AssetManager::CreateMesh()
+{
+	// SquareCollider
+	{
+		sptr<TMesh<VertexColliderData>> mesh = makeSptr<TMesh<VertexColliderData>>();
+		mesh->CreateMesh(ETMeshType::Square);
+		Add(L"Mesh_TBoxCollider2D", mesh);
+	}
+	// Square
+	{
+		sptr<TMesh<VertexTextureData>> mesh = makeSptr<TMesh<VertexTextureData>>();
+		mesh->CreateMesh(ETMeshType::Square);
+		Add(L"Mesh_TSquare", mesh);
+	}
 }
 
 void AssetManager::CreateTexture()
@@ -80,12 +77,12 @@ void AssetManager::CreateTexture()
 		texture->CreateTexture(L"../Data/Font/EngineFont.png");
 		Add(L"Texture_Font", texture);
 	}
-	//// UI 이미지 기본 텍스쳐
-	//{
-	//	sptr<Texture> texture = makeSptr<Texture>();
-	//	texture->CreateTexture(engineAssetPath + L"Image/Square.png");
-	//	Add(L"Texture_Square", texture);
-	//}
+	// UI 이미지 기본 텍스쳐
+	{
+		sptr<Texture> texture = makeSptr<Texture>();
+		texture->CreateTexture(engineAssetPath + L"Image/Square.png");
+		Add(L"Texture_Square", texture);
+	}
 }
 
 void AssetManager::CreateMaterial()

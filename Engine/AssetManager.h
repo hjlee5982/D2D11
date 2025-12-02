@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Asset.h"
+#include "TMesh.h"
 
 class Mesh;
 class Shader;
@@ -11,8 +12,6 @@ class AssetManager : public Singleton<AssetManager>
 {
 public:
 	virtual void Awake() override;
-private:
-	void CreateDefaultResource();
 public:
 	template<typename T>
 	bool Add(const wstring& key, sptr<T> object);
@@ -27,8 +26,8 @@ public:
 	EAssetType GetAssetType();
 private:
 	// 엔진에서 사용될 기본 에셋들을 생성
-	void CreateMesh();
 	void CreateShader();
+	void CreateMesh();
 	void CreateTexture();
 	void CreateMaterial();
 private:
@@ -117,6 +116,11 @@ inline EAssetType AssetManager::GetAssetType()
 	if (std::is_same_v<T, Shader>)
 	{
 		return EAssetType::Shader;
+	}
+	
+	if constexpr (std::is_base_of_v<TMeshBase, T>)
+	{
+		return EAssetType::TMesh;
 	}
 
 	return EAssetType::None;

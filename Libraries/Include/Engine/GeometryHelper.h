@@ -6,9 +6,15 @@
 class GeometryHelper
 {
 public:
-	static void CreateSquare(sptr<Geometry<VertexTextureData>> geometry);
+	static void CreateSquare(sptr<Geometry<VertexColliderData>> geometry);
+	static void CreateSquare(sptr<Geometry<VertexTextureData>>  geometry);
 public:
-	static void CreateSquareCollider(sptr<Geometry<VertexTextureData>> geometry);
+	static void CreateCircle(sptr<Geometry<VertexColliderData>> geometry);
+	static void CreateCircle(sptr<Geometry<VertexTextureData>>  geometry);
 public:
-	static void CreateSquareUI(sptr<Geometry<VertexUIData>> geometry);
+	static void CreateCube(sptr<Geometry<VertexColliderData>> geometry);
+	static void CreateCube(sptr<Geometry<VertexTextureData>>  geometry);
+public:
+	static void CreateSphere(sptr<Geometry<VertexColliderData>> geometry);
+	static void CreateSphere(sptr<Geometry<VertexTextureData>>  geometry);
 };

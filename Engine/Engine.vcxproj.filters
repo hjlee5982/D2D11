@@ -294,6 +294,9 @@
     <ClInclude Include="UIComponent.h">
       <Filter>10. Component\UI</Filter>
     </ClInclude>
+    <ClInclude Include="TMesh.h">
+      <Filter>08. Asset\Mesh</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -439,6 +442,9 @@
     </ClCompile>
     <ClCompile Include="UIComponent.cpp">
       <Filter>10. Component\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="TMesh.cpp">
+      <Filter>08. Asset\Mesh</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
