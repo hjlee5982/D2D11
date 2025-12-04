@@ -7,12 +7,10 @@ void GeometryHelper::CreateSquare(sptr<Geometry<VertexColliderData>> geometry)
 
 	List<VertexColliderData> vtx;
 	{
-		vtx.resize(4);
-
-		vtx[0].position = Vector3(-0.5f - padding,  0.5f + padding, 0.f);
-		vtx[1].position = Vector3( 0.5f + padding,  0.5f + padding, 0.f);
-		vtx[2].position = Vector3( 0.5f + padding, -0.5f - padding, 0.f);
-		vtx[3].position = Vector3(-0.5f - padding, -0.5f - padding, 0.f);
+		vtx.push_back({ Vector3(-0.5f - padding,  0.5f + padding, 0.f) });
+		vtx.push_back({ Vector3( 0.5f + padding,  0.5f + padding, 0.f) });
+		vtx.push_back({ Vector3( 0.5f + padding, -0.5f - padding, 0.f) });
+		vtx.push_back({ Vector3(-0.5f - padding, -0.5f - padding, 0.f) });
 
 		geometry->SetVertices(vtx);
 	}
@@ -27,19 +25,28 @@ void GeometryHelper::CreateSquare(sptr<Geometry<VertexTextureData>> geometry)
 {
 	List<VertexTextureData> vtx;
 	{
-		vtx.resize(4);
+		vtx.push_back({ Vector3(-0.5f,  0.5f, 0.f), Vector2(0.f, 0.f) });
+		vtx.push_back({ Vector3( 0.5f,  0.5f, 0.f), Vector2(1.f, 0.f) });
+		vtx.push_back({ Vector3( 0.5f, -0.5f, 0.f), Vector2(1.f, 1.f) });
+		vtx.push_back({ Vector3(-0.5f, -0.5f, 0.f), Vector2(0.f, 1.f) });
 
-		vtx[0].position = Vector3(-0.5f, 0.5f, 0.f);
-		vtx[0].uv       = Vector2( 0.0f, 0.0f      );
+		geometry->SetVertices(vtx);
+	}
 
-		vtx[1].position = Vector3(0.5f, 0.5f, 0.f);
-		vtx[1].uv       = Vector2(1.0f, 0.0f      );
+	List<u32> idx = { 0, 1, 2, 0, 2, 3 };
+	{
+		geometry->SetIndices(idx);
+	}
+}
 
-		vtx[2].position = Vector3(0.5f, -0.5f, 0.f);
-		vtx[2].uv       = Vector2(1.0f,  1.0f      );
-
-		vtx[3].position = Vector3(-0.5f, -0.5f, 0.f);
-		vtx[3].uv       = Vector2( 0.0f,  1.0f     );
+void GeometryHelper::CreateSquare(sptr<Geometry<VertexUIData>> geometry)
+{
+	List<VertexUIData> vtx;
+	{
+		vtx.push_back({ Vector3(-0.5f,  0.5f, 0.f), Vector2(0.f, 0.f), Vector4(1.f, 1.f, 1.f, 1.f) });
+		vtx.push_back({ Vector3( 0.5f,  0.5f, 0.f), Vector2(1.f, 0.f), Vector4(1.f, 1.f, 1.f, 1.f) });
+		vtx.push_back({ Vector3( 0.5f, -0.5f, 0.f), Vector2(1.f, 1.f), Vector4(1.f, 1.f, 1.f, 1.f) });
+		vtx.push_back({ Vector3(-0.5f, -0.5f, 0.f), Vector2(0.f, 1.f), Vector4(1.f, 1.f, 1.f, 1.f) });
 
 		geometry->SetVertices(vtx);
 	}
@@ -58,6 +65,10 @@ void GeometryHelper::CreateCircle(sptr<Geometry<VertexTextureData>> geometry)
 {
 }
 
+void GeometryHelper::CreateCircle(sptr<Geometry<VertexUIData>> geometry)
+{
+}
+
 void GeometryHelper::CreateCube(sptr<Geometry<VertexColliderData>> geometry)
 {
 }
@@ -66,10 +77,18 @@ void GeometryHelper::CreateCube(sptr<Geometry<VertexTextureData>> geometry)
 {
 }
 
+void GeometryHelper::CreateCube(sptr<Geometry<VertexUIData>> geometry)
+{
+}
+
 void GeometryHelper::CreateSphere(sptr<Geometry<VertexColliderData>> geometry)
 {
 }
 
 void GeometryHelper::CreateSphere(sptr<Geometry<VertexTextureData>> geometry)
+{
+}
+
+void GeometryHelper::CreateSphere(sptr<Geometry<VertexUIData>> geometry)
 {
 }

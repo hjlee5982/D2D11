@@ -362,9 +362,6 @@
     <ClCompile Include="Transform.cpp">
       <Filter>10. Component\GameObject\Transform</Filter>
     </ClCompile>
-    <ClCompile Include="ConstantBufferDesc.cpp">
-      <Filter>02. DirectX\Buffer</Filter>
-    </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>10. Component\GameObject\Camera</Filter>
     </ClCompile>

@@ -5,10 +5,11 @@
 #include "Material.h"
 #include "Renderer.h"
 #include "Texture.h"
+#include "TMesh.h"
 
 void SpriteRenderer::Init()
 {
-	_mesh     = ASSET.Get<TMesh<VertexTextureData>>(L"Mesh_TSquare");
+	_mesh     = ASSET.Get<TMesh<VertexTextureData>>(L"Mesh_Square");
 	_material = ASSET.Get<Material>(L"Material_Default", true);
 
 	RENDERER.AddGameObject(Owner());

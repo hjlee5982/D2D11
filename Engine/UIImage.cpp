@@ -3,9 +3,13 @@
 #include "AssetManager.h"
 #include "Mesh.h"
 #include "Material.h"
+#include "TMesh.h"
+#include "Renderer.h"
 
 void UIImage::Init()
 {
-	_mesh     = ASSET.Get<Mesh>(L"Mesh_Square");
-	_material = ASSET.Get<Material>(L"Material_Image", true);
+	_mesh     = ASSET.Get<TMesh<VertexUIData>>(L"Mesh_UI_Square");
+	_material = ASSET.Get<Material>(L"Material_UI_Image", true);
+
+	RENDERER.AddUI(shared_from_this());
 }

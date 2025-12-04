@@ -4,8 +4,9 @@
 #include "Mesh.h"
 #include "Texture.h"
 #include "Material.h"
+#include "TMesh.h"
 
-sptr<Mesh> UIComponent::GetMesh()
+sptr<TMesh<VertexUIData>> UIComponent::GetMesh()
 {
     return _mesh;
 }
@@ -15,7 +16,7 @@ sptr<Material> UIComponent::GetMaterial()
     return _material;
 }
 
-void UIComponent::SetMesh(sptr<Mesh> mesh)
+void UIComponent::SetMesh(sptr<TMesh<VertexUIData>> mesh)
 {
     _mesh = mesh;
 }

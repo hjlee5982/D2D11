@@ -2,7 +2,7 @@
 
 #include "UIComponent.h"
 
-class UIImage : public UIComponent
+class UIImage : public UIComponent, public std::enable_shared_from_this<UIImage>
 {
 public:
 	virtual void Init() override;

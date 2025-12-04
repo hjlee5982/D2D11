@@ -130,6 +130,7 @@ void ObjectGenerator::ObstaclePooling()
 			{
 				{
 					cloud->name = "Cloud";
+					cloud->tag  = "Obstacle";
 				}
 				auto cloudTf = cloud->AddComponent<Transform>();
 				{

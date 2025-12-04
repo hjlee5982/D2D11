@@ -8,13 +8,17 @@ class GeometryHelper
 public:
 	static void CreateSquare(sptr<Geometry<VertexColliderData>> geometry);
 	static void CreateSquare(sptr<Geometry<VertexTextureData>>  geometry);
+	static void CreateSquare(sptr<Geometry<VertexUIData>>       geometry);
 public:
 	static void CreateCircle(sptr<Geometry<VertexColliderData>> geometry);
 	static void CreateCircle(sptr<Geometry<VertexTextureData>>  geometry);
+	static void CreateCircle(sptr<Geometry<VertexUIData>>       geometry);
 public:
 	static void CreateCube(sptr<Geometry<VertexColliderData>> geometry);
 	static void CreateCube(sptr<Geometry<VertexTextureData>>  geometry);
+	static void CreateCube(sptr<Geometry<VertexUIData>>       geometry);
 public:
 	static void CreateSphere(sptr<Geometry<VertexColliderData>> geometry);
 	static void CreateSphere(sptr<Geometry<VertexTextureData>>  geometry);
+	static void CreateSphere(sptr<Geometry<VertexUIData>>       geometry);
 };

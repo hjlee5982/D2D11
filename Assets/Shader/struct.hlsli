@@ -23,7 +23,7 @@ struct PS_IN_TEXTURE
 
 struct VS_IN_UI
 {
-    float3 position : POSITIONT;
+    float3 position : POSITION;
     float2 uv       : TEXCOORD0;
     float4 color    : COLOR;
 };

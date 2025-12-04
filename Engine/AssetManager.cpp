@@ -33,18 +33,18 @@ void AssetManager::CreateShader()
 		shader->CreateShader(shaderPath + L"Collider");
 		Add(L"Shader_Collider", shader);
 	}
-	// 폰트 쉐이더
+	// UI 폰트 쉐이더
 	{
 		sptr<Shader> shader = makeSptr<Shader>();
 		shader->CreateShader(shaderPath + L"Font");
-		Add(L"Shader_Font", shader);
+		Add(L"Shader_UI_Font", shader);
 	}
 	// UI 이미지 쉐이더
-	/*{
+	{
 		sptr<Shader> shader = makeSptr<Shader>();
 		shader->CreateShader(shaderPath + L"Image");
-		Add(L"Shader_Image", shader);
-	}*/
+		Add(L"Shader_UI_Image", shader);
+	}
 }
 
 void AssetManager::CreateMesh()
@@ -53,13 +53,19 @@ void AssetManager::CreateMesh()
 	{
 		sptr<TMesh<VertexColliderData>> mesh = makeSptr<TMesh<VertexColliderData>>();
 		mesh->CreateMesh(ETMeshType::Square);
-		Add(L"Mesh_TBoxCollider2D", mesh);
+		Add(L"Mesh_BoxCollider2D", mesh);
 	}
 	// Square
 	{
 		sptr<TMesh<VertexTextureData>> mesh = makeSptr<TMesh<VertexTextureData>>();
 		mesh->CreateMesh(ETMeshType::Square);
-		Add(L"Mesh_TSquare", mesh);
+		Add(L"Mesh_Square", mesh);
+	}
+	// Square_UI
+	{
+		sptr<TMesh<VertexUIData>> mesh = makeSptr<TMesh<VertexUIData>>();
+		mesh->CreateMesh(ETMeshType::Square);
+		Add(L"Mesh_UI_Square", mesh);
 	}
 }
 
@@ -75,13 +81,13 @@ void AssetManager::CreateTexture()
 	{
 		sptr<Texture> texture = makeSptr<Texture>();
 		texture->CreateTexture(L"../Data/Font/EngineFont.png");
-		Add(L"Texture_Font", texture);
+		Add(L"Texture_UI_Font", texture);
 	}
 	// UI 이미지 기본 텍스쳐
 	{
 		sptr<Texture> texture = makeSptr<Texture>();
 		texture->CreateTexture(engineAssetPath + L"Image/Square.png");
-		Add(L"Texture_Square", texture);
+		Add(L"Texture_UI_Default", texture);
 	}
 }
 
@@ -105,22 +111,22 @@ void AssetManager::CreateMaterial()
 		}
 		Add(L"Material_Collider", material);
 	}
-	// 폰트 머티리얼
+	// UI 폰트 머티리얼
 	{
 		sptr<Material> material = makeSptr<Material>();
 		{
-			material->SetTexture(Get<Texture>(L"Texture_Font"));
-			material->SetShader(Get<Shader>(L"Shader_Font"));
+			material->SetTexture(Get<Texture>(L"Texture_UI_Font"));
+			material->SetShader(Get<Shader>(L"Shader_UI_Font"));
 		}
-		Add(L"Material_Font", material);
+		Add(L"Material_UI_Font", material);
 	}
 	// UI 이미지 머티리얼
-	/*{
+	{
 		sptr<Material> material = makeSptr<Material>();
 		{
-			material->SetTexture(Get<Texture>(L"Texture_Square"));
-			material->SetShader(Get<Shader>(L"Shader_Image"));
+			material->SetTexture(Get<Texture>(L"Texture_UI_Default"));
+			material->SetShader(Get<Shader>(L"Shader_UI_Image"));
 		}
-		Add(L"Material_Image", material);
-	}*/
+		Add(L"Material_UI_Image", material);
+	}
 }

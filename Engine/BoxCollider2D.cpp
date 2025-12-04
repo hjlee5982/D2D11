@@ -12,7 +12,7 @@
 
 void BoxCollider2D::Init()
 {
-	_mesh     = ASSET.Get<TMesh<VertexColliderData>>(L"Mesh_TBoxCollider2D");
+	_mesh     = ASSET.Get<TMesh<VertexColliderData>>(L"Mesh_BoxCollider2D");
 	_material = ASSET.Get<Material>(L"Material_Collider");
 
 	_colliderTransform = makeSptr<Transform>();

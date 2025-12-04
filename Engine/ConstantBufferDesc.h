@@ -9,4 +9,11 @@ struct CB_PerFrame
 struct CB_PerObject
 {
 	Matrix worldMatrix;
+	Vector4 UIColor;
+};
+
+struct CB_PerUI
+{
+	Matrix  worldMatrix;
+	Vector4 color;
 };

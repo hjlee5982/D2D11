@@ -16,8 +16,7 @@
 #include "UIBoundary.h"
 #include "UI_Score.h"
 #include "GameManager.h"
-
-#include "Checker.h"
+#include "UIImage.h"
 
 void MainScene::Awake()
 {
@@ -180,6 +179,18 @@ void MainScene::AddGameObject()
 			ut->Text(L"000");
 		}
 		score->AddComponent<UI_Score>();
+	}
+
+	auto panel = Instantiate(EObjectType::UI);
+	{
+		auto tr = panel->AddComponent<Transform>();
+		{
+			tr->SetScale(Vector3(Global::ClientOption.width , Global::ClientOption.height, 0.f));
+		}
+		auto im = panel->AddComponent<UIImage>();
+		{
+			im->color = Vector4(0.f, 0.f, 0.f, 0.5f);
+		}
 	}
 }
 

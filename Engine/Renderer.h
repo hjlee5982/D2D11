@@ -2,6 +2,7 @@
 
 class Component;
 class GameObject;
+class UIComponent;
 
 class Renderer : public Singleton<Renderer>
 {
@@ -17,7 +18,7 @@ private:
 public:
 	void AddGameObject(sptr<GameObject> gameObject);
 	void AddCollider(sptr<Component> collider);
-	void AddUI(sptr<GameObject> ui);
+	void AddUI(sptr<UIComponent> ui);
 	void AddUIBoundary(sptr<Component> boundary);
 public:
 	bool colliderRendering = false;
@@ -25,8 +26,9 @@ public:
 private:
 	List<wptr<GameObject>> _gameObjects;
 	List<wptr<Component>>  _colliders;
-	List<wptr<GameObject>> _uis;
+	List<wptr<UIComponent>> _uis;
 	List<wptr<Component>>  _boundaries;
+private:
 private:
 	ComPtr<ID3D11Buffer> _cbPerFrame;
 	ComPtr<ID3D11Buffer> _cbPerObject;

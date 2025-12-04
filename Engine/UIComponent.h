@@ -1,22 +1,25 @@
 #pragma once
 
 #include "Component.h"
+#include "VertexData.h"
+#include "TMesh.h"
 
-class Mesh;
 class Texture;
 class Material;
 
 class UIComponent : public Component
 {
 public:
-	sptr<Mesh>     GetMesh();
-	sptr<Material> GetMaterial();
+	sptr<TMesh<VertexUIData>> GetMesh();
+	sptr<Material>            GetMaterial();
 public:
-	void SetMesh   (sptr<Mesh> mesh);
-	void SetTexture(sptr<Texture> texture);
+	void SetMesh(sptr<TMesh<VertexUIData>> mesh);
+	void SetTexture(sptr<Texture>   texture);
 	void SetMaterial(sptr<Material> material);
+public:
+	Vector4 color = { 1.f, 1.f, 1.f, 1.f };
 protected:
-	sptr<Mesh>     _mesh;
-	sptr<Material> _material;
+	sptr<TMesh<VertexUIData>> _mesh;
+	sptr<Material>            _material;
 };
 

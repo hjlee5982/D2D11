@@ -34,7 +34,8 @@ public:
 	TMesh<T>() : TMeshBase() {}
 public:
 	void CreateMesh(ETMeshType type);
-	void Bind(sptr<Shader> shader);
+	void CreateMesh(sptr<Geometry<T>> geometry);
+	virtual void Bind(sptr<Shader> shader) override;
 private:
 	sptr<class VertexBuffer> _vertexBuffer;
 	sptr<class IndexBuffer>  _indexBuffer;
@@ -76,6 +77,16 @@ inline void TMesh<T>::CreateMesh(ETMeshType type)
 
 	_indexBuffer = makeSptr<IndexBuffer>();
 	_indexBuffer->Create(_geometry->GetIndices());
+}
+
+template<typename T>
+inline void TMesh<T>::CreateMesh(sptr<Geometry<T>> geometry)
+{
+	_vertexBuffer = makeSptr<VertexBuffer>();
+	_vertexBuffer->Create(geometry->GetVertices());
+
+	_indexBuffer = makeSptr<IndexBuffer>();
+	_indexBuffer->Create(geometry->GetIndices());
 }
 
 template<typename T>

@@ -221,28 +221,29 @@ void Renderer::RenderUI()
 	CONTEXT->UpdateSubresource(_cbPerFrame.Get(), 0, nullptr, &perFrameData, 0, 0);
 	CONTEXT->VSSetConstantBuffers(0, 1, _cbPerFrame.GetAddressOf());
 
-
-	for (auto& gameObject : _uis)
+	for (auto& uiComp : _uis)
 	{
-		if (auto go = gameObject.lock())
+		if (auto ui = uiComp.lock())
 		{
 			// 1. 상수버퍼 바인딩
 			CB_PerObject perObjectData;
 			{
-				perObjectData.worldMatrix = go->transform->GetWorldMatrix();
+				perObjectData.worldMatrix = ui->Owner()->transform->GetWorldMatrix();
+				perObjectData.UIColor = ui->color;
 			}
 			CONTEXT->UpdateSubresource(_cbPerObject.Get(), 0, nullptr, &perObjectData, 0, 0);
 			CONTEXT->VSSetConstantBuffers(1, 1, _cbPerObject.GetAddressOf());
-
-
+			CONTEXT->PSSetConstantBuffers(1, 1, _cbPerObject.GetAddressOf());
+			
+			
 			// 2. 머티리얼 바인딩 ( 셰이더 + 텍스쳐 바인딩 )
-			auto uiComponent = go->GetComponent<UIText>();
-			auto material = uiComponent->GetMaterial();
+			auto material = ui->GetMaterial();
 			material->Bind();
 
+
 			// 3. 매시 바인딩 ( 버텍스 + 인덱스 버퍼 바인딩 ) + 드로우 콜
-			auto mesh = uiComponent->GetMesh();
-			mesh->Bind();
+			auto mesh = ui->GetMesh();
+			mesh->Bind(material->GetShader());
 		}
 	}
 }
@@ -314,7 +315,7 @@ void Renderer::AddCollider(sptr<Component> collider)
 	_colliders.push_back(collider);
 }
 
-void Renderer::AddUI(sptr<GameObject> ui)
+void Renderer::AddUI(sptr<UIComponent> ui)
 {
 	_uis.push_back(ui);
 }
