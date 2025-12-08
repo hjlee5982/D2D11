@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Component.h"
+#include "TMesh.h"
 
 class Mesh;
 class Material;
@@ -11,11 +12,11 @@ class UIBoundary : public Component, public std::enable_shared_from_this<UIBound
 public:
 	virtual void Init() override;
 public:
-	sptr<Mesh>      GetMesh()              { return _mesh;              }
+	sptr<TMesh<VertexColliderData>> GetMesh() { return _mesh; }
 	sptr<Material>  GetMaterial()          { return _material;          }
 	sptr<Transform> GetBoundaryTransform() { return _boundaryTransform; }
 public:
-	sptr<Mesh>      _mesh;
+	sptr<TMesh<VertexColliderData>>      _mesh;
 	sptr<Material>  _material;
 	sptr<Transform> _boundaryTransform;
 };

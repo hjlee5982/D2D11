@@ -72,6 +72,7 @@ void MainScene::SetInputSystem()
 	InputMap map;
 	{
 		map.AddAction("Jump", { 'E', VK_SPACE});
+		map.AddAction("Time", { 'T' });
 	}
 	INPUT.AddMap(map);
 }
@@ -172,11 +173,14 @@ void MainScene::AddGameObject()
 		auto tr = score->AddComponent<Transform>();
 		{
 			tr->SetPosition(Vector3(-280.f, 460.f, 0.f));
-			tr->SetScale(Vector3(100.f, 50.f, 0.f));
+			tr->SetScale(Vector3(120.f, 80.f, 0.f));
 		}
 		auto ut = score->AddComponent<UIText>();
 		{
 			ut->Text(L"000");
+			ut->Alignment(EHorizontalAlignment::Center);
+			ut->Scale(56);
+			ut->Space(8);
 		}
 		score->AddComponent<UI_Score>();
 	}
@@ -192,6 +196,18 @@ void MainScene::AddGameObject()
 			im->color = Vector4(0.f, 0.f, 0.f, 0.5f);
 		}
 	}
+	auto desc = Instantiate(EObjectType::UI);
+	{
+		auto descTr = desc->AddComponent<Transform>();
+		{
+			descTr->SetScale(Vector3(180.f, 50.f, 1.f));
+		}
+		auto descText = desc->AddComponent<UIText>();
+		{
+			descText->Text(L"Á¶ÀÛ : SPACE");
+			descText->Alignment(EHorizontalAlignment::Center);
+		}
+	}
 }
 
 void MainScene::AddUIObject()
@@ -202,5 +218,5 @@ void MainScene::AddUIObject()
 void MainScene::EngineSetting()
 {
 	RENDERER.colliderRendering   = true;
-	RENDERER.uiBoundaryRendering = false;
+	RENDERER.uiBoundaryRendering = true;
 }

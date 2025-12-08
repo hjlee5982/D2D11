@@ -278,22 +278,9 @@ void Renderer::RenderUIBoundary()
 				material->Bind();
 
 
-				// 3. 매시 바인딩 ( 버텍스 + 인덱스 버퍼 바인딩 ) + 드로우 콜
-				// 매시서 바로 바인드 땡기면 안됨, 직접 vb, ib 바인드 하고 드로우콜 해야됨
+				// 3. 매시 바인딩 ( 버텍스 + 인덱스 버퍼 바인딩 + 인풋레이아웃 설정 ) + 드로우 콜
 				auto mesh = b->GetMesh();
-
-				sptr<VertexBuffer> vb = mesh->GetVertexBuffer();
-				sptr<IndexBuffer>  ib = mesh->GetIndexBuffer();
-
-				u32 stride = vb->GetStride();
-				u32 offset = vb->GetOffset();
-				u32 icount = ib->GetIndexCount();
-
-				CONTEXT->IASetVertexBuffers(vb->GetSlot(), 1, vb->GetVertexBuffer().GetAddressOf(), &stride, &offset);
-				CONTEXT->IASetIndexBuffer(ib->GetIndexBuffer().Get(), DXGI_FORMAT_R32_UINT, 0);
-
-				// 드로우콜
-				CONTEXT->DrawIndexed(icount, 0, 0);
+				mesh->Bind(material->GetShader());
 			}
 		}
 	}

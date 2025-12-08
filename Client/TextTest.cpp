@@ -8,6 +8,7 @@
 #include "Camera.h"
 #include "UIBoundary.h"
 #include "Renderer.h"
+#include "UIImage.h"
 
 void TextTest::Awake()
 {
@@ -36,42 +37,30 @@ void TextTest::Awake()
 			}
 		}
 	}
-	/*{
-		auto go = Instantiate();
+	/*auto panel = Instantiate(EObjectType::UI);
+	{
+		auto tr = panel->AddComponent<Transform>();
 		{
-			auto tr = go->AddComponent<Transform>();
-			{
-				tr->SetScale(Vector3(2.f, 2.f, 2.f));
-			}
-			auto sr = go->AddComponent<SpriteRenderer>();
-			{
-				sr->SetTexture(ASSET.Get<Texture>(L"Texture_Default"));
-			}
+			tr->SetScale(Vector3(Global::ClientOption.width, Global::ClientOption.height, 0.f));
+		}
+		auto im = panel->AddComponent<UIImage>();
+		{
+			im->color = Vector4(0.f, 0.f, 0.f, 0.5f);
 		}
 	}*/
-	// 스코어 UI
-	auto score = Instantiate(EObjectType::UI);
+	auto desc = Instantiate(EObjectType::UI);
 	{
-		auto tr = score->AddComponent<Transform>();
+		auto descTr = desc->AddComponent<Transform>();
 		{
-			tr->SetPosition(Vector3(0.f, 460.f, 0.f));
-			tr->SetScale(Vector3(200.f, 80.f, 0.f));
+			descTr->SetPosition(Vector3(0.f, 300.f, 0.f));
+			descTr->SetScale(Vector3(100.f, 100.f, 1.f));
 		}
-		score->AddComponent<UIBoundary>();
-
-		auto test = Instantiate(EObjectType::UI);
+		auto descText = desc->AddComponent<UIText>();
 		{
-			auto testT = test->AddComponent<Transform>();
-			{
-				testT->SetParent(tr);
-				testT->SetLocalScale(Vector3(1.f, 0.8f, 0.f));
-				testT->SetLocalPosition(Vector3(-0.25f, 0.f, 0.f));
-			}
-			test->AddComponent<UIBoundary>();
-			auto ut = test->AddComponent<UIText>();
-			{
-				ut->Text(L"가나다라");
-			}
+			descText->Text(L"ㅁㅁㅁㅁㅁㅁ");
+			descText->Alignment(EHorizontalAlignment::Center, EVerticalAlignment::Center);
+			descText->Scale(72);
+			descText->Space(10);
 		}
 	}
 }

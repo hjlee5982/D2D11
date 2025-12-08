@@ -10,6 +10,8 @@ private:
 	bool GameOver(const struct GameOverEvent& e);
 	bool AddScore(const struct AddScoreEvent& e);
 private:
+	void TimeScale();
+private:
 	i32 _score = 0;
 };
 

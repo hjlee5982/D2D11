@@ -10,6 +10,8 @@
 #include "Geometry.h"
 #include "Mesh.h"
 #include "TMesh.h"
+#include "Transform.h"
+#include "UIBoundary.h"
 
 void UIText::Init()
 {
@@ -22,53 +24,164 @@ void UIText::Init()
 
 void UIText::Text(const wstring& text)
 {
-	List<VertexUIData> vtx;
-	List<u32> idx;
+    _text = text;
 
-	vtx.reserve(text.size() * 4);
-	idx.reserve(text.size() * 6);
+    f32 totalWidth = 0.f;
+    f32 maxHeight  = 0.f;
 
-	f32 cursorX = -0.5f;
+    wchar_t prevCharForMeasure = 0;
 
-	for (i32 i = 0; i < text.size(); ++i)
-	{
-		auto iter = FONT.glyphs.find((int)text[i]);
+    for (i32 i = 0; i < text.size(); i++)
+    {
+        wchar_t ch = text[i];
 
-		if (iter == FONT.glyphs.end())
-		{
-			continue;
-		}
+        auto iter = FONT.glyphs.find((i32)ch);
 
-		f32 scale = 0.015f;
+        if (iter == FONT.glyphs.end())
+        {
+            continue;
+        }
 
-		const Glyph& g = iter->second;
+        const Glyph& g = iter->second;
 
-		f32 witdh = FONT._textureWidth;
-		f32 height = FONT._textureHeight;
+        // kerning
+        f32 kerning = 0.f;
+        if (prevCharForMeasure != 0)
+        {
+			kerning = FONT.GetKerning(prevCharForMeasure, ch);
+        }
 
-		f32 x0 = cursorX;
-		f32 x1 = cursorX + g.witdh * scale;
-		f32 y0 = 0.5f;
-		f32 y1 = -g.height * scale;
+        totalWidth += kerning * _scale;
+        totalWidth += g.xAdvance * _scale;
+        totalWidth += _space;
 
-		vtx.push_back({ Vector3(x0,y0, 0.f), Vector2(g.u0, g.v0) , Vector4(1.f, 1.f, 1.f, 1.f) });
-		vtx.push_back({ Vector3(x1,y0, 0.f), Vector2(g.u1, g.v0) , Vector4(1.f, 1.f, 1.f, 1.f) });
-		vtx.push_back({ Vector3(x1,y1, 0.f), Vector2(g.u1, g.v1) , Vector4(1.f, 1.f, 1.f, 1.f) });
-		vtx.push_back({ Vector3(x0,y1, 0.f), Vector2(g.u0, g.v1) , Vector4(1.f, 1.f, 1.f, 1.f) });
+        maxHeight = max(maxHeight, (f32)g.height * _scale);
 
-		i32 base = i * 4;
-		idx.push_back(base + 0);
-		idx.push_back(base + 1);
-		idx.push_back(base + 2);
-		idx.push_back(base + 0);
-		idx.push_back(base + 2);
-		idx.push_back(base + 3);
+        prevCharForMeasure = ch;
+    }
 
-		cursorX += g.xAdvance * scale + 0.1f;
-	}
 
-	_geometry->SetVertices(vtx);
-	_geometry->SetIndices(idx);
+    f32 xObjScale = Owner()->transform->GetScale().x;
+    f32 yObjScale = Owner()->transform->GetScale().y;
 
-	_mesh->CreateMesh(_geometry);
+    f32 pivotX = 0.f;
+    f32 pivotY = 0.f;
+
+    switch (_horizontal)
+    {
+    case EHorizontalAlignment::Left:
+        pivotX = 0.f;
+        break;
+
+    case EHorizontalAlignment::Center:
+        pivotX = -totalWidth * 0.5f;
+        break;
+
+    case EHorizontalAlignment::Right:
+        pivotX = -totalWidth;
+        break;
+    }
+
+    f32 VerticalPadding = 10.f;
+
+    switch (_vertical)
+    {
+    case EVerticalAlignment::Top:
+        pivotY = yObjScale * 0.5f - VerticalPadding;
+        break;
+
+    case EVerticalAlignment::Center:
+        pivotY = maxHeight * 0.5f;
+        break;
+
+    case EVerticalAlignment::Bottom:
+        pivotY = -yObjScale * 0.5f + maxHeight + VerticalPadding;
+        break;
+    }
+
+
+
+    List<VertexUIData> vtx;
+    List<u32> idx;
+
+    vtx.reserve(text.size() * 4);
+    idx.reserve(text.size() * 6);
+
+
+    f32 cursorX  = 0.f;
+    f32 baseLine = 0.f;
+
+    wchar_t prevChar = 0;
+
+    
+
+    for (i32 i = 0; i < text.size(); ++i)
+    {
+        wchar_t ch = text[i];
+
+        auto iter = FONT.glyphs.find((i32)ch);
+
+        if (iter == FONT.glyphs.end())
+        {
+            continue;
+        }
+
+        const Glyph& g = iter->second;
+
+        // Kerning
+        f32 kerning = 0.f;
+
+        if (prevChar != 0)
+        {
+            kerning = FONT.GetKerning(prevChar, ch);
+        }
+
+        cursorX += kerning;
+        cursorX += _space / 2.f;
+
+        f32 x0 = (cursorX + (g.xOffset * _scale ) + pivotX) / xObjScale;
+        f32 y0 = (baseLine - (g.yOffset * _scale) + pivotY) / yObjScale;
+
+        f32 x1 = x0 + (g.witdh * _scale) / xObjScale;
+        f32 y1 = y0 - (g.height * _scale) / yObjScale;
+
+        // Vertices
+        vtx.push_back({ Vector3(x0,y0, 0.f), Vector2(g.u0, g.v0), Vector4(1,1,1,1) });
+        vtx.push_back({ Vector3(x1,y0, 0.f), Vector2(g.u1, g.v0), Vector4(1,1,1,1) });
+        vtx.push_back({ Vector3(x1,y1, 0.f), Vector2(g.u1, g.v1), Vector4(1,1,1,1) });
+        vtx.push_back({ Vector3(x0,y1, 0.f), Vector2(g.u0, g.v1), Vector4(1,1,1,1) });
+
+        // Indices
+        i32 base = i * 4;
+        idx.push_back(base + 0);
+        idx.push_back(base + 1);
+        idx.push_back(base + 2);
+        idx.push_back(base + 0);
+        idx.push_back(base + 2);
+        idx.push_back(base + 3);
+
+        cursorX += g.xAdvance * _scale;
+        cursorX += _space /2.f;
+        prevChar = ch;
+    }
+
+    _geometry->SetVertices(vtx);
+    _geometry->SetIndices(idx);
+
+    _mesh->CreateMesh(_geometry);
+}
+
+void UIText::Alignment(EHorizontalAlignment horizontal, EVerticalAlignment vertical)
+{
+	_vertical = vertical; _horizontal = horizontal; Text(_text);
+}
+
+void UIText::Scale(i32 scale)
+{
+	_scale = (f32)scale / (f32)FONT._lineHeight; Text(_text);
+}
+
+void UIText::Space(i32 space)
+{
+    _space = space; Text(_text);
 }

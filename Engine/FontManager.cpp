@@ -13,6 +13,20 @@ void FontManager::Awake()
 	Load(dir);
 }
 
+i32 FontManager::GetKerning(i32 first, i32 second)
+{
+	i64 key = ((i64)first << 32) | (i64)second;
+
+	auto iter = kernings.find(key);
+
+	if (iter != kernings.end())
+	{
+		return iter->second;
+	}
+
+	return 0;
+}
+
 bool FontManager::Load(const string& fileName)
 {
 	ifstream file(fileName);
@@ -42,9 +56,11 @@ bool FontManager::Load(const string& fileName)
 		{
 			ParseChar(line);
 		}
-	}
+		else if (word == "Kerning")
+		{
 
-	auto d = glyphs;
+		}
+	}
 
 	return true;
 }
@@ -54,6 +70,7 @@ void FontManager::ParseCommon(const string& line)
 	auto dict = Tokenize(line);
 	_textureWidth = stoi(dict["scaleW"]);
 	_textureHeight = stoi(dict["scaleH"]);
+	_lineHeight = stoi(dict["lineHeight"]);
 }
 
 void FontManager::ParsePage(const string& line)
@@ -85,6 +102,19 @@ void FontManager::ParseChar(const string& line)
 		g.v1 = (g.y + g.height) / (f32)_textureHeight;
 	}
 	glyphs[g.id] = g;
+}
+
+void FontManager::ParseKerning(const string& line)
+{
+	auto dict = Tokenize(line);
+
+	i32 first = stoi(dict["first"]);
+	i32 second = stoi(dict["second"]);
+	i32 amount = stoi(dict["amount"]);
+
+	i64 key = ((i64)first << 32 | (i64)second);
+
+	kernings[key] = amount;
 }
 
 Dictionary<string, string> FontManager::Tokenize(const string& line)
