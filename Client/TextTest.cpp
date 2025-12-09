@@ -48,19 +48,26 @@ void TextTest::Awake()
 			im->color = Vector4(0.f, 0.f, 0.f, 0.5f);
 		}
 	}*/
-	auto desc = Instantiate(EObjectType::UI);
+
+	for (i32 i = 0; i < 3; ++i)
 	{
-		auto descTr = desc->AddComponent<Transform>();
+		for (i32 j = 0; j < 3; ++j)
 		{
-			descTr->SetPosition(Vector3(0.f, 300.f, 0.f));
-			descTr->SetScale(Vector3(100.f, 100.f, 1.f));
-		}
-		auto descText = desc->AddComponent<UIText>();
-		{
-			descText->Text(L"けけけけけけ");
-			descText->Alignment(EHorizontalAlignment::Center, EVerticalAlignment::Center);
-			descText->Scale(72);
-			descText->Space(10);
+			auto desc = Instantiate(EObjectType::UI);
+			{
+				auto descTr = desc->AddComponent<Transform>();
+				{
+					descTr->SetPosition(Vector3(200.f * j - 200.f, -200.f * i + 200.f, 0.f));
+					descTr->SetScale(Vector3(100.f, 100.f, 1.f));
+				}
+				auto descText = desc->AddComponent<UIText>();
+				{
+					descText->Text(L"New Text");
+					descText->Alignment((EHorizontalAlignment)i, (EVerticalAlignment)j);
+					descText->Space(5);
+					descText->Scale(24);
+				}
+			}
 		}
 	}
 }

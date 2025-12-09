@@ -26,10 +26,26 @@ void UIText::Text(const wstring& text)
 {
     _text = text;
 
+    struct Placement
+    {
+        f32 x0, y0, x1, y1;
+    };
+    List<Placement> placements;
+    placements.reserve(_text.size());
+
+    f32 cursorX    = 0.f;
+    f32 baseLine   = 0.f;
     f32 totalWidth = 0.f;
     f32 maxHeight  = 0.f;
 
-    wchar_t prevCharForMeasure = 0;
+
+    ///////////////////////////////////////
+    // 1 : 폰트 크기 측정
+    ///////////////////////////////////////
+    wchar_t prevChar = 0;
+
+    f32 xObjScale = Owner()->transform->GetScale().x;
+    f32 yObjScale = Owner()->transform->GetScale().y;
 
     for (i32 i = 0; i < text.size(); i++)
     {
@@ -46,74 +62,63 @@ void UIText::Text(const wstring& text)
 
         // kerning
         f32 kerning = 0.f;
-        if (prevCharForMeasure != 0)
+        if (prevChar != 0)
         {
-			kerning = FONT.GetKerning(prevCharForMeasure, ch);
+			kerning = FONT.GetKerning(prevChar, ch);
         }
 
-        totalWidth += kerning * _scale;
-        totalWidth += g.xAdvance * _scale;
-        totalWidth += _space;
+        f32 advance      = g.xAdvance * _scale;
+        f32 space        = _space * _scale;
+        f32 totalAdvance = kerning * _scale + advance + space;
+
+
+        f32 x0 = cursorX  + g.xOffset * _scale;
+        f32 y0 = baseLine - g.yOffset * _scale;
+        f32 x1 = x0 + g.witdh  * _scale;
+        f32 y1 = y0 - g.height * _scale;
+
+        placements.push_back({ x0, y0, x1, y1 });
+
+        cursorX    += totalAdvance;
+        totalWidth += totalAdvance;
 
         maxHeight = max(maxHeight, (f32)g.height * _scale);
 
-        prevCharForMeasure = ch;
+        prevChar = ch;
     }
 
 
-    f32 xObjScale = Owner()->transform->GetScale().x;
-    f32 yObjScale = Owner()->transform->GetScale().y;
+    ///////////////////////////////////////
+    // 2 : 정렬, 피봇 계산
+    ///////////////////////////////////////
 
     f32 pivotX = 0.f;
     f32 pivotY = 0.f;
+    f32 VerticalPadding = 10.f;
 
     switch (_horizontal)
     {
-    case EHorizontalAlignment::Left:
-        pivotX = 0.f;
-        break;
-
-    case EHorizontalAlignment::Center:
-        pivotX = -totalWidth * 0.5f;
-        break;
-
-    case EHorizontalAlignment::Right:
-        pivotX = -totalWidth;
-        break;
+	case EHorizontalAlignment::Left:   pivotX = 0.f;                break;
+	case EHorizontalAlignment::Center: pivotX = -totalWidth * 0.5f; break;
+	case EHorizontalAlignment::Right:  pivotX = -totalWidth;        break;
     }
-
-    f32 VerticalPadding = 10.f;
 
     switch (_vertical)
     {
-    case EVerticalAlignment::Top:
-        pivotY = yObjScale * 0.5f - VerticalPadding;
-        break;
-
-    case EVerticalAlignment::Center:
-        pivotY = maxHeight * 0.5f;
-        break;
-
-    case EVerticalAlignment::Bottom:
-        pivotY = -yObjScale * 0.5f + maxHeight + VerticalPadding;
-        break;
+    case EVerticalAlignment::Top:    pivotY = yObjScale * 0.5f - VerticalPadding;              break;
+    case EVerticalAlignment::Center: pivotY = maxHeight * 0.5f;                                break;
+    case EVerticalAlignment::Bottom: pivotY = -yObjScale * 0.5f + maxHeight + VerticalPadding; break;
     }
 
 
-
+    ///////////////////////////////////////
+    // 3 : 정점 생성
+    ///////////////////////////////////////
     List<VertexUIData> vtx;
     List<u32> idx;
 
     vtx.reserve(text.size() * 4);
     idx.reserve(text.size() * 6);
-
-
-    f32 cursorX  = 0.f;
-    f32 baseLine = 0.f;
-
-    wchar_t prevChar = 0;
-
-    
 
     for (i32 i = 0; i < text.size(); ++i)
     {
@@ -128,22 +133,10 @@ void UIText::Text(const wstring& text)
 
         const Glyph& g = iter->second;
 
-        // Kerning
-        f32 kerning = 0.f;
-
-        if (prevChar != 0)
-        {
-            kerning = FONT.GetKerning(prevChar, ch);
-        }
-
-        cursorX += kerning;
-        cursorX += _space / 2.f;
-
-        f32 x0 = (cursorX + (g.xOffset * _scale ) + pivotX) / xObjScale;
-        f32 y0 = (baseLine - (g.yOffset * _scale) + pivotY) / yObjScale;
-
-        f32 x1 = x0 + (g.witdh * _scale) / xObjScale;
-        f32 y1 = y0 - (g.height * _scale) / yObjScale;
+        f32 x0 = (placements[i].x0 + pivotX) / xObjScale;
+        f32 y0 = (placements[i].y0 + pivotY) / yObjScale;
+        f32 x1 = (placements[i].x1 + pivotX) / xObjScale;
+        f32 y1 = (placements[i].y1 + pivotY) / yObjScale;
 
         // Vertices
         vtx.push_back({ Vector3(x0,y0, 0.f), Vector2(g.u0, g.v0), Vector4(1,1,1,1) });
@@ -153,16 +146,8 @@ void UIText::Text(const wstring& text)
 
         // Indices
         i32 base = i * 4;
-        idx.push_back(base + 0);
-        idx.push_back(base + 1);
-        idx.push_back(base + 2);
-        idx.push_back(base + 0);
-        idx.push_back(base + 2);
-        idx.push_back(base + 3);
-
-        cursorX += g.xAdvance * _scale;
-        cursorX += _space /2.f;
-        prevChar = ch;
+		idx.push_back(base + 0); idx.push_back(base + 1); idx.push_back(base + 2);
+		idx.push_back(base + 0); idx.push_back(base + 2); idx.push_back(base + 3);
     }
 
     _geometry->SetVertices(vtx);
