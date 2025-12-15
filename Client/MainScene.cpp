@@ -72,8 +72,9 @@ void MainScene::LoadResources()
 		SOUND.LoadSound("Jump.mp3");
 		SOUND.LoadSound("Effect.mp3");
 		SOUND.LoadSound("Crash.mp3");
+		SOUND.LoadSound("Open.mp3");
 
-		SOUND.PlayBGM("BGM");
+		SOUND.PlayBGM("BGM", 0.3f);
 	}
 }
 
@@ -81,7 +82,7 @@ void MainScene::SetInputSystem()
 {
 	InputMap map;
 	{
-		map.AddAction("Start", { VK_SPACE });
+		map.AddAction("Start", { 'R'});
 		map.AddAction("Jump", { 'E', VK_SPACE});
 	}
 	INPUT.AddMap(map);
@@ -210,54 +211,11 @@ void MainScene::AddGameObject()
 			{
 				descTr->SetParent(tr);
 				descTr->SetScale(Vector3(200.f, 50.f, 1.f));
-				descTr->SetPosition(Vector3(-120.f, -150.f, 0.f));
-			}
-			auto descText = desc_1->AddComponent<UIText>();
-			{
-				descText->Text(L"조작 : SPACE");
-				descText->Alignment(EHorizontalAlignment::Left);
-				descText->Scale(48);
-			}
-		}
-		auto desc_2 = Instantiate(EObjectType::UI);
-		{
-			auto descTr = desc_2->AddComponent<Transform>();
-			{
-				descTr->SetParent(tr);
-				descTr->SetScale(Vector3(200.f, 50.f, 1.f));
-				descTr->SetPosition(Vector3(-120.f, -250.f, 0.f));
-			}
-			auto descText = desc_2->AddComponent<UIText>();
-			{
-				descText->Text(L"종료 : ESC");
-				descText->Alignment(EHorizontalAlignment::Left);
-				descText->Scale(48);
-			}
-		}
-	}
-	// 게임오버 UI
-	auto gameOverUI = Instantiate(EObjectType::UI);
-	{
-		auto tr = gameOverUI->AddComponent<Transform>();
-		{
-			tr->SetScale(Vector3(Global::ClientOption.width, Global::ClientOption.height, 1.f));
-		}
-		auto im = gameOverUI->AddComponent<UIImage>();
-		{
-			im->color = Vector4(0.f, 0.f, 0.f, 0.5f);
-		}
-
-		auto desc_1 = Instantiate(EObjectType::UI);
-		{
-			auto descTr = desc_1->AddComponent<Transform>();
-			{
-				descTr->SetParent(tr);
-				descTr->SetScale(Vector3(200.f, 50.f, 1.f));
 				descTr->SetPosition(Vector3(0.f, -150.f, 0.f));
 			}
 			auto descText = desc_1->AddComponent<UIText>();
 			{
-				descText->Text(L"다시 시작 : SPACE");
+				descText->Text(L"조작 : SPACE");
 				descText->Alignment(EHorizontalAlignment::Center);
 				descText->Scale(48);
 			}
@@ -272,13 +230,91 @@ void MainScene::AddGameObject()
 			}
 			auto descText = desc_2->AddComponent<UIText>();
 			{
-				descText->Text(L"종료    : ESC");
+				descText->Text(L"종료 : ESC");
 				descText->Alignment(EHorizontalAlignment::Center);
 				descText->Scale(48);
 			}
 		}
+		auto desc_3 = Instantiate(EObjectType::UI);
+		{
+			auto descTr = desc_3->AddComponent<Transform>();
+			{
+				descTr->SetParent(tr);
+				descTr->SetScale(Vector3(200.f, 50.f, 1.f));
+				descTr->SetPosition(Vector3(0.f, -350.f, 0.f));
+			}
+			auto descText = desc_3->AddComponent<UIText>();
+			{
+				descText->Text(L"- R 키를 눌러 시작 -");
+				descText->Alignment(EHorizontalAlignment::Center);
+				descText->Scale(32);
+			}
+		}
+	}
+	// 게임오버 UI
+	auto gameOverUI = Instantiate(EObjectType::UI);
+	{
+		// 부모 컴포넌트
+		auto tr = gameOverUI->AddComponent<Transform>();
+		{
+			tr->SetScale(Vector3(Global::ClientOption.width, Global::ClientOption.height, 1.f));
+		}
+		auto im = gameOverUI->AddComponent<UIImage>();
+		{
+			im->color = Vector4(0.f, 0.f, 0.f, 0.5f);
+		}
+
+		// 자식 1
+		auto desc_1 = Instantiate(EObjectType::UI);
+		{
+			auto descTr = desc_1->AddComponent<Transform>();
+			{
+				descTr->SetParent(tr);
+				descTr->SetScale(Vector3(200.f, 50.f, 1.f));
+				descTr->SetPosition(Vector3(0.f, -150.f, 0.f));
+			}
+			auto descText = desc_1->AddComponent<UIText>();
+			{
+				descText->Text(L"다시 시작 : R");
+				descText->Alignment(EHorizontalAlignment::Center);
+				descText->Scale(48);
+			}
+		}
+		// 자식 2
+		auto desc_2 = Instantiate(EObjectType::UI);
+		{
+			auto descTr = desc_2->AddComponent<Transform>();
+			{
+				descTr->SetParent(tr);
+				descTr->SetScale(Vector3(200.f, 50.f, 1.f));
+				descTr->SetPosition(Vector3(0.f, -250.f, 0.f));
+			}
+			auto descText = desc_2->AddComponent<UIText>();
+			{
+				descText->Text(L"종료 : ESC");
+				descText->Alignment(EHorizontalAlignment::Center);
+				descText->Scale(48);
+			}
+		}
+		// 자식 3
+		auto result = Instantiate(EObjectType::UI);
+		{
+			auto resultTr = result->AddComponent<Transform>();
+			{
+				resultTr->SetParent(tr);
+				resultTr->SetScale(Vector3(200.f, 100.f, 1.f));
+				resultTr->SetPosition(Vector3(0.f, 150.f, 0.f));
+			}
+			auto resultText = result->AddComponent<UIText>();
+			{
+				resultText->Text(L"점수 :");
+				resultText->Alignment(EHorizontalAlignment::Center);
+				resultText->Scale(48);
+			}
+		}
 		gameOverUI->SetActive(false);
 	}
+	
 	// 게임 매니저
 	auto manager = Instantiate();
 	{

@@ -26,6 +26,8 @@ void Checker::Update()
 
 bool Checker::GameOver(const GameOverEvent& e)
 {
+	_isColliding = false;
+
 	_generator.lock()->ReturnPool(Owner(), 1);
 
 	return false;

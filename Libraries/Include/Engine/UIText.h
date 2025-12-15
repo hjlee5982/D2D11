@@ -32,6 +32,7 @@ public:
 	void Alignment(EHorizontalAlignment horizontal, EVerticalAlignment vertical = EVerticalAlignment::Center);
 	void Scale(i32 scale);
 	void Space(i32 space);
+	void Color(Vector4 color);
 public:
 	sptr<Geometry<VertexUIData>> _geometry;
 private:
@@ -40,7 +41,8 @@ private:
 	EHorizontalAlignment _horizontal = EHorizontalAlignment::Left;
 	EVerticalAlignment   _vertical   = EVerticalAlignment::Center;
 private:
-	f32 _scale = 1.f;
-	f32 _space = 0.f;
+	f32     _scale = 1.f;
+	f32     _space = 0.f;
+	Vector4 _color = Vector4::One;
 };
 

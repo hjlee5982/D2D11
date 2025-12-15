@@ -58,12 +58,12 @@ void PlayerController::OnCollisionEnter2D(sptr<BoxCollider2D> collider)
 {
 	if (collider->Owner()->tag == "Obstacle")
 	{
-		SOUND.PlaySFX("Crash");
+		SOUND.PlaySFX("Crash", 0.2f);
 		EVENT::SendEvent(GameOverEvent{});
 	}
 	else if (collider->Owner()->tag == "Boundary")
 	{
-		SOUND.PlaySFX("Crash");
+		SOUND.PlaySFX("Crash", 0.2f);
 		EVENT::SendEvent(GameOverEvent{});
 	}
 	else if (collider->Owner()->tag == "Checker")
@@ -72,7 +72,7 @@ void PlayerController::OnCollisionEnter2D(sptr<BoxCollider2D> collider)
 
 		if (checker != nullptr && checker->_isColliding == false)
 		{
-			SOUND.PlaySFX("Effect");
+			SOUND.PlaySFX("Effect", 0.2f);
 
 			EVENT::SendEvent(AddScoreEvent{});
 
@@ -83,20 +83,23 @@ void PlayerController::OnCollisionEnter2D(sptr<BoxCollider2D> collider)
 
 void PlayerController::Jump()
 {
-	SOUND.PlaySFX("Jump");
 
 	if (_isStart == false)
 	{
 		return;
 	}
-
-	if (_trigger == false)
+	else
 	{
-		_trigger = true;
-	}
+		SOUND.PlaySFX("Jump", 0.2f);
 
-	_velocity = 8.f;
-	_index = 5;
+		if (_trigger == false)
+		{
+			_trigger = true;
+		}
+
+		_velocity = 8.f;
+		_index = 5;
+	}
 }
 
 bool PlayerController::GameStart(const GameStartEvent& e)

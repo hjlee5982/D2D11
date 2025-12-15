@@ -139,10 +139,10 @@ void UIText::Text(const wstring& text)
         f32 y1 = (placements[i].y1 + pivotY) / yObjScale;
 
         // Vertices
-        vtx.push_back({ Vector3(x0,y0, 0.f), Vector2(g.u0, g.v0), Vector4(1,1,1,1) });
-        vtx.push_back({ Vector3(x1,y0, 0.f), Vector2(g.u1, g.v0), Vector4(1,1,1,1) });
-        vtx.push_back({ Vector3(x1,y1, 0.f), Vector2(g.u1, g.v1), Vector4(1,1,1,1) });
-        vtx.push_back({ Vector3(x0,y1, 0.f), Vector2(g.u0, g.v1), Vector4(1,1,1,1) });
+        vtx.push_back({ Vector3(x0,y0, 0.f), Vector2(g.u0, g.v0), _color });
+        vtx.push_back({ Vector3(x1,y0, 0.f), Vector2(g.u1, g.v0), _color });
+        vtx.push_back({ Vector3(x1,y1, 0.f), Vector2(g.u1, g.v1), _color });
+        vtx.push_back({ Vector3(x0,y1, 0.f), Vector2(g.u0, g.v1), _color });
 
         // Indices
         i32 base = i * 4;
@@ -169,4 +169,9 @@ void UIText::Scale(i32 scale)
 void UIText::Space(i32 space)
 {
     _space = space; Text(_text);
+}
+
+void UIText::Color(Vector4 color)
+{
+    _color = color; Text(_text);
 }

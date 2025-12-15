@@ -20,6 +20,11 @@ void SoundManager::Awake()
 	}
 }
 
+void SoundManager::Update()
+{
+	_FMODSystem->update();
+}
+
 void SoundManager::Destroy()
 {
 	for (auto& pair : _sounds)
@@ -58,7 +63,7 @@ void SoundManager::LoadSound(const string& name, bool loop)
 	_sounds[name.substr(0, name.find('.'))] = sound;
 }
 
-void SoundManager::PlayBGM(const string& name)
+void SoundManager::PlayBGM(const string& name, f32 volume)
 {
 	auto it = _sounds.find(name);
 	if (it == _sounds.end())
@@ -74,6 +79,7 @@ void SoundManager::PlayBGM(const string& name)
 	}
 
 	_FMODSystem->playSound(it->second, nullptr, false, &_bgmChannel);
+	_bgmChannel->setVolume(volume);
 }
 
 void SoundManager::StopBGM()
@@ -85,7 +91,7 @@ void SoundManager::StopBGM()
 	}
 }
 
-void SoundManager::PlaySFX(const string& name)
+void SoundManager::PlaySFX(const string& name, f32 volume)
 {
 	auto it = _sounds.find(name);
 	if (it == _sounds.end())
@@ -96,4 +102,5 @@ void SoundManager::PlaySFX(const string& name)
 
 	FMOD::Channel* channel = nullptr;
 	_FMODSystem->playSound(it->second, nullptr, false, &channel);
+	channel->setVolume(volume);
 }

@@ -6,6 +6,9 @@
 #include "InputSystem.h"
 #include "ObjectGenerator.h"
 #include "PlayerController.h"
+#include "Transform.h"
+#include "UIText.h"
+#include "SoundManager.h"
 
 void GameManager::Awake()
 {
@@ -19,6 +22,8 @@ void GameManager::GameStart()
 {
 	if (_isStart == false)
 	{
+		SOUND.PlaySFX("Open", 0.3f);
+
 		_isStart = true;
 
 		TIMER.TimeScale(1.f);
@@ -43,6 +48,8 @@ bool GameManager::GameOver(const GameOverEvent& e)
 {
 	if (_isStart == true)
 	{
+		_gameOverUI->transform->GetChild(2)->GetComponent<UIText>()->Text(L"Á¡¼ö  :  " + std::to_wstring(_score));
+
 		_score = 0;
 
 		_isStart = false;

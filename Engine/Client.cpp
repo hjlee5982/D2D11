@@ -33,6 +33,7 @@ void Client::Update()
 {
 	TIMER.Update();
 	INPUT.Update();
+	SOUND.Update();
 
 	GAMEOBJECT.Update();
 	GAMEOBJECT.LateUpdate();
