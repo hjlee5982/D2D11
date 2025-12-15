@@ -64,7 +64,7 @@ void TextTest::Awake()
 				{
 					descText->Text(L"New Text");
 					descText->Alignment((EHorizontalAlignment)i, (EVerticalAlignment)j);
-					descText->Space(5);
+					//descText->Space(5);
 					descText->Scale(24);
 				}
 			}

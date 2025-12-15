@@ -10,6 +10,7 @@
 #include "ObjectFactory.h"
 #include "FontManager.h"
 #include "SceneManager.h"
+#include "SoundManager.h"
 
 void Client::Initialize()
 {
@@ -21,6 +22,7 @@ void Client::Initialize()
 	FACTORY	.Awake();
 	FONT	.Awake();
 	RENDERER.Awake();
+	SOUND   .Awake();
 	SCENE   .Awake();
 
 	GAMEOBJECT.Awake();
@@ -54,6 +56,7 @@ void Client::Render()
 void Client::Destroy()
 {
 	SCENE.SaveScene();
+	SOUND.Destroy();
 }
 
 void Client::Awake()

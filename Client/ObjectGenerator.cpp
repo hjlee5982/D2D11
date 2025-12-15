@@ -35,6 +35,11 @@ void ObjectGenerator::ReturnPool(sptr<class GameObject> obj, int idx)
 	}
 }
 
+void ObjectGenerator::Reset()
+{
+	_elapsed = 0.f;
+}
+
 void ObjectGenerator::Generate()
 {
 	_elapsed += TIMER.DeltaTime();
@@ -44,12 +49,13 @@ void ObjectGenerator::Generate()
 		_elapsed = 0.f;
 
 		f32 height = RANDOM.Range(-2.f, 2.f);
-		f32 gap    = RANDOM.Range(3.3f, 3.7f);
+		f32 gap    = RANDOM.Range(3.6f, 3.9f);
 
 		f32 topPos = 0.f;
 		f32 btmPos = 0.f;
 
 		auto top = _obstacles.front(); _obstacles.pop();
+		top->GetComponent<Obstacle>()->_isColliding = false;
 		top->SetActive(true);
 		{
 			auto tf = top->GetComponent<Transform>();
@@ -62,13 +68,14 @@ void ObjectGenerator::Generate()
 			auto ctf = tf->GetChild(0)->GetComponent<Transform>();
 			{
 				ctf->SetParent(tf);
-				ctf->SetScale(Vector3(1.2f, 0.8f, 1.f));
+				ctf->SetScale(Vector3(1.1f, 0.7f, 1.f));
 				ctf->SetLocalPosition(Vector3(0.f, -0.5f, 0.f));
 
 				topPos = ctf->GetPosition().y;
 			}
 		}
 		auto btm = _obstacles.front(); _obstacles.pop();
+		btm->GetComponent<Obstacle>()->_isColliding = false;
 		btm->SetActive(true);
 		{
 			auto tf = btm->GetComponent<Transform>();
@@ -81,7 +88,7 @@ void ObjectGenerator::Generate()
 			auto ctf = tf->GetChild(0)->GetComponent<Transform>();
 			{
 				ctf->SetParent(tf);
-				ctf->SetScale(Vector3(1.2f, 0.8f, 1.f));
+				ctf->SetScale(Vector3(1.1f, 0.7f, 1.f));
 				ctf->SetLocalPosition(Vector3(0.f, 0.5f, 0.f));
 
 				btmPos = ctf->GetPosition().y;
@@ -92,6 +99,7 @@ void ObjectGenerator::Generate()
 		f32 scl = topPos - btmPos;
 
 		auto ckr = _checkers.front(); _checkers.pop();
+		ckr->GetComponent<Checker>()->_isColliding = false;
 		ckr->SetActive(true);
 		{
 			auto tf = ckr->GetComponent<Transform>();

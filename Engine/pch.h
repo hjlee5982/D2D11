@@ -53,9 +53,11 @@ using namespace Microsoft::WRL;
 #ifdef _DEBUG
 #pragma comment(lib, "DirectXTex/DirectXTex_debug.lib")
 #pragma comment(lib, "FX11/Effects11d.lib")
+#pragma comment(lib, "FMOD/fmodL_vc.lib")
 #else
 #pragma comment(lib, "DirectXTex/DirectXTex.lib")
 #pragma comment(lib, "FX11/Effects11.lib")
+#pragma comment(lib, "FMOD/fmod_vc.lib")
 #endif
 
 /* 외부 라이브러리 */

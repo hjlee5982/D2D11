@@ -12,15 +12,19 @@
 #include "EventManager.h"
 #include "Obstacle.h"
 #include "Checker.h"
+#include "Event.h"
+#include "EventManager.h"
+#include "SoundManager.h"
 
 void PlayerController::Start()
 {
 	_sr = GetComponent<SpriteRenderer>();
 
+	EVENT::Subscribe<GameStartEvent>(&PlayerController::GameStart, this);
+	EVENT::Subscribe<GameOverEvent>(&PlayerController::GameOver, this);
+
 	//INPUT.FindAction("Jump")->performed = [this]() { Jump(); };
 	INPUT.FindAction("Jump")->started = std::bind(&PlayerController::Jump, this);
-
-	
 }
 
 void PlayerController::Update()
@@ -44,14 +48,22 @@ void PlayerController::Update()
 	}
 }
 
+void PlayerController::Reset()
+{
+	_trigger = false;
+	Owner()->transform->SetPosition(Vector3(-1.5f, 1.f, 0.f));
+}
+
 void PlayerController::OnCollisionEnter2D(sptr<BoxCollider2D> collider)
 {
 	if (collider->Owner()->tag == "Obstacle")
 	{
+		SOUND.PlaySFX("Crash");
 		EVENT::SendEvent(GameOverEvent{});
 	}
 	else if (collider->Owner()->tag == "Boundary")
 	{
+		SOUND.PlaySFX("Crash");
 		EVENT::SendEvent(GameOverEvent{});
 	}
 	else if (collider->Owner()->tag == "Checker")
@@ -60,6 +72,8 @@ void PlayerController::OnCollisionEnter2D(sptr<BoxCollider2D> collider)
 
 		if (checker != nullptr && checker->_isColliding == false)
 		{
+			SOUND.PlaySFX("Effect");
+
 			EVENT::SendEvent(AddScoreEvent{});
 
 			checker->_isColliding = true;
@@ -69,6 +83,13 @@ void PlayerController::OnCollisionEnter2D(sptr<BoxCollider2D> collider)
 
 void PlayerController::Jump()
 {
+	SOUND.PlaySFX("Jump");
+
+	if (_isStart == false)
+	{
+		return;
+	}
+
 	if (_trigger == false)
 	{
 		_trigger = true;
@@ -76,6 +97,20 @@ void PlayerController::Jump()
 
 	_velocity = 8.f;
 	_index = 5;
+}
+
+bool PlayerController::GameStart(const GameStartEvent& e)
+{
+	_isStart = true;
+
+	return false;
+}
+
+bool PlayerController::GameOver(const GameOverEvent& e)
+{
+	_isStart = false;
+
+	return false;
 }
 
 void PlayerController::TempAnimation()

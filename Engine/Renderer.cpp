@@ -225,6 +225,11 @@ void Renderer::RenderUI()
 	{
 		if (auto ui = uiComp.lock())
 		{
+			if (ui->Owner()->isActive == false)
+			{
+				continue;
+			}
+
 			// 1. 상수버퍼 바인딩
 			CB_PerObject perObjectData;
 			{

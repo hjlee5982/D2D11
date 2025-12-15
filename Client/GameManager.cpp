@@ -4,18 +4,57 @@
 #include "EventManager.h"
 #include "Timer.h"
 #include "InputSystem.h"
+#include "ObjectGenerator.h"
+#include "PlayerController.h"
 
 void GameManager::Awake()
 {
 	EVENT::Subscribe<GameOverEvent>(&GameManager::GameOver, this);
 	EVENT::Subscribe<AddScoreEvent>(&GameManager::AddScore, this);
 
-	INPUT.FindAction("Time")->started = std::bind(&GameManager::TimeScale, this);
+	INPUT.FindAction("Start")->started = std::bind(&GameManager::GameStart, this);
+}
+
+void GameManager::GameStart()
+{
+	if (_isStart == false)
+	{
+		_isStart = true;
+
+		TIMER.TimeScale(1.f);
+
+		EVENT::SendEvent(GameStartEvent{});
+		EVENT::SendEvent(RefreshUIEvent{ _score });
+
+		_scoreUI->SetActive(true);
+
+		_objGenerator->SetActive(true);
+		_objGenerator->GetComponent<ObjectGenerator>()->Reset();
+
+		_player->SetActive(true);
+		_player->GetComponent<PlayerController>()->Reset();
+
+		_titleUI->SetActive(false);
+		_gameOverUI->SetActive(false);
+	}
 }
 
 bool GameManager::GameOver(const GameOverEvent& e)
 {
-	TIMER.TimeScale(0.f);
+	if (_isStart == true)
+	{
+		_score = 0;
+
+		_isStart = false;
+
+		TIMER.TimeScale(0.f);
+
+		_player->SetActive(false);
+		_scoreUI->SetActive(false);
+		_objGenerator->SetActive(false);
+
+		_gameOverUI->SetActive(true);
+	}
 
 	return false;
 }
@@ -27,9 +66,4 @@ bool GameManager::AddScore(const AddScoreEvent& e)
 	EVENT::SendEvent(RefreshUIEvent{ _score });
 
 	return false;
-}
-
-void GameManager::TimeScale()
-{
-	TIMER._timeScale == 1.f ? TIMER._timeScale = 0.f : TIMER._timeScale = 1.f;
 }

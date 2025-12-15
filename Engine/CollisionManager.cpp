@@ -13,14 +13,21 @@ void CollisionManager::FixedUpate()
 	{
 		for (auto& co2 : _colliders)
 		{
-			if (co1.lock() == co2.lock())
+			auto co1_lock = co1.lock();
+			auto co2_lock = co2.lock();
+
+			// 같은 콜라이더는 패스
+			if (co1_lock == co2_lock)
+			{
+				continue;
+			}
+			// 둘 중 하나라도 비활성화라면 패스
+			else if (co1_lock->Owner()->isActive == false || co2_lock->Owner()->isActive == false)
 			{
 				continue;
 			}
 			else
 			{
-				
-
 				AABB lhs = std::static_pointer_cast<BoxCollider2D>(co1.lock())->GetAABB();
 				AABB rhs = std::static_pointer_cast<BoxCollider2D>(co2.lock())->GetAABB();
 

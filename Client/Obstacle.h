@@ -5,7 +5,10 @@
 class Obstacle : public Component
 {
 public:
+	virtual void Awake() override;
 	virtual void Update() override;
+public:
+	bool GameOver(const struct GameOverEvent& e);
 public:
 	void SetGenerator(sptr<class ObjectGenerator> generator)
 	{

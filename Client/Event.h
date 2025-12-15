@@ -9,6 +9,11 @@ struct RefreshUIEvent
 	int score;
 };
 
+struct GameStartEvent
+{
+
+};
+
 struct GameOverEvent
 {
 };

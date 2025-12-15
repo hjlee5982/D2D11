@@ -9,6 +9,7 @@ public:
 	virtual void Update() override;
 public:
 	void ReturnPool(sptr<class GameObject> obj, int idx);
+	void Reset();
 private:
 	void Generate();
 private:

@@ -17,6 +17,7 @@
 #include "UI_Score.h"
 #include "GameManager.h"
 #include "UIImage.h"
+#include "SoundManager.h"
 
 void MainScene::Awake()
 {
@@ -65,14 +66,23 @@ void MainScene::LoadResources()
 		texture->CreateTexture(L"../Assets/Image/Rope.png");
 		ASSET.Add(L"Texture_Rope", texture);
 	}
+	// 사운드
+	{
+		SOUND.LoadSound("BGM.mp3");
+		SOUND.LoadSound("Jump.mp3");
+		SOUND.LoadSound("Effect.mp3");
+		SOUND.LoadSound("Crash.mp3");
+
+		SOUND.PlayBGM("BGM");
+	}
 }
 
 void MainScene::SetInputSystem()
 {
 	InputMap map;
 	{
+		map.AddAction("Start", { VK_SPACE });
 		map.AddAction("Jump", { 'E', VK_SPACE});
-		map.AddAction("Time", { 'T' });
 	}
 	INPUT.AddMap(map);
 }
@@ -100,40 +110,12 @@ void MainScene::AddGameObject()
 			}
 		}
 	}
-	// 게임 매니저
-	auto manager = Instantiate();
-	{
-		manager->AddComponent<GameManager>();
-	}
 	// 배경화면 제어기
 	auto bgCtrler = Instantiate();
 	{
 		bgCtrler->AddComponent<BackgroundController>();
 	}
-	// 플레이어
-	auto player = Instantiate();
-	{
-		{
-			player->name = "Player";
-			player->tag  = "Player";
-		}
-		auto tf = player->AddComponent<Transform>();
-		{
-			tf->SetScale(Vector3(2.f, 2.f, 1.f));
-			tf->SetPosition(Vector3(-1.5f, 1.f, 0.f));
-		}
-		auto sr = player->AddComponent<SpriteRenderer>();
-		{
-			sr->SetTexture(ASSET.Get<Texture>(L"Texture_Player_1"));
-			sr->OrderInLayer = 30;
-		}
-		auto bc = player->AddComponent<BoxCollider2D>();
-		{
-			bc->SetLocalScale(Vector3(0.35f, 0.35f, 0.35f));
-			bc->SetLocalPosition(Vector3(0.02f, 0.f, 0.f));
-		}
-		player->AddComponent<PlayerController>();
-	}
+	
 	// 바운더리(천장)
 	auto topBoundary = Instantiate();
 	{
@@ -166,46 +148,147 @@ void MainScene::AddGameObject()
 	auto oj = Instantiate();
 	{
 		oj->AddComponent<ObjectGenerator>();
+		oj->SetActive(false);
+	}
+	// 플레이어
+	auto player = Instantiate();
+	{
+		{
+			player->name = "Player";
+			player->tag  = "Player";
+		}
+		auto tf = player->AddComponent<Transform>();
+		{
+			tf->SetScale(Vector3(2.f, 2.f, 1.f));
+			tf->SetPosition(Vector3(-1.5f, 1.f, 0.f));
+		}
+		auto sr = player->AddComponent<SpriteRenderer>();
+		{
+			sr->SetTexture(ASSET.Get<Texture>(L"Texture_Player_1"));
+			sr->OrderInLayer = 30;
+		}
+		auto bc = player->AddComponent<BoxCollider2D>();
+		{
+			bc->SetLocalScale(Vector3(0.25f, 0.25f, 0.25f));
+			bc->SetLocalPosition(Vector3(0.02f, 0.f, 0.f));
+		}
+		player->AddComponent<PlayerController>();
 	}
 	// 스코어 UI
-	auto score = Instantiate(EObjectType::UI);
+	auto scoreUI = Instantiate(EObjectType::UI);
 	{
-		auto tr = score->AddComponent<Transform>();
+		auto tr = scoreUI->AddComponent<Transform>();
 		{
-			tr->SetPosition(Vector3(-280.f, 460.f, 0.f));
+			tr->SetPosition(Vector3(-260.f, 440.f, 0.f));
 			tr->SetScale(Vector3(120.f, 80.f, 0.f));
 		}
-		auto ut = score->AddComponent<UIText>();
+		auto ut = scoreUI->AddComponent<UIText>();
 		{
 			ut->Text(L"000");
-			ut->Alignment(EHorizontalAlignment::Center);
-			ut->Scale(56);
-			ut->Space(8);
+			ut->Alignment(EHorizontalAlignment::Center, EVerticalAlignment::Top);
+			ut->Scale(60);
+			ut->Space(4);
 		}
-		score->AddComponent<UI_Score>();
+		scoreUI->AddComponent<UI_Score>();
+		scoreUI->SetActive(false);
 	}
-
-	auto panel = Instantiate(EObjectType::UI);
+	// 타이틀 UI
+	auto titleUI = Instantiate(EObjectType::UI);
 	{
-		auto tr = panel->AddComponent<Transform>();
+		auto tr = titleUI->AddComponent<Transform>();
 		{
-			tr->SetScale(Vector3(Global::ClientOption.width , Global::ClientOption.height, 0.f));
+			tr->SetScale(Vector3(Global::ClientOption.width , Global::ClientOption.height, 1.f));
 		}
-		auto im = panel->AddComponent<UIImage>();
+		auto im = titleUI->AddComponent<UIImage>();
 		{
 			im->color = Vector4(0.f, 0.f, 0.f, 0.5f);
 		}
-	}
-	auto desc = Instantiate(EObjectType::UI);
-	{
-		auto descTr = desc->AddComponent<Transform>();
+
+		auto desc_1 = Instantiate(EObjectType::UI);
 		{
-			descTr->SetScale(Vector3(180.f, 50.f, 1.f));
+			auto descTr = desc_1->AddComponent<Transform>();
+			{
+				descTr->SetParent(tr);
+				descTr->SetScale(Vector3(200.f, 50.f, 1.f));
+				descTr->SetPosition(Vector3(-120.f, -150.f, 0.f));
+			}
+			auto descText = desc_1->AddComponent<UIText>();
+			{
+				descText->Text(L"조작 : SPACE");
+				descText->Alignment(EHorizontalAlignment::Left);
+				descText->Scale(48);
+			}
 		}
-		auto descText = desc->AddComponent<UIText>();
+		auto desc_2 = Instantiate(EObjectType::UI);
 		{
-			descText->Text(L"조작 : SPACE");
-			descText->Alignment(EHorizontalAlignment::Center);
+			auto descTr = desc_2->AddComponent<Transform>();
+			{
+				descTr->SetParent(tr);
+				descTr->SetScale(Vector3(200.f, 50.f, 1.f));
+				descTr->SetPosition(Vector3(-120.f, -250.f, 0.f));
+			}
+			auto descText = desc_2->AddComponent<UIText>();
+			{
+				descText->Text(L"종료 : ESC");
+				descText->Alignment(EHorizontalAlignment::Left);
+				descText->Scale(48);
+			}
+		}
+	}
+	// 게임오버 UI
+	auto gameOverUI = Instantiate(EObjectType::UI);
+	{
+		auto tr = gameOverUI->AddComponent<Transform>();
+		{
+			tr->SetScale(Vector3(Global::ClientOption.width, Global::ClientOption.height, 1.f));
+		}
+		auto im = gameOverUI->AddComponent<UIImage>();
+		{
+			im->color = Vector4(0.f, 0.f, 0.f, 0.5f);
+		}
+
+		auto desc_1 = Instantiate(EObjectType::UI);
+		{
+			auto descTr = desc_1->AddComponent<Transform>();
+			{
+				descTr->SetParent(tr);
+				descTr->SetScale(Vector3(200.f, 50.f, 1.f));
+				descTr->SetPosition(Vector3(0.f, -150.f, 0.f));
+			}
+			auto descText = desc_1->AddComponent<UIText>();
+			{
+				descText->Text(L"다시 시작 : SPACE");
+				descText->Alignment(EHorizontalAlignment::Center);
+				descText->Scale(48);
+			}
+		}
+		auto desc_2 = Instantiate(EObjectType::UI);
+		{
+			auto descTr = desc_2->AddComponent<Transform>();
+			{
+				descTr->SetParent(tr);
+				descTr->SetScale(Vector3(200.f, 50.f, 1.f));
+				descTr->SetPosition(Vector3(0.f, -250.f, 0.f));
+			}
+			auto descText = desc_2->AddComponent<UIText>();
+			{
+				descText->Text(L"종료    : ESC");
+				descText->Alignment(EHorizontalAlignment::Center);
+				descText->Scale(48);
+			}
+		}
+		gameOverUI->SetActive(false);
+	}
+	// 게임 매니저
+	auto manager = Instantiate();
+	{
+		auto mgr = manager->AddComponent<GameManager>();
+		{
+			mgr->_player       = player;
+			mgr->_objGenerator = oj;
+			mgr->_scoreUI      = scoreUI;
+			mgr->_titleUI      = titleUI;
+			mgr->_gameOverUI   = gameOverUI;
 		}
 	}
 }
@@ -217,6 +300,6 @@ void MainScene::AddUIObject()
 
 void MainScene::EngineSetting()
 {
-	RENDERER.colliderRendering   = true;
-	RENDERER.uiBoundaryRendering = true;
+	RENDERER.colliderRendering   = false;
+	RENDERER.uiBoundaryRendering = false;
 }

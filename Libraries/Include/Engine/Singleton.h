@@ -30,6 +30,7 @@ public:
 #define TIMER      Timer            ::Instance()
 #define INPUT      InputSystem      ::Instance()
 #define SCENE	   SceneManager     ::Instance()
+#define SOUND	   SoundManager     ::Instance()
 #define CLIENT     Client           ::Instance()
 #define RANDOM	   Random			::Instance()
 #define FACTORY	   ObjectFactory    ::Instance()

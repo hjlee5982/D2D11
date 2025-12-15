@@ -150,6 +150,14 @@ xcopy /Y /D "$(SolutionDir)Engine\*.hpp" "$(SolutionDir)Libraries\Include\Engine
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\Libraries\Include\FMOD\fmod.h" />
+    <ClInclude Include="..\Libraries\Include\FMOD\fmod.hpp" />
+    <ClInclude Include="..\Libraries\Include\FMOD\fmod_codec.h" />
+    <ClInclude Include="..\Libraries\Include\FMOD\fmod_common.h" />
+    <ClInclude Include="..\Libraries\Include\FMOD\fmod_dsp.h" />
+    <ClInclude Include="..\Libraries\Include\FMOD\fmod_dsp_effects.h" />
+    <ClInclude Include="..\Libraries\Include\FMOD\fmod_errors.h" />
+    <ClInclude Include="..\Libraries\Include\FMOD\fmod_output.h" />
     <ClInclude Include="AnimationClip.h" />
     <ClInclude Include="AnimationController.h" />
     <ClInclude Include="Animator.h" />
@@ -164,6 +172,7 @@ xcopy /Y /D "$(SolutionDir)Engine\*.hpp" "$(SolutionDir)Libraries\Include\Engine
     <ClInclude Include="EventManager.h" />
     <ClInclude Include="FontManager.h" />
     <ClInclude Include="Instantiate.h" />
+    <ClInclude Include="SoundManager.h" />
     <ClInclude Include="TMesh.h" />
     <ClInclude Include="UIBoundary.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
@@ -186,7 +195,6 @@ xcopy /Y /D "$(SolutionDir)Engine\*.hpp" "$(SolutionDir)Libraries\Include\Engine
     <ClInclude Include="IJson.h" />
     <ClInclude Include="InputSystem.h" />
     <ClInclude Include="Random.h" />
-    <ClInclude Include="RectTransform.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="IndexBuffer.h" />
     <ClInclude Include="Log.h" />
@@ -223,6 +231,7 @@ xcopy /Y /D "$(SolutionDir)Engine\*.hpp" "$(SolutionDir)Libraries\Include\Engine
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="EventManager.cpp" />
     <ClCompile Include="FontManager.cpp" />
+    <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="TMesh.cpp" />
     <ClCompile Include="UIBoundary.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
@@ -244,7 +253,6 @@ xcopy /Y /D "$(SolutionDir)Engine\*.hpp" "$(SolutionDir)Libraries\Include\Engine
     <ClCompile Include="IJson.cpp" />
     <ClCompile Include="InputSystem.cpp" />
     <ClCompile Include="Random.cpp" />
-    <ClCompile Include="RectTransform.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="IndexBuffer.cpp" />
     <ClCompile Include="Log.cpp" />

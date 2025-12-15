@@ -97,9 +97,6 @@
     <Filter Include="10. Component\GameObject\Transform">
       <UniqueIdentifier>{b6dd720a-3f15-4a26-b786-18fb6823854e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="10. Component\UI\RectTransform">
-      <UniqueIdentifier>{96bac1df-439b-4308-8772-2e66dc0f2a4d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="10. Component\UI\UIImage">
       <UniqueIdentifier>{5b379461-aaec-4d07-ac5c-7b3057b59336}</UniqueIdentifier>
     </Filter>
@@ -129,6 +126,12 @@
     </Filter>
     <Filter Include="08. Asset\Shader\HLSL\UI\Image">
       <UniqueIdentifier>{f00041f3-d984-483e-b0cb-d5ed10407455}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00. Utility\Sound">
+      <UniqueIdentifier>{88458b8c-d791-4ff9-bc9a-2c52516a3ef1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00. Utility\Sound\FMOD">
+      <UniqueIdentifier>{71114972-dd05-40c2-a7b8-cd541efef209}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -249,9 +252,6 @@
     <ClInclude Include="UIImage.h">
       <Filter>10. Component\UI\UIImage</Filter>
     </ClInclude>
-    <ClInclude Include="RectTransform.h">
-      <Filter>10. Component\UI\RectTransform</Filter>
-    </ClInclude>
     <ClInclude Include="IJson.h">
       <Filter>00. Utility\Reflection</Filter>
     </ClInclude>
@@ -296,6 +296,33 @@
     </ClInclude>
     <ClInclude Include="TMesh.h">
       <Filter>08. Asset\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundManager.h">
+      <Filter>00. Utility\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\Include\FMOD\fmod.h">
+      <Filter>00. Utility\Sound\FMOD</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\Include\FMOD\fmod.hpp">
+      <Filter>00. Utility\Sound\FMOD</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\Include\FMOD\fmod_codec.h">
+      <Filter>00. Utility\Sound\FMOD</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\Include\FMOD\fmod_common.h">
+      <Filter>00. Utility\Sound\FMOD</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\Include\FMOD\fmod_dsp.h">
+      <Filter>00. Utility\Sound\FMOD</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\Include\FMOD\fmod_dsp_effects.h">
+      <Filter>00. Utility\Sound\FMOD</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\Include\FMOD\fmod_errors.h">
+      <Filter>00. Utility\Sound\FMOD</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\Include\FMOD\fmod_output.h">
+      <Filter>00. Utility\Sound\FMOD</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -401,9 +428,6 @@
     <ClCompile Include="UIImage.cpp">
       <Filter>10. Component\UI\UIImage</Filter>
     </ClCompile>
-    <ClCompile Include="RectTransform.cpp">
-      <Filter>10. Component\UI\RectTransform</Filter>
-    </ClCompile>
     <ClCompile Include="IJson.cpp">
       <Filter>00. Utility\Reflection</Filter>
     </ClCompile>
@@ -442,6 +466,9 @@
     </ClCompile>
     <ClCompile Include="TMesh.cpp">
       <Filter>08. Asset\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundManager.cpp">
+      <Filter>00. Utility\Sound</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

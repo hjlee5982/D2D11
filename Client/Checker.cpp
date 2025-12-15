@@ -3,6 +3,13 @@
 #include "ObjectGenerator.h"
 #include "GameObject.h"
 #include "Transform.h"
+#include "EventManager.h"
+#include "Event.h"
+
+void Checker::Awake()
+{
+	EVENT::Subscribe<GameOverEvent>(&Checker::GameOver, this);
+}
 
 void Checker::Update()
 {
@@ -15,4 +22,11 @@ void Checker::Update()
 		_isColliding = false;
 		_generator.lock()->ReturnPool(Owner(), 1);
 	}
+}
+
+bool Checker::GameOver(const GameOverEvent& e)
+{
+	_generator.lock()->ReturnPool(Owner(), 1);
+
+	return false;
 }
