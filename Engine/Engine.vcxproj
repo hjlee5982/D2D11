@@ -172,6 +172,9 @@ xcopy /Y /D "$(SolutionDir)Engine\*.hpp" "$(SolutionDir)Libraries\Include\Engine
     <ClInclude Include="EventManager.h" />
     <ClInclude Include="FontManager.h" />
     <ClInclude Include="Instantiate.h" />
+    <ClInclude Include="RenderCommand.h" />
+    <ClInclude Include="Renderer.h" />
+    <ClInclude Include="RenderPass.h" />
     <ClInclude Include="SoundManager.h" />
     <ClInclude Include="TMesh.h" />
     <ClInclude Include="UIBoundary.h">
@@ -203,7 +206,7 @@ xcopy /Y /D "$(SolutionDir)Engine\*.hpp" "$(SolutionDir)Libraries\Include\Engine
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="Renderer.h" />
+    <ClInclude Include="RenderManager.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="ConstantBufferDesc.h" />
@@ -231,6 +234,9 @@ xcopy /Y /D "$(SolutionDir)Engine\*.hpp" "$(SolutionDir)Libraries\Include\Engine
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="EventManager.cpp" />
     <ClCompile Include="FontManager.cpp" />
+    <ClCompile Include="RenderCommand.cpp" />
+    <ClCompile Include="Renderer.cpp" />
+    <ClCompile Include="RenderPass.cpp" />
     <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="TMesh.cpp" />
     <ClCompile Include="UIBoundary.cpp">
@@ -263,7 +269,7 @@ xcopy /Y /D "$(SolutionDir)Engine\*.hpp" "$(SolutionDir)Libraries\Include\Engine
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">pch.h</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="Renderer.cpp" />
+    <ClCompile Include="RenderManager.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="SimpleMath.cpp" />

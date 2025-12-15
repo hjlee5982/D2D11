@@ -2,7 +2,7 @@
 #include "SceneManager.h"
 #include "Scene.h"
 #include "GameObject.h"
-#include "Renderer.h"
+#include "RenderManager.h"
 
 namespace fs = std::filesystem;
 

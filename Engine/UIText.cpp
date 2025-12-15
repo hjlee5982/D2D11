@@ -2,7 +2,7 @@
 #include "UIText.h"
 #include "VertexBuffer.h"
 #include "IndexBuffer.h"
-#include "Renderer.h"
+#include "RenderManager.h"
 #include "Material.h"
 #include "AssetManager.h"
 #include "VertexData.h"

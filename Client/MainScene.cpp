@@ -8,7 +8,7 @@
 #include "Texture.h"
 #include "AssetManager.h"
 #include "ObjectGenerator.h"
-#include "Renderer.h"
+#include "RenderManager.h"
 #include "UIText.h"
 #include "BoxCollider2D.h"
 #include "InputSystem.h"
@@ -29,9 +29,6 @@ void MainScene::Awake()
 
 	//// 오브젝트 배치
 	AddGameObject();
-
-	//// UI 배치
-	AddUIObject();
 
 	//// 엔진 설정
 	EngineSetting();
@@ -329,10 +326,6 @@ void MainScene::AddGameObject()
 	}
 }
 
-void MainScene::AddUIObject()
-{
-
-}
 
 void MainScene::EngineSetting()
 {

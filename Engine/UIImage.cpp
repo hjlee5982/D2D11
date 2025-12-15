@@ -4,7 +4,7 @@
 #include "Mesh.h"
 #include "Material.h"
 #include "TMesh.h"
-#include "Renderer.h"
+#include "RenderManager.h"
 
 void UIImage::Init()
 {

@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "Client.h"
 #include "Scene.h"
-#include "Renderer.h"
+#include "RenderManager.h"
 #include "AssetManager.h"
 #include "GameObjectManager.h"
 #include "CollisionManager.h"

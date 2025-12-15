@@ -34,6 +34,6 @@ public:
 #define CLIENT     Client           ::Instance()
 #define RANDOM	   Random			::Instance()
 #define FACTORY	   ObjectFactory    ::Instance()
-#define RENDERER   Renderer         ::Instance()
+#define RENDERER   RenderManager    ::Instance()
 #define COLLISION  CollisionManager ::Instance()
 #define GAMEOBJECT GameObjectManager::Instance()

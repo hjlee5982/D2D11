@@ -10,6 +10,5 @@ public:
 	void LoadResources();
 	void SetInputSystem();
 	void AddGameObject();
-	void AddUIObject();
 	void EngineSetting();
 };

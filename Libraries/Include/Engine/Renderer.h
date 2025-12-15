@@ -1,42 +1,34 @@
 #pragma once
 
-class Component;
-class GameObject;
-class UIComponent;
+#include "Component.h"
+#include "RenderCommand.h"
 
-class Renderer : public Singleton<Renderer>
+class Mesh;
+class Texture;
+class Material;
+class TMeshBase;
+
+enum class RenderQueue
+{
+	Opaque      = 2000,
+	AlphaTest   = 2450,
+	Transparent = 3000,
+	Overlay     = 4000
+};
+
+class Renderer : public Component
 {
 public:
-	virtual void Awake() override;
+	virtual void CollectRenderData(RenderContext& ctx) = 0;
 public:
-	void Render();
-private:
-	void RenderGameObject();
-	void RenderCollider();
-	void RenderUI();
-	void RenderUIBoundary();
+	sptr<TMeshBase> GetMesh();
+	sptr<Material>  GetMaterial();
 public:
-	void AddGameObject(sptr<GameObject> gameObject);
-	void AddCollider(sptr<Component> collider);
-	void AddUI(sptr<UIComponent> ui);
-	void AddUIBoundary(sptr<Component> boundary);
-public:
-	bool colliderRendering = false;
-	bool uiBoundaryRendering = false;
-private:
-	List<wptr<GameObject>> _gameObjects;
-	List<wptr<Component>>  _colliders;
-	List<wptr<UIComponent>> _uis;
-	List<wptr<Component>>  _boundaries;
-private:
-private:
-	ComPtr<ID3D11Buffer> _cbPerFrame;
-	ComPtr<ID3D11Buffer> _cbPerObject;
-private:
-	ComPtr<ID3D11RasterizerState> _wireFrameRS;
-	ComPtr<ID3D11RasterizerState> _defaultRS;
-private:
-	ComPtr<ID3D11DepthStencilState> _dss;
-private:
-	ComPtr<ID3D11BlendState> _bs;
+	void SetMesh(sptr<TMeshBase> mesh);
+	void SetTexture(sptr<Texture> texture);
+	void SetMaterial(sptr<Material> material);
+protected:
+	sptr<TMeshBase> _mesh;
+	sptr<Material>  _material;
 };
+

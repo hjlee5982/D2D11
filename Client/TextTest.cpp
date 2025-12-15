@@ -7,7 +7,7 @@
 #include "Transform.h"
 #include "Camera.h"
 #include "UIBoundary.h"
-#include "Renderer.h"
+#include "RenderManager.h"
 #include "UIImage.h"
 
 void TextTest::Awake()

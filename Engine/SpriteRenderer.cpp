@@ -3,39 +3,27 @@
 #include "AssetManager.h"
 #include "Mesh.h"
 #include "Material.h"
-#include "Renderer.h"
+#include "RenderManager.h"
 #include "Texture.h"
 #include "TMesh.h"
+#include "Transform.h"
 
 void SpriteRenderer::Init()
 {
 	_mesh     = ASSET.Get<TMesh<VertexTextureData>>(L"Mesh_Square");
 	_material = ASSET.Get<Material>(L"Material_Default", true);
 
-	RENDERER.AddGameObject(Owner());
+	RENDERER.AddRenderer(shared_from_this());
 }
 
-sptr<TMeshBase> SpriteRenderer::GetMesh()
+void SpriteRenderer::CollectRenderData(RenderContext& ctx)
 {
-	return _mesh;
-}
-
-sptr<Material> SpriteRenderer::GetMaterial()
-{
-	return _material;
-}
-
-void SpriteRenderer::SetMesh(sptr<TMeshBase> mesh)
-{
-	_mesh = mesh;
-}
-
-void SpriteRenderer::SetTexture(sptr<Texture> texture)
-{
-	_material->SetTexture(texture);
-}
-
-void SpriteRenderer::SetMaterial(sptr<Material> material)
-{
-	_material = material;
+	SpriteRendererCommand cmd;
+	{
+		cmd.WorldMatrix  = Owner()->transform->GetWorldMatrix();
+		cmd.Mesh         = _mesh;
+		cmd.Material     = _material;
+		cmd.OrderInLayer = OrderInLayer;
+	}
+	ctx.spriteCmds.push_back(cmd);
 }
