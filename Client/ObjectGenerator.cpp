@@ -127,7 +127,7 @@ void ObjectGenerator::ObstaclePooling()
 			}
 			auto bc = obstacle->AddComponent<BoxCollider2D>();
 			{
-				bc->SetLocalScale(Vector3(0.5f, 1.f, 1.f));
+				bc->Size(Vector3(0.5f, 1.f, 1.f));
 			}
 			auto ot = obstacle->AddComponent<Obstacle>();
 			{
@@ -153,7 +153,7 @@ void ObjectGenerator::ObstaclePooling()
 				}
 				auto bc = cloud->AddComponent<BoxCollider2D>();
 				{
-					bc->SetLocalScale(Vector3(0.8f, 0.8f, 1.f));
+					bc->Size(Vector3(0.8f, 0.8f, 1.f));
 				}
 			}
 		}

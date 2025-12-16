@@ -2,10 +2,10 @@
 
 struct SpriteRendererCommand
 {
-	Matrix          WorldMatrix;
-	sptr<TMeshBase> Mesh;
-	sptr<Material>  Material;
-	i32             OrderInLayer;
+	Matrix				  WorldMatrix;
+	sptr<class TMeshBase> Mesh;
+	sptr<class Material>  Material;
+	i32					  OrderInLayer;
 };
 
 struct RenderContext

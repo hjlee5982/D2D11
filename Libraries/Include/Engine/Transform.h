@@ -28,12 +28,12 @@ public:
 	Vector3 GetLook()        { return _worldMatrix.Look();  }
 public:
 	void Translation(const Vector3& dir, float speed);
-private:
+public:
 	Matrix     _localMatrix   = Matrix::Identity;
 	Vector3    _localPosition = Vector3::Zero;
 	Vector3    _localScale    = Vector3::One;
 	Quaternion _localRotation = Quaternion::Identity;
-private:
+public:
 	Matrix     _worldMatrix = Matrix::Identity;
 	Vector3    _position    = Vector3::Zero;
 	Vector3    _scale       = Vector3::One;
@@ -52,14 +52,4 @@ private:
 	//sptr<Transform> _parent;
 	wptr<Transform> _parent;
 	List<sptr<Transform>> _children;
-private:
-	// µð¹ö±ë¿ë
-	friend class BoxCollider2D;
-	friend class UIBoundary;
-	void SetParent(sptr<Transform> parent, sptr<Transform> colliderTransform)
-	{
-		parent->_colliderTransform = colliderTransform;
-		colliderTransform->_parent = parent;
-	}
-	sptr<Transform> _colliderTransform = nullptr;
 };

@@ -6,6 +6,7 @@
 
 class Renderer;
 class Component;
+class Collider;
 class GameObject;
 class UIComponent;
 class SpriteRenderPass;
@@ -23,17 +24,15 @@ private:
 	void RenderUIBoundary();
 public:
 	void AddRenderer(sptr<Renderer> renderer);
-	void AddCollider(sptr<Component> collider);
+	void AddCollider(sptr<Collider> collider);
 	void AddUI(sptr<UIComponent> ui);
-	void AddUIBoundary(sptr<Component> boundary);
 public:
-	bool colliderRendering = false;
+	bool colliderRendering   = false;
 	bool uiBoundaryRendering = false;
 private:
-	List<wptr<Renderer>> _renderers;
-	List<wptr<Component>>  _colliders;
+	List<wptr<Renderer>>    _renderers;
+	List<wptr<Collider>>    _colliders;
 	List<wptr<UIComponent>> _uis;
-	List<wptr<Component>>  _boundaries;
 private:
 	sptr<SpriteRenderPass> _spritePass;
 private:

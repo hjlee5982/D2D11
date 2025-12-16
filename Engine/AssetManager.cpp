@@ -49,11 +49,17 @@ void AssetManager::CreateShader()
 
 void AssetManager::CreateMesh()
 {
-	// SquareCollider
+	// BoxCollider2D
 	{
 		sptr<TMesh<VertexColliderData>> mesh = makeSptr<TMesh<VertexColliderData>>();
 		mesh->CreateMesh(ETMeshType::Square);
 		Add(L"Mesh_BoxCollider2D", mesh);
+	}
+	// CircleCollider2D
+	{
+		sptr<TMesh<VertexColliderData>> mesh = makeSptr<TMesh<VertexColliderData>>();
+		mesh->CreateMesh(ETMeshType::Circle);
+		Add(L"Mesh_CircleCollider2D", mesh);
 	}
 	// Square
 	{

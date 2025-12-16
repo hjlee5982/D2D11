@@ -57,13 +57,6 @@ void Transform::Update()
 	{
 		child->Update();
 	}
-
-	// 콜라이더는 정규 Transform 트리에 소속되면 안되고 따로 돌아야 함
-	// children에 게임오브젝트에 달려있는 트랜스폼만 넣기 위함
-	if (_colliderTransform != nullptr)
-	{
-		_colliderTransform->Update();
-	}
 }
 
 void Transform::SetPosition(const Vector3& worldPosition)

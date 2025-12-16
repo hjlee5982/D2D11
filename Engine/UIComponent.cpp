@@ -5,6 +5,14 @@
 #include "Texture.h"
 #include "Material.h"
 #include "TMesh.h"
+#include "Renderer.h"
+#include "GameObject.h"
+
+UIComponent::UIComponent()
+{
+    _debugMesh     = ASSET.Get<TMesh<VertexColliderData>>(L"Mesh_BoxCollider2D");
+    _debugMaterial = ASSET.Get<Material>(L"Material_Collider");
+}
 
 sptr<TMesh<VertexUIData>> UIComponent::GetMesh()
 {

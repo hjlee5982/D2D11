@@ -2,12 +2,6 @@
 
 #include "Object.h"
 
-enum class EObjectType
-{
-	GameObject,
-	UI
-};
-
 class GameObject : public Object, public std::enable_shared_from_this<GameObject>
 {
 public:

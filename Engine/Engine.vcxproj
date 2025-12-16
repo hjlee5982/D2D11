@@ -165,7 +165,9 @@ xcopy /Y /D "$(SolutionDir)Engine\*.hpp" "$(SolutionDir)Libraries\Include\Engine
     <ClInclude Include="AssetManager.h" />
     <ClInclude Include="BoxCollider2D.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="CircleCollider2D.h" />
     <ClInclude Include="Client.h" />
+    <ClInclude Include="Collider.h" />
     <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="EngineEvent.h" />
@@ -177,9 +179,6 @@ xcopy /Y /D "$(SolutionDir)Engine\*.hpp" "$(SolutionDir)Libraries\Include\Engine
     <ClInclude Include="RenderPass.h" />
     <ClInclude Include="SoundManager.h" />
     <ClInclude Include="TMesh.h" />
-    <ClInclude Include="UIBoundary.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-    </ClInclude>
     <ClInclude Include="UIComponent.h" />
     <ClInclude Include="UIImage.h" />
     <ClInclude Include="IReflection.h" />
@@ -229,7 +228,9 @@ xcopy /Y /D "$(SolutionDir)Engine\*.hpp" "$(SolutionDir)Libraries\Include\Engine
     <ClCompile Include="AssetManager.cpp" />
     <ClCompile Include="BoxCollider2D.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="CircleCollider2D.cpp" />
     <ClCompile Include="Client.cpp" />
+    <ClCompile Include="Collider.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="EventManager.cpp" />
@@ -239,9 +240,6 @@ xcopy /Y /D "$(SolutionDir)Engine\*.hpp" "$(SolutionDir)Libraries\Include\Engine
     <ClCompile Include="RenderPass.cpp" />
     <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="TMesh.cpp" />
-    <ClCompile Include="UIBoundary.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="UIComponent.cpp" />
     <ClCompile Include="UIImage.cpp" />
     <ClCompile Include="IReflection.cpp" />

@@ -59,6 +59,31 @@ void GeometryHelper::CreateSquare(sptr<Geometry<VertexUIData>> geometry)
 
 void GeometryHelper::CreateCircle(sptr<Geometry<VertexColliderData>> geometry)
 {
+	List<VertexColliderData> vtx;
+	List<u32> idx;
+	
+	vtx.push_back({ Vector3(0, 0, 0) });
+	idx.push_back(0);
+
+	f32 radius = 0.501f;
+
+	i32 segment = 360;
+
+	f32 eachAngle = XM_2PI / segment;
+
+	for (i32 i = 0; i <= segment; ++i)
+	{
+		f32 angle = i * eachAngle;
+		f32 x = radius * cosf(angle);
+		f32 y = radius * sinf(angle);
+
+		vtx.push_back({ Vector3(x, y, 0.f) });
+		idx.push_back(i + 1);
+		idx.push_back(i + 1);
+	}
+
+	geometry->SetVertices(vtx);
+	geometry->SetIndices(idx);
 }
 
 void GeometryHelper::CreateCircle(sptr<Geometry<VertexTextureData>> geometry)

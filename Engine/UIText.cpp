@@ -11,7 +11,6 @@
 #include "Mesh.h"
 #include "TMesh.h"
 #include "Transform.h"
-#include "UIBoundary.h"
 
 void UIText::Init()
 {

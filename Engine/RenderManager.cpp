@@ -13,7 +13,6 @@
 #include "SpriteRenderer.h"
 #include "GameObject.h"
 #include "Transform.h"
-#include "UIBoundary.h"
 #include "UIComponent.h"
 #include "TMesh.h"
 #include "RenderPass.h"
@@ -149,7 +148,7 @@ void RenderManager::RenderCollider()
 	CONTEXT->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_LINELIST);
 
 	// 오브젝트 당 업데이트 해야 할 요소
-	for (wptr<Component>& collider : _colliders)
+	for (wptr<Collider>& collider : _colliders)
 	{
 		if (auto co = collider.lock())
 		{
@@ -164,6 +163,7 @@ void RenderManager::RenderCollider()
 				}
 				CONTEXT->UpdateSubresource(_cbPerObject.Get(), 0, nullptr, &perObjectData, 0, 0);
 				CONTEXT->VSSetConstantBuffers(1, 1, _cbPerObject.GetAddressOf());
+				CONTEXT->PSSetConstantBuffers(1, 1, _cbPerObject.GetAddressOf());
 
 
 				// 2. 머티리얼 바인딩 ( 셰이더 + 텍스쳐 바인딩 )
@@ -238,17 +238,16 @@ void RenderManager::RenderUIBoundary()
 	CONTEXT->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_LINELIST);
 
 	// 오브젝트 당 업데이트 해야 할 요소
-	for (wptr<Component>& boundary : _boundaries)
+	for (wptr<UIComponent>& wBoundary : _uis)
 	{
-		if (auto co = boundary.lock())
+		if (auto boundary = wBoundary.lock())
 		{
-			if (co->gameObject.lock()->isActive == true)
+			if (boundary->gameObject.lock()->isActive == true)
 			{
-				auto b = co->Owner()->GetComponent<UIBoundary>();
 				// 1. 상수버퍼 바인딩
 				CB_PerObject perObjectData;
 				{
-					perObjectData.worldMatrix = b->GetBoundaryTransform()->GetWorldMatrix();
+					perObjectData.worldMatrix = boundary->Owner()->transform->GetWorldMatrix();
 					perObjectData.UIColor     = Vector4(0.5f, 0.5f, 0.5f, 1.f);
 				}
 				CONTEXT->UpdateSubresource(_cbPerObject.Get(), 0, nullptr, &perObjectData, 0, 0);
@@ -256,12 +255,12 @@ void RenderManager::RenderUIBoundary()
 
 
 				// 2. 머티리얼 바인딩 ( 셰이더 + 텍스쳐 바인딩 )
-				auto material = b->GetMaterial();
+				auto material = boundary->GetDebugMaterial();
 				material->Bind();
 
 
 				// 3. 매시 바인딩 ( 버텍스 + 인덱스 버퍼 바인딩 + 인풋레이아웃 설정 ) + 드로우 콜
-				auto mesh = b->GetMesh();
+				auto mesh = boundary->GetDebugMesh();
 				mesh->Bind(material->GetShader());
 			}
 		}
@@ -279,7 +278,7 @@ void RenderManager::AddRenderer(sptr<Renderer> renderer)
 	_renderers.push_back(renderer);
 }
 
-void RenderManager::AddCollider(sptr<Component> collider)
+void RenderManager::AddCollider(sptr<Collider> collider)
 {
 	_colliders.push_back(collider);
 }
@@ -287,9 +286,4 @@ void RenderManager::AddCollider(sptr<Component> collider)
 void RenderManager::AddUI(sptr<UIComponent> ui)
 {
 	_uis.push_back(ui);
-}
-
-void RenderManager::AddUIBoundary(sptr<Component> boundary)
-{
-	_boundaries.push_back(boundary);
 }

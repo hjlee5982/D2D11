@@ -97,9 +97,6 @@
     <Filter Include="10. Component\UI\UIText">
       <UniqueIdentifier>{99a51466-bc16-4c1e-b1bd-473954ad9348}</UniqueIdentifier>
     </Filter>
-    <Filter Include="10. Component\UI\UIBoundary">
-      <UniqueIdentifier>{93f63779-ee9f-48b6-89b7-f8ce52dbed51}</UniqueIdentifier>
-    </Filter>
     <Filter Include="08. Asset\Shader\HLSL\UI">
       <UniqueIdentifier>{aa4cbe03-a081-4866-9b7b-30763be5fc41}</UniqueIdentifier>
     </Filter>
@@ -135,6 +132,9 @@
     </Filter>
     <Filter Include="06. Renderer">
       <UniqueIdentifier>{f82d1280-7be4-464f-a1c8-171060c3ea94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="10. Component\GameObject\Collider\CircleCollider">
+      <UniqueIdentifier>{cbe92632-d0b8-45c5-bd71-a599bbf22819}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -282,9 +282,6 @@
     <ClInclude Include="FontManager.h">
       <Filter>00. Utility\Font</Filter>
     </ClInclude>
-    <ClInclude Include="UIBoundary.h">
-      <Filter>10. Component\UI\UIBoundary</Filter>
-    </ClInclude>
     <ClInclude Include="Instantiate.h">
       <Filter>01. Header</Filter>
     </ClInclude>
@@ -335,6 +332,12 @@
     </ClInclude>
     <ClInclude Include="RenderPass.h">
       <Filter>06. Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="CircleCollider2D.h">
+      <Filter>10. Component\GameObject\Collider\CircleCollider</Filter>
+    </ClInclude>
+    <ClInclude Include="Collider.h">
+      <Filter>10. Component\GameObject\Collider</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -467,9 +470,6 @@
     <ClCompile Include="FontManager.cpp">
       <Filter>00. Utility\Font</Filter>
     </ClCompile>
-    <ClCompile Include="UIBoundary.cpp">
-      <Filter>10. Component\UI\UIBoundary</Filter>
-    </ClCompile>
     <ClCompile Include="EventManager.cpp">
       <Filter>00. Utility\Event</Filter>
     </ClCompile>
@@ -490,6 +490,12 @@
     </ClCompile>
     <ClCompile Include="RenderPass.cpp">
       <Filter>06. Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="CircleCollider2D.cpp">
+      <Filter>10. Component\GameObject\Collider\CircleCollider</Filter>
+    </ClCompile>
+    <ClCompile Include="Collider.cpp">
+      <Filter>10. Component\GameObject\Collider</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

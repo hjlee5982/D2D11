@@ -18,6 +18,7 @@
 #include "GameManager.h"
 #include "UIImage.h"
 #include "SoundManager.h"
+#include "CircleCollider2D.h"
 
 void MainScene::Awake()
 {
@@ -167,13 +168,13 @@ void MainScene::AddGameObject()
 		}
 		auto bc = player->AddComponent<BoxCollider2D>();
 		{
-			bc->SetLocalScale(Vector3(0.25f, 0.25f, 0.25f));
-			bc->SetLocalPosition(Vector3(0.02f, 0.f, 0.f));
+			bc->Size(Vector3(0.25f, 0.25f, 0.25f));
+			bc->Offset(Vector3(0.02f, 0.f, 0.f));
 		}
 		player->AddComponent<PlayerController>();
 	}
 	// 스코어 UI
-	auto scoreUI = Instantiate(EObjectType::UI);
+	auto scoreUI = Instantiate();
 	{
 		auto tr = scoreUI->AddComponent<Transform>();
 		{
@@ -191,7 +192,7 @@ void MainScene::AddGameObject()
 		scoreUI->SetActive(false);
 	}
 	// 타이틀 UI
-	auto titleUI = Instantiate(EObjectType::UI);
+	auto titleUI = Instantiate();
 	{
 		auto tr = titleUI->AddComponent<Transform>();
 		{
@@ -202,7 +203,7 @@ void MainScene::AddGameObject()
 			im->color = Vector4(0.f, 0.f, 0.f, 0.5f);
 		}
 
-		auto desc_1 = Instantiate(EObjectType::UI);
+		auto desc_1 = Instantiate();
 		{
 			auto descTr = desc_1->AddComponent<Transform>();
 			{
@@ -217,7 +218,7 @@ void MainScene::AddGameObject()
 				descText->Scale(48);
 			}
 		}
-		auto desc_2 = Instantiate(EObjectType::UI);
+		auto desc_2 = Instantiate();
 		{
 			auto descTr = desc_2->AddComponent<Transform>();
 			{
@@ -232,7 +233,7 @@ void MainScene::AddGameObject()
 				descText->Scale(48);
 			}
 		}
-		auto desc_3 = Instantiate(EObjectType::UI);
+		auto desc_3 = Instantiate();
 		{
 			auto descTr = desc_3->AddComponent<Transform>();
 			{
@@ -249,7 +250,7 @@ void MainScene::AddGameObject()
 		}
 	}
 	// 게임오버 UI
-	auto gameOverUI = Instantiate(EObjectType::UI);
+	auto gameOverUI = Instantiate();
 	{
 		// 부모 컴포넌트
 		auto tr = gameOverUI->AddComponent<Transform>();
@@ -262,7 +263,7 @@ void MainScene::AddGameObject()
 		}
 
 		// 자식 1
-		auto desc_1 = Instantiate(EObjectType::UI);
+		auto desc_1 = Instantiate();
 		{
 			auto descTr = desc_1->AddComponent<Transform>();
 			{
@@ -278,7 +279,7 @@ void MainScene::AddGameObject()
 			}
 		}
 		// 자식 2
-		auto desc_2 = Instantiate(EObjectType::UI);
+		auto desc_2 = Instantiate();
 		{
 			auto descTr = desc_2->AddComponent<Transform>();
 			{
@@ -294,7 +295,7 @@ void MainScene::AddGameObject()
 			}
 		}
 		// 자식 3
-		auto result = Instantiate(EObjectType::UI);
+		auto result = Instantiate();
 		{
 			auto resultTr = result->AddComponent<Transform>();
 			{
@@ -329,6 +330,6 @@ void MainScene::AddGameObject()
 
 void MainScene::EngineSetting()
 {
-	RENDERER.colliderRendering   = false;
-	RENDERER.uiBoundaryRendering = false;
+	RENDERER.colliderRendering   = true;
+	RENDERER.uiBoundaryRendering = true;
 }

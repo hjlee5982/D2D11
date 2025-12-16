@@ -10,6 +10,8 @@ class Material;
 class UIComponent : public Component
 {
 public:
+	UIComponent();
+public:
 	sptr<TMesh<VertexUIData>> GetMesh();
 	sptr<Material>            GetMaterial();
 public:
@@ -21,5 +23,17 @@ public:
 protected:
 	sptr<TMesh<VertexUIData>> _mesh;
 	sptr<Material>            _material;
+public:
+	sptr<TMesh<VertexColliderData>> GetDebugMesh()
+	{
+		return _debugMesh;
+	}
+	sptr<Material> GetDebugMaterial()
+	{
+		return _debugMaterial;
+	}
+protected:
+	sptr<TMesh<VertexColliderData>> _debugMesh;
+	sptr<Material>					_debugMaterial;
 };
 
