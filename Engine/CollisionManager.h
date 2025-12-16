@@ -7,8 +7,8 @@ public:
 public:
 	void FixedUpate();
 public:
-	void AddCollider(sptr<class Component> collider);
+	void AddCollider(sptr<class Collider> collider);
 private:
-	List<wptr<class Component>> _colliders;
+	List<wptr<class Collider>> _colliders;
 };
 

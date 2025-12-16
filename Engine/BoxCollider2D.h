@@ -16,9 +16,15 @@ public:
 	virtual void Start()  override;
 	virtual void Update() override;
 public:
+	virtual bool CheckCollision(const sptr<Collider>& target) override;
+public:
+	void Offset(Vector3 offset);
 	void Size(Vector3 scale);
 public:
 	AABB GetAABB() { return _aabb; }
+private:
+	bool BoxToBox(const sptr<BoxCollider2D>& target);
+	bool BoxToCircle(const sptr<class CircleCollider2D>& target);
 private:
 	AABB    _aabb;
 	Vector3 _min;

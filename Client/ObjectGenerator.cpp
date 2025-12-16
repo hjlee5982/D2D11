@@ -9,6 +9,7 @@
 #include "EventManager.h"
 #include "Event.h"
 #include "Checker.h"
+#include "CircleCollider2D.h"
 
 void ObjectGenerator::Start()
 {

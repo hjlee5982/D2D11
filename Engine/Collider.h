@@ -11,7 +11,7 @@ class Collider : public Component
 public:
 	Collider();
 public:
-	virtual void Offset(Vector3 offset);
+	virtual bool CheckCollision(const sptr<Collider>& target) = 0;
 public:
 	sptr<TMeshBase> GetMesh()      { return _mesh; }
 	sptr<Material>  GetMaterial()  { return _material; }
@@ -19,7 +19,7 @@ public:
 protected:
 	sptr<TMeshBase> _mesh;
 	sptr<Material>  _material;
-protected:
+public:
 	sptr<Transform> _worldTransform;
 	sptr<Transform> _localTransform;
 };

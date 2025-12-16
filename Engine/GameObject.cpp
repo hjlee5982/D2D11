@@ -74,7 +74,7 @@ void GameObject::SetActive(bool active)
 	transform->SetActive(active);
 }
 
-void GameObject::OnCollisionEnter2D(sptr<BoxCollider2D> collider)
+void GameObject::OnCollisionEnter2D(sptr<Collider> collider)
 {
 	for (auto& com : _components)
 	{

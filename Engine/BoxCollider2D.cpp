@@ -9,6 +9,7 @@
 #include "Transform.h"
 #include "TMesh.h"
 #include "VertexData.h"
+#include "CircleCollider2D.h"
 
 void BoxCollider2D::Init()
 {
@@ -21,6 +22,11 @@ void BoxCollider2D::Init()
 
 void BoxCollider2D::Start()
 {
+	
+}
+
+void BoxCollider2D::Update()
+{
 	Vector3 localScale    = _localTransform->GetLocalScale();
 	Vector3 localPosition = _localTransform->GetLocalPosition();
 
@@ -28,10 +34,7 @@ void BoxCollider2D::Start()
 	_min.y = localPosition.y - localScale.y / 2;
 	_max.x = localPosition.x + localScale.x / 2;
 	_max.y = localPosition.y + localScale.y / 2;
-}
 
-void BoxCollider2D::Update()
-{
 	// AABB °»½Å
 	_aabb.min = XMVector3TransformCoord(_min, Owner()->transform->GetWorldMatrix());
 	_aabb.max = XMVector3TransformCoord(_max, Owner()->transform->GetWorldMatrix());
@@ -39,7 +42,41 @@ void BoxCollider2D::Update()
 	_worldTransform->_worldMatrix = _localTransform->_worldMatrix * Owner()->transform->_worldMatrix;
 }
 
+bool BoxCollider2D::CheckCollision(const sptr<Collider>& target)
+{
+	if (auto box = std::dynamic_pointer_cast<BoxCollider2D>(target))
+	{
+		return BoxToBox(box);
+	}
+	else if (auto circle = std::dynamic_pointer_cast<CircleCollider2D>(target))
+	{
+		return BoxToCircle(circle);
+	}
+	else
+	{
+		return false;
+	}
+}
+
+void BoxCollider2D::Offset(Vector3 offset)
+{
+	_localTransform->SetLocalPosition(offset);
+}
+
 void BoxCollider2D::Size(Vector3 scale)
 {
 	_localTransform->SetLocalScale(scale);
+}
+
+bool BoxCollider2D::BoxToBox(const sptr<BoxCollider2D>& target)
+{
+	AABB lhs = _aabb;
+	AABB rhs = target->GetAABB();
+
+	return max(lhs.min.x, rhs.min.x) < min(lhs.max.x, rhs.max.x) && max(lhs.min.y, rhs.min.y) < min(lhs.max.y, rhs.max.y);
+}
+
+bool BoxCollider2D::BoxToCircle(const sptr<class CircleCollider2D>& target)
+{
+	return false;
 }

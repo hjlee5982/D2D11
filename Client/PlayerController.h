@@ -10,7 +10,7 @@ public:
 public:
 	void Reset();
 public:
-	virtual void OnCollisionEnter2D(sptr<BoxCollider2D> collider) override;
+	virtual void OnCollisionEnter2D(sptr<Collider> collider) override;
 private:
 	void Jump();
 	bool GameStart(const struct GameStartEvent& e);

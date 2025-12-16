@@ -2,6 +2,7 @@
 #include "CollisionManager.h"
 #include "BoxCollider2D.h"
 #include "GameObject.h"
+#include "Collider.h"
 
 void CollisionManager::Awake()
 {
@@ -9,40 +10,38 @@ void CollisionManager::Awake()
 
 void CollisionManager::FixedUpate()
 {
-	for (auto co1 : _colliders)
+	for (i32 i = 0; i < _colliders.size(); ++i)
 	{
-		for (auto& co2 : _colliders)
+		auto c1 = _colliders[i].lock();
+
+		if (c1 == nullptr || c1->Owner()->isActive == false)
 		{
-			auto co1_lock = co1.lock();
-			auto co2_lock = co2.lock();
+			continue;
+		}
+		else
+		{
+			for (i32 j = i + 1; j < _colliders.size(); ++j)
+			{
+				auto c2 = _colliders[j].lock();
 
-			// 같은 콜라이더는 패스
-			if (co1_lock == co2_lock)
-			{
-				continue;
-			}
-			// 둘 중 하나라도 비활성화라면 패스
-			else if (co1_lock->Owner()->isActive == false || co2_lock->Owner()->isActive == false)
-			{
-				continue;
-			}
-			else
-			{
-				AABB lhs = std::static_pointer_cast<BoxCollider2D>(co1.lock())->GetAABB();
-				AABB rhs = std::static_pointer_cast<BoxCollider2D>(co2.lock())->GetAABB();
-
-				if (max(lhs.min.x, rhs.min.x) < min(lhs.max.x, rhs.max.x) &&
-					max(lhs.min.y, rhs.min.y) < min(lhs.max.y, rhs.max.y))
+				if (c2 == nullptr || c2->Owner()->isActive == false)
 				{
-					co1.lock()->Owner()->OnCollisionEnter2D(std::static_pointer_cast<BoxCollider2D>(co2.lock()));
-					co2.lock()->Owner()->OnCollisionEnter2D(std::static_pointer_cast<BoxCollider2D>(co1.lock()));
+					continue;
+				}
+				else
+				{
+					if (c1->CheckCollision(c2) == true)
+					{
+						c1->Owner()->OnCollisionEnter2D(c2);
+						c2->Owner()->OnCollisionEnter2D(c1);
+					}
 				}
 			}
 		}
 	}
 }
 
-void CollisionManager::AddCollider(sptr<Component> collider)
+void CollisionManager::AddCollider(sptr<Collider> collider)
 {
 	_colliders.push_back(collider);
 }

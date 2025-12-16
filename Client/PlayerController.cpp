@@ -54,7 +54,7 @@ void PlayerController::Reset()
 	Owner()->transform->SetPosition(Vector3(-1.5f, 1.f, 0.f));
 }
 
-void PlayerController::OnCollisionEnter2D(sptr<BoxCollider2D> collider)
+void PlayerController::OnCollisionEnter2D(sptr<Collider> collider)
 {
 	if (collider->Owner()->tag == "Obstacle")
 	{

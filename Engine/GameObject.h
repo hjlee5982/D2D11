@@ -5,7 +5,7 @@
 class GameObject : public Object, public std::enable_shared_from_this<GameObject>
 {
 public:
-	void OnCollisionEnter2D(sptr<class BoxCollider2D> collider);
+	void OnCollisionEnter2D(sptr<class Collider> collider);
 public:
 	template<typename T, typename ...Args>
 	sptr<T> AddComponent(Args&& ... args)

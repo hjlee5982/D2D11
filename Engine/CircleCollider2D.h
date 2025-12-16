@@ -10,6 +10,14 @@ public:
 	virtual void Start() override;
 	virtual void Update() override;
 public:
+	virtual bool CheckCollision(const sptr<Collider>& target) override;
+public:
+	void Offset(Vector3 offset);
 	void Radius(f32 radius);
+private:
+	bool CircleToCircle(const sptr<class CircleCollider2D>& target);
+public:
+	f32     _radius = 0.5f;
+	Vector3 _center = Vector3::Zero;
 };
 

@@ -10,7 +10,7 @@ public:
 public:
 	virtual void Init() {}
 public:
-	virtual void OnCollisionEnter2D(sptr<class BoxCollider2D> collider) {};
+	virtual void OnCollisionEnter2D(sptr<class Collider> collider) {};
 public:
 	virtual void Awake()       {}
 	virtual void Start()       {}
