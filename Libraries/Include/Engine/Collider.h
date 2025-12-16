@@ -9,16 +9,18 @@ class Transform;
 class Collider : public Component
 {
 public:
-	virtual void Offset(Vector3 position) {}
+	Collider();
 public:
-	sptr<TMeshBase> GetMesh()              { return _mesh; }
-	sptr<Material>  GetMaterial()          { return _material; }
-	sptr<Transform> GetColliderTransform() { return _colliderTransform; }
+	virtual void Offset(Vector3 offset);
+public:
+	sptr<TMeshBase> GetMesh()      { return _mesh; }
+	sptr<Material>  GetMaterial()  { return _material; }
+	sptr<Transform> GetTransform() { return _worldTransform; }
 protected:
 	sptr<TMeshBase> _mesh;
 	sptr<Material>  _material;
 protected:
-	sptr<Transform> _colliderTransform;
+	sptr<Transform> _worldTransform;
 	sptr<Transform> _localTransform;
 };
 

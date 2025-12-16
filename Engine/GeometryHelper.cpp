@@ -65,9 +65,9 @@ void GeometryHelper::CreateCircle(sptr<Geometry<VertexColliderData>> geometry)
 	vtx.push_back({ Vector3(0, 0, 0) });
 	idx.push_back(0);
 
-	f32 radius = 0.501f;
+	f32 radius = 0.49f;
 
-	i32 segment = 360;
+	i32 segment = 60;
 
 	f32 eachAngle = XM_2PI / segment;
 

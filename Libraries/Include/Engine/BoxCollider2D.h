@@ -16,8 +16,6 @@ public:
 	virtual void Start()  override;
 	virtual void Update() override;
 public:
-	virtual void Offset(Vector3 position) override;
-public:
 	void Size(Vector3 scale);
 public:
 	AABB GetAABB() { return _aabb; }

@@ -148,21 +148,22 @@ void RenderManager::RenderCollider()
 	CONTEXT->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_LINELIST);
 
 	// 오브젝트 당 업데이트 해야 할 요소
-	for (wptr<Collider>& collider : _colliders)
+	for (wptr<Collider>& wCollider : _colliders)
 	{
-		if (auto co = collider.lock())
+		if (auto collider = wCollider.lock())
 		{
-			if (co->gameObject.lock()->isActive == true)
+			if (collider->gameObject.lock()->isActive == true)
 			{
-				auto collider = co->Owner()->GetComponent<BoxCollider2D>();
 				// 1. 상수버퍼 바인딩
 				CB_PerObject perObjectData;
 				{
-					perObjectData.worldMatrix = collider->GetColliderTransform()->GetWorldMatrix();
+					perObjectData.worldMatrix = collider->GetTransform()->GetWorldMatrix();
 					perObjectData.UIColor     = Vector4(0.f, 1.f, 0.f, 1.f);
 				}
 				CONTEXT->UpdateSubresource(_cbPerObject.Get(), 0, nullptr, &perObjectData, 0, 0);
 				CONTEXT->VSSetConstantBuffers(1, 1, _cbPerObject.GetAddressOf());
+
+				// CB_perObject의 UIColor필드는 픽셀쉐이더가 직접 사용함 = 픽셀쉐이더에도 바인딩 해야 함
 				CONTEXT->PSSetConstantBuffers(1, 1, _cbPerObject.GetAddressOf());
 
 

@@ -15,9 +15,6 @@ void BoxCollider2D::Init()
 	_mesh     = ASSET.Get<TMesh<VertexColliderData>>(L"Mesh_BoxCollider2D");
 	_material = ASSET.Get<Material>(L"Material_Collider");
 
-	_colliderTransform = makeSptr<Transform>();
-	_localTransform    = makeSptr<Transform>();
-
 	RENDERER.AddCollider(shared_from_this());
 	COLLISION.AddCollider(shared_from_this());
 }
@@ -39,12 +36,7 @@ void BoxCollider2D::Update()
 	_aabb.min = XMVector3TransformCoord(_min, Owner()->transform->GetWorldMatrix());
 	_aabb.max = XMVector3TransformCoord(_max, Owner()->transform->GetWorldMatrix());
 
-	_colliderTransform->_worldMatrix = _localTransform->_worldMatrix * Owner()->transform->_worldMatrix;
-}
-
-void BoxCollider2D::Offset(Vector3 position)
-{
-	_localTransform->SetLocalPosition(position);
+	_worldTransform->_worldMatrix = _localTransform->_worldMatrix * Owner()->transform->_worldMatrix;
 }
 
 void BoxCollider2D::Size(Vector3 scale)

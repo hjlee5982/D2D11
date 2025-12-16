@@ -10,6 +10,7 @@
 #include "BoxCollider2D.h"
 #include "RenderManager.h"
 #include "UIImage.h"
+#include "CircleCollider2D.h"
 
 void TextTest::Awake()
 {
@@ -69,10 +70,10 @@ void TextTest::Awake()
 		{
 			s->OrderInLayer = 100;
 		}
-		auto c = go->AddComponent<BoxCollider2D>();
+		auto c = go->AddComponent<CircleCollider2D>();
 		{
-			c->Size(Vector3(1.f, 3.f, 1.f));
-			c->Offset(Vector3(1.f, 0.f, 0.f));
+			c->Offset(Vector3(0.f, 0.f, 0.f));
+			c->Radius(1.f);
 		}
 	}
 
