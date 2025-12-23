@@ -26,7 +26,8 @@
 #include <thread>
 #include <coroutine>
 #include <queue>
-
+#include <mutex>
+#include <condition_variable>
 
 /* DirectX11 Çì´õ */
 #define DIRECTINPUT_VERSION 0x0800

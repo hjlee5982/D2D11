@@ -91,13 +91,35 @@ void RenderManager::Awake()
 	// 렌더 패스 생성
 	_spritePass = makeSptr<SpriteRenderPass>();
 	_spritePass->Init();
+
+
+	// 렌더 컨텍스트 생성
+	_ctx.resize(2);
+}
+
+void RenderManager::CollectRenderData()
+{
+	// 렌더링 데이터 수집
+	auto& ctx = _ctx[_write];
+	ctx.Clear();
+	
+	for (auto& wRenderer : _renderers)
+	{
+		if (auto renderer = wRenderer.lock())
+		{
+			if (renderer->Owner()->isActive == true)
+			{
+				renderer->CollectRenderData(ctx);
+			}
+		}
+	}
 }
 
 void RenderManager::Render()
 {
 	RenderGameObject();
 
-	if (colliderRendering == true)
+	/*if (colliderRendering == true)
 	{
 		RenderCollider();
 	}
@@ -107,7 +129,7 @@ void RenderManager::Render()
 	if (uiBoundaryRendering == true)
 	{
 		RenderUIBoundary();
-	}
+	}*/
 }
 
 void RenderManager::RenderGameObject()
@@ -121,22 +143,8 @@ void RenderManager::RenderGameObject()
 	CONTEXT->UpdateSubresource(_cbPerFrame.Get(), 0, nullptr, &perFrameData, 0, 0);
 	CONTEXT->VSSetConstantBuffers(0, 1, _cbPerFrame.GetAddressOf());
 
-
-	// 렌더링 데이터 수집
-	RenderContext ctx;
-	for (auto& wRenderer : _renderers)
-	{
-		if (auto renderer = wRenderer.lock())
-		{
-			if (renderer->Owner()->isActive == true)
-			{
-				renderer->CollectRenderData(ctx);
-			}
-		}
-	}
-
 	// 바인딩
-	_spritePass->Bind(ctx);
+	_spritePass->Bind(_ctx[_read]);
 }
 
 void RenderManager::RenderCollider()

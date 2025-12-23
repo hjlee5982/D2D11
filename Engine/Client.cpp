@@ -12,7 +12,7 @@
 #include "SceneManager.h"
 #include "SoundManager.h"
 
-void Client::Initialize()
+void Client::EngineInitialize()
 {
 	LOG     .Awake();
 	TIMER   .Awake();
@@ -29,14 +29,119 @@ void Client::Initialize()
 	GAMEOBJECT.Start();
 }
 
-void Client::Update()
+void Client::UpdateSingleThread()
 {
-	TIMER.Update();
-	INPUT.Update();
-	SOUND.Update();
+	// FixedUpdate
+	f64 acc = 0.f;
+	f64 FIXED_DELTA = 1.f / 60.f;
 
-	GAMEOBJECT.Update();
-	GAMEOBJECT.LateUpdate();
+	MSG msg = { 0 };
+	while (msg.message != WM_QUIT)
+	{
+		if (::PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
+		{
+			::TranslateMessage(&msg);
+			::DispatchMessage(&msg);
+		}
+
+		acc += TIMER.DeltaTime();
+
+		while (acc >= FIXED_DELTA)
+		{
+			FixedUpdate();
+			acc = 0.f;
+		}
+
+		auto t0 = std::chrono::high_resolution_clock::now();
+
+		TIMER.Update();
+		INPUT.Update();
+		SOUND.Update();
+
+		GAMEOBJECT.Update();
+		GAMEOBJECT.LateUpdate();
+		RENDERER.CollectRenderData();
+		RENDERER.SwapContext();
+
+		DIRECTX.RenderBegin();
+		RENDERER.Render();
+		DIRECTX.RenderEnd();
+
+		auto t1 = std::chrono::high_resolution_clock::now();
+
+		f64 ms = std::chrono::duration<f64, std::milli>(t1 - t0).count();
+
+		std::cout << ms << std::endl;
+	}
+
+	Destroy();
+}
+
+void Client::UpdateMultiThread()
+{
+	// 업데이트, 렌더 스레드 실행
+	updateThread = std::thread(&Client::UpdateThread, this);
+	renderThread = std::thread(&Client::RenderThread, this);
+
+	// FixedUpdate
+	f64 acc = 0.f;
+	f64 FIXED_DELTA = 1.f / 60.f;
+
+	MSG msg = { 0 };
+	while (msg.message != WM_QUIT)
+	{
+		if (::PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
+		{
+			::TranslateMessage(&msg);
+			::DispatchMessage(&msg);
+		}
+		if (msg.message == WM_QUIT)
+		{
+			{
+				std::lock_guard<std::mutex> lock(mtx);
+				running = false;
+				cvUpdateDone.notify_all();
+				cvRenderDone.notify_all();
+			}
+			break;
+		}
+
+		acc += TIMER.DeltaTime();
+
+		while (acc >= FIXED_DELTA)
+		{
+			FixedUpdate();
+			acc = 0.f;
+		}
+
+		TIMER.Update();
+		INPUT.Update();
+		SOUND.Update();
+
+		{
+			std::lock_guard<std::mutex> lock(mtx);
+			updateDone = true;
+			cvUpdateDone.notify_one();
+		}
+		{
+			std::unique_lock<std::mutex> lock(mtx);
+			cvRenderDone.wait(lock, [&] {return renderDone || !running; });
+			if (!running)
+			{
+				break;
+			}
+			renderDone = false;
+			std::cout << _ms1 + _ms2 << std::endl;
+		}
+	}
+
+	Destroy();
+
+	cvUpdateDone.notify_all();
+	cvRenderDone.notify_all();
+
+	updateThread.join();
+	renderThread.join();
 }
 
 void Client::FixedUpdate()
@@ -60,7 +165,124 @@ void Client::Destroy()
 	SOUND.Destroy();
 }
 
+void Client::UpdateThread()
+{
+	while (running)
+	{
+		// 1) 렌더 스레드가 렌더를 끝낼 때까지 대기
+		{
+			std::unique_lock<std::mutex> lock(mtx);
+			cvRenderDone.wait(lock, [&] { return renderDone || !running; });
+
+			if (!running)
+			{
+				break;
+			}
+
+			renderDone = false;
+		}
+
+		_t0 = std::chrono::high_resolution_clock::now();
+
+		// 2) 업데이트 실행
+		GAMEOBJECT.Update();
+		GAMEOBJECT.LateUpdate();
+
+		// 3) 렌더링 데이터 생성
+		RENDERER.CollectRenderData();
+		RENDERER.SwapContext();
+
+		_t1 = std::chrono::high_resolution_clock::now();
+
+		_ms1 = std::chrono::duration<f64, std::milli>(_t1 - _t0).count();
+
+		// 4) 업데이트 완료 알림
+		std::lock_guard<std::mutex> lock(mtx);
+		updateDone = true;
+		cvUpdateDone.notify_one();
+	}
+}
+
+void Client::RenderThread()
+{
+	while (running)
+	{
+		// 1) 업데이트 완료 대기
+		{
+			std::unique_lock<std::mutex> lock(mtx);
+			cvUpdateDone.wait(lock, [&] { return updateDone || !running; });
+
+			if (!running)
+			{
+				break;
+			}
+
+			updateDone = false;
+		}
+		_t2 = std::chrono::high_resolution_clock::now();
+
+		// 2) 렌더링
+		DIRECTX.RenderBegin();
+		RENDERER.Render();
+		DIRECTX.RenderEnd();
+		_t3 = std::chrono::high_resolution_clock::now();
+
+		_ms2 = std::chrono::duration<f64, std::milli>(_t3 - _t2).count();
+
+		// 3) 렌더 완료 알림
+		{
+			std::lock_guard<std::mutex> lock(mtx);
+			renderDone = true;
+		}
+		cvRenderDone.notify_one();
+	}
+}
+
 void Client::Awake()
+{
+	// Win32 초기화
+	ClientInitialize();
+
+	// 엔진 초기화
+	EngineInitialize();
+
+	switch (ThreadIdx)
+	{
+	case 0:
+		UpdateSingleThread();
+		break;
+
+	case 1:
+		UpdateMultiThread();
+		break;
+	}
+}
+
+LRESULT CALLBACK Client::WndProc(HWND handle, UINT message, WPARAM wParam, LPARAM lParam)
+{
+	switch (message)
+	{
+	case WM_KEYDOWN:
+
+		switch (wParam)
+		{
+		case VK_ESCAPE:
+
+			DestroyWindow(handle);
+			break;
+		}
+		break;
+
+	case WM_CLOSE:
+	case WM_DESTROY:
+		PostQuitMessage(0);
+		break;
+	}
+
+	return ::DefWindowProc(handle, message, wParam, lParam);
+}
+
+void Client::ClientInitialize()
 {
 	WNDCLASSEXW wcex;
 	{
@@ -104,65 +326,4 @@ void Client::Awake()
 
 	::ShowWindow(Global::ClientOption.hWnd, SW_SHOWNORMAL);
 	::UpdateWindow(Global::ClientOption.hWnd);
-
-	Run();
-}
-
-WPARAM Client::Run()
-{
-	Initialize();
-
-	MSG msg = { 0 };
-
-	f64 acc = 0.f;
-	f64 FIXED_DELTA = 1.f / 60.f;
-
-	while (msg.message != WM_QUIT)
-	{
-		if (::PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
-		{
-			::TranslateMessage(&msg);
-			::DispatchMessage(&msg);
-		}
-
-		acc += TIMER.DeltaTime();
-
-		while (acc >= FIXED_DELTA)
-		{
-			FixedUpdate();
-			acc = 0.f;
-		}
-
-		Update();
-
-		Render();
-	}
-
-	Destroy();
-
-	return msg.wParam;
-}
-
-LRESULT CALLBACK Client::WndProc(HWND handle, UINT message, WPARAM wParam, LPARAM lParam)
-{
-	switch (message)
-	{
-	case WM_KEYDOWN:
-
-		switch (wParam)
-		{
-		case VK_ESCAPE:
-
-			DestroyWindow(handle);
-			break;
-		}
-		break;
-
-	case WM_CLOSE:
-	case WM_DESTROY:
-		PostQuitMessage(0);
-		break;
-	}
-
-	return ::DefWindowProc(handle, message, wParam, lParam);
 }

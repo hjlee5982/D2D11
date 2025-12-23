@@ -11,4 +11,9 @@ struct SpriteRendererCommand
 struct RenderContext
 {
 	List<SpriteRendererCommand> spriteCmds;
+
+	void Clear()
+	{
+		spriteCmds.clear();
+	}
 };

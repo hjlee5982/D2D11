@@ -43,6 +43,7 @@ void BackgroundController::Start()
 
 void BackgroundController::Update()
 {
+
 	auto bg1Pos = _bg1->transform->GetPosition();
 	auto bg2Pos = _bg2->transform->GetPosition();
 
@@ -60,6 +61,7 @@ void BackgroundController::Update()
 
 	_bg1->transform->SetPosition(bg1Pos);
 	_bg2->transform->SetPosition(bg2Pos);
+
 }
 
 void BackgroundController::FixedUpdate()
