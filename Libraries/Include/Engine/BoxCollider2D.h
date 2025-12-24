@@ -17,6 +17,7 @@ public:
 	virtual void Update() override;
 public:
 	virtual bool CheckCollision(const sptr<Collider>& target) override;
+	virtual void CollectRenderData(struct RenderContext& ctx) override;
 public:
 	void Offset(Vector3 offset);
 	void Size(Vector3 scale);

@@ -18,18 +18,14 @@ class Client : public Singleton<Client>
 {
 public:
 	virtual void Awake() override;
-public:
-	static LRESULT CALLBACK WndProc(HWND handle, UINT message, WPARAM wParam, LPARAM lParam);
 private:
 	void ClientInitialize();
-private:
 	void EngineInitialize();
+private:
 	void UpdateSingleThread();
 	void UpdateMultiThread();
-	void FixedUpdate();
-	void Render();
-private:
-	void Destroy();
+public:
+	static LRESULT CALLBACK WndProc(HWND handle, UINT message, WPARAM wParam, LPARAM lParam);
 
 
 	// 멀티스레딩

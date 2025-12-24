@@ -11,6 +11,7 @@
 #include "Mesh.h"
 #include "TMesh.h"
 #include "Transform.h"
+#include "RenderCommand.h"
 
 void UIText::Init()
 {
@@ -19,6 +20,27 @@ void UIText::Init()
 	_material = ASSET.Get<Material>(L"Material_UI_Font", true);
 
 	RENDERER.AddUI(shared_from_this());
+}
+
+void UIText::CollectRenderData(RenderContext& ctx)
+{
+    UIRenderCommand cmd;
+    {
+        cmd.WorldMatrix = Owner()->transform->GetWorldMatrix();
+        cmd.Color       = color;
+        cmd.Mesh        = _mesh;
+        cmd.Material    = _material;
+    }
+    ctx.uiCmds.push_back(cmd);
+
+    DebugUIRenderCommand dbgCmd;
+    {
+        dbgCmd.WorldMatrix = Owner()->transform->GetWorldMatrix();
+        dbgCmd.Color       = _debugColor;
+        dbgCmd.Mesh        = _debugMesh;
+        dbgCmd.Material    = _debugMaterial;
+    }
+    ctx.debugUICmds.push_back(dbgCmd);
 }
 
 void UIText::Text(const wstring& text)

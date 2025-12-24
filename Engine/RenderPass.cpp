@@ -6,9 +6,8 @@
 #include "Shader.h"
 #include "TMesh.h"
 
-void SpriteRenderPass::Init()
+IRenderPass::IRenderPass()
 {
-
 	// 상수 버퍼 생성
 	D3D11_BUFFER_DESC desc;
 	ZeroMemory(&desc, sizeof(desc));
@@ -20,6 +19,7 @@ void SpriteRenderPass::Init()
 	}
 	DEVICE->CreateBuffer(&desc, nullptr, &_cbPerObject);
 }
+
 
 void SpriteRenderPass::Bind(RenderContext& ctx)
 {
@@ -41,6 +41,77 @@ void SpriteRenderPass::Bind(RenderContext& ctx)
 		}
 		CONTEXT->UpdateSubresource(_cbPerObject.Get(), 0, nullptr, &perObjectData, 0, 0);
 		CONTEXT->VSSetConstantBuffers(1, 1, _cbPerObject.GetAddressOf());
+
+		// 2. 머티리얼 바인딩 ( 셰이더 + 텍스쳐 )
+		cmd.Material->Bind();
+
+		// 3. 매시 바인딩 ( VI버퍼 바인딩 + 인풋레이아웃 설정 ) + 드로우 콜
+		cmd.Mesh->Bind(cmd.Material->GetShader());
+	}
+}
+
+
+void DebugColliderRenderPass::Bind(RenderContext& ctx)
+{
+	for (auto& cmd : ctx.debugColliderCmds)
+	{
+		// 1. 상수버퍼 바인딩
+		CB_PerObject perObjectData;
+		{
+			perObjectData.worldMatrix = cmd.WorldMatrix;
+			perObjectData.UIColor     = cmd.Color;
+		}
+		CONTEXT->UpdateSubresource(_cbPerObject.Get(), 0, nullptr, &perObjectData, 0, 0);
+		CONTEXT->VSSetConstantBuffers(1, 1, _cbPerObject.GetAddressOf());
+
+		// CB_perObject의 UIColor필드는 픽셀쉐이더가 직접 사용함 = 픽셀쉐이더에도 바인딩 해야 함
+		CONTEXT->PSSetConstantBuffers(1, 1, _cbPerObject.GetAddressOf());
+	
+		// 2. 머티리얼 바인딩 ( 셰이더 + 텍스쳐 )
+		cmd.Material->Bind();
+
+		// 3. 매시 바인딩 ( VI버퍼 바인딩 + 인풋레이아웃 설정 ) + 드로우 콜
+		cmd.Mesh->Bind(cmd.Material->GetShader());
+	}
+}
+
+
+void UIRenderPass::Bind(RenderContext& ctx)
+{
+	for (auto& cmd : ctx.uiCmds)
+	{
+		// 1. 상수버퍼 바인딩
+		CB_PerObject perObjectData;
+		{
+			perObjectData.worldMatrix = cmd.WorldMatrix;
+			perObjectData.UIColor	  = cmd.Color;
+		}
+		CONTEXT->UpdateSubresource(_cbPerObject.Get(), 0, nullptr, &perObjectData, 0, 0);
+		CONTEXT->VSSetConstantBuffers(1, 1, _cbPerObject.GetAddressOf());
+		CONTEXT->PSSetConstantBuffers(1, 1, _cbPerObject.GetAddressOf());
+
+		// 2. 머티리얼 바인딩 ( 셰이더 + 텍스쳐 )
+		cmd.Material->Bind();
+
+		// 3. 매시 바인딩 ( VI버퍼 바인딩 + 인풋레이아웃 설정 ) + 드로우 콜
+		cmd.Mesh->Bind(cmd.Material->GetShader());
+	}
+}
+
+
+void DebugUIRenderPass::Bind(RenderContext& ctx)
+{
+	for (auto& cmd : ctx.debugUICmds)
+	{
+		// 1. 상수버퍼 바인딩
+		CB_PerObject perObjectData;
+		{
+			perObjectData.worldMatrix = cmd.WorldMatrix;
+			perObjectData.UIColor     = cmd.Color;
+		}
+		CONTEXT->UpdateSubresource(_cbPerObject.Get(), 0, nullptr, &perObjectData, 0, 0);
+		CONTEXT->VSSetConstantBuffers(1, 1, _cbPerObject.GetAddressOf());
+		CONTEXT->PSSetConstantBuffers(1, 1, _cbPerObject.GetAddressOf());
 
 		// 2. 머티리얼 바인딩 ( 셰이더 + 텍스쳐 )
 		cmd.Material->Bind();

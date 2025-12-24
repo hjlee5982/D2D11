@@ -12,6 +12,8 @@ class UIComponent : public Component
 public:
 	UIComponent();
 public:
+	virtual void CollectRenderData(struct RenderContext& ctx) = 0;
+public:
 	sptr<TMesh<VertexUIData>> GetMesh();
 	sptr<Material>            GetMaterial();
 public:
@@ -33,6 +35,7 @@ public:
 		return _debugMaterial;
 	}
 protected:
+	Vector4							_debugColor = Vector4(0.5f, 0.5f, 0.5f, 1.f);
 	sptr<TMesh<VertexColliderData>> _debugMesh;
 	sptr<Material>					_debugMaterial;
 };

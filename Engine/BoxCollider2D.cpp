@@ -10,6 +10,7 @@
 #include "TMesh.h"
 #include "VertexData.h"
 #include "CircleCollider2D.h"
+#include "RenderCommand.h"
 
 void BoxCollider2D::Init()
 {
@@ -22,7 +23,6 @@ void BoxCollider2D::Init()
 
 void BoxCollider2D::Start()
 {
-	
 }
 
 void BoxCollider2D::Update()
@@ -56,6 +56,18 @@ bool BoxCollider2D::CheckCollision(const sptr<Collider>& target)
 	{
 		return false;
 	}
+}
+
+void BoxCollider2D::CollectRenderData(RenderContext& ctx)
+{
+	DebugColliderRenderCommand cmd;
+	{
+		cmd.WorldMatrix = _worldTransform->GetWorldMatrix();
+		cmd.Color       = Vector4(0.f, 1.f, 0.f, 1.f);
+		cmd.Mesh        = _mesh;
+		cmd.Material    = _material;
+	}
+	ctx.debugColliderCmds.push_back(cmd);
 }
 
 void BoxCollider2D::Offset(Vector3 offset)

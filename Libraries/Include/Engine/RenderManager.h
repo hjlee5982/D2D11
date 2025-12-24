@@ -10,6 +10,9 @@ class Collider;
 class GameObject;
 class UIComponent;
 class SpriteRenderPass;
+class DebugColliderRenderPass;
+class UIRenderPass;
+class DebugUIRenderPass;
 
 class RenderManager : public Singleton<RenderManager>
 {
@@ -17,25 +20,28 @@ public:
 	virtual void Awake() override;
 public:
 	void CollectRenderData();
-	void Render();
-private:
 	void RenderGameObject();
+private:
+	void RenderSprite();
 	void RenderCollider();
 	void RenderUI();
-	void RenderUIBoundary();
+	void RenderDebugUI();
 public:
 	void AddRenderer(sptr<Renderer> renderer);
 	void AddCollider(sptr<Collider> collider);
 	void AddUI(sptr<UIComponent> ui);
 public:
-	bool colliderRendering   = false;
-	bool uiBoundaryRendering = false;
+	bool colliderRendering = false;
+	bool debugUIRendering  = false;
 private:
 	List<wptr<Renderer>>    _renderers;
 	List<wptr<Collider>>    _colliders;
 	List<wptr<UIComponent>> _uis;
 private:
-	sptr<SpriteRenderPass> _spritePass;
+	sptr<SpriteRenderPass>        _spritePass;
+	sptr<DebugColliderRenderPass> _debugColliderPass;
+	sptr<UIRenderPass>            _uiPass;
+	sptr<DebugUIRenderPass>       _debugUIPass;
 private:
 	ComPtr<ID3D11Buffer> _cbPerFrame;
 	ComPtr<ID3D11Buffer> _cbPerObject;

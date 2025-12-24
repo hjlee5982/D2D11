@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Component.h"
-#include "RenderCommand.h"
 
 class Mesh;
 class Texture;
@@ -19,7 +18,7 @@ enum class RenderQueue
 class Renderer : public Component
 {
 public:
-	virtual void CollectRenderData(RenderContext& ctx) = 0;
+	virtual void CollectRenderData(struct RenderContext& ctx) = 0;
 public:
 	sptr<TMeshBase> GetMesh();
 	sptr<Material>  GetMaterial();

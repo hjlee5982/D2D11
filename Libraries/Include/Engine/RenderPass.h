@@ -3,7 +3,8 @@
 class IRenderPass
 {
 public:
-	virtual void Init() = 0;
+	IRenderPass();
+public:
 	virtual void Bind(struct RenderContext& ctx) = 0;
 protected:
 	ComPtr<ID3D11Buffer> _cbPerObject;
@@ -13,6 +14,29 @@ protected:
 class SpriteRenderPass : public IRenderPass
 {
 public:
-	virtual void Init() override;
+	virtual void Bind(struct RenderContext& ctx) override;
+};
+
+
+
+class DebugColliderRenderPass : public IRenderPass
+{
+public:
+	virtual void Bind(struct RenderContext& ctx) override;
+};
+
+
+
+class UIRenderPass : public IRenderPass
+{
+public:
+	virtual void Bind(struct RenderContext& ctx) override;
+};
+
+
+
+class DebugUIRenderPass : public IRenderPass
+{
+public:
 	virtual void Bind(struct RenderContext& ctx) override;
 };

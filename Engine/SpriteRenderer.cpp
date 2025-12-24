@@ -7,6 +7,7 @@
 #include "Texture.h"
 #include "TMesh.h"
 #include "Transform.h"
+#include "RenderCommand.h"
 
 void SpriteRenderer::Init()
 {
@@ -18,7 +19,7 @@ void SpriteRenderer::Init()
 
 void SpriteRenderer::CollectRenderData(RenderContext& ctx)
 {
-	SpriteRendererCommand cmd;
+	SpriteRenderCommand cmd;
 	{
 		cmd.WorldMatrix  = Owner()->transform->GetWorldMatrix();
 		cmd.Mesh         = _mesh;

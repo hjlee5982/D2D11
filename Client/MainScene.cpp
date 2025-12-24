@@ -330,6 +330,6 @@ void MainScene::AddGameObject()
 
 void MainScene::EngineSetting()
 {
-	RENDERER.colliderRendering   = false;
-	RENDERER.uiBoundaryRendering = false;
+	RENDERER.colliderRendering   = true;
+	RENDERER.debugUIRendering = true;
 }

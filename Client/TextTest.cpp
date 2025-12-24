@@ -15,7 +15,7 @@
 void TextTest::Awake()
 {
 	RENDERER.colliderRendering = true;
-	RENDERER.uiBoundaryRendering = true;
+	RENDERER.debugUIRendering = true;
 
 	{
 		auto camera = Instantiate();

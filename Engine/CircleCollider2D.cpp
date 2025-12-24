@@ -7,6 +7,7 @@
 #include "RenderManager.h"
 #include "CollisionManager.h"
 #include "BoxCollider2D.h"
+#include "RenderCommand.h"
 
 void CircleCollider2D::Init()
 {
@@ -43,6 +44,10 @@ bool CircleCollider2D::CheckCollision(const sptr<Collider>& target)
 	{
 		return false;
 	}
+}
+
+void CircleCollider2D::CollectRenderData(RenderContext& ctx)
+{
 }
 
 void CircleCollider2D::Offset(Vector3 offset)

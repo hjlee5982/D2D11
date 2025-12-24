@@ -89,9 +89,10 @@ void RenderManager::Awake()
 
 
 	// 렌더 패스 생성
-	_spritePass = makeSptr<SpriteRenderPass>();
-	_spritePass->Init();
-
+	_spritePass        = makeSptr<SpriteRenderPass>();
+	_debugColliderPass = makeSptr<DebugColliderRenderPass>();
+	_uiPass            = makeSptr<UIRenderPass>();
+	_debugUIPass       = makeSptr<DebugUIRenderPass>();
 
 	// 렌더 컨텍스트 생성
 	_ctx.resize(2);
@@ -99,7 +100,7 @@ void RenderManager::Awake()
 
 void RenderManager::CollectRenderData()
 {
-	// 렌더링 데이터 수집
+	// 오브젝트 렌더링 데이터 수집
 	auto& ctx = _ctx[_write];
 	ctx.Clear();
 	
@@ -113,172 +114,116 @@ void RenderManager::CollectRenderData()
 			}
 		}
 	}
-}
 
-void RenderManager::Render()
-{
-	RenderGameObject();
-
-	/*if (colliderRendering == true)
+	// 콜라이더 렌더링 데이터 수집
+	for (auto& wCollider : _colliders)
 	{
-		RenderCollider();
+		if (auto collider = wCollider.lock())
+		{
+			if (collider->Owner()->isActive == true)
+			{
+				collider->CollectRenderData(ctx);
+			}
+		}
 	}
 
-	RenderUI();
-
-	if (uiBoundaryRendering == true)
+	// UI 렌더링 데이터 수집 (디버깅 데이터까지 같이 수집중)
+	for (auto& wUI : _uis)
 	{
-		RenderUIBoundary();
-	}*/
+		if (auto ui = wUI.lock())
+		{
+			if (ui->Owner()->isActive == true)
+			{
+				ui->CollectRenderData(ctx);
+			}
+		}
+	}
 }
 
 void RenderManager::RenderGameObject()
 {
-	// 프레임 당 업데이트 해야 할 상수버퍼 바인딩
-	CB_PerFrame perFrameData;
+	// 게임오브젝트 렌더링
 	{
-		perFrameData.viewMatrix = Global::ViewMatrix;
-		perFrameData.projMatrix = Global::ProjMatrix;
-	}
-	CONTEXT->UpdateSubresource(_cbPerFrame.Get(), 0, nullptr, &perFrameData, 0, 0);
-	CONTEXT->VSSetConstantBuffers(0, 1, _cbPerFrame.GetAddressOf());
+		// 게임오브젝트 상수버퍼 바인딩
+		CB_PerFrame perFrameData;
+		{
+			perFrameData.viewMatrix = Global::ViewMatrix;
+			perFrameData.projMatrix = Global::ProjMatrix;
+		}
+		CONTEXT->UpdateSubresource(_cbPerFrame.Get(), 0, nullptr, &perFrameData, 0, 0);
+		CONTEXT->VSSetConstantBuffers(0, 1, _cbPerFrame.GetAddressOf());
 
-	// 바인딩
+		RenderSprite();
+
+		if (colliderRendering == true)
+		{
+			RenderCollider();
+		}
+	}
+	// UI 오브젝트 렌더링
+	{
+		// UI 오브젝트 상수버퍼 바인딩
+		CB_PerFrame perFrameData;
+		{
+			perFrameData.viewMatrix = Global::UIViewMatrix;
+			perFrameData.projMatrix = Global::UIProjMatrix;
+		}
+		CONTEXT->UpdateSubresource(_cbPerFrame.Get(), 0, nullptr, &perFrameData, 0, 0);
+		CONTEXT->VSSetConstantBuffers(0, 1, _cbPerFrame.GetAddressOf());
+		RenderUI();
+
+		if (debugUIRendering == true)
+		{
+			RenderDebugUI();
+		}
+	}
+}
+
+void RenderManager::RenderSprite()
+{
+	// 스프라이트 렌더 데이터 바인딩
 	_spritePass->Bind(_ctx[_read]);
 }
 
 void RenderManager::RenderCollider()
 {
 	// 콜라이더는 와이어 프레임
-	CONTEXT->RSSetState(_wireFrameRS.Get());
-
 	// 콜라이더는 일반 물체와 그리는 법이 달라서 토폴로지를 따로 설정해줘야 함
+	CONTEXT->RSSetState(_wireFrameRS.Get());
 	CONTEXT->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_LINELIST);
 
-	// 오브젝트 당 업데이트 해야 할 요소
-	for (wptr<Collider>& wCollider : _colliders)
-	{
-		if (auto collider = wCollider.lock())
-		{
-			if (collider->gameObject.lock()->isActive == true)
-			{
-				// 1. 상수버퍼 바인딩
-				CB_PerObject perObjectData;
-				{
-					perObjectData.worldMatrix = collider->GetTransform()->GetWorldMatrix();
-					perObjectData.UIColor     = Vector4(0.f, 1.f, 0.f, 1.f);
-				}
-				CONTEXT->UpdateSubresource(_cbPerObject.Get(), 0, nullptr, &perObjectData, 0, 0);
-				CONTEXT->VSSetConstantBuffers(1, 1, _cbPerObject.GetAddressOf());
 
-				// CB_perObject의 UIColor필드는 픽셀쉐이더가 직접 사용함 = 픽셀쉐이더에도 바인딩 해야 함
-				CONTEXT->PSSetConstantBuffers(1, 1, _cbPerObject.GetAddressOf());
+	// 콜라이더 렌더 데이터 바인딩
+	_debugColliderPass->Bind(_ctx[_read]);
 
-
-				// 2. 머티리얼 바인딩 ( 셰이더 + 텍스쳐 바인딩 )
-				auto material = collider->GetMaterial();
-				material->Bind();
-
-
-				// 3. 매시 바인딩 ( 버텍스 + 인덱스 버퍼 바인딩 + 인풋레이아웃 설정 ) + 드로우 콜
-				auto mesh = collider->GetMesh();
-				mesh->Bind(material->GetShader());
-			}
-		}
-	}
 
 	// 와이어 프레임 해제
-	CONTEXT->RSSetState(_defaultRS.Get());
-
 	// 토폴로지 원상복구
+	CONTEXT->RSSetState(_defaultRS.Get());
 	CONTEXT->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 }
 
 void RenderManager::RenderUI()
 {
-	// 프레임 당 업데이트 해야 할 요소
-	// 1. 상수버퍼 바인딩
-	CB_PerFrame perFrameData;
-	{
-		perFrameData.viewMatrix = Global::UIViewMatrix;
-		perFrameData.projMatrix = Global::UIProjMatrix;
-	}
-	CONTEXT->UpdateSubresource(_cbPerFrame.Get(), 0, nullptr, &perFrameData, 0, 0);
-	CONTEXT->VSSetConstantBuffers(0, 1, _cbPerFrame.GetAddressOf());
-
-	for (auto& uiComp : _uis)
-	{
-		if (auto ui = uiComp.lock())
-		{
-			if (ui->Owner()->isActive == false)
-			{
-				continue;
-			}
-
-			// 1. 상수버퍼 바인딩
-			CB_PerObject perObjectData;
-			{
-				perObjectData.worldMatrix = ui->Owner()->transform->GetWorldMatrix();
-				perObjectData.UIColor = ui->color;
-			}
-			CONTEXT->UpdateSubresource(_cbPerObject.Get(), 0, nullptr, &perObjectData, 0, 0);
-			CONTEXT->VSSetConstantBuffers(1, 1, _cbPerObject.GetAddressOf());
-			CONTEXT->PSSetConstantBuffers(1, 1, _cbPerObject.GetAddressOf());
-			
-			
-			// 2. 머티리얼 바인딩 ( 셰이더 + 텍스쳐 바인딩 )
-			auto material = ui->GetMaterial();
-			material->Bind();
-
-
-			// 3. 매시 바인딩 ( 버텍스 + 인덱스 버퍼 바인딩 ) + 드로우 콜
-			auto mesh = ui->GetMesh();
-			mesh->Bind(material->GetShader());
-		}
-	}
+	// UI 렌더 데이터 바인딩
+	_uiPass->Bind(_ctx[_read]);
 }
 
-void RenderManager::RenderUIBoundary()
+void RenderManager::RenderDebugUI()
 {
-	// 콜라이더는 와이어 프레임
+	// UI 경계는 와이어 프레임
+	// UI 경계는 일반 물체와 그리는 법이 달라서 토폴로지를 따로 설정해줘야 함
 	CONTEXT->RSSetState(_wireFrameRS.Get());
-
-	// 콜라이더는 일반 물체와 그리는 법이 달라서 토폴로지를 따로 설정해줘야 함
 	CONTEXT->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_LINELIST);
 
-	// 오브젝트 당 업데이트 해야 할 요소
-	for (wptr<UIComponent>& wBoundary : _uis)
-	{
-		if (auto boundary = wBoundary.lock())
-		{
-			if (boundary->gameObject.lock()->isActive == true)
-			{
-				// 1. 상수버퍼 바인딩
-				CB_PerObject perObjectData;
-				{
-					perObjectData.worldMatrix = boundary->Owner()->transform->GetWorldMatrix();
-					perObjectData.UIColor     = Vector4(0.5f, 0.5f, 0.5f, 1.f);
-				}
-				CONTEXT->UpdateSubresource(_cbPerObject.Get(), 0, nullptr, &perObjectData, 0, 0);
-				CONTEXT->VSSetConstantBuffers(1, 1, _cbPerObject.GetAddressOf());
 
+	// UI 경계 렌더 데이터 바인딩
+	_debugUIPass->Bind(_ctx[_read]);
 
-				// 2. 머티리얼 바인딩 ( 셰이더 + 텍스쳐 바인딩 )
-				auto material = boundary->GetDebugMaterial();
-				material->Bind();
-
-
-				// 3. 매시 바인딩 ( 버텍스 + 인덱스 버퍼 바인딩 + 인풋레이아웃 설정 ) + 드로우 콜
-				auto mesh = boundary->GetDebugMesh();
-				mesh->Bind(material->GetShader());
-			}
-		}
-	}
 
 	// 와이어 프레임 해제
-	CONTEXT->RSSetState(_defaultRS.Get());
-
 	// 토폴로지 원상복구
+	CONTEXT->RSSetState(_defaultRS.Get());
 	CONTEXT->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 }
 

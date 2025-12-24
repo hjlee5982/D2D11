@@ -26,7 +26,8 @@ enum class EVerticalAlignment
 class UIText : public UIComponent, public std::enable_shared_from_this<UIText>
 {
 public:
-	void Init();
+	virtual void Init() override;
+	virtual void CollectRenderData(struct RenderContext& ctx) override;
 public:
 	void Text(const wstring& text);
 	void Alignment(EHorizontalAlignment horizontal, EVerticalAlignment vertical = EVerticalAlignment::Center);

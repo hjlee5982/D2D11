@@ -12,6 +12,72 @@
 #include "SceneManager.h"
 #include "SoundManager.h"
 
+void Client::Awake()
+{
+	// Win32 초기화
+	ClientInitialize();
+
+	// 엔진 초기화
+	EngineInitialize();
+
+	switch (ThreadIdx)
+	{
+	case 0:
+		UpdateSingleThread();
+		break;
+
+	case 1:
+		UpdateMultiThread();
+		break;
+	}
+}
+
+void Client::ClientInitialize()
+{
+	WNDCLASSEXW wcex;
+	{
+		wcex.cbSize        = sizeof(WNDCLASSEX);
+		wcex.style         = CS_HREDRAW | CS_VREDRAW;
+		wcex.lpfnWndProc   = WndProc;
+		wcex.cbClsExtra    = 0;
+		wcex.cbWndExtra    = 0;
+		wcex.hInstance     = Global::ClientOption.hInstance = GetModuleHandle(NULL);
+		wcex.hIcon         = ::LoadIcon(NULL, IDI_WINLOGO);
+		wcex.hCursor       = ::LoadCursor(nullptr, IDC_ARROW);
+		wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
+		wcex.lpszMenuName  = NULL;
+		wcex.lpszClassName = Global::ClientOption.appName.c_str();
+		wcex.hIconSm       = wcex.hIcon;
+	}
+	RegisterClassExW(&wcex);
+
+	RECT windowRect = { 0, 0, Global::ClientOption.width, Global::ClientOption.height };
+	::AdjustWindowRect(&windowRect, WS_OVERLAPPEDWINDOW, false);
+
+	Global::ClientOption.hWnd = CreateWindowW
+	(
+		Global::ClientOption.appName.c_str(),
+		Global::ClientOption.appName.c_str(),
+		WS_OVERLAPPEDWINDOW,
+		CW_USEDEFAULT,
+		CW_USEDEFAULT,
+		windowRect.right - windowRect.left,
+		windowRect.bottom - windowRect.top,
+		nullptr,
+		nullptr,
+		Global::ClientOption.hInstance,
+		nullptr
+	);
+
+	if (!Global::ClientOption.hWnd)
+	{
+		return;
+	}
+
+	::ShowWindow(Global::ClientOption.hWnd, SW_SHOWNORMAL);
+	::UpdateWindow(Global::ClientOption.hWnd);
+}
+
 void Client::EngineInitialize()
 {
 	LOG     .Awake();
@@ -48,7 +114,8 @@ void Client::UpdateSingleThread()
 
 		while (acc >= FIXED_DELTA)
 		{
-			FixedUpdate();
+			GAMEOBJECT.FixedUpdate();
+			COLLISION.FixedUpate();
 			acc = 0.f;
 		}
 
@@ -64,7 +131,7 @@ void Client::UpdateSingleThread()
 		RENDERER.SwapContext();
 
 		DIRECTX.RenderBegin();
-		RENDERER.Render();
+		RENDERER.RenderGameObject();
 		DIRECTX.RenderEnd();
 
 		auto t1 = std::chrono::high_resolution_clock::now();
@@ -74,7 +141,8 @@ void Client::UpdateSingleThread()
 		std::cout << ms << std::endl;
 	}
 
-	Destroy();
+	SCENE.SaveScene();
+	SOUND.Destroy();
 }
 
 void Client::UpdateMultiThread()
@@ -110,7 +178,8 @@ void Client::UpdateMultiThread()
 
 		while (acc >= FIXED_DELTA)
 		{
-			FixedUpdate();
+			GAMEOBJECT.FixedUpdate();
+			COLLISION.FixedUpate();
 			acc = 0.f;
 		}
 
@@ -135,34 +204,14 @@ void Client::UpdateMultiThread()
 		}
 	}
 
-	Destroy();
+	SCENE.SaveScene();
+	SOUND.Destroy();
 
 	cvUpdateDone.notify_all();
 	cvRenderDone.notify_all();
 
 	updateThread.join();
 	renderThread.join();
-}
-
-void Client::FixedUpdate()
-{
-	GAMEOBJECT.FixedUpdate();
-	COLLISION.FixedUpate();
-}
-
-void Client::Render()
-{
-	DIRECTX.RenderBegin();
-
-	RENDERER.Render();
-
-	DIRECTX.RenderEnd();
-}
-
-void Client::Destroy()
-{
-	SCENE.SaveScene();
-	SOUND.Destroy();
 }
 
 void Client::UpdateThread()
@@ -223,7 +272,7 @@ void Client::RenderThread()
 
 		// 2) 렌더링
 		DIRECTX.RenderBegin();
-		RENDERER.Render();
+		RENDERER.RenderGameObject();
 		DIRECTX.RenderEnd();
 		_t3 = std::chrono::high_resolution_clock::now();
 
@@ -235,26 +284,6 @@ void Client::RenderThread()
 			renderDone = true;
 		}
 		cvRenderDone.notify_one();
-	}
-}
-
-void Client::Awake()
-{
-	// Win32 초기화
-	ClientInitialize();
-
-	// 엔진 초기화
-	EngineInitialize();
-
-	switch (ThreadIdx)
-	{
-	case 0:
-		UpdateSingleThread();
-		break;
-
-	case 1:
-		UpdateMultiThread();
-		break;
 	}
 }
 
@@ -282,48 +311,4 @@ LRESULT CALLBACK Client::WndProc(HWND handle, UINT message, WPARAM wParam, LPARA
 	return ::DefWindowProc(handle, message, wParam, lParam);
 }
 
-void Client::ClientInitialize()
-{
-	WNDCLASSEXW wcex;
-	{
-		wcex.cbSize        = sizeof(WNDCLASSEX);
-		wcex.style         = CS_HREDRAW | CS_VREDRAW;
-		wcex.lpfnWndProc   = WndProc;
-		wcex.cbClsExtra    = 0;
-		wcex.cbWndExtra    = 0;
-		wcex.hInstance     = Global::ClientOption.hInstance = GetModuleHandle(NULL);
-		wcex.hIcon         = ::LoadIcon(NULL, IDI_WINLOGO);
-		wcex.hCursor       = ::LoadCursor(nullptr, IDC_ARROW);
-		wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
-		wcex.lpszMenuName  = NULL;
-		wcex.lpszClassName = Global::ClientOption.appName.c_str();
-		wcex.hIconSm       = wcex.hIcon;
-	}
-	RegisterClassExW(&wcex);
 
-	RECT windowRect = { 0, 0, Global::ClientOption.width, Global::ClientOption.height };
-	::AdjustWindowRect(&windowRect, WS_OVERLAPPEDWINDOW, false);
-
-	Global::ClientOption.hWnd = CreateWindowW
-	(
-		Global::ClientOption.appName.c_str(),
-		Global::ClientOption.appName.c_str(),
-		WS_OVERLAPPEDWINDOW,
-		CW_USEDEFAULT,
-		CW_USEDEFAULT,
-		windowRect.right - windowRect.left,
-		windowRect.bottom - windowRect.top,
-		nullptr,
-		nullptr,
-		Global::ClientOption.hInstance,
-		nullptr
-	);
-
-	if (!Global::ClientOption.hWnd)
-	{
-		return;
-	}
-
-	::ShowWindow(Global::ClientOption.hWnd, SW_SHOWNORMAL);
-	::UpdateWindow(Global::ClientOption.hWnd);
-}
