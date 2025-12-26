@@ -29,6 +29,10 @@ void Client::Awake()
 	case 1:
 		UpdateMultiThread();
 		break;
+
+	case 2:
+		UpdateMultiSemThread();
+		break;
 	}
 }
 
@@ -148,7 +152,6 @@ void Client::UpdateSingleThread()
 void Client::UpdateMultiThread()
 {
 	// 업데이트, 렌더 스레드 실행
-	updateThread = std::thread(&Client::UpdateThread, this);
 	renderThread = std::thread(&Client::RenderThread, this);
 
 	// FixedUpdate
@@ -165,12 +168,10 @@ void Client::UpdateMultiThread()
 		}
 		if (msg.message == WM_QUIT)
 		{
-			{
-				std::lock_guard<std::mutex> lock(mtx);
-				running = false;
-				cvUpdateDone.notify_all();
-				cvRenderDone.notify_all();
-			}
+			std::lock_guard<std::mutex> lock(mtx);
+			cvRender.notify_one();
+			running = false;
+
 			break;
 		}
 
@@ -187,103 +188,114 @@ void Client::UpdateMultiThread()
 		INPUT.Update();
 		SOUND.Update();
 
-		{
-			std::lock_guard<std::mutex> lock(mtx);
-			updateDone = true;
-			cvUpdateDone.notify_one();
-		}
-		{
-			std::unique_lock<std::mutex> lock(mtx);
-			cvRenderDone.wait(lock, [&] {return renderDone || !running; });
-			if (!running)
-			{
-				break;
-			}
-			renderDone = false;
-			std::cout << _ms1 + _ms2 << std::endl;
-		}
+		GAMEOBJECT.Update();
+		GAMEOBJECT.LateUpdate();
+
+		RENDERER.CollectRenderData();
+
+
+		std::lock_guard<std::mutex> lock(mtx);
+		RENDERER.SwapContext();
+
+		renderReady = true;
+
+		cvRender.notify_one();
 	}
 
 	SCENE.SaveScene();
 	SOUND.Destroy();
 
-	cvUpdateDone.notify_all();
-	cvRenderDone.notify_all();
+	cvRender.notify_all();
 
-	updateThread.join();
 	renderThread.join();
 }
 
-void Client::UpdateThread()
+void Client::UpdateMultiSemThread()
 {
-	while (running)
+	// 업데이트, 렌더 스레드 실행
+	renderSemThread = std::thread(&Client::UpdateSemRender, this);
+
+	// FixedUpdate
+	f64 acc = 0.f;
+	f64 FIXED_DELTA = 1.f / 60.f;
+
+	MSG msg = { 0 };
+	while (msg.message != WM_QUIT)
 	{
-		// 1) 렌더 스레드가 렌더를 끝낼 때까지 대기
+		if (::PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
 		{
-			std::unique_lock<std::mutex> lock(mtx);
-			cvRenderDone.wait(lock, [&] { return renderDone || !running; });
-
-			if (!running)
-			{
-				break;
-			}
-
-			renderDone = false;
+			::TranslateMessage(&msg);
+			::DispatchMessage(&msg);
+		}
+		if (msg.message == WM_QUIT)
+		{
+			//std::lock_guard<std::mutex> lock(mtx);
+			aRunning = false;
+			semRenderReady.release();
 		}
 
-		_t0 = std::chrono::high_resolution_clock::now();
+		acc += TIMER.DeltaTime();
 
-		// 2) 업데이트 실행
+		while (acc >= FIXED_DELTA)
+		{
+			GAMEOBJECT.FixedUpdate();
+			COLLISION.FixedUpate();
+			acc = 0.f;
+		}
+
+		TIMER.Update();
+		INPUT.Update();
+		SOUND.Update();
+
 		GAMEOBJECT.Update();
 		GAMEOBJECT.LateUpdate();
 
-		// 3) 렌더링 데이터 생성
 		RENDERER.CollectRenderData();
+
+		std::lock_guard<std::mutex> lock(mtx);
 		RENDERER.SwapContext();
 
-		_t1 = std::chrono::high_resolution_clock::now();
-
-		_ms1 = std::chrono::duration<f64, std::milli>(_t1 - _t0).count();
-
-		// 4) 업데이트 완료 알림
-		std::lock_guard<std::mutex> lock(mtx);
-		updateDone = true;
-		cvUpdateDone.notify_one();
+		semRenderReady.release();
 	}
+
+	SCENE.SaveScene();
+	SOUND.Destroy();
+
+	semRenderReady.release();
+
+	renderSemThread.join();
 }
 
 void Client::RenderThread()
 {
 	while (running)
 	{
-		// 1) 업데이트 완료 대기
-		{
-			std::unique_lock<std::mutex> lock(mtx);
-			cvUpdateDone.wait(lock, [&] { return updateDone || !running; });
+		std::unique_lock<std::mutex> lock(mtx);
+		cvRender.wait(lock, [&] {return renderReady || !running; });
 
-			if (!running)
-			{
-				break;
-			}
+		if (!running) break;
 
-			updateDone = false;
-		}
-		_t2 = std::chrono::high_resolution_clock::now();
+		renderReady = false;
 
-		// 2) 렌더링
+		lock.unlock();
+
 		DIRECTX.RenderBegin();
 		RENDERER.RenderGameObject();
 		DIRECTX.RenderEnd();
-		_t3 = std::chrono::high_resolution_clock::now();
+	}
+}
 
-		_ms2 = std::chrono::duration<f64, std::milli>(_t3 - _t2).count();
+void Client::UpdateSemRender()
+{
+	while (aRunning)
+	{
+		semRenderReady.acquire();
 
-		// 3) 렌더 완료 알림
-		{
-			std::lock_guard<std::mutex> lock(mtx);
-			renderDone = true;
-		}
-		cvRenderDone.notify_one();
+		if (!aRunning.load()) break;
+
+		DIRECTX.RenderBegin();
+		RENDERER.RenderGameObject();
+		DIRECTX.RenderEnd();
 	}
 }
 

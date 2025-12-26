@@ -28,6 +28,7 @@
 #include <queue>
 #include <mutex>
 #include <condition_variable>
+#include <semaphore>
 
 /* DirectX11 Çì´õ */
 #define DIRECTINPUT_VERSION 0x0800
