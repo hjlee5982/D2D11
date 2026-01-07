@@ -12,6 +12,8 @@
 #include "SceneManager.h"
 #include "SoundManager.h"
 
+#include "DebugTimer.h"
+
 void Client::Awake()
 {
 	// Win32 초기화
@@ -28,10 +30,6 @@ void Client::Awake()
 
 	case 1:
 		UpdateMultiThread();
-		break;
-
-	case 2:
-		UpdateMultiSemThread();
 		break;
 	}
 }
@@ -108,6 +106,9 @@ void Client::UpdateSingleThread()
 	MSG msg = { 0 };
 	while (msg.message != WM_QUIT)
 	{
+		TimeMeasurement totalFrameTimer;
+
+
 		if (::PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
 		{
 			::TranslateMessage(&msg);
@@ -123,7 +124,7 @@ void Client::UpdateSingleThread()
 			acc = 0.f;
 		}
 
-		auto t0 = std::chrono::high_resolution_clock::now();
+		TimeMeasurement cpuWorkTimer;
 
 		TIMER.Update();
 		INPUT.Update();
@@ -131,18 +132,46 @@ void Client::UpdateSingleThread()
 
 		GAMEOBJECT.Update();
 		GAMEOBJECT.LateUpdate();
+
 		RENDERER.CollectRenderData();
 		RENDERER.SwapContext();
+
+		f64 cpuWorkDuration = cpuWorkTimer.GetDurationUs();
+		stCumulativeCpuWorkTime += cpuWorkDuration; // 누적
 
 		DIRECTX.RenderBegin();
 		RENDERER.RenderGameObject();
 		DIRECTX.RenderEnd();
 
-		auto t1 = std::chrono::high_resolution_clock::now();
+		//  프레임 종료 시간 측정 및 누적 (ST_TotalFrame)
+		f64 totalFrameDuration = totalFrameTimer.GetDurationUs();
+		stCumulativeTotalFrameTime += totalFrameDuration; // 누적
+		stFrameCount++;
 
-		f64 ms = std::chrono::duration<f64, std::milli>(t1 - t0).count();
+		// =========================================================
+		// 3. 통계 출력 로직 (1초마다)
+		auto now = std::chrono::high_resolution_clock::now();
+		f64 elapsedSec = std::chrono::duration_cast<std::chrono::duration<f64>>(now - lastLogTime).count();
 
-		std::cout << ms << std::endl;
+		if (elapsedSec >= LOG_INTERVAL_SEC)
+		{
+			std::lock_guard<std::mutex> lock(g_log_mutex); // 출력 뮤텍스 사용
+
+			f64 avgTotalFrame = stCumulativeTotalFrameTime / stFrameCount;
+			f64 avgCpuWork = stCumulativeCpuWorkTime / stFrameCount;
+			f64 avgFPS = 1.0 / (avgTotalFrame / 1000000.0); // us를 초로 변환
+
+			std::cout << "[ST STATS] Frames: " << stFrameCount
+				<< " | Avg FPS: " << std::fixed << std::setprecision(2) << avgFPS
+				<< " | Avg Total Time: " << avgTotalFrame << " us"
+				<< " | Avg CPU Work Time: " << avgCpuWork << " us" << std::endl;
+
+			// 리셋
+			stCumulativeTotalFrameTime = 0.0;
+			stCumulativeCpuWorkTime = 0.0;
+			stFrameCount = 0;
+			lastLogTime = now;
+		}
 	}
 
 	SCENE.SaveScene();
@@ -161,6 +190,9 @@ void Client::UpdateMultiThread()
 	MSG msg = { 0 };
 	while (msg.message != WM_QUIT)
 	{
+		TimeMeasurement totalFrameTimer;
+
+
 		if (::PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
 		{
 			::TranslateMessage(&msg);
@@ -168,11 +200,9 @@ void Client::UpdateMultiThread()
 		}
 		if (msg.message == WM_QUIT)
 		{
-			std::lock_guard<std::mutex> lock(mtx);
-			cvRender.notify_one();
-			running = false;
-
-			break;
+			aRunning = false;
+			semBufferFreeSignal.release();
+			semRenderReadySignal.release();
 		}
 
 		acc += TIMER.DeltaTime();
@@ -191,111 +221,70 @@ void Client::UpdateMultiThread()
 		GAMEOBJECT.Update();
 		GAMEOBJECT.LateUpdate();
 
+		TimeMeasurement cpuWaitTimer;
+		semBufferFreeSignal.acquire();
+		f64 cpuWaitDuration = cpuWaitTimer.GetDurationUs();
+		cumulativeCpuWaitTime += cpuWaitDuration;
+
 		RENDERER.CollectRenderData();
 
-
 		std::lock_guard<std::mutex> lock(mtx);
-		RENDERER.SwapContext();
+		RENDERER.SwapTripleContext();
 
-		renderReady = true;
+		semRenderReadySignal.release();
 
-		cvRender.notify_one();
+
+		f64 totalFrameDuration = totalFrameTimer.GetDurationUs();
+		cumulativeTotalFrameTime += totalFrameDuration;
+		frameCount++;
+
+
+		auto now = std::chrono::high_resolution_clock::now();
+		f64 elapsedSec = std::chrono::duration_cast<std::chrono::duration<f64>>(now - lastLogTime).count();
+
+		if (elapsedSec >= LOG_INTERVAL_SEC)
+		{
+			std::lock_guard<std::mutex> lock(g_log_mutex);
+
+			f64 avgCpuWait = cumulativeCpuWaitTime / frameCount;
+			f64 avgTotalFrame = cumulativeTotalFrameTime / frameCount;
+			f64 avgFPS = 1.0 / (avgTotalFrame / 1000000.0);
+
+			std::cout << "[MT STATS] Frames: " << frameCount
+				<< " | Avg FPS: " << std::fixed << std::setprecision(2) << avgFPS
+				<< " | Avg Total Time: " << avgTotalFrame << " us"
+				<< " | Avg CPU Wait: " << avgCpuWait << " us" << std::endl;
+
+			// 리셋
+			cumulativeCpuWaitTime = 0.0;
+			cumulativeTotalFrameTime = 0.0;
+			frameCount = 0;
+			lastLogTime = now;
+		}
 	}
 
 	SCENE.SaveScene();
 	SOUND.Destroy();
 
-	cvRender.notify_all();
+	semBufferFreeSignal.release();
+	semRenderReadySignal.release();
 
 	renderThread.join();
 }
 
-void Client::UpdateMultiSemThread()
-{
-	// 업데이트, 렌더 스레드 실행
-	renderSemThread = std::thread(&Client::UpdateSemRender, this);
-
-	// FixedUpdate
-	f64 acc = 0.f;
-	f64 FIXED_DELTA = 1.f / 60.f;
-
-	MSG msg = { 0 };
-	while (msg.message != WM_QUIT)
-	{
-		if (::PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
-		{
-			::TranslateMessage(&msg);
-			::DispatchMessage(&msg);
-		}
-		if (msg.message == WM_QUIT)
-		{
-			//std::lock_guard<std::mutex> lock(mtx);
-			aRunning = false;
-			semRenderReady.release();
-		}
-
-		acc += TIMER.DeltaTime();
-
-		while (acc >= FIXED_DELTA)
-		{
-			GAMEOBJECT.FixedUpdate();
-			COLLISION.FixedUpate();
-			acc = 0.f;
-		}
-
-		TIMER.Update();
-		INPUT.Update();
-		SOUND.Update();
-
-		GAMEOBJECT.Update();
-		GAMEOBJECT.LateUpdate();
-
-		RENDERER.CollectRenderData();
-
-		std::lock_guard<std::mutex> lock(mtx);
-		RENDERER.SwapContext();
-
-		semRenderReady.release();
-	}
-
-	SCENE.SaveScene();
-	SOUND.Destroy();
-
-	semRenderReady.release();
-
-	renderSemThread.join();
-}
-
 void Client::RenderThread()
 {
-	while (running)
+	while (aRunning.load())
 	{
-		std::unique_lock<std::mutex> lock(mtx);
-		cvRender.wait(lock, [&] {return renderReady || !running; });
-
-		if (!running) break;
-
-		renderReady = false;
-
-		lock.unlock();
-
-		DIRECTX.RenderBegin();
-		RENDERER.RenderGameObject();
-		DIRECTX.RenderEnd();
-	}
-}
-
-void Client::UpdateSemRender()
-{
-	while (aRunning)
-	{
-		semRenderReady.acquire();
+		semRenderReadySignal.acquire();
 
 		if (!aRunning.load()) break;
 
 		DIRECTX.RenderBegin();
 		RENDERER.RenderGameObject();
 		DIRECTX.RenderEnd();
+
+		semBufferFreeSignal.release();
 	}
 }
 

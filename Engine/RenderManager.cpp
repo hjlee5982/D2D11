@@ -95,7 +95,7 @@ void RenderManager::Awake()
 	_debugUIPass       = makeSptr<DebugUIRenderPass>();
 
 	// 렌더 컨텍스트 생성
-	_ctx.resize(2);
+	_ctx.resize(3);
 }
 
 void RenderManager::CollectRenderData()
@@ -240,4 +240,15 @@ void RenderManager::AddCollider(sptr<Collider> collider)
 void RenderManager::AddUI(sptr<UIComponent> ui)
 {
 	_uis.push_back(ui);
+}
+
+void RenderManager::SwapTripleContext()
+{
+	i32 next_read  = _write;
+	i32 next_write = _free;
+	i32 next_free  = _read;
+
+	_write = _free;
+	_read  = _write;
+	_free  = _read;
 }

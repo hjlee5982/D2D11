@@ -59,8 +59,12 @@ public:
 	{
 		std::swap(_read, _write);
 	}
+	// 삼중 버퍼링
+public:
+	void SwapTripleContext();
 private:
 	List<RenderContext> _ctx;
 	i32 _write = 0;
 	i32 _read  = 1;
+	i32 _free  = 2;
 };

@@ -339,6 +339,9 @@
     <ClInclude Include="Collider.h">
       <Filter>10. Component\GameObject\Collider</Filter>
     </ClInclude>
+    <ClInclude Include="DebugTimer.h">
+      <Filter>00. Utility\Timer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -496,6 +499,9 @@
     </ClCompile>
     <ClCompile Include="Collider.cpp">
       <Filter>10. Component\GameObject\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugTimer.cpp">
+      <Filter>00. Utility\Timer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

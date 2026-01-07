@@ -38,4 +38,7 @@ private:
 private:
 	u32 _FPS        = 0;
 	u32 _frameCount = 0;
+
 };
+
+
