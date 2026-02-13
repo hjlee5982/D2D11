@@ -170,6 +170,7 @@ xcopy /Y /D "$(SolutionDir)Engine\*.hpp" "$(SolutionDir)Libraries\Include\Engine
     <ClInclude Include="Collider.h" />
     <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="Component.h" />
+    <ClInclude Include="ComponentMacro.h" />
     <ClInclude Include="DebugTimer.h" />
     <ClInclude Include="EngineEvent.h" />
     <ClInclude Include="EventManager.h" />
@@ -179,7 +180,10 @@ xcopy /Y /D "$(SolutionDir)Engine\*.hpp" "$(SolutionDir)Libraries\Include\Engine
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="RenderPass.h" />
     <ClInclude Include="SoundManager.h" />
+    <ClInclude Include="TestComponent.h" />
+    <ClInclude Include="TestTransform.h" />
     <ClInclude Include="TMesh.h" />
+    <ClInclude Include="TypeRegistry.h" />
     <ClInclude Include="UIComponent.h" />
     <ClInclude Include="UIImage.h" />
     <ClInclude Include="IReflection.h" />
@@ -234,6 +238,7 @@ xcopy /Y /D "$(SolutionDir)Engine\*.hpp" "$(SolutionDir)Libraries\Include\Engine
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="Component.cpp" />
+    <ClCompile Include="ComponentMacro.cpp" />
     <ClCompile Include="DebugTimer.cpp" />
     <ClCompile Include="EventManager.cpp" />
     <ClCompile Include="FontManager.cpp" />
@@ -241,7 +246,10 @@ xcopy /Y /D "$(SolutionDir)Engine\*.hpp" "$(SolutionDir)Libraries\Include\Engine
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="RenderPass.cpp" />
     <ClCompile Include="SoundManager.cpp" />
+    <ClCompile Include="TestComponent.cpp" />
+    <ClCompile Include="TestTransform.cpp" />
     <ClCompile Include="TMesh.cpp" />
+    <ClCompile Include="TypeRegistry.cpp" />
     <ClCompile Include="UIComponent.cpp" />
     <ClCompile Include="UIImage.cpp" />
     <ClCompile Include="IReflection.cpp" />

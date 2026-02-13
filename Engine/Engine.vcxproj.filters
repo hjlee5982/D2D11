@@ -136,6 +136,9 @@
     <Filter Include="10. Component\GameObject\Collider\CircleCollider">
       <UniqueIdentifier>{cbe92632-d0b8-45c5-bd71-a599bbf22819}</UniqueIdentifier>
     </Filter>
+    <Filter Include="99. HeaderTool">
+      <UniqueIdentifier>{adecc00a-378d-47f7-b337-eb7dbeac670d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -342,6 +345,18 @@
     <ClInclude Include="DebugTimer.h">
       <Filter>00. Utility\Timer</Filter>
     </ClInclude>
+    <ClInclude Include="TypeRegistry.h">
+      <Filter>99. HeaderTool</Filter>
+    </ClInclude>
+    <ClInclude Include="TestComponent.h">
+      <Filter>99. HeaderTool</Filter>
+    </ClInclude>
+    <ClInclude Include="TestTransform.h">
+      <Filter>99. HeaderTool</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentMacro.h">
+      <Filter>99. HeaderTool</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -502,6 +517,18 @@
     </ClCompile>
     <ClCompile Include="DebugTimer.cpp">
       <Filter>00. Utility\Timer</Filter>
+    </ClCompile>
+    <ClCompile Include="TypeRegistry.cpp">
+      <Filter>99. HeaderTool</Filter>
+    </ClCompile>
+    <ClCompile Include="TestComponent.cpp">
+      <Filter>99. HeaderTool</Filter>
+    </ClCompile>
+    <ClCompile Include="TestTransform.cpp">
+      <Filter>99. HeaderTool</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponentMacro.cpp">
+      <Filter>99. HeaderTool</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

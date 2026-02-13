@@ -28,7 +28,6 @@ public:
 	static LRESULT CALLBACK WndProc(HWND handle, UINT message, WPARAM wParam, LPARAM lParam);
 
 
-
 	// 멀티스레딩
 private:
 	std::mutex mtx;
@@ -37,7 +36,6 @@ private:
 	std::thread renderThread;
 private:
 	void RenderThread();
-	// 삼중 버퍼링
 private:
 	std::binary_semaphore semRenderReadySignal{ 0 };
 	std::binary_semaphore semBufferFreeSignal{ 1 };
@@ -45,7 +43,8 @@ private:
 private:
 	i32 ThreadIdx = 1;
 
-
+	// 성능 디버깅
+private:
 	i32 frameCount = 0;
 	f64 cumulativeCpuWaitTime = 0.0;
 	f64 cumulativeTotalFrameTime = 0.0;
@@ -61,5 +60,10 @@ private:
 	f64 stCumulativeCpuWorkTime = 0.0;
 
 	std::mutex g_log_mutex;
+
+
+
+private:
+	void UHT();
 };
 

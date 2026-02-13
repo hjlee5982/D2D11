@@ -14,6 +14,8 @@
 
 #include "DebugTimer.h"
 
+
+
 void Client::Awake()
 {
 	// Win32 초기화
@@ -21,6 +23,8 @@ void Client::Awake()
 
 	// 엔진 초기화
 	EngineInitialize();
+
+	UHT();
 
 	switch (ThreadIdx)
 	{
@@ -106,8 +110,7 @@ void Client::UpdateSingleThread()
 	MSG msg = { 0 };
 	while (msg.message != WM_QUIT)
 	{
-		TimeMeasurement totalFrameTimer;
-
+		//TimeMeasurement totalFrameTimer;
 
 		if (::PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
 		{
@@ -124,7 +127,7 @@ void Client::UpdateSingleThread()
 			acc = 0.f;
 		}
 
-		TimeMeasurement cpuWorkTimer;
+		//TimeMeasurement cpuWorkTimer;
 
 		TIMER.Update();
 		INPUT.Update();
@@ -136,42 +139,42 @@ void Client::UpdateSingleThread()
 		RENDERER.CollectRenderData();
 		RENDERER.SwapContext();
 
-		f64 cpuWorkDuration = cpuWorkTimer.GetDurationUs();
-		stCumulativeCpuWorkTime += cpuWorkDuration; // 누적
+		//f64 cpuWorkDuration = cpuWorkTimer.GetDurationUs();
+		//stCumulativeCpuWorkTime += cpuWorkDuration; // 누적
 
 		DIRECTX.RenderBegin();
 		RENDERER.RenderGameObject();
 		DIRECTX.RenderEnd();
 
-		//  프레임 종료 시간 측정 및 누적 (ST_TotalFrame)
-		f64 totalFrameDuration = totalFrameTimer.GetDurationUs();
-		stCumulativeTotalFrameTime += totalFrameDuration; // 누적
-		stFrameCount++;
+		////  프레임 종료 시간 측정 및 누적 (ST_TotalFrame)
+		//f64 totalFrameDuration = totalFrameTimer.GetDurationUs();
+		//stCumulativeTotalFrameTime += totalFrameDuration; // 누적
+		//stFrameCount++;
 
-		// =========================================================
-		// 3. 통계 출력 로직 (1초마다)
-		auto now = std::chrono::high_resolution_clock::now();
-		f64 elapsedSec = std::chrono::duration_cast<std::chrono::duration<f64>>(now - lastLogTime).count();
+		//// =========================================================
+		//// 3. 통계 출력 로직 (1초마다)
+		//auto now = std::chrono::high_resolution_clock::now();
+		//f64 elapsedSec = std::chrono::duration_cast<std::chrono::duration<f64>>(now - lastLogTime).count();
 
-		if (elapsedSec >= LOG_INTERVAL_SEC)
-		{
-			std::lock_guard<std::mutex> lock(g_log_mutex); // 출력 뮤텍스 사용
+		//if (elapsedSec >= LOG_INTERVAL_SEC)
+		//{
+		//	std::lock_guard<std::mutex> lock(g_log_mutex); // 출력 뮤텍스 사용
 
-			f64 avgTotalFrame = stCumulativeTotalFrameTime / stFrameCount;
-			f64 avgCpuWork = stCumulativeCpuWorkTime / stFrameCount;
-			f64 avgFPS = 1.0 / (avgTotalFrame / 1000000.0); // us를 초로 변환
+		//	f64 avgTotalFrame = stCumulativeTotalFrameTime / stFrameCount;
+		//	f64 avgCpuWork = stCumulativeCpuWorkTime / stFrameCount;
+		//	f64 avgFPS = 1.0 / (avgTotalFrame / 1000000.0); // us를 초로 변환
 
-			std::cout << "[ST STATS] Frames: " << stFrameCount
-				<< " | Avg FPS: " << std::fixed << std::setprecision(2) << avgFPS
-				<< " | Avg Total Time: " << avgTotalFrame << " us"
-				<< " | Avg CPU Work Time: " << avgCpuWork << " us" << std::endl;
+		//	std::cout << "[ST STATS] Frames: " << stFrameCount
+		//		<< " | Avg FPS: " << std::fixed << std::setprecision(2) << avgFPS
+		//		<< " | Avg Total Time: " << avgTotalFrame << " us"
+		//		<< " | Avg CPU Work Time: " << avgCpuWork << " us" << std::endl;
 
-			// 리셋
-			stCumulativeTotalFrameTime = 0.0;
-			stCumulativeCpuWorkTime = 0.0;
-			stFrameCount = 0;
-			lastLogTime = now;
-		}
+		//	// 리셋
+		//	stCumulativeTotalFrameTime = 0.0;
+		//	stCumulativeCpuWorkTime = 0.0;
+		//	stFrameCount = 0;
+		//	lastLogTime = now;
+		//}
 	}
 
 	SCENE.SaveScene();
@@ -190,7 +193,7 @@ void Client::UpdateMultiThread()
 	MSG msg = { 0 };
 	while (msg.message != WM_QUIT)
 	{
-		TimeMeasurement totalFrameTimer;
+		//TimeMeasurement totalFrameTimer;
 
 
 		if (::PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
@@ -221,10 +224,10 @@ void Client::UpdateMultiThread()
 		GAMEOBJECT.Update();
 		GAMEOBJECT.LateUpdate();
 
-		TimeMeasurement cpuWaitTimer;
+		//TimeMeasurement cpuWaitTimer;
 		semBufferFreeSignal.acquire();
-		f64 cpuWaitDuration = cpuWaitTimer.GetDurationUs();
-		cumulativeCpuWaitTime += cpuWaitDuration;
+		//f64 cpuWaitDuration = cpuWaitTimer.GetDurationUs();
+		//cumulativeCpuWaitTime += cpuWaitDuration;
 
 		RENDERER.CollectRenderData();
 
@@ -234,33 +237,33 @@ void Client::UpdateMultiThread()
 		semRenderReadySignal.release();
 
 
-		f64 totalFrameDuration = totalFrameTimer.GetDurationUs();
-		cumulativeTotalFrameTime += totalFrameDuration;
-		frameCount++;
+		//f64 totalFrameDuration = totalFrameTimer.GetDurationUs();
+		//cumulativeTotalFrameTime += totalFrameDuration;
+		//frameCount++;
 
 
-		auto now = std::chrono::high_resolution_clock::now();
-		f64 elapsedSec = std::chrono::duration_cast<std::chrono::duration<f64>>(now - lastLogTime).count();
+		//auto now = std::chrono::high_resolution_clock::now();
+		//f64 elapsedSec = std::chrono::duration_cast<std::chrono::duration<f64>>(now - lastLogTime).count();
 
-		if (elapsedSec >= LOG_INTERVAL_SEC)
-		{
-			std::lock_guard<std::mutex> lock(g_log_mutex);
+		//if (elapsedSec >= LOG_INTERVAL_SEC)
+		//{
+		//	std::lock_guard<std::mutex> lock(g_log_mutex);
 
-			f64 avgCpuWait = cumulativeCpuWaitTime / frameCount;
-			f64 avgTotalFrame = cumulativeTotalFrameTime / frameCount;
-			f64 avgFPS = 1.0 / (avgTotalFrame / 1000000.0);
+		//	f64 avgCpuWait = cumulativeCpuWaitTime / frameCount;
+		//	f64 avgTotalFrame = cumulativeTotalFrameTime / frameCount;
+		//	f64 avgFPS = 1.0 / (avgTotalFrame / 1000000.0);
 
-			std::cout << "[MT STATS] Frames: " << frameCount
-				<< " | Avg FPS: " << std::fixed << std::setprecision(2) << avgFPS
-				<< " | Avg Total Time: " << avgTotalFrame << " us"
-				<< " | Avg CPU Wait: " << avgCpuWait << " us" << std::endl;
+		//	std::cout << "[MT STATS] Frames: " << frameCount
+		//		<< " | Avg FPS: " << std::fixed << std::setprecision(2) << avgFPS
+		//		<< " | Avg Total Time: " << avgTotalFrame << " us"
+		//		<< " | Avg CPU Wait: " << avgCpuWait << " us" << std::endl;
 
-			// 리셋
-			cumulativeCpuWaitTime = 0.0;
-			cumulativeTotalFrameTime = 0.0;
-			frameCount = 0;
-			lastLogTime = now;
-		}
+		//	// 리셋
+		//	cumulativeCpuWaitTime = 0.0;
+		//	cumulativeTotalFrameTime = 0.0;
+		//	frameCount = 0;
+		//	lastLogTime = now;
+		//}
 	}
 
 	SCENE.SaveScene();
@@ -286,6 +289,25 @@ void Client::RenderThread()
 
 		semBufferFreeSignal.release();
 	}
+}
+
+#include "TypeRegistry.h"
+#include "TestTransform.h"
+
+void Client::UHT()
+{
+	auto tt = makeSptr<TestTransform>();
+	tt->TestFunc();
+
+	auto comp = TypeRegistry::Create("TestTransform");
+
+	if (comp != nullptr)
+	{
+		auto name = comp->GetTypeName();
+
+		std::cout << name;
+	}
+
 }
 
 LRESULT CALLBACK Client::WndProc(HWND handle, UINT message, WPARAM wParam, LPARAM lParam)
