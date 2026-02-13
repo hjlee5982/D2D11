@@ -139,6 +139,9 @@
     <Filter Include="99. HeaderTool">
       <UniqueIdentifier>{adecc00a-378d-47f7-b337-eb7dbeac670d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="99. HeaderTool\TestObj">
+      <UniqueIdentifier>{28d3cedc-1cef-4ffc-a507-de2bbca4c4d6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -348,13 +351,28 @@
     <ClInclude Include="TypeRegistry.h">
       <Filter>99. HeaderTool</Filter>
     </ClInclude>
-    <ClInclude Include="TestComponent.h">
+    <ClInclude Include="ComponentMacro.h">
       <Filter>99. HeaderTool</Filter>
+    </ClInclude>
+    <ClInclude Include="TestComponent.h">
+      <Filter>99. HeaderTool\TestObj</Filter>
+    </ClInclude>
+    <ClInclude Include="TestGameObject.h">
+      <Filter>99. HeaderTool\TestObj</Filter>
     </ClInclude>
     <ClInclude Include="TestTransform.h">
-      <Filter>99. HeaderTool</Filter>
+      <Filter>99. HeaderTool\TestObj</Filter>
     </ClInclude>
-    <ClInclude Include="ComponentMacro.h">
+    <ClInclude Include="TestCamera.h">
+      <Filter>99. HeaderTool\TestObj</Filter>
+    </ClInclude>
+    <ClInclude Include="TestController.h">
+      <Filter>99. HeaderTool\TestObj</Filter>
+    </ClInclude>
+    <ClInclude Include="TestScene.h">
+      <Filter>99. HeaderTool\TestObj</Filter>
+    </ClInclude>
+    <ClInclude Include="JsonConverter.h">
       <Filter>99. HeaderTool</Filter>
     </ClInclude>
   </ItemGroup>
@@ -521,13 +539,28 @@
     <ClCompile Include="TypeRegistry.cpp">
       <Filter>99. HeaderTool</Filter>
     </ClCompile>
-    <ClCompile Include="TestComponent.cpp">
+    <ClCompile Include="ComponentMacro.cpp">
       <Filter>99. HeaderTool</Filter>
+    </ClCompile>
+    <ClCompile Include="TestComponent.cpp">
+      <Filter>99. HeaderTool\TestObj</Filter>
+    </ClCompile>
+    <ClCompile Include="TestGameObject.cpp">
+      <Filter>99. HeaderTool\TestObj</Filter>
     </ClCompile>
     <ClCompile Include="TestTransform.cpp">
-      <Filter>99. HeaderTool</Filter>
+      <Filter>99. HeaderTool\TestObj</Filter>
     </ClCompile>
-    <ClCompile Include="ComponentMacro.cpp">
+    <ClCompile Include="TestCamera.cpp">
+      <Filter>99. HeaderTool\TestObj</Filter>
+    </ClCompile>
+    <ClCompile Include="TestController.cpp">
+      <Filter>99. HeaderTool\TestObj</Filter>
+    </ClCompile>
+    <ClCompile Include="TestScene.cpp">
+      <Filter>99. HeaderTool\TestObj</Filter>
+    </ClCompile>
+    <ClCompile Include="JsonConverter.cpp">
       <Filter>99. HeaderTool</Filter>
     </ClCompile>
   </ItemGroup>

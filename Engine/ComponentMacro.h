@@ -2,6 +2,8 @@
 #include "TypeRegistry.h"
 
 #define COMPONENT_BODY(TYPE) \
+public:\
+TYPE();\
 public: \
     static const char* StaticTypeName() { return #TYPE; } \
     virtual const char* GetTypeName() const override { return StaticTypeName(); } \
@@ -10,4 +12,5 @@ private: \
     static TypeRegistrar _registrar;
 
 #define COMPONENT_IMPL(TYPE) \
+TYPE::TYPE(){}\
 TypeRegistrar TYPE::_registrar(TYPE::StaticTypeName(), &TYPE::CreateInstance);

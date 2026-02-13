@@ -1,6 +1,8 @@
 #pragma once
 
 #include "Object.h"
+#include "TestComponent.h"
+#include "TypeRegistry.h"
 
 class GameObject : public Object, public std::enable_shared_from_this<GameObject>
 {

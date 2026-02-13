@@ -1,0 +1,46 @@
+{
+    "objects": [
+        {
+            "components": [
+                {
+                    "data": {
+                        "position": {
+                            "x": 1.0,
+                            "y": -5.0,
+                            "z": 3.200000047683716
+                        },
+                        "scale": 2.7300000190734863
+                    },
+                    "type": "TestTransform"
+                },
+                {
+                    "data": {
+                        "pov": 60.0
+                    },
+                    "type": "TestCamera"
+                }
+            ]
+        },
+        {
+            "components": [
+                {
+                    "data": {
+                        "position": {
+                            "x": 1.0,
+                            "y": -5.0,
+                            "z": 3.200000047683716
+                        },
+                        "scale": 2.7300000190734863
+                    },
+                    "type": "TestTransform"
+                },
+                {
+                    "data": {
+                        "speed": 1.2300000190734863
+                    },
+                    "type": "TestController"
+                }
+            ]
+        }
+    ]
+}

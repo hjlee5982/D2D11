@@ -293,21 +293,33 @@ void Client::RenderThread()
 
 #include "TypeRegistry.h"
 #include "TestTransform.h"
+#include "TestCamera.h"
+#include "TestController.h"
+#include "TestScene.h"
 
 void Client::UHT()
 {
-	auto tt = makeSptr<TestTransform>();
-	tt->TestFunc();
+	auto a = makeUptr<TestTransform>();
+	auto b = makeUptr<TestCamera>();
+	auto c = makeUptr<TestController>();
 
-	auto comp = TypeRegistry::Create("TestTransform");
-
-	if (comp != nullptr)
+	auto saveScene = makeUptr<TestScene>();
 	{
-		auto name = comp->GetTypeName();
-
-		std::cout << name;
+		auto camera = saveScene->CreateObject();
+		{
+			camera->AddComponent("TestTransform");
+			camera->AddComponent("TestCamera");
+		}
+		auto player = saveScene->CreateObject();
+		{
+			player->AddComponent("TestTransform");
+			player->AddComponent("TestController");
+		}
 	}
+	saveScene->Save("scene.json");
 
+	auto loadScene = makeUptr<TestScene>();
+	loadScene->Load("scene.json");
 }
 
 LRESULT CALLBACK Client::WndProc(HWND handle, UINT message, WPARAM wParam, LPARAM lParam)
