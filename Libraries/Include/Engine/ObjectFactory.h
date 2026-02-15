@@ -135,6 +135,6 @@ using ThisClass = T;
 
 
 
-#define PROPERTY_FIELD(type, name, defaultValue)										\
+#define PROPERTY_FIELD_(type, name, defaultValue)										\
 type name = defaultValue;																\
 inline static PropertyRegister<type> __reg_##name{ #name, offsetof(ThisClass, name)};

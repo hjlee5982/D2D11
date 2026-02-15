@@ -9,6 +9,7 @@ public:
 	void LoadJson(const nlohmann::json& json);
 public:
 	TestComponent* AddComponent(const string& typeName);
+	TestComponent* AddComponent1(const string& typeName);
 private:
 	List<uptr<TestComponent>> _components;
 };

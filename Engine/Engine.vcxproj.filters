@@ -372,9 +372,6 @@
     <ClInclude Include="TestScene.h">
       <Filter>99. HeaderTool\TestObj</Filter>
     </ClInclude>
-    <ClInclude Include="JsonConverter.h">
-      <Filter>99. HeaderTool</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -559,9 +556,6 @@
     </ClCompile>
     <ClCompile Include="TestScene.cpp">
       <Filter>99. HeaderTool\TestObj</Filter>
-    </ClCompile>
-    <ClCompile Include="JsonConverter.cpp">
-      <Filter>99. HeaderTool</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -57,3 +57,19 @@ TestComponent* TestGameObject::AddComponent(const string& typeName)
 
     return raw;
 }
+
+TestComponent* TestGameObject::AddComponent1(const string& typeName)
+{
+    auto comp = TypeRegistry::Create1(typeName);
+
+    if (comp == nullptr)
+    {
+        return nullptr;
+    }
+
+    TestComponent* raw = comp.get();
+
+    _components.push_back(std::move(comp));
+
+    return raw;
+}

@@ -4,18 +4,20 @@
             "components": [
                 {
                     "data": {
-                        "position": {
-                            "x": 1.0,
-                            "y": -5.0,
-                            "z": 3.200000047683716
+                        "_pos": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
                         },
-                        "scale": 2.7300000190734863
+                        "_scale": 0.0,
+                        "type": "TestTransform"
                     },
                     "type": "TestTransform"
                 },
                 {
                     "data": {
-                        "pov": 60.0
+                        "_pov": 0.0,
+                        "type": "TestCamera"
                     },
                     "type": "TestCamera"
                 }
@@ -25,18 +27,25 @@
             "components": [
                 {
                     "data": {
-                        "position": {
-                            "x": 1.0,
-                            "y": -5.0,
-                            "z": 3.200000047683716
+                        "_pos": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
                         },
-                        "scale": 2.7300000190734863
+                        "_scale": 0.0,
+                        "type": "TestTransform"
                     },
                     "type": "TestTransform"
                 },
                 {
                     "data": {
-                        "speed": 1.2300000190734863
+                        "_position": {
+                            "x": 0.0,
+                            "y": 2.0,
+                            "z": 0.0
+                        },
+                        "_speed": 3.0,
+                        "type": "TestController"
                     },
                     "type": "TestController"
                 }

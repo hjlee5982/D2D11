@@ -307,13 +307,13 @@ void Client::UHT()
 	{
 		auto camera = saveScene->CreateObject();
 		{
-			camera->AddComponent("TestTransform");
-			camera->AddComponent("TestCamera");
+			camera->AddComponent1("TestTransform");
+			camera->AddComponent1("TestCamera");
 		}
 		auto player = saveScene->CreateObject();
 		{
-			player->AddComponent("TestTransform");
-			player->AddComponent("TestController");
+			player->AddComponent1("TestTransform");
+			player->AddComponent1("TestController");
 		}
 	}
 	saveScene->Save("scene.json");
