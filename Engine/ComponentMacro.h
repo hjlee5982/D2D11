@@ -8,8 +8,6 @@ public:\
     virtual const char* GetTypeName() const override { return StaticTypeName(); } \
     static TypeInfo* GetStaticTypeInfo(); \
     static std::unique_ptr<TestComponent> CreateInstance() { return std::make_unique<TYPE>(); } \
-private:\
-    static TypeRegistrar _registrar;
 
 #define COMPONENT_IMPL(TYPE) \
 TYPE::TYPE(){}\

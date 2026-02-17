@@ -44,15 +44,6 @@ public:
     static TypeInfo* GetTypeInfo(const string& name);
 };
 
-class TypeRegistrar
-{
-public:
-    TypeRegistrar(const std::string& name, TypeRegistry::CreateComponentFunc func)
-    {
-        TypeRegistry::Register(name, func);
-    }
-};
-
 template<typename Class, typename T>
 void RegisterField(TypeInfo* typeInfo, const string& name, T Class::* member)
 {

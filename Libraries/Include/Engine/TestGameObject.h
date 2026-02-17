@@ -12,5 +12,7 @@ public:
 	TestComponent* AddComponent1(const string& typeName);
 private:
 	List<uptr<TestComponent>> _components;
+public:
+	string name;
 };
 

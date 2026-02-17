@@ -15,11 +15,11 @@ TestGameObject* TestScene::CreateObject()
 void TestScene::Save(const string& path)
 {
     nlohmann::json json;
-    json["objects"] = nlohmann::json::array();
+    json["gameObjects"] = nlohmann::json::array();
 
     for (const auto& obj : _objects)
     {
-        json["objects"].push_back(obj->MakeJson());
+        json["gameObjects"].push_back(obj->MakeJson());
     }
 
     std::ofstream file(path);
@@ -33,7 +33,7 @@ void TestScene::Load(const string& path)
     nlohmann::json json;
     file >> json;
 
-    for (const auto& objJson : json["objects"])
+    for (const auto& objJson : json["gameObjects"])
     {
         auto obj = makeUptr<TestGameObject>();
         obj->LoadJson(objJson);

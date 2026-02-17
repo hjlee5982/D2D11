@@ -7,12 +7,12 @@ nlohmann::json TestGameObject::MakeJson() const
 {
     nlohmann::json json;
 
+    json["name"] = name;
     json["components"] = nlohmann::json::array();
 
     for (const auto& comp : _components)
     {
         nlohmann::json compJson;
-        compJson["type"] = comp->GetTypeName();
 
         comp->MakeJson(compJson["data"]);
 
@@ -24,11 +24,13 @@ nlohmann::json TestGameObject::MakeJson() const
 
 void TestGameObject::LoadJson(const nlohmann::json& json)
 {
+    name = json["name"];
+
     for (const auto& compJson : json["components"])
     {
-        string type = compJson["type"];
+        string type = compJson["data"]["type"];
 
-        TestComponent* comp = AddComponent(type);
+        TestComponent* comp = AddComponent1(type);
 
         if (comp == nullptr)
         {
