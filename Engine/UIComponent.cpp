@@ -29,9 +29,9 @@ void UIComponent::SetMesh(sptr<TMesh<VertexUIData>> mesh)
     _mesh = mesh;
 }
 
-void UIComponent::SetTexture(sptr<Texture> texture)
+void UIComponent::SetTexture(const wstring& tag)
 {
-    _material->SetTexture(texture);
+    _material->SetTexture(tag);
 }
 
 void UIComponent::SetMaterial(sptr<Material> material)

@@ -19,9 +19,9 @@ void Renderer::SetMesh(sptr<TMeshBase> mesh)
 	_mesh = mesh;
 }
 
-void Renderer::SetTexture(sptr<Texture> texture)
+void Renderer::SetTexture(const wstring& tag)
 {
-	_material->SetTexture(texture);
+	_material->SetTexture(tag);
 }
 
 void Renderer::SetMaterial(sptr<Material> material)

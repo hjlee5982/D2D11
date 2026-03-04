@@ -3,12 +3,13 @@
 #include "Texture.h"
 #include "Shader.h"
 #include "Sprite.h"
+#include "AssetManager.h"
 
 sptr<Asset> Material::Clone()
 {
 	auto material = makeSptr<Material>(*this);
 	{
-		material->SetTexture(makeSptr<Texture>(*_texture));
+		material->SetTexture(L"Texture_Default");
 	}
 
 	return material;
@@ -39,7 +40,16 @@ void Material::SetShader(sptr<class Shader> shader)
 	_shader = shader;
 }
 
-void Material::SetTexture(sptr<class Texture> texture)
+void Material::SetTexture(const wstring& tag)
 {
-	_texture = texture;
+	auto texture = ASSET.Get<Texture>(tag);
+
+	if (texture != nullptr)
+	{
+		_texture = texture;
+	}
+	else
+	{
+		_texture = ASSET.Get<Texture>(L"Texture_Default");
+	}
 }

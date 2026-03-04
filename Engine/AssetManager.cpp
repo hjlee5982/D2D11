@@ -13,13 +13,24 @@ static wstring engineAssetPath = L"../Engine/EngineAssets/";
 
 void AssetManager::Awake()
 {
-	CreateShader();
-	CreateMesh();
-	CreateTexture();
-	CreateMaterial();
+	CreateDefaultShader();
+	CreateDefaultMesh();
+	CreateDefaultTexture();
+	CreateDefaultMaterial();
 }
 
-void AssetManager::CreateShader()
+void AssetManager::LoadTexture(const wstring& tag, const wstring& path)
+{
+	sptr<Texture> texture = makeSptr<Texture>();
+	{
+		texture->CreateTexture(path);
+		texture->_tag  = tag;
+		texture->_path = path;
+	}
+	Add(tag, texture);
+}
+
+void AssetManager::CreateDefaultShader()
 {
 	// 기본 쉐이더
 	{
@@ -47,7 +58,7 @@ void AssetManager::CreateShader()
 	}
 }
 
-void AssetManager::CreateMesh()
+void AssetManager::CreateDefaultMesh()
 {
 	// BoxCollider2D
 	{
@@ -75,35 +86,47 @@ void AssetManager::CreateMesh()
 	}
 }
 
-void AssetManager::CreateTexture()
+void AssetManager::CreateDefaultTexture()
 {
 	// 스프라이트 렌더러 디폴트 텍스쳐
 	{
 		sptr<Texture> texture = makeSptr<Texture>();
-		texture->CreateTexture(engineAssetPath + L"Image/DefaultTexture.png");
+		{
+			texture->CreateTexture(engineAssetPath + L"Image/DefaultTexture.png");
+			texture->_tag  = L"Texture_Default";
+			texture->_path = engineAssetPath + L"Image/DefaultTexture.png";
+		}
 		Add(L"Texture_Default", texture);
 	}
 	// 폰트 아틀라스
 	{
 		sptr<Texture> texture = makeSptr<Texture>();
-		texture->CreateTexture(L"../Data/Font/EngineFont.png");
+		{
+			texture->CreateTexture(L"../Data/Font/EngineFont.png");
+			texture->_tag  = L"Texture_UI_Font";
+			texture->_path = L"../Data/Font/EngineFont.png";
+		}
 		Add(L"Texture_UI_Font", texture);
 	}
 	// UI 이미지 기본 텍스쳐
 	{
 		sptr<Texture> texture = makeSptr<Texture>();
-		texture->CreateTexture(engineAssetPath + L"Image/Square.png");
+		{
+			texture->CreateTexture(engineAssetPath + L"Image/Square.png");
+			texture->_tag  = L"Texture_UI_Default";
+			texture->_path = engineAssetPath + L"Image/Square.png";
+		}
 		Add(L"Texture_UI_Default", texture);
 	}
 }
 
-void AssetManager::CreateMaterial()
+void AssetManager::CreateDefaultMaterial()
 {
 	// 스프라이트 렌더러 기본 머티리얼
 	{
 		sptr<Material> material = makeSptr<Material>();
 		{
-			material->SetTexture(Get<Texture>(L"Texture_Default"));
+			material->SetTexture(L"Texture_Default");
 			material->SetShader(Get<Shader>(L"Shader_Default"));
 		}
 		Add(L"Material_Default", material);
@@ -121,7 +144,7 @@ void AssetManager::CreateMaterial()
 	{
 		sptr<Material> material = makeSptr<Material>();
 		{
-			material->SetTexture(Get<Texture>(L"Texture_UI_Font"));
+			material->SetTexture(L"Texture_UI_Font");
 			material->SetShader(Get<Shader>(L"Shader_UI_Font"));
 		}
 		Add(L"Material_UI_Font", material);
@@ -130,7 +153,7 @@ void AssetManager::CreateMaterial()
 	{
 		sptr<Material> material = makeSptr<Material>();
 		{
-			material->SetTexture(Get<Texture>(L"Texture_UI_Default"));
+			material->SetTexture(L"Texture_UI_Default");
 			material->SetShader(Get<Shader>(L"Shader_UI_Image"));
 		}
 		Add(L"Material_UI_Image", material);

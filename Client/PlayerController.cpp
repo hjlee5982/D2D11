@@ -122,9 +122,7 @@ void PlayerController::TempAnimation()
 
 	if (_elapsed >= 0.05f)
 	{
-		auto texture = ASSET.Get<Texture>(L"Texture_Player_" + std::to_wstring(_index));
-
-		_sr->SetTexture(texture);
+		_sr->SetTexture(L"Texture_Player_" + std::to_wstring(_index));
 
 		_elapsed = 0.f;
 

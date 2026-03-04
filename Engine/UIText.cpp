@@ -17,7 +17,7 @@ void UIText::Init()
 {
 	_mesh     = makeSptr<TMesh<VertexUIData>>();
 	_geometry = makeSptr<Geometry<VertexUIData>>();
-	_material = ASSET.Get<Material>(L"Material_UI_Font", true);
+	_material = ASSET.Get<Material>(L"Material_UI_Font");
 
 	RENDERER.AddUI(shared_from_this());
 }

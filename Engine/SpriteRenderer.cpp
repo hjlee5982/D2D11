@@ -12,7 +12,7 @@
 void SpriteRenderer::Init()
 {
 	_mesh     = ASSET.Get<TMesh<VertexTextureData>>(L"Mesh_Square");
-	_material = ASSET.Get<Material>(L"Material_Default", true);
+	_material = ASSET.Clone<Material>(L"Material_Default");
 
 	RENDERER.AddRenderer(shared_from_this());
 }

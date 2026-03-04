@@ -1,6 +1,7 @@
 #pragma once
 
 #include "GameObjectManager.h"
+#include "SceneManager.h"
 #include "Transform.h"
 
 template<typename... Args>

@@ -35,8 +35,8 @@ public:
 	}
 protected:
 	EAssetType _assetType = EAssetType::None;
-protected:
-	wstring _name;
+public:
+	wstring _tag;
 	wstring _path;
 };
 

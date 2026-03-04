@@ -20,16 +20,22 @@ public:
 	sptr<T> Load(const wstring& key, const wstring& path);
 
 	template<typename T>
-	sptr<T> Get(const wstring& key, bool clone = false);
+	sptr<T> Get(const wstring& key);
+
+	template<typename T>
+	sptr<T> Clone(const wstring& key);
 
 	template<typename T>
 	EAssetType GetAssetType();
+	// 생성 요청 함수
+public:
+	void LoadTexture(const wstring& tag, const wstring& path);
 private:
 	// 엔진에서 사용될 기본 에셋들을 생성
-	void CreateShader();
-	void CreateMesh();
-	void CreateTexture();
-	void CreateMaterial();
+	void CreateDefaultShader();
+	void CreateDefaultMesh();
+	void CreateDefaultTexture();
+	void CreateDefaultMaterial();
 private:
 	using KeyAssetPair = Dictionary<wstring, sptr<Asset>>;
 	std::array<KeyAssetPair, Asset_Type_Count> _resources;
@@ -74,7 +80,7 @@ inline sptr<T> AssetManager::Load(const wstring& key, const wstring& path)
 }
 
 template<typename T>
-inline sptr<T> AssetManager::Get(const wstring& key, bool clone)
+inline sptr<T> AssetManager::Get(const wstring& key)
 {
 	EAssetType assetType = GetAssetType<T>();
 	KeyAssetPair& kap = _resources[static_cast<int>(assetType)];
@@ -83,16 +89,25 @@ inline sptr<T> AssetManager::Get(const wstring& key, bool clone)
 
 	if (it != kap.end())
 	{
-		if (clone == true)
-		{
-			auto cmp = (it->second)->Clone();
+		return std::static_pointer_cast<T>(it->second);
+	}
 
-			return std::static_pointer_cast<T>(cmp);
-		}
-		else
-		{
-			return std::static_pointer_cast<T>(it->second);
-		}
+	return nullptr;
+}
+
+template<typename T>
+inline sptr<T> AssetManager::Clone(const wstring& key)
+{
+	EAssetType assetType = GetAssetType<T>();
+	KeyAssetPair& kap = _resources[static_cast<int>(assetType)];
+
+	auto it = kap.find(key);
+
+	if (it != kap.end())
+	{
+		auto asset = it->second->Clone();
+
+		return std::static_pointer_cast<T>(asset);
 	}
 
 	return nullptr;

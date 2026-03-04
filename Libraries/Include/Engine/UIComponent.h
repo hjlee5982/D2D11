@@ -18,7 +18,7 @@ public:
 	sptr<Material>            GetMaterial();
 public:
 	void SetMesh(sptr<TMesh<VertexUIData>> mesh);
-	void SetTexture(sptr<Texture>   texture);
+	void SetTexture(const wstring& tag);
 	void SetMaterial(sptr<Material> material);
 public:
 	Vector4 color = { 1.f, 1.f, 1.f, 1.f };

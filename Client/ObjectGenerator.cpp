@@ -124,7 +124,7 @@ void ObjectGenerator::ObstaclePooling()
 			auto tf = obstacle->AddComponent<Transform>();
 			auto sr = obstacle->AddComponent<SpriteRenderer>();
 			{
-				sr->SetTexture(ASSET.Get<Texture>(L"Texture_Rope"));
+				sr->SetTexture(L"Texture_Rope");
 			}
 			auto bc = obstacle->AddComponent<BoxCollider2D>();
 			{
@@ -149,7 +149,7 @@ void ObjectGenerator::ObstaclePooling()
 				}
 				auto sr = cloud->AddComponent<SpriteRenderer>();
 				{
-					sr->SetTexture(ASSET.Get<Texture>(L"Texture_Cloud"));
+					sr->SetTexture(L"Texture_Cloud");
 					sr->OrderInLayer = 15;
 				}
 				auto bc = cloud->AddComponent<BoxCollider2D>();

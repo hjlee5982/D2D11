@@ -10,7 +10,7 @@
 void UIImage::Init()
 {
 	_mesh     = ASSET.Get<TMesh<VertexUIData>>(L"Mesh_UI_Square");
-	_material = ASSET.Get<Material>(L"Material_UI_Image", true);
+	_material = ASSET.Get<Material>(L"Material_UI_Image");
 
 	RENDERER.AddUI(shared_from_this());
 }

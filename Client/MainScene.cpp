@@ -5,7 +5,6 @@
 #include "BackgroundController.h"
 #include "PlayerController.h"
 #include "SpriteRenderer.h"
-#include "Texture.h"
 #include "AssetManager.h"
 #include "ObjectGenerator.h"
 #include "RenderManager.h"
@@ -39,30 +38,22 @@ void MainScene::LoadResources()
 {
 	// 배경화면
 	{
-		sptr<Texture> texture = makeSptr<Texture>();
-		texture->CreateTexture(L"../Assets/Image/BackGround.png");
-		ASSET.Add(L"Texture_BackGround", texture);
+		ASSET.LoadTexture(L"Texture_BackGround", L"../Assets/Image/BackGround.png");
 	}
 	// 플레이어
 	{
 		for (int i = 1; i <= 10; ++i)
 		{
-			sptr<Texture> texture = makeSptr<Texture>();
-			texture->CreateTexture(L"../Assets/Image/Player/Player_" + std::to_wstring(i) + L".png");
-			ASSET.Add(L"Texture_Player_" + std::to_wstring(i), texture);
+			ASSET.LoadTexture(L"Texture_Player_" + std::to_wstring(i), L"../Assets/Image/Player/Player_" + std::to_wstring(i) + L".png");
 		}
 	}
 	// 장애물(구름)
 	{
-		sptr<Texture> texture = makeSptr<Texture>();
-		texture->CreateTexture(L"../Assets/Image/Cloud.png");
-		ASSET.Add(L"Texture_Cloud", texture);
+		ASSET.LoadTexture(L"Texture_Cloud", L"../Assets/Image/Cloud.png");
 	}
 	// 장애물(밧줄)
 	{
-		sptr<Texture> texture = makeSptr<Texture>();
-		texture->CreateTexture(L"../Assets/Image/Rope.png");
-		ASSET.Add(L"Texture_Rope", texture);
+		ASSET.LoadTexture(L"Texture_Rope", L"../Assets/Image/Rope.png");
 	}
 	// 사운드
 	{
@@ -163,7 +154,7 @@ void MainScene::AddGameObject()
 		}
 		auto sr = player->AddComponent<SpriteRenderer>();
 		{
-			sr->SetTexture(ASSET.Get<Texture>(L"Texture_Player_1"));
+			sr->SetTexture(L"Texture_Player_1");
 			sr->OrderInLayer = 30;
 		}
 		auto bc = player->AddComponent<BoxCollider2D>();

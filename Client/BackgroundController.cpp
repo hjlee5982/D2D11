@@ -16,7 +16,7 @@ void BackgroundController::Start()
 		}
 		auto sr = _bg1->AddComponent<SpriteRenderer>();
 		{
-			sr->SetTexture(ASSET.Get<Texture>(L"Texture_BackGround"));
+			sr->SetTexture(L"Texture_BackGround");
 		}
 	}
 	_bg2 = Instantiate();
@@ -34,7 +34,7 @@ void BackgroundController::Start()
 		}
 		auto sr = _bg2->AddComponent<SpriteRenderer>();
 		{
-			sr->SetTexture(ASSET.Get<Texture>(L"Texture_BackGround"));
+			sr->SetTexture(L"Texture_BackGround");
 		}
 	}
 

@@ -15,7 +15,7 @@ public:
 	sptr<class Texture> GetTexture();
 public:
 	void SetShader(sptr<class Shader> shader);
-	void SetTexture(sptr<class Texture> texture);
+	void SetTexture(const wstring& tag);
 private:
 	sptr<class Shader>  _shader;
 	sptr<class Texture> _texture;

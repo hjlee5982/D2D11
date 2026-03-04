@@ -24,7 +24,7 @@ public:
 	sptr<Material>  GetMaterial();
 public:
 	void SetMesh(sptr<TMeshBase> mesh);
-	void SetTexture(sptr<Texture> texture);
+	void SetTexture(const wstring& tag);
 	void SetMaterial(sptr<Material> material);
 protected:
 	sptr<TMeshBase> _mesh;
