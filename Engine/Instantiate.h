@@ -1,6 +1,7 @@
 #pragma once
 
-#include "GameObjectManager.h"
+#include "SceneManager.h"
+#include "GameObject.h"
 #include "Transform.h"
 
 template<typename... Args>
@@ -10,7 +11,12 @@ static sptr<GameObject> Instantiate(Args&&... args)
 
 	go->transform = go->AddComponent<Transform>(std::forward<Args>(args)...);
 
-	GAMEOBJECT.AddGameObject(go);
+	SCENE.AddGameObject(go);
 
 	return go;
+}
+
+static void Destroy(sptr<GameObject> go)
+{
+	SCENE.Destroy(go);
 }

@@ -19,7 +19,7 @@
 #include "SoundManager.h"
 #include "CircleCollider2D.h"
 
-void MainScene::Awake()
+void MainScene::Initialize()
 {
 	// 리소스 로드
 	LoadResources();

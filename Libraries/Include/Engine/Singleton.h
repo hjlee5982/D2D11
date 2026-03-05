@@ -31,7 +31,7 @@ public:
 #define INPUT      InputSystem      ::Instance()
 #define SCENE	   SceneManager     ::Instance()
 #define SOUND	   SoundManager     ::Instance()
-#define CLIENT     Client           ::Instance()
+#define ENGINE     Engine           ::Instance()
 #define RANDOM	   Random			::Instance()
 #define FACTORY	   ObjectFactory    ::Instance()
 #define RENDERER   RenderManager    ::Instance()

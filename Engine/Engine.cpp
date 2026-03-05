@@ -1,9 +1,8 @@
 #include "pch.h"
-#include "Client.h"
+#include "Engine.h"
 #include "Scene.h"
 #include "RenderManager.h"
 #include "AssetManager.h"
-#include "GameObjectManager.h"
 #include "CollisionManager.h"
 #include "Log.h"
 #include "InputSystem.h"
@@ -16,7 +15,7 @@
 
 
 
-void Client::Awake()
+void Engine::Awake()
 {
 	// Win32 초기화
 	ClientInitialize();
@@ -38,7 +37,7 @@ void Client::Awake()
 	}
 }
 
-void Client::ClientInitialize()
+void Engine::ClientInitialize()
 {
 	WNDCLASSEXW wcex;
 	{
@@ -84,7 +83,7 @@ void Client::ClientInitialize()
 	::UpdateWindow(Global::ClientOption.hWnd);
 }
 
-void Client::EngineInitialize()
+void Engine::EngineInitialize()
 {
 	LOG     .Awake();
 	TIMER   .Awake();
@@ -96,12 +95,9 @@ void Client::EngineInitialize()
 	RENDERER.Awake();
 	SOUND   .Awake();
 	SCENE   .Awake();
-
-	GAMEOBJECT.Awake();
-	GAMEOBJECT.Start();
 }
 
-void Client::UpdateSingleThread()
+void Engine::UpdateSingleThread()
 {
 	// FixedUpdate
 	f64 acc = 0.f;
@@ -122,7 +118,7 @@ void Client::UpdateSingleThread()
 
 		while (acc >= FIXED_DELTA)
 		{
-			GAMEOBJECT.FixedUpdate();
+			SCENE.FixedUpdate();
 			COLLISION.FixedUpate();
 			acc = 0.f;
 		}
@@ -133,8 +129,8 @@ void Client::UpdateSingleThread()
 		INPUT.Update();
 		SOUND.Update();
 
-		GAMEOBJECT.Update();
-		GAMEOBJECT.LateUpdate();
+		SCENE.Update();
+		SCENE.LateUpdate();
 
 		RENDERER.CollectRenderData();
 		RENDERER.SwapContext();
@@ -181,10 +177,10 @@ void Client::UpdateSingleThread()
 	SOUND.Destroy();
 }
 
-void Client::UpdateMultiThread()
+void Engine::UpdateMultiThread()
 {
 	// 업데이트, 렌더 스레드 실행
-	renderThread = std::thread(&Client::RenderThread, this);
+	renderThread = std::thread(&Engine::RenderThread, this);
 
 	// FixedUpdate
 	f64 acc = 0.f;
@@ -212,7 +208,7 @@ void Client::UpdateMultiThread()
 
 		while (acc >= FIXED_DELTA)
 		{
-			GAMEOBJECT.FixedUpdate();
+			SCENE.FixedUpdate();
 			COLLISION.FixedUpate();
 			acc = 0.f;
 		}
@@ -221,8 +217,8 @@ void Client::UpdateMultiThread()
 		INPUT.Update();
 		SOUND.Update();
 
-		GAMEOBJECT.Update();
-		GAMEOBJECT.LateUpdate();
+		SCENE.Update();
+		SCENE.LateUpdate();
 
 		//TimeMeasurement cpuWaitTimer;
 		semBufferFreeSignal.acquire();
@@ -275,7 +271,7 @@ void Client::UpdateMultiThread()
 	renderThread.join();
 }
 
-void Client::RenderThread()
+void Engine::RenderThread()
 {
 	while (aRunning.load())
 	{
@@ -297,7 +293,7 @@ void Client::RenderThread()
 #include "TestController.h"
 #include "TestScene.h"
 
-void Client::UHT()
+void Engine::UHT()
 {
 	auto a = makeUptr<TestTransform>();
 	auto b = makeUptr<TestCamera>();
@@ -325,7 +321,7 @@ void Client::UHT()
 	loadScene->Load("scene.json");
 }
 
-LRESULT CALLBACK Client::WndProc(HWND handle, UINT message, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK Engine::WndProc(HWND handle, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message)
 	{

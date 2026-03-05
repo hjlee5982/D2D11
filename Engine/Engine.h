@@ -14,7 +14,7 @@ struct ClientOption
 	bool      windowed;
 };
 
-class Client : public Singleton<Client>
+class Engine : public Singleton<Engine>
 {
 public:
 	virtual void Awake() override;

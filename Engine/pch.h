@@ -73,7 +73,7 @@ using namespace Microsoft::WRL;
 /* »ç¿ëÀÚ */
 #include "Log.h"
 #include "Random.h"
-#include "Client.h"
+#include "Engine.h"
 #include "Device.h"
 #include "Exception.h"
 #include "Global.h"

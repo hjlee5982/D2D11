@@ -5,7 +5,6 @@
 class TextTest : public Scene
 {
 public:
-	void Awake() override;
-public:
+	virtual void Initialize() override;
 };
 

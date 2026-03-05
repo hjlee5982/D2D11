@@ -32,8 +32,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	sptr<MainScene> scene = makeSptr<MainScene>();
 	//sptr<TextTest> scene = makeSptr<TextTest>();
 
-	SCENE.AddScene(scene);
-	CLIENT.Awake();
+	SCENE.AddScene("MainScene", scene);
+	ENGINE.Awake();
 
 	FreeConsole();
 

@@ -5,7 +5,7 @@
 class MainScene : public Scene
 {
 public:
-	void Awake() override;
+	virtual void Initialize() override;
 public:
 	void LoadResources();
 	void SetInputSystem();

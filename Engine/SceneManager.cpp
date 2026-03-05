@@ -2,13 +2,13 @@
 #include "SceneManager.h"
 #include "Scene.h"
 #include "GameObject.h"
-#include "RenderManager.h"
 
 namespace fs = std::filesystem;
 
 void SceneManager::Awake()
 {
-	_currentScene->Awake();
+	_currentScene.lock()->Initialize();
+	_currentScene.lock()->Awake();
 }
 
 void SceneManager::LoadScene()
@@ -17,42 +17,42 @@ void SceneManager::LoadScene()
 
 void SceneManager::SaveScene()
 {
-
 }
 
-void SceneManager::AddScene(sptr<class Scene> scene)
+void SceneManager::AddScene(const string& name, sptr<class Scene> scene)
 {
-	_currentScene = scene;
+	_scenes[name] = scene;
 
-	_scenes.push_back(scene);
+	_currentScene = scene;
 }
 
 void SceneManager::AddGameObject(sptr<class GameObject> go)
 {
-	if (_currentScene != nullptr)
-	{
-		_currentScene->AddGameObject(go);
-	}
-}
-
-void SceneManager::AddUIObject(sptr<class GameObject> go)
-{
-
+	_currentScene.lock()->AddGameObject(go);
 }
 
 void SceneManager::Start()
 {
+	_currentScene.lock()->Start();
 }
 
 void SceneManager::Update()
 {
+	_currentScene.lock()->Update();
 }
 
 void SceneManager::LateUpdate()
 {
+	_currentScene.lock()->LateUpdate();
 }
 
 void SceneManager::FixedUpdate()
 {
+	_currentScene.lock()->FixedUpdate();
+}
+
+void SceneManager::Destroy(sptr<GameObject> go)
+{
+	_currentScene.lock()->Destroy(go);
 }
 

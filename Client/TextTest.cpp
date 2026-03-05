@@ -12,7 +12,7 @@
 #include "UIImage.h"
 #include "CircleCollider2D.h"
 
-void TextTest::Awake()
+void TextTest::Initialize()
 {
 	RENDERER.colliderRendering = true;
 	RENDERER.debugUIRendering = true;
