@@ -2,24 +2,20 @@
 #include "TestComponent.h"
 #include "TypeRegistry.h"
 
+ROOT_COMPONENT_IMPL(TestComponent)
+
 void TestComponent::MakeJson(nlohmann::json& json) const
 {
 	json["type"] = GetTypeName();
 
-	TypeInfo* info = TypeRegistry::GetTypeInfo(GetTypeName());
+	TypeInfo* type = TypeRegistry::GetTypeInfo(GetTypeName());
 
-	for (auto& field : info->fields)
-	{
-		field->serialize((void*)this, json);
-	}
+	TypeRegistry::SerializeType((void*)this, type, json);
 }
 
 void TestComponent::LoadJson(const nlohmann::json& json)
 {
-	TypeInfo* info = TypeRegistry::GetTypeInfo(GetTypeName());
+	TypeInfo* type = TypeRegistry::GetTypeInfo(GetTypeName());
 
-	for (auto& field : info->fields)
-	{
-		field->deserialize(this, json);
-	}
+	TypeRegistry::DeserializeType(this, type, json);
 }

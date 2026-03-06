@@ -64,7 +64,7 @@ uptr<TestComponent> TypeRegistry::Create1(const string& name)
     return it->second.creator();
 }
 
-TypeInfo* TypeRegistry::RegisterType(const string& name, std::function<uptr<TestComponent>()> creator)
+TypeInfo* TypeRegistry::RegisterType(const string& name, std::function<uptr<TestComponent>()> creator, const string& parentName)
 {
     auto& map = GetMap();
 
@@ -72,6 +72,7 @@ TypeInfo* TypeRegistry::RegisterType(const string& name, std::function<uptr<Test
     data.creator = creator;
     data.typeInfo = makeUptr<TypeInfo>();
     data.typeInfo->typeName = name;
+    data.typeInfo->parentName = parentName;
 
     map[name] = std::move(data);
 

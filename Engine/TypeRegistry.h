@@ -15,6 +15,10 @@ class TypeInfo
 {
 public:
     string typeName;
+    string parentName;
+
+    TypeInfo* parent = nullptr;
+
     List<uptr<Field>> fields;
 };
 
@@ -33,7 +37,7 @@ public:
     static uptr<TestComponent> Create(const string& name);
     static uptr<TestComponent> Create1(const string& name);
 
-    static TypeInfo* RegisterType(const string& name, std::function<uptr<TestComponent>()> creator);
+    static TypeInfo* RegisterType(const string& name, std::function<uptr<TestComponent>()> creator, const string& parentName);
 
 private:
     static Dictionary<std::string, CreateComponentFunc>& GetDict();
@@ -42,6 +46,54 @@ private:
 
 public:
     static TypeInfo* GetTypeInfo(const string& name);
+
+    static void SerializeType(void* obj, TypeInfo* type, nlohmann::json& json)
+    {
+        if (type->parent != nullptr)
+        {
+            SerializeType(obj, type->parent, json);
+        }
+
+        for (auto& field : type->fields)
+        {
+            field->serialize(obj, json);
+        }
+    }
+
+    static void DeserializeType(void* obj, TypeInfo* type, const nlohmann::json& json)
+    {
+        if (type->parent != nullptr)
+        {
+            DeserializeType(obj, type->parent, json);
+        }
+
+        for (auto& field : type->fields)
+        {
+            field->deserialize(obj, json);
+        }
+    }
+
+    static void ResolveParents()
+    {
+        auto& map = GetMap();
+
+        for (auto& [name, data] : map)
+        {
+            auto& type = data.typeInfo;
+
+            if (type->parentName.empty())
+            {
+                continue;
+            }
+
+            auto it = map.find(type->parentName);
+
+            if (it != map.end()) 
+            {
+                type->parent = it->second.typeInfo.get();
+            }
+        }
+    }
 };
 
 template<typename Class, typename T>

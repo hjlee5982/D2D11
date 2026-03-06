@@ -48,6 +48,29 @@
                 }
             ],
             "name": "Player"
+        },
+        {
+            "components": [
+                {
+                    "data": {
+                        "_pos": {
+                            "x": 11.0,
+                            "y": 22.0,
+                            "z": 33.0
+                        },
+                        "_scale": 0.0,
+                        "type": "TestTransform"
+                    }
+                },
+                {
+                    "data": {
+                        "_circleColliderValue": 0,
+                        "colliderSize": 77.0,
+                        "type": "TestCircleCollider"
+                    }
+                }
+            ],
+            "name": "Go"
         }
     ]
 }

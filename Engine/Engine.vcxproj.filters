@@ -369,6 +369,15 @@
     <ClInclude Include="TestScene.h">
       <Filter>99. HeaderTool\TestObj</Filter>
     </ClInclude>
+    <ClInclude Include="TestCollider.h">
+      <Filter>99. HeaderTool\TestObj</Filter>
+    </ClInclude>
+    <ClInclude Include="TestBoxCollider.h">
+      <Filter>99. HeaderTool\TestObj</Filter>
+    </ClInclude>
+    <ClInclude Include="TestCircleCollider.h">
+      <Filter>99. HeaderTool\TestObj</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -549,6 +558,15 @@
       <Filter>99. HeaderTool\TestObj</Filter>
     </ClCompile>
     <ClCompile Include="TestScene.cpp">
+      <Filter>99. HeaderTool\TestObj</Filter>
+    </ClCompile>
+    <ClCompile Include="TestCollider.cpp">
+      <Filter>99. HeaderTool\TestObj</Filter>
+    </ClCompile>
+    <ClCompile Include="TestBoxCollider.cpp">
+      <Filter>99. HeaderTool\TestObj</Filter>
+    </ClCompile>
+    <ClCompile Include="TestCircleCollider.cpp">
       <Filter>99. HeaderTool\TestObj</Filter>
     </ClCompile>
   </ItemGroup>

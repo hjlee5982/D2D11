@@ -1,11 +1,10 @@
 #pragma once
 
 #include "TestComponent.h"
-#include "ComponentMacro.h"
 
 class TestTransform : public TestComponent
 {
-	COMPONENT_BODY(TestTransform);
+	COMPONENT_BODY(TestTransform, TestComponent);
 public:
 	Vector3 _pos = Vector3::Zero;
 	f32 _scale = 0.f;

@@ -292,12 +292,18 @@ void Engine::RenderThread()
 #include "TestCamera.h"
 #include "TestController.h"
 #include "TestScene.h"
+//#include "TestCollider.h"
+//#include "TestBoxCollider.h"
+#include "TestCircleCollider.h"
 
 void Engine::UHT()
 {
 	auto a = makeUptr<TestTransform>();
 	auto b = makeUptr<TestCamera>();
 	auto c = makeUptr<TestController>();
+	auto d = makeUptr<TestCircleCollider>();
+
+	TypeRegistry::ResolveParents();
 
 	auto saveScene = makeUptr<TestScene>();
 	{
@@ -314,11 +320,23 @@ void Engine::UHT()
 			player->AddComponent1("TestController");
 		}
 		player->name = "Player";
+
+		auto go = saveScene->CreateObject();
+		{
+			auto tr = static_cast<TestTransform*>(go->AddComponent1("TestTransform"));
+			tr->_pos = Vector3(11.f, 22.f, 33.f);
+
+			auto co = static_cast<TestCircleCollider*>(go->AddComponent1("TestCircleCollider"));
+			co->colliderSize = 77.f;
+		}
+		go->name = "Go";
 	}
 	saveScene->Save("scene.json");
 
 	auto loadScene = makeUptr<TestScene>();
 	loadScene->Load("scene.json");
+
+	int as = 0;
 }
 
 LRESULT CALLBACK Engine::WndProc(HWND handle, UINT message, WPARAM wParam, LPARAM lParam)

@@ -1,11 +1,10 @@
 #pragma once
 
 #include "TestComponent.h"
-#include "ComponentMacro.h"
 
 class TestCamera : public TestComponent
 {
-	COMPONENT_BODY(TestCamera);
+	COMPONENT_BODY(TestCamera, TestComponent)
 private:
 	f32 _pov = 0.f;
 public:

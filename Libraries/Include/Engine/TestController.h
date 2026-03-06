@@ -5,8 +5,7 @@
 
 class TestController : public TestComponent
 {
-public:
-	COMPONENT_BODY(TestController);
+	COMPONENT_BODY(TestController, TestComponent)
 public:
 	PROPERTY_FIELD
 	{

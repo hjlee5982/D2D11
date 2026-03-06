@@ -180,7 +180,10 @@ xcopy /Y /D "$(SolutionDir)Engine\*.hpp" "$(SolutionDir)Libraries\Include\Engine
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="RenderPass.h" />
     <ClInclude Include="SoundManager.h" />
+    <ClInclude Include="TestBoxCollider.h" />
     <ClInclude Include="TestCamera.h" />
+    <ClInclude Include="TestCircleCollider.h" />
+    <ClInclude Include="TestCollider.h" />
     <ClInclude Include="TestComponent.h" />
     <ClInclude Include="TestController.h" />
     <ClInclude Include="TestGameObject.h" />
@@ -249,7 +252,10 @@ xcopy /Y /D "$(SolutionDir)Engine\*.hpp" "$(SolutionDir)Libraries\Include\Engine
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="RenderPass.cpp" />
     <ClCompile Include="SoundManager.cpp" />
+    <ClCompile Include="TestBoxCollider.cpp" />
     <ClCompile Include="TestCamera.cpp" />
+    <ClCompile Include="TestCircleCollider.cpp" />
+    <ClCompile Include="TestCollider.cpp" />
     <ClCompile Include="TestComponent.cpp" />
     <ClCompile Include="TestController.cpp" />
     <ClCompile Include="TestGameObject.cpp" />
