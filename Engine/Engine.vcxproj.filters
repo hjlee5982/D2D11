@@ -378,6 +378,9 @@
     <ClInclude Include="TestCircleCollider.h">
       <Filter>99. HeaderTool\TestObj</Filter>
     </ClInclude>
+    <ClInclude Include="Struct.h">
+      <Filter>01. Header</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">

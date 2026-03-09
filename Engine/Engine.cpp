@@ -305,6 +305,7 @@ void Engine::UHT()
 
 	TypeRegistry::ResolveParents();
 
+
 	auto saveScene = makeUptr<TestScene>();
 	{
 		auto camera = saveScene->CreateObject();
@@ -328,8 +329,17 @@ void Engine::UHT()
 
 			auto co = static_cast<TestCircleCollider*>(go->AddComponent1("TestCircleCollider"));
 			co->colliderSize = 77.f;
+
+			auto child = saveScene->CreateObject();
+
+			co->_target = child;
+
+			co->desc.a = 5;
+			co->desc.b = 8.f;
 		}
 		go->name = "Go";
+
+
 	}
 	saveScene->Save("scene.json");
 

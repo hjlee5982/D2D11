@@ -8,6 +8,7 @@ nlohmann::json TestGameObject::MakeJson() const
     nlohmann::json json;
 
     json["name"] = name;
+    json["id"] = id;
     json["components"] = nlohmann::json::array();
 
     for (const auto& comp : _components)

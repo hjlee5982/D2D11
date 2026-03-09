@@ -6,9 +6,12 @@ class Field
 {
 public:
     string name;
+    string typeName;
 
     std::function<void(void*, nlohmann::json&)> serialize;
     std::function<void(void*, const nlohmann::json&)> deserialize;
+
+    std::function<void* (void*)> getPtr;
 };
 
 class TypeInfo
@@ -94,6 +97,19 @@ public:
             }
         }
     }
+
+    inline static std::function<void* (uint64_t)> resolver;
+
+    static void* ResolveObject(uint64_t id)
+    {
+        if (resolver)
+        {
+            return resolver(id);
+        }
+
+        return nullptr;
+    }
+
 };
 
 template<typename Class, typename T>
@@ -101,6 +117,7 @@ void RegisterField(TypeInfo* typeInfo, const string& name, T Class::* member)
 {
     auto field = makeUptr<Field>();
     field->name = name;
+    field->typeName = typeid(T).name();
 
     field->serialize = [member, name](void* obj, nlohmann::json& json)
         {
@@ -117,6 +134,54 @@ void RegisterField(TypeInfo* typeInfo, const string& name, T Class::* member)
 
             Class* c = static_cast<Class*>(obj);
             c->*member = json[name].get<T>();
+        };
+
+    typeInfo->fields.push_back(std::move(field));
+}
+
+template<typename Class, typename T>
+void RegisterObjectRef(TypeInfo* typeInfo, const string& name, T* Class::* member)
+{
+    auto field = makeUptr<Field>();
+    field->name = name;
+    field->typeName = typeid(T).name();
+
+    field->serialize = [member, name](void* obj, nlohmann::json& json)
+        {
+            Class* c = static_cast<Class*>(obj);
+
+            T* ptr = c->*member;
+
+            if (ptr)
+            {
+                json[name] = ptr->id;
+            }
+            else
+            {
+                json[name] = 0;
+            }
+        };
+
+    field->deserialize = [member, name](void* obj, const nlohmann::json& json)
+        {
+            if (!json.contains(name))
+            {
+                return;
+            }
+
+            Class* c = static_cast<Class*>(obj);
+
+            uint64_t id = json[name];
+
+            if (id == 0)
+            {
+                c->*member = nullptr;
+                return;
+            }
+
+            void* resolved = TypeRegistry::ResolveObject(id);
+
+            c->*member = static_cast<T*>(resolved);
         };
 
     typeInfo->fields.push_back(std::move(field));

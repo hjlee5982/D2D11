@@ -43,4 +43,8 @@ static bool TYPE##_TypeInit = []()\
 #define REGISTER_FIELD(TYPE, FIELD) \
 RegisterField<TYPE>(type, #FIELD, &TYPE::FIELD);
 
+#define REGISTER_OBJECT_REF(CLASS, FIELD) \
+RegisterObjectRef<CLASS>(type, #FIELD, &CLASS::FIELD)
+
+
 #define PROPERTY_FIELD static void RegisterFields(TypeInfo* type)

@@ -20,6 +20,7 @@
                     }
                 }
             ],
+            "id": 1,
             "name": "Camera"
         },
         {
@@ -47,6 +48,7 @@
                     }
                 }
             ],
+            "id": 2,
             "name": "Player"
         },
         {
@@ -65,12 +67,23 @@
                 {
                     "data": {
                         "_circleColliderValue": 0,
+                        "_target": 4,
                         "colliderSize": 77.0,
+                        "desc": {
+                            "a": 5,
+                            "b": 8.0
+                        },
                         "type": "TestCircleCollider"
                     }
                 }
             ],
+            "id": 3,
             "name": "Go"
+        },
+        {
+            "components": [],
+            "id": 4,
+            "name": ""
         }
     ]
 }

@@ -2,8 +2,15 @@
 
 #include "TestComponent.h"
 
+static uint64_t nextIDtest = 1;
+
 class TestGameObject
 {
+public:
+	TestGameObject()
+	{
+		id = nextIDtest++;
+	}
 public:
 	nlohmann::json MakeJson() const;
 	void LoadJson(const nlohmann::json& json);
@@ -14,5 +21,7 @@ private:
 	List<uptr<TestComponent>> _components;
 public:
 	string name;
+public:
+	uint64_t id;
 };
 

@@ -3,6 +3,10 @@
 #include "Scene.h"
 #include "GameObject.h"
 
+#include "TestScene.h"
+#include "TestGameObject.h"
+#include "TypeRegistry.h"
+
 namespace fs = std::filesystem;
 
 void SceneManager::Awake()
@@ -29,6 +33,16 @@ void SceneManager::AddScene(const string& name, sptr<class Scene> scene)
 void SceneManager::AddGameObject(sptr<class GameObject> go)
 {
 	_currentScene.lock()->AddGameObject(go);
+}
+
+void SceneManager::AddTestScene(TestScene* scene)
+{
+	_currentTestScene = scene;
+}
+
+TestScene* SceneManager::GetCurrentScene()
+{
+	return _currentTestScene;
 }
 
 void SceneManager::Start()

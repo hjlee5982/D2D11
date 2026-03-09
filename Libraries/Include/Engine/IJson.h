@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Struct.h"
+
 class IJson abstract
 {
 public:
@@ -82,6 +84,20 @@ namespace nlohmann
 			q.y = j.at("y").get<float>();
 			q.z = j.at("z").get<float>();
 			q.w = j.at("w").get<float>();
+		}
+	};
+
+	template<>
+	struct adl_serializer<TestDesc>
+	{
+		static void to_json(json& j, const TestDesc& s)
+		{
+			j = json{ {"a", s.a}, {"b", s.b} };
+		}
+		static void from_json(const json& j, TestDesc& s)
+		{
+			s.a = j.at("a").get<int>();
+			s.b = j.at("b").get<float>();
 		}
 	};
 }

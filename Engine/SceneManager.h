@@ -20,5 +20,11 @@ public:
 private:
 	Dictionary<string, sptr<class Scene>> _scenes;
 	wptr<class Scene> _currentScene;
+
+
+public:
+	void AddTestScene(class TestScene* scene);
+	class TestScene* GetCurrentScene();
+	class TestScene* _currentTestScene;
 };
 
