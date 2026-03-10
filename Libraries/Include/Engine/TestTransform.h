@@ -11,6 +11,7 @@ public:
 public:
 	static void RegisterFields(TypeInfo* type)
 	{
+		REGISTER_OBJECT_REF(TestTransform, owner);
 		REGISTER_FIELD(TestTransform, _pos);
 		REGISTER_FIELD(TestTransform, _scale);
 	}

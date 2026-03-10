@@ -14,11 +14,10 @@ public:
 	{
 		REGISTER_FIELD(TestCircleCollider, _circleColliderValue);
 		REGISTER_FIELD(TestCircleCollider, desc);
-		REGISTER_OBJECT_REF(TestCircleCollider, _target);
+		REGISTER_OBJECT_REF(TestCircleCollider, owner);
 	}
 public:
 	i32 _circleColliderValue = 0;
-	TestGameObject* _target = nullptr;
 	TestDesc desc;
 };
 

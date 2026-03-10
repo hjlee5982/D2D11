@@ -2,6 +2,7 @@
 
 #include "TestComponent.h"
 #include "ComponentMacro.h"
+#include "TestGameObject.h"
 
 class TestController : public TestComponent
 {
@@ -9,6 +10,7 @@ class TestController : public TestComponent
 public:
 	PROPERTY_FIELD
 	{
+		REGISTER_OBJECT_REF(TestController, owner);
 		REGISTER_FIELD(TestController, _speed);
 		REGISTER_FIELD(TestController, _position);
 	}

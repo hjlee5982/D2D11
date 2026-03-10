@@ -329,11 +329,6 @@ void Engine::UHT()
 
 			auto co = static_cast<TestCircleCollider*>(go->AddComponent1("TestCircleCollider"));
 			co->colliderSize = 77.f;
-
-			auto child = saveScene->CreateObject();
-
-			co->_target = child;
-
 			co->desc.a = 5;
 			co->desc.b = 8.f;
 		}

@@ -31,17 +31,21 @@ void TestScene::Save(const string& path)
 
 void TestScene::Load(const string& path)
 {
-    TypeRegistry::resolver = [this](uint64_t id)
-        {
-            return FindObject(id);
-        };
-
     std::ifstream file(path);
 
     nlohmann::json json;
     file >> json;
 
     uint64_t maxID = 0;
+
+    TypeRegistry::resolver = [this](uint64_t id)
+        {
+            return FindObject(id);
+        };
+    TypeRegistry::componentResolver = [this](uint64_t id)
+        {
+            return FindComponent(id);
+        };
 
     for (const auto& objJson : json["gameObjects"])
     {
@@ -62,8 +66,6 @@ void TestScene::Load(const string& path)
     {
         _objects[i]->LoadJson(json["gameObjects"][i]);
     }
-
-    nextIDtest = maxID + 1;
 }
 
 TestGameObject* TestScene::FindObject(uint64_t id)
@@ -71,6 +73,18 @@ TestGameObject* TestScene::FindObject(uint64_t id)
     auto it = _objectMap.find(id);
 
     if (it != _objectMap.end())
+    {
+        return it->second;
+    }
+
+    return nullptr;
+}
+
+TestComponent* TestScene::FindComponent(uint64_t id)
+{
+    auto it = _componentMap.find(id);
+
+    if (it != _componentMap.end())
     {
         return it->second;
     }

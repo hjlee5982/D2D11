@@ -72,7 +72,9 @@ TestComponent* TestGameObject::AddComponent1(const string& typeName)
 
     TestComponent* raw = comp.get();
 
-    _components.push_back(std::move(comp));
+    raw->owner = this;
 
+    _components.push_back(std::move(comp));
+    
     return raw;
 }

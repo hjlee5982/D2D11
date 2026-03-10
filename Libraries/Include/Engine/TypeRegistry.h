@@ -99,12 +99,22 @@ public:
     }
 
     inline static std::function<void* (uint64_t)> resolver;
+    inline static std::function<void* (uint64_t)> componentResolver;
 
     static void* ResolveObject(uint64_t id)
     {
         if (resolver)
         {
             return resolver(id);
+        }
+
+        return nullptr;
+    }
+    static void* ResolveComponent(uint64_t id)
+    {
+        if (componentResolver)
+        {
+            return componentResolver(id);
         }
 
         return nullptr;

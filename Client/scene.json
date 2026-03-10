@@ -10,12 +10,14 @@
                             "z": 0.0
                         },
                         "_scale": 0.0,
+                        "owner": 1,
                         "type": "TestTransform"
                     }
                 },
                 {
                     "data": {
                         "_pov": 0.0,
+                        "owner": 1,
                         "type": "TestCamera"
                     }
                 }
@@ -33,6 +35,7 @@
                             "z": 0.0
                         },
                         "_scale": 0.0,
+                        "owner": 2,
                         "type": "TestTransform"
                     }
                 },
@@ -44,6 +47,7 @@
                             "z": 0.0
                         },
                         "_speed": 3.0,
+                        "owner": 2,
                         "type": "TestController"
                     }
                 }
@@ -61,29 +65,25 @@
                             "z": 33.0
                         },
                         "_scale": 0.0,
+                        "owner": 3,
                         "type": "TestTransform"
                     }
                 },
                 {
                     "data": {
                         "_circleColliderValue": 0,
-                        "_target": 4,
                         "colliderSize": 77.0,
                         "desc": {
                             "a": 5,
                             "b": 8.0
                         },
+                        "owner": 3,
                         "type": "TestCircleCollider"
                     }
                 }
             ],
             "id": 3,
             "name": "Go"
-        },
-        {
-            "components": [],
-            "id": 4,
-            "name": ""
         }
     ]
 }

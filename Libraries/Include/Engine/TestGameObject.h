@@ -22,6 +22,8 @@ private:
 public:
 	string name;
 public:
+	class TestTransform* _transform;
+public:
 	uint64_t id;
 };
 

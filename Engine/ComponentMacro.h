@@ -20,7 +20,6 @@ public:\
 
 #define ROOT_COMPONENT_IMPL(TYPE) \
 TYPE::TYPE(){}\
-\
 static bool TYPE##_TypeInit = []()\
 {\
     TypeInfo* type = TypeRegistry::RegisterType(        TYPE::StaticTypeName(),        &TYPE::CreateInstance,        "" );\
